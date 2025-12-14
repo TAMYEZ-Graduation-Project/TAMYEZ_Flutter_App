@@ -7,6 +7,7 @@ import 'package:injectable/injectable.dart';
 @lazySingleton
 class AwesomeNotificationService {
   static String fcmChannelKey = "FCM_Channel";
+  static String fcmNotificationsGroupKey = "FCM_Notifications_Group";
   static AwesomeNotifications? _awesomeNotifications;
 
   FutureOr<AwesomeNotifications> get initInstance async {
@@ -23,6 +24,7 @@ class AwesomeNotificationService {
       null,
       [
         NotificationChannel(
+          channelGroupKey: fcmNotificationsGroupKey,
           channelKey: fcmChannelKey,
           channelName: 'General Notifications',
           channelDescription:
@@ -30,6 +32,12 @@ class AwesomeNotificationService {
           defaultColor: Color(0xFF9D50DD),
           playSound: true,
           ledColor: Colors.white,
+        ),
+      ],
+      channelGroups: [
+        NotificationChannelGroup(
+          channelGroupKey: fcmNotificationsGroupKey,
+          channelGroupName: "General App Notifications Group",
         ),
       ],
     );
@@ -45,9 +53,13 @@ class AwesomeNotificationService {
         id: UniqueKey().hashCode,
         channelKey: fcmChannelKey,
         actionType: ActionType.Default,
+        notificationLayout: imageUrl != null
+            ? NotificationLayout.BigPicture
+            : NotificationLayout.Default,
         title: title,
         body: body,
         largeIcon: imageUrl,
+        bigPicture: imageUrl,
       ),
     );
   }

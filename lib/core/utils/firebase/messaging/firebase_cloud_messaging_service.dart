@@ -72,6 +72,7 @@ class FirebaseCloudMessagingService {
       _awesomeNotificationService.showNotification(
         title: notificationData.title ?? "No Title",
         body: notificationData.body ?? "",
+          imageUrl: notificationData.android?.imageUrl
       );
     }
   }
