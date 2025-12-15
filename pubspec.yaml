@@ -39,6 +39,8 @@ dependencies:
   get_it: ^9.2.0
   injectable: ^2.7.1+2
   awesome_notifications: ^0.10.1
+  vector_graphics: ^1.1.19
+  flutter_native_splash: ^2.4.7
 
 dev_dependencies:
   flutter_test:
@@ -53,6 +55,8 @@ dev_dependencies:
 
   injectable_generator: ^2.11.1
   build_runner: ^2.10.4
+  vector_graphics_compiler: ^1.1.19
+  flutter_launcher_icons: ^0.14.4
 
 
 
@@ -68,8 +72,13 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - assets/images/
+    - assets/images/svgs/
+    - assets/icons/
+    - path: assets/images/svgs/
+      transformers:
+        - package: vector_graphics_compiler
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
