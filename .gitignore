@@ -50,3 +50,10 @@ android/app/google-services.json
 lib/config/firebase_config.dart
 lib/firebase_options.dart
 ios/Runner/GoogleService-Info.plist
+
+# FVM Version Cache
+.fvm/
+*.fvm*
+
+# ENV
+*.env*

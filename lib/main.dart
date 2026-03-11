@@ -1,20 +1,33 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart' show dotenv;
+import 'package:provider/provider.dart'
+    show MultiProvider, ChangeNotifierProvider, Consumer2;
+import 'package:tamyez_app/core/layers/theme/factory/app_theme_factory.dart';
+import 'package:tamyez_app/core/routing/routing_provider.dart';
 import 'package:tamyez_app/core/utils/awesome_notification/awesome_notification_service.dart';
 import 'package:tamyez_app/core/utils/di/di_init.dart';
 import 'package:tamyez_app/core/utils/firebase/messaging/firebase_cloud_messaging_service.dart';
+import 'package:tamyez_app/modules/splash/splash_screen.dart';
 
+import 'core/layers/localization/l10n/manager/localization_manager.dart'
+    show LocalizationManager;
+import 'core/layers/theme/manager/theme_manager.dart' show ThemeManager;
+import 'core/screen/custom_breakpoints.dart' show CustomBreakpoints;
 import 'firebase_options.dart';
 
+GlobalKey<NavigatorState> globalNavigatorKey = GlobalKey<NavigatorState>();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: 'config/.env');
+  await configureDependencies();
+
   runApp(const MyApp());
 
   Future.delayed(Duration.zero, () async {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
-    await configureDependencies();
     await getIt.get<AwesomeNotificationService>().initInstance;
     await getIt.get<FirebaseCloudMessagingService>().initNotifications();
   });
@@ -23,60 +36,33 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: .center,
-          children: [
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => getIt<LocalizationManager>()),
+        ChangeNotifierProvider(create: (_) => getIt<ThemeManager>()),
+      ],
+      child: Consumer2<LocalizationManager, ThemeManager>(
+          builder: (context, l10nManager, themeManager, child) {
+            return MaterialApp(
+              title: 'TAMYEZ App, Our Graduation Project.',
+              debugShowCheckedModeBanner: false,
+              navigatorKey: globalNavigatorKey,
+              themeMode: ThemeMode.light,
+              onGenerateRoute: RoutingProvider.generateRoute,
+              builder: (context, child) {
+                return Theme(
+                  data: AppThemeFactory.create(
+                    brightness: themeManager.currentTheme,
+                    device: CustomBreakpoints().of(context),
+                  ),
+                  child: child!,
+                );
+              },
+              home: const SplashScreen(),
+            );
+          }
       ),
     );
   }
