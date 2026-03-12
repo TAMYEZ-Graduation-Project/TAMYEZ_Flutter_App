@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' show dotenv;
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart'
     show MultiProvider, ChangeNotifierProvider, Consumer2;
 import 'package:tamyez_app/core/functions/has_google_services.dart';
@@ -94,6 +95,9 @@ class MyApp extends StatelessWidget {
                 data: AppThemeFactory.create(
                   brightness: themeManager.currentTheme,
                   device: CustomBreakpoints().of(context),
+                    fontFamily: GoogleFonts
+                        .manrope()
+                        .fontFamily
                 ),
                 child: child!,
               );

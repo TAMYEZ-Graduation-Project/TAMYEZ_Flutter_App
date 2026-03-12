@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:tamyez_app/core/routing/defined_routes.dart';
 import 'package:tamyez_app/core/routing/page_transitions.dart';
+import 'package:tamyez_app/modules/auth/screens/login/login_screen.dart';
 import 'package:tamyez_app/modules/home/home_screen.dart';
 import 'package:tamyez_app/modules/splash/splash_screen.dart';
+
+import '../../modules/onboarding/onboarding_screen.dart';
 
 abstract class RoutingProvider {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -24,6 +27,33 @@ abstract class RoutingProvider {
                     ),
           );
 
+        case DefinedRoutes.onboardingRoute:
+          return PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                const OnboardingScreen(),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) =>
+                    PageTransitions.slideAndFade(
+                      context,
+                      animation,
+                      secondaryAnimation,
+                      child,
+                    ),
+          );
+
+        case DefinedRoutes.loginRoute:
+          return PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                const LoginScreen(),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) =>
+                    PageTransitions.slideAndFade(
+                      context,
+                      animation,
+                      secondaryAnimation,
+                      child,
+                    ),
+          );
         case DefinedRoutes.homeRoute:
           return PageRouteBuilder(
             pageBuilder: (context, animation, secondaryAnimation) =>

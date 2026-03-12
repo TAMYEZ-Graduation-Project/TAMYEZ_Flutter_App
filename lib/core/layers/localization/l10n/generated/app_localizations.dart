@@ -309,6 +309,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'OK'**
   String get ok;
+
+  /// No description provided for @welcomeToTamyez.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome To TAMYEZ'**
+  String get welcomeToTamyez;
+
+  /// No description provided for @discoverStrengthAndPathMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Discover your strengths and find your ideal path'**
+  String get discoverStrengthAndPathMessage;
+
+  /// No description provided for @discoverYourTruePotential.
+  ///
+  /// In en, this message translates to:
+  /// **'Discover your true potential and unlock the career path meant for you.'**
+  String get discoverYourTruePotential;
+
+  /// No description provided for @chooseYourLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose your language'**
+  String get chooseYourLanguage;
+
+  /// No description provided for @selectYourPreferredLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Select your preferred language to use Tamyez easily'**
+  String get selectYourPreferredLanguage;
+
+  /// No description provided for @continueWord.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continueWord;
 }
 
 class _AppLocalizationsDelegate

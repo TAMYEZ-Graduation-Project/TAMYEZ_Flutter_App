@@ -122,4 +122,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get ok => 'OK';
+
+  @override
+  String get welcomeToTamyez => 'Welcome To TAMYEZ';
+
+  @override
+  String get discoverStrengthAndPathMessage =>
+      'Discover your strengths and find your ideal path';
+
+  @override
+  String get discoverYourTruePotential =>
+      'Discover your true potential and unlock the career path meant for you.';
+
+  @override
+  String get chooseYourLanguage => 'Choose your language';
+
+  @override
+  String get selectYourPreferredLanguage =>
+      'Select your preferred language to use Tamyez easily';
+
+  @override
+  String get continueWord => 'Continue';
 }
