@@ -52,6 +52,7 @@ dependencies:
 
   get_it: ^9.2.1
 
+  google_api_availability: ^5.0.1
   injectable: ^2.7.1+4
   intl: any
 
@@ -81,6 +82,7 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  generate: true
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

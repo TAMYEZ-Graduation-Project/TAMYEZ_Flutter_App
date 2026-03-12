@@ -112,4 +112,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get homeScreen => 'Home Screen';
+
+  @override
+  String get warning => 'Warning';
+
+  @override
+  String get googlePlayServicesMissingMessage =>
+      'This device does not have Google Play Services. Some features, such as notifications or location services, may not work correctly.';
+
+  @override
+  String get ok => 'OK';
 }

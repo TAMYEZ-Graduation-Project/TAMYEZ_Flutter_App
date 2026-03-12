@@ -31,5 +31,8 @@
   "pleaseConfirmPassword": "Please confirm password.",
   "namesLengthRule": "Names must be at least three characters long.",
   "noMatch": "No Match!",
-  "homeScreen": "Home Screen"
+  "homeScreen": "Home Screen",
+  "warning": "Warning",
+  "googlePlayServicesMissingMessage": "This device does not have Google Play Services. Some features, such as notifications or location services, may not work correctly.",
+  "ok": "OK"
 }

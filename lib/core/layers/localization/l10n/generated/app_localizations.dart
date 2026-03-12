@@ -291,6 +291,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Home Screen'**
   String get homeScreen;
+
+  /// No description provided for @warning.
+  ///
+  /// In en, this message translates to:
+  /// **'Warning'**
+  String get warning;
+
+  /// No description provided for @googlePlayServicesMissingMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This device does not have Google Play Services. Some features, such as notifications or location services, may not work correctly.'**
+  String get googlePlayServicesMissingMessage;
+
+  /// No description provided for @ok.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get ok;
 }
 
 class _AppLocalizationsDelegate
