@@ -33,7 +33,7 @@ abstract class RoutingProvider {
                 const OnboardingScreen(),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) =>
-                    PageTransitions.slideAndFade(
+                    PageTransitions.zoom(
                       context,
                       animation,
                       secondaryAnimation,
