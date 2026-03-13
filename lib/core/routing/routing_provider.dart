@@ -25,6 +25,9 @@ abstract class RoutingProvider {
                       secondaryAnimation,
                       child,
                     ),
+
+            /// This is important for testing
+            settings: const RouteSettings(name: DefinedRoutes.splashRoute),
           );
 
         case DefinedRoutes.onboardingRoute:
@@ -39,6 +42,7 @@ abstract class RoutingProvider {
                       secondaryAnimation,
                       child,
                     ),
+            settings: const RouteSettings(name: DefinedRoutes.onboardingRoute),
           );
 
         case DefinedRoutes.loginRoute:
@@ -53,6 +57,7 @@ abstract class RoutingProvider {
                       secondaryAnimation,
                       child,
                     ),
+            settings: const RouteSettings(name: DefinedRoutes.loginRoute),
           );
         case DefinedRoutes.homeRoute:
           return PageRouteBuilder(
@@ -66,6 +71,7 @@ abstract class RoutingProvider {
                       secondaryAnimation,
                       child,
                     ),
+            settings: const RouteSettings(name: DefinedRoutes.homeRoute),
           );
 
         default:
