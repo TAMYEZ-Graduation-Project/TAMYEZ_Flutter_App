@@ -74,7 +74,8 @@ class _SplashScreenState extends BaseStatefulWidgetState<SplashScreen>
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Padding(
-                          padding: const .symmetric(horizontal: 80),
+                          padding: const EdgeInsetsGeometry.symmetric(
+                              horizontal: 80),
                           child: Center(
                             child: Image.asset(
                               Theme.brightnessOf(context) == Brightness.light
@@ -86,7 +87,7 @@ class _SplashScreenState extends BaseStatefulWidgetState<SplashScreen>
                         Text(
                           appLocalizations.welcomeToTamyez,
                           style: typography.hero.copyWith(
-                            fontWeight: .w400,
+                            fontWeight: FontWeight.w400,
                             color:
                                 Theme.brightnessOf(context) == Brightness.light
                                 ? AppColors.darkBlue

@@ -23,15 +23,16 @@ class OnboardingScreen extends BaseStatelessWidget {
                 ),
                 child: Column(
                   spacing: 30,
-                  crossAxisAlignment: .stretch,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
                       d.appLocalizations.discoverYourTruePotential,
                       style: d.typography.title.copyWith(fontSize: 16),
-                      textAlign: .center,
+                      textAlign: TextAlign.center,
                     ),
                     Padding(
-                      padding: const .symmetric(horizontal: 32.0),
+                      padding: const EdgeInsetsGeometry.symmetric(
+                          horizontal: 32.0),
                       child: RichText(
                         textAlign: TextAlign.center,
                         text: TextSpan(

@@ -29,7 +29,7 @@ class AwesomeNotificationService {
           channelName: 'General Notifications',
           channelDescription:
               'Notification channel for showing pushed notifications',
-          defaultColor: Color(0xFF9D50DD),
+          defaultColor: const Color(0xFF9D50DD),
           playSound: true,
           ledColor: Colors.white,
         ),

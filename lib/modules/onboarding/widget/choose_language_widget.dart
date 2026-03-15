@@ -9,13 +9,13 @@ class ChooseLanguageWidget extends BaseStatelessWidget {
   @override
   Widget buildWith(BuildContext context, d) {
     return Container(
-      alignment: .center,
+      alignment: AlignmentGeometry.center,
       decoration: BoxDecoration(
         color: AppColors.gray,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Directionality(
-        textDirection: .ltr,
+        textDirection: TextDirection.ltr,
         child: Row(
           children: [
             Expanded(
@@ -31,11 +31,14 @@ class ChooseLanguageWidget extends BaseStatelessWidget {
                         ? Colors.transparent
                         : AppColors.lightGray,
                   ),
-                  padding: const .all(14),
+                  padding: const EdgeInsetsGeometry.all(14),
+
                   child: Text(
                     LanguagesEnum.ar.getLanguageName(),
-                    textAlign: .center,
-                    style: d.typography.subTitle.copyWith(fontWeight: .w700),
+                    textAlign: TextAlign.center,
+                    style: d.typography.subTitle.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
               ),
@@ -56,8 +59,10 @@ class ChooseLanguageWidget extends BaseStatelessWidget {
                   padding: const EdgeInsets.all(14),
                   child: Text(
                     LanguagesEnum.en.getLanguageName(),
-                    textAlign: .center,
-                    style: d.typography.subTitle.copyWith(fontWeight: .w700),
+                    textAlign: TextAlign.center,
+                    style: d.typography.subTitle.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
               ),

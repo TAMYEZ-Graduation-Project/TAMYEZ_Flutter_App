@@ -15,7 +15,7 @@ extension GetEmailCollection on Isar {
 
 const EmailSchema = CollectionSchema(
   name: r'Email',
-  id: 2558369672199317214,
+  id: 2558369672199,
   properties: {
     r'recipients': PropertySchema(
       id: 0,
@@ -40,9 +40,9 @@ const EmailSchema = CollectionSchema(
   idName: r'id',
   indexes: {
     r'title': IndexSchema(
-      id: -7636685945352118059,
+      id: -7636685945352,
       name: r'title',
-      unique: false,
+      unique: true,
       replace: false,
       properties: [
         IndexPropertySchema(
@@ -174,6 +174,60 @@ List<IsarLinkBase<dynamic>> _emailGetLinks(Email object) {
 
 void _emailAttach(IsarCollection<dynamic> col, Id id, Email object) {
   object.id = id;
+}
+
+extension EmailByIndex on IsarCollection<Email> {
+  Future<Email?> getByTitle(String? title) {
+    return getByIndex(r'title', [title]);
+  }
+
+  Email? getByTitleSync(String? title) {
+    return getByIndexSync(r'title', [title]);
+  }
+
+  Future<bool> deleteByTitle(String? title) {
+    return deleteByIndex(r'title', [title]);
+  }
+
+  bool deleteByTitleSync(String? title) {
+    return deleteByIndexSync(r'title', [title]);
+  }
+
+  Future<List<Email?>> getAllByTitle(List<String?> titleValues) {
+    final values = titleValues.map((e) => [e]).toList();
+    return getAllByIndex(r'title', values);
+  }
+
+  List<Email?> getAllByTitleSync(List<String?> titleValues) {
+    final values = titleValues.map((e) => [e]).toList();
+    return getAllByIndexSync(r'title', values);
+  }
+
+  Future<int> deleteAllByTitle(List<String?> titleValues) {
+    final values = titleValues.map((e) => [e]).toList();
+    return deleteAllByIndex(r'title', values);
+  }
+
+  int deleteAllByTitleSync(List<String?> titleValues) {
+    final values = titleValues.map((e) => [e]).toList();
+    return deleteAllByIndexSync(r'title', values);
+  }
+
+  Future<Id> putByTitle(Email object) {
+    return putByIndex(r'title', object);
+  }
+
+  Id putByTitleSync(Email object, {bool saveLinks = true}) {
+    return putByIndexSync(r'title', object, saveLinks: saveLinks);
+  }
+
+  Future<List<Id>> putAllByTitle(List<Email> objects) {
+    return putAllByIndex(r'title', objects);
+  }
+
+  List<Id> putAllByTitleSync(List<Email> objects, {bool saveLinks = true}) {
+    return putAllByIndexSync(r'title', objects, saveLinks: saveLinks);
+  }
 }
 
 extension EmailQueryWhereSort on QueryBuilder<Email, Email, QWhere> {
@@ -906,7 +960,7 @@ extension EmailQueryProperty on QueryBuilder<Email, Email, QQueryProperty> {
 
 const RecipientSchema = Schema(
   name: r'Recipient',
-  id: -4734433259764111223,
+  id: -4734433259764,
   properties: {
     r'address': PropertySchema(id: 0, name: r'address', type: IsarType.string),
     r'name': PropertySchema(id: 1, name: r'name', type: IsarType.string),

@@ -41,7 +41,7 @@ abstract class AppThemeFactory {
       extensions: [typography],
         filledButtonTheme: FilledButtonThemeData(
           style: FilledButton.styleFrom(
-              padding: const .symmetric(vertical: 14)),
+              padding: const EdgeInsetsGeometry.symmetric(vertical: 14)),
         ),
         appBarTheme: AppBarTheme(backgroundColor: brightness == Brightness.light
             ? AppColors.lightBlue

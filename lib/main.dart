@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' show dotenv;
 import 'package:google_fonts/google_fonts.dart';
@@ -23,13 +25,19 @@ import 'core/layers/theme/manager/theme_manager.dart' show ThemeManager;
 import 'core/screen/custom_breakpoints.dart' show CustomBreakpoints;
 import 'firebase_options.dart';
 
+
 GlobalKey<NavigatorState> globalNavigatorKey = GlobalKey<NavigatorState>();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: 'config/.env');
   await configureDependencies();
 
-  runApp(const MyApp());
+  runApp(DevicePreview(
+      enabled: kDebugMode,
+      builder: (context) {
+        return const MyApp();
+      }
+  ));
 
   Future.delayed(Duration.zero, () async {
     await Firebase.initializeApp(
@@ -45,11 +53,11 @@ void main() async {
             title: Text(
               l10n.warning,
               style: appTypography.title.copyWith(color: Colors.red),
-              textAlign: .center,
+              textAlign: TextAlign.center,
             ),
             content: Text(
               l10n.googlePlayServicesMissingMessage,
-              textAlign: .center,
+              textAlign: TextAlign.center,
               style: appTypography.title,
             ),
             actions: [
