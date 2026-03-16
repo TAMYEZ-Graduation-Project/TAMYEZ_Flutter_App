@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:tamyez_app/core/bases/base_stateless_widget.dart';
-import 'package:tamyez_app/core/layers/localization/enums/languages_enum.dart';
-import 'package:tamyez_app/core/layers/theme/colors/app_colors.dart';
+
+import '../../../core/bases/base_stateless_widget.dart';
+import '../../../core/layers/localization/enums/languages_enum.dart';
+import '../../../core/layers/theme/colors/app_colors.dart';
 
 class ChooseLanguageWidget extends BaseStatelessWidget {
   const ChooseLanguageWidget({super.key});
@@ -21,8 +22,8 @@ class ChooseLanguageWidget extends BaseStatelessWidget {
             Expanded(
               child: InkWell(
                 borderRadius: BorderRadius.circular(20),
-                onTap: () {
-                  d.localizationManager.changeLocal(LanguagesEnum.ar);
+                onTap: () async {
+                  await d.localizationManager.changeLocal(LanguagesEnum.ar);
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -46,8 +47,8 @@ class ChooseLanguageWidget extends BaseStatelessWidget {
             Expanded(
               child: InkWell(
                 borderRadius: BorderRadius.circular(20),
-                onTap: () {
-                  d.localizationManager.changeLocal(LanguagesEnum.en);
+                onTap: () async {
+                  await d.localizationManager.changeLocal(LanguagesEnum.en);
                 },
                 child: Container(
                   decoration: BoxDecoration(

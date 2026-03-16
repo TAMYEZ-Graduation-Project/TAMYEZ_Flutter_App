@@ -1,4 +1,4 @@
-import "package:flutter/material.dart";
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_fonts/google_fonts.dart' show GoogleFonts;
 import 'package:mockito/annotations.dart';
@@ -70,7 +70,7 @@ Widget buildWidget({
   MockSpec<NavigatorObserver>(),
 ])
 void main() {
-  group("Test Splash Screen widget", () {
+  group('Test Splash Screen widget', () {
     late MockLocalizationManager mockLocalizationManager;
     late MockThemeManager mockThemeManager;
     late MockNavigatorObserver mockNavigatorObserver;
@@ -81,10 +81,11 @@ void main() {
       appLocalizations = await AppLocalizations.delegate.load(
         Locale(LanguagesEnum.en.getLanguageCode()),
       );
-      getIt.registerSingleton<AppLocalizations>(appLocalizations);
-      getIt.registerSingleton<ValidateFunctions>(
-        ValidateFunctions(appLocalizations),
-      );
+      getIt
+        ..registerSingleton<AppLocalizations>(appLocalizations)
+        ..registerSingleton<ValidateFunctions>(
+          ValidateFunctions(appLocalizations),
+        );
     });
 
     setUp(() async {
@@ -100,9 +101,9 @@ void main() {
       getIt.registerSingleton<ThemeManager>(mockThemeManager);
     });
 
-    group("Test widget existence in the screen", () {
+    group('Test widget existence in the screen', () {
       testWidgets(
-        "Test that the app logo and the two pieces of text under will appear",
+        'Test that the app logo and the two pieces of text under will appear',
         (widgetTester) async {
           // arrange
           await widgetTester.pumpWidget(
@@ -114,20 +115,20 @@ void main() {
           );
 
           // act
-          Finder splashScreenColumn = find.byKey(
+          final Finder splashScreenColumn = find.byKey(
             const Key(SplashScreenConstants.splashScreenColumnKey),
           );
-          Finder imageInsideColumn = find.descendant(
+          final Finder imageInsideColumn = find.descendant(
             of: splashScreenColumn,
             matching: find.image(const AssetImage(AssetPaths.appLogo)),
           );
 
-          Finder welcomeTamyezText = find.descendant(
+          final Finder welcomeTamyezText = find.descendant(
             of: splashScreenColumn,
             matching: find.text(appLocalizations.welcomeToTamyez),
           );
 
-          Finder discoverStrengthText = find.descendant(
+          final Finder discoverStrengthText = find.descendant(
             of: splashScreenColumn,
             matching: find.text(
               appLocalizations.discoverStrengthAndPathMessage,
@@ -143,9 +144,9 @@ void main() {
       );
     });
 
-    group("Test widget behavior in the screen", () {
+    group('Test widget behavior in the screen', () {
       testWidgets(
-        "Test if the splash screen will navigate to the onboarding page after 2 seconds",
+        'Test if the splash screen will navigate to the onboarding page after 2 seconds',
         (widgetTester) async {
           // arrange
           await widgetTester.pumpWidget(
@@ -170,19 +171,19 @@ void main() {
           /// - Need real time: wrap in await tester.runAsync(() async { await Future.delayed(...); });
           ///*/
           await widgetTester.runAsync(() async {
-            await Future.delayed(const Duration(seconds: 1));
+            await Future<void>.delayed(const Duration(seconds: 1));
           });
 
           // assert
           verify(
             mockNavigatorObserver.didPush(
               argThat(
-                predicate<Route>((route) {
+                predicate<Route<dynamic>>((route) {
                   return route.settings.name == DefinedRoutes.onboardingRoute;
                 }),
               ),
               argThat(
-                predicate<Route>((route) {
+                predicate<Route<dynamic>>((route) {
                   return route.settings.name == DefinedRoutes.splashRoute;
                 }),
               ),

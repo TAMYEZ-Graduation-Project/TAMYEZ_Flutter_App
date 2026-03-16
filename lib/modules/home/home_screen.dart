@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tamyez_app/core/bases/base_stateful_widget_state.dart';
+
+import '../../core/bases/base_stateful_widget_state.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -14,7 +15,7 @@ class _HomeScreenState extends BaseStatefulWidgetState<HomeScreen> {
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [Center(child: Text("Home screen", style: typography.title))],
+        children: [Center(child: Text('Home screen', style: typography.title))],
       ),
     );
   }

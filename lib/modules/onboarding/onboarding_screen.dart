@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:tamyez_app/core/bases/base_stateless_widget.dart';
-import 'package:tamyez_app/core/constants/asset_paths.dart';
-import 'package:tamyez_app/core/routing/defined_routes.dart';
-import 'package:tamyez_app/modules/onboarding/widget/choose_language_widget.dart';
+
+import '../../core/bases/base_stateless_widget.dart';
+import '../../core/constants/asset_paths.dart';
+import '../../core/routing/defined_routes.dart';
+import 'widget/choose_language_widget.dart';
 
 class OnboardingScreen extends BaseStatelessWidget {
   const OnboardingScreen({super.key});
@@ -39,7 +40,7 @@ class OnboardingScreen extends BaseStatelessWidget {
                           children: [
                             TextSpan(
                               text:
-                                  "${d.appLocalizations.chooseYourLanguage}\n",
+                              '${d.appLocalizations.chooseYourLanguage}\n',
                               style: d.typography.title,
                             ),
                             TextSpan(
@@ -56,7 +57,7 @@ class OnboardingScreen extends BaseStatelessWidget {
                     const ChooseLanguageWidget(),
                     const Spacer(),
                     FilledButton(
-                      onPressed: () {
+                      onPressed: () async {
                         Navigator.pushNamed(context, DefinedRoutes.loginRoute);
                       },
                       child: Text(d.appLocalizations.continueWord),

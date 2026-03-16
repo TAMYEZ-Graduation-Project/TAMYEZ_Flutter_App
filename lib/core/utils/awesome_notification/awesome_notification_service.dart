@@ -6,8 +6,8 @@ import 'package:injectable/injectable.dart';
 
 @lazySingleton
 class AwesomeNotificationService {
-  static String fcmChannelKey = "FCM_Channel";
-  static String fcmNotificationsGroupKey = "FCM_Notifications_Group";
+  static String fcmChannelKey = 'FCM_Channel';
+  static String fcmNotificationsGroupKey = 'FCM_Notifications_Group';
   static AwesomeNotifications? _awesomeNotifications;
 
   FutureOr<AwesomeNotifications> get initInstance async {
@@ -37,22 +37,21 @@ class AwesomeNotificationService {
       channelGroups: [
         NotificationChannelGroup(
           channelGroupKey: fcmNotificationsGroupKey,
-          channelGroupName: "General App Notifications Group",
+          channelGroupName: 'General App Notifications Group',
         ),
       ],
     );
   }
 
-  void showNotification({
+  Future<void> showNotification({
     required String title,
     required String body,
     String? imageUrl,
-  }) {
-    _awesomeNotifications?.createNotification(
+  }) async {
+    await _awesomeNotifications?.createNotification(
       content: NotificationContent(
         id: UniqueKey().hashCode,
         channelKey: fcmChannelKey,
-        actionType: ActionType.Default,
         notificationLayout: imageUrl != null
             ? NotificationLayout.BigPicture
             : NotificationLayout.Default,

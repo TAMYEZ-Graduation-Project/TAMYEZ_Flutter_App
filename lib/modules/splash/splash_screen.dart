@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:tamyez_app/core/bases/base_stateful_widget_state.dart';
-import 'package:tamyez_app/core/constants/asset_paths.dart';
-import 'package:tamyez_app/core/layers/theme/colors/app_colors.dart';
-import 'package:tamyez_app/core/layers/theme/extensions/app_typography.dart';
-import 'package:tamyez_app/modules/splash/constants/splash_screen_constants.dart';
 
+import '../../core/bases/base_stateful_widget_state.dart';
+import '../../core/constants/asset_paths.dart';
+import '../../core/layers/theme/colors/app_colors.dart';
+import '../../core/layers/theme/extensions/app_typography.dart';
 import '../../core/layers/theme/factory/app_theme_factory.dart'
     show AppThemeFactory;
 import '../../core/routing/defined_routes.dart' show DefinedRoutes;
 import '../../core/screen/custom_breakpoints.dart' show CustomBreakpoints;
+import 'constants/splash_screen_constants.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -24,7 +24,7 @@ class _SplashScreenState extends BaseStatefulWidgetState<SplashScreen>
   late Brightness systemBrightness;
 
   @override
-  void initState() {
+  Future<void> initState() async {
     super.initState();
 
     controller = AnimationController(
@@ -33,9 +33,9 @@ class _SplashScreenState extends BaseStatefulWidgetState<SplashScreen>
     )..repeat(count: 1);
 
     controller.forward().then((value) {
-      Future.delayed(const Duration(seconds: 1), () {
+      Future.delayed(const Duration(seconds: 1), () async {
         if (!mounted) return;
-        Navigator.pushNamed(context, DefinedRoutes.onboardingRoute);
+        await Navigator.pushNamed(context, DefinedRoutes.onboardingRoute);
       });
     });
   }
@@ -75,7 +75,8 @@ class _SplashScreenState extends BaseStatefulWidgetState<SplashScreen>
                       children: [
                         Padding(
                           padding: const EdgeInsetsGeometry.symmetric(
-                              horizontal: 80),
+                            horizontal: 80,
+                          ),
                           child: Center(
                             child: Image.asset(
                               Theme.brightnessOf(context) == Brightness.light

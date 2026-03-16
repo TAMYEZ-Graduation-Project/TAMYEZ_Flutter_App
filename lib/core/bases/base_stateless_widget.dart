@@ -1,7 +1,6 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart'
     show ContentType, AwesomeSnackbarContent;
 import 'package:flutter/material.dart';
-import 'package:tamyez_app/core/layers/theme/manager/theme_manager.dart';
 
 import '../../main.dart';
 import '../di/injectable_initializer.dart' show getIt;
@@ -10,6 +9,7 @@ import '../layers/localization/l10n/generated/app_localizations.dart'
 import '../layers/localization/l10n/manager/localization_manager.dart'
     show LocalizationManager;
 import '../layers/theme/extensions/app_typography.dart' show AppTypography;
+import '../layers/theme/manager/theme_manager.dart';
 
 abstract class BaseStatelessWidget extends StatelessWidget {
   const BaseStatelessWidget({super.key});
