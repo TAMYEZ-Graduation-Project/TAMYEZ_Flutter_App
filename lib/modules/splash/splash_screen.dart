@@ -85,6 +85,9 @@ class _SplashScreenState extends BaseStatefulWidgetState<SplashScreen>
                               ),
                               child: Center(
                                 child: Image.asset(
+                                  key: const Key(
+                                    SplashScreenConstants.appLogoImageKey,
+                                  ),
                                   Theme.brightnessOf(context) ==
                                           Brightness.light
                                       ? AssetPaths.appLogo

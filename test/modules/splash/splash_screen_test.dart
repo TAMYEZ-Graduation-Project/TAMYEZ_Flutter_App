@@ -5,7 +5,6 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart'
     show MultiProvider, ChangeNotifierProvider, Consumer2;
-import 'package:tamyez_app/core/constants/asset_paths.dart';
 import 'package:tamyez_app/core/di/injectable_initializer.dart' show getIt;
 import 'package:tamyez_app/core/layers/localization/enums/languages_enum.dart';
 import 'package:tamyez_app/core/layers/localization/l10n/generated/app_localizations.dart'
@@ -118,9 +117,8 @@ void main() {
           final Finder splashScreenColumn = find.byKey(
             const Key(SplashScreenConstants.splashScreenColumnKey),
           );
-          final Finder imageInsideColumn = find.descendant(
-            of: splashScreenColumn,
-            matching: find.image(const AssetImage(AssetPaths.appLogo)),
+          final Finder imageInsideColumn = find.byKey(
+            const Key(SplashScreenConstants.appLogoImageKey),
           );
 
           final Finder welcomeTamyezText = find.descendant(
