@@ -15,7 +15,7 @@ extension GetEmailCollection on Isar {
 
 const EmailSchema = CollectionSchema(
   name: r'Email',
-  id: 2558369672199,
+  id: 2558369672199317214,
   properties: {
     r'recipients': PropertySchema(
       id: 0,
@@ -40,7 +40,7 @@ const EmailSchema = CollectionSchema(
   idName: r'id',
   indexes: {
     r'title': IndexSchema(
-      id: -7636685945352,
+      id: -7636685945352118059,
       name: r'title',
       unique: true,
       replace: false,
@@ -960,7 +960,7 @@ extension EmailQueryProperty on QueryBuilder<Email, Email, QQueryProperty> {
 
 const RecipientSchema = Schema(
   name: r'Recipient',
-  id: -4734433259764,
+  id: -4734433259764111223,
   properties: {
     r'address': PropertySchema(id: 0, name: r'address', type: IsarType.string),
     r'name': PropertySchema(id: 1, name: r'name', type: IsarType.string),

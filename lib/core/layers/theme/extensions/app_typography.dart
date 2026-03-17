@@ -60,19 +60,19 @@ class AppTypography extends ThemeExtension<AppTypography> {
   // TABLET: slightly larger, keeps density balanced for medium screens
   static const tabletBase = AppTypography(
     hero: TextStyle(
-      fontSize: 42,
+      fontSize: 38,
       fontWeight: FontWeight.w800,
       height: 1.15,
       letterSpacing: -0.20,
     ),
     title: TextStyle(
-      fontSize: 24,
+      fontSize: 22,
       fontWeight: FontWeight.w700,
       height: 1.30,
       letterSpacing: 0.10,
     ),
     subTitle: TextStyle(
-      fontSize: 20,
+      fontSize: 18,
       fontWeight: FontWeight.w500,
       height: 1.30,
       letterSpacing: 0.10,
@@ -112,7 +112,7 @@ class AppTypography extends ThemeExtension<AppTypography> {
       letterSpacing: 0.05,
     ),
     subTitle: TextStyle(
-      fontSize: 20,
+      fontSize: 24,
       fontWeight: FontWeight.w500,
       height: 1.30,
       letterSpacing: 0.10,

@@ -1,3 +1,4 @@
+import 'package:fit_ui/fit_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -24,7 +25,7 @@ class _SplashScreenState extends BaseStatefulWidgetState<SplashScreen>
   late Brightness systemBrightness;
 
   @override
-  Future<void> initState() async {
+  void initState() {
     super.initState();
 
     controller = AnimationController(
@@ -58,64 +59,75 @@ class _SplashScreenState extends BaseStatefulWidgetState<SplashScreen>
         builder: (context) {
           return Scaffold(
             body: SafeArea(
-              child: AnimatedBuilder(
-                animation: controller,
-                builder: (BuildContext context, Widget? child) {
-                  return AnimatedScale(
-                    scale: controller.status.isCompleted
-                        ? 1
-                        : 0.2 + controller.value,
-                    duration: const Duration(seconds: 1),
-                    child: Column(
-                      key: const Key(
-                        SplashScreenConstants.splashScreenColumnKey,
-                      ),
-                      spacing: 5,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsetsGeometry.symmetric(
-                            horizontal: 80,
+              child: ResponsiveLayoutBuilder(
+                breakpointProvider: CustomBreakpoints(),
+                builder: (screenType, constraints) {
+                  return AnimatedBuilder(
+                    animation: controller,
+                    builder: (BuildContext context, Widget? child) {
+                      return AnimatedScale(
+                        scale: controller.status.isCompleted
+                            ? 1
+                            : 0.2 + controller.value,
+                        duration: const Duration(seconds: 1),
+                        child: Column(
+                          key: const Key(
+                            SplashScreenConstants.splashScreenColumnKey,
                           ),
-                          child: Center(
-                            child: Image.asset(
-                              Theme.brightnessOf(context) == Brightness.light
-                                  ? AssetPaths.appLogo
-                                  : AssetPaths.appLogoDark,
-                            ),
-                          ),
-                        ),
-                        Text(
-                          appLocalizations.welcomeToTamyez,
-                          style: typography.hero.copyWith(
-                            fontWeight: FontWeight.w400,
-                            color:
-                                Theme.brightnessOf(context) == Brightness.light
-                                ? AppColors.darkBlue
-                                : AppColors.blue,
-                            fontFamily: GoogleFonts.lilitaOne().fontFamily,
-                            shadows: [
-                              Shadow(
-                                offset: const Offset(
-                                  0.0,
-                                  5.0,
-                                ), // X and Y offset
-                                blurRadius: 15.0, // The blur radius
-                                color: Colors.black.withAlpha(
-                                  90,
-                                ), // The color of the shadow
+                          spacing: 5,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: EdgeInsetsGeometry.symmetric(
+                                horizontal: !screenType.isMobile
+                                    ? constraints.maxWidth * (40 / 100)
+                                    : constraints.maxWidth * (30 / 100),
                               ),
-                            ],
-                          ),
+                              child: Center(
+                                child: Image.asset(
+                                  Theme.brightnessOf(context) ==
+                                          Brightness.light
+                                      ? AssetPaths.appLogo
+                                      : AssetPaths.appLogoDark,
+                                  cacheWidth: 320,
+                                  cacheHeight: 340,
+                                ),
+                              ),
+                            ),
+                            Text(
+                              appLocalizations.welcomeToTamyez,
+                              style: typography.hero.copyWith(
+                                fontWeight: FontWeight.w400,
+                                color:
+                                    Theme.brightnessOf(context) ==
+                                        Brightness.light
+                                    ? AppColors.darkBlue
+                                    : AppColors.blue,
+                                fontFamily: GoogleFonts.lilitaOne().fontFamily,
+                                shadows: [
+                                  Shadow(
+                                    offset: const Offset(
+                                      0.0,
+                                      5.0,
+                                    ), // X and Y offset
+                                    blurRadius: 15.0, // The blur radius
+                                    color: Colors.black.withAlpha(
+                                      90,
+                                    ), // The color of the shadow
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Text(
+                              appLocalizations.discoverStrengthAndPathMessage,
+                              style: Theme.of(
+                                context,
+                              ).extension<AppTypography>()?.body,
+                            ),
+                          ],
                         ),
-                        Text(
-                          appLocalizations.discoverStrengthAndPathMessage,
-                          style: Theme.of(
-                            context,
-                          ).extension<AppTypography>()?.body,
-                        ),
-                      ],
-                    ),
+                      );
+                    },
                   );
                 },
               ),
