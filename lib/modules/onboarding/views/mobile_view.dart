@@ -4,6 +4,7 @@ import '../../../core/bases/base_stateless_widget.dart';
 import '../../../core/constants/asset_paths.dart' show AssetPaths;
 import '../../../core/layers/theme/colors/app_colors.dart' show AppColors;
 import '../../../core/routing/defined_routes.dart' show DefinedRoutes;
+import '../constants/onboarding_screen_constants.dart';
 import '../widget/choose_language_widget.dart';
 
 class MobileView extends BaseStatelessWidget {
@@ -20,6 +21,9 @@ class MobileView extends BaseStatelessWidget {
             children: [
               Flexible(
                 child: Image.asset(
+                  key: const Key(
+                    OnboardingScreenConstants.discoverCareerImageKey,
+                  ),
                   AssetPaths.discoverCareerImage,
                   cacheWidth: 390,
                   cacheHeight: 320,
@@ -34,6 +38,7 @@ class MobileView extends BaseStatelessWidget {
             child: LayoutBuilder(
               builder: (context, constraints) {
                 return Column(
+                  key: const Key(OnboardingScreenConstants.onboardingColumnKey),
                   spacing: constraints.maxHeight * (5 / 100),
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [

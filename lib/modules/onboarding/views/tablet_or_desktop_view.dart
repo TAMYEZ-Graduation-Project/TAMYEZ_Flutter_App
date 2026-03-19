@@ -4,6 +4,8 @@ import '../../../core/bases/base_stateless_widget.dart';
 import '../../../core/constants/asset_paths.dart' show AssetPaths;
 import '../../../core/layers/theme/colors/app_colors.dart' show AppColors;
 import '../../../core/routing/defined_routes.dart' show DefinedRoutes;
+import '../constants/onboarding_screen_constants.dart'
+    show OnboardingScreenConstants;
 import '../widget/choose_language_widget.dart';
 
 class TabletOrDesktopView extends BaseStatelessWidget {
@@ -28,6 +30,9 @@ class TabletOrDesktopView extends BaseStatelessWidget {
                       SizedBox(
                         width: constraints.maxWidth * (45 / 100),
                         child: Image.asset(
+                          key: const Key(
+                            OnboardingScreenConstants.discoverCareerImageKey,
+                          ),
                           AssetPaths.discoverCareerImage,
                           cacheWidth: 390,
                           cacheHeight: 320,
@@ -39,10 +44,10 @@ class TabletOrDesktopView extends BaseStatelessWidget {
               ],
             ),
             Positioned(
-              bottom: constraints.maxHeight * (10 / 100),
+              bottom: constraints.maxHeight * (13 / 100),
               child: SizedBox(
                 width: constraints.maxWidth * (45 / 100),
-                height: constraints.maxHeight * (40 / 100),
+                //height: constraints.maxHeight * (40 / 100),
                 child: Card(
                   color: AppColors.light,
                   shape: RoundedRectangleBorder(
@@ -51,7 +56,11 @@ class TabletOrDesktopView extends BaseStatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
-                      spacing: constraints.maxHeight * (2 / 100),
+                      mainAxisSize: MainAxisSize.min,
+                      key: const Key(
+                        OnboardingScreenConstants.onboardingColumnKey,
+                      ),
+                      spacing: constraints.maxHeight * (3 / 100),
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Text(
@@ -84,9 +93,9 @@ class TabletOrDesktopView extends BaseStatelessWidget {
                         ),
                         // localization button
                         const ChooseLanguageWidget(),
-                        const Spacer(),
+                        SizedBox(height: constraints.maxHeight * (3 / 100)),
                         FilledButton(
-                          onPressed: () async {
+                          onPressed: () {
                             Navigator.pushNamed(
                               context,
                               DefinedRoutes.loginRoute,

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../core/bases/base_stateless_widget.dart';
 import '../../../core/layers/localization/enums/languages_enum.dart';
 import '../../../core/layers/theme/colors/app_colors.dart';
+import '../constants/onboarding_screen_constants.dart';
 
 class ChooseLanguageWidget extends BaseStatelessWidget {
   const ChooseLanguageWidget({super.key});
@@ -21,6 +22,9 @@ class ChooseLanguageWidget extends BaseStatelessWidget {
           children: [
             Expanded(
               child: InkWell(
+                key: const Key(
+                  OnboardingScreenConstants.chooseLanguageArabicButtonKey,
+                ),
                 borderRadius: BorderRadius.circular(20),
                 onTap: () async {
                   await d.localizationManager.changeLocal(LanguagesEnum.ar);
@@ -46,6 +50,9 @@ class ChooseLanguageWidget extends BaseStatelessWidget {
             ),
             Expanded(
               child: InkWell(
+                key: const Key(
+                  OnboardingScreenConstants.chooseLanguageEnglishButtonKey,
+                ),
                 borderRadius: BorderRadius.circular(20),
                 onTap: () async {
                   await d.localizationManager.changeLocal(LanguagesEnum.en);
