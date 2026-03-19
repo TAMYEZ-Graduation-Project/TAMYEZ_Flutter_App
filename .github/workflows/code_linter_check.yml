@@ -25,6 +25,11 @@ jobs:
           dart --version
           flutter --version
 
+      - name: Create .env file
+        run: |
+          mkdir -p config
+          echo "${{ secrets.ENV_FILE }}" > config/.env
+
       - name: Install dependencies
         run: flutter pub get
 

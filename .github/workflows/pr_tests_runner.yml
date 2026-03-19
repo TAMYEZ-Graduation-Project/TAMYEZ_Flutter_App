@@ -17,6 +17,11 @@ jobs:
         with:
           flutter-version: '3.41.4'
 
+      - name: Create .env file
+        run: |
+          mkdir -p config
+          echo "${{ secrets.ENV_FILE }}" > config/.env
+
       - name: Install dependencies
         run: flutter pub get
 
