@@ -21,7 +21,7 @@ import 'widget_testing_shared_setups.mocks.dart';
 ])
 
 /// Before using any fields from the object of this class,
-/// you must call sharedSetupAll and sharedSetup in there correct places class WidgetTestingSharedSetups {
+/// * you must call sharedSetupAll and sharedSetup in there correct places \n class WidgetTestingSharedSetups {
   late MockLocalizationManager mockLocalizationManager;
   late MockThemeManager mockThemeManager;
   late MockNavigatorObserver mockNavigatorObserver;
