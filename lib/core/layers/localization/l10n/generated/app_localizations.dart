@@ -403,6 +403,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Google'**
   String get google;
+
+  /// No description provided for @dontHaveAnAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t have an account? '**
+  String get dontHaveAnAccount;
+
+  /// No description provided for @signUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Up'**
+  String get signUp;
 }
 
 class _AppLocalizationsDelegate

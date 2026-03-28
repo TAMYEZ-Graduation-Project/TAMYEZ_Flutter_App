@@ -1,4 +1,5 @@
 {
+  "@@locale": "en",
   "errorMessages_____": "___Comment___",
   "connectionTimeout": "Connection timeout with server ⌛",
   "sendTimeout": "Send timeout in connection with server ⏱",
@@ -49,5 +50,7 @@
   "resendVerificationEmail": "Resend verification email",
   "signIn": "Sign in",
   "orSignInWith": "Or sign in with",
-  "google": "Google"
+  "google": "Google",
+  "dontHaveAnAccount": "Don't have an account? ",
+  "signUp": "Sign Up"
 }

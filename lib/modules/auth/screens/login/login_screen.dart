@@ -114,14 +114,14 @@ class _LoginScreenState extends BaseStatefulWidgetState<LoginScreen> {
                 text: TextSpan(
                   children: [
                     TextSpan(
-                      text: "Don't have an account? ",
+                      text: appLocalizations.dontHaveAnAccount,
                       style: typography.subTitle.copyWith(color: AppColors.dark),
                     ),
                     WidgetSpan(
                       child: InkWell(
                         onTap: () {},
                         child: Text(
-                          "Sign Up",
+                          appLocalizations.signUp,
                           style: typography.subTitle.copyWith(
                             color: AppColors.blue,
                             fontWeight: FontWeight.w700,

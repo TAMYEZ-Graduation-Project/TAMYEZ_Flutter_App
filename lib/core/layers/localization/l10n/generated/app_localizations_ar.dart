@@ -167,4 +167,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get google => 'جوجل';
+
+  @override
+  String get dontHaveAnAccount => 'ليس لديك حساب؟ ';
+
+  @override
+  String get signUp => 'إنشاء حساب';
 }

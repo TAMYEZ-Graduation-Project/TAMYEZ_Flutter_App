@@ -169,4 +169,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get google => 'Google';
+
+  @override
+  String get dontHaveAnAccount => 'Don\'t have an account? ';
+
+  @override
+  String get signUp => 'Sign Up';
 }
