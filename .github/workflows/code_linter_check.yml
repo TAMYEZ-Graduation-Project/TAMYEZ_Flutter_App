@@ -44,10 +44,10 @@ jobs:
         run: |
           if git diff --quiet; then
             echo "No changes detected."
-            echo "commit_changes=false" >> $GITHUB_ENV
+            echo "commit_changes=false" >> $GITHUB_OUTPUT
           else
             echo "Changes detected."
-            echo "commit_changes=true" >> $GITHUB_ENV
+            echo "commit_changes=true" >> $GITHUB_OUTPUT
           fi
 
       - name: Get current branch name
@@ -58,12 +58,12 @@ jobs:
           echo "Branch name: $(echo ${GITHUB_REF#refs/heads/})"
 
       - name: Commit changes
-        if: env.commit_changes == 'true'
+        if: steps.check_changes.outputs.commit_changes == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
         run: |
           git config --global user.email "bot@example.com"
           git config --global user.name "GitHub Bot"
           git add .
-          git commit -m "Automated code formatting"
-          git push origin ${GITHUB_REF#refs/heads/}
+          git commit -m "Automated code formatting" || echo "No changes to commit"
+          git push origin HEAD:${{ github.head_ref }}
