@@ -5,6 +5,7 @@ class AppTypography extends ThemeExtension<AppTypography> {
   const AppTypography({
     required this.hero,
     required this.title,
+    required this.subTitle,
     required this.body,
     required this.label,
     required this.button,
@@ -12,6 +13,7 @@ class AppTypography extends ThemeExtension<AppTypography> {
 
   final TextStyle hero;
   final TextStyle title;
+  final TextStyle subTitle;
   final TextStyle body;
   final TextStyle label;
   final TextStyle button;
@@ -29,9 +31,15 @@ class AppTypography extends ThemeExtension<AppTypography> {
       height: 1.30,
       letterSpacing: 0.10,
     ),
+    subTitle: TextStyle(
+      fontSize: 16,
+      fontWeight: FontWeight.w500,
+      height: 1.30,
+      letterSpacing: 0.10,
+    ),
     body: TextStyle(
       fontSize: 14,
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.w500,
       height: 1.50,
       letterSpacing: 0.25,
     ),
@@ -42,7 +50,7 @@ class AppTypography extends ThemeExtension<AppTypography> {
       letterSpacing: 0.50,
     ),
     button: TextStyle(
-      fontSize: 14,
+      fontSize: 16,
       fontWeight: FontWeight.w600,
       height: 1.20,
       letterSpacing: 0.10,
@@ -52,14 +60,20 @@ class AppTypography extends ThemeExtension<AppTypography> {
   // TABLET: slightly larger, keeps density balanced for medium screens
   static const tabletBase = AppTypography(
     hero: TextStyle(
-      fontSize: 42,
+      fontSize: 38,
       fontWeight: FontWeight.w800,
       height: 1.15,
       letterSpacing: -0.20,
     ),
     title: TextStyle(
-      fontSize: 24,
+      fontSize: 22,
       fontWeight: FontWeight.w700,
+      height: 1.30,
+      letterSpacing: 0.10,
+    ),
+    subTitle: TextStyle(
+      fontSize: 18,
+      fontWeight: FontWeight.w500,
       height: 1.30,
       letterSpacing: 0.10,
     ),
@@ -76,7 +90,7 @@ class AppTypography extends ThemeExtension<AppTypography> {
       letterSpacing: 0.40,
     ),
     button: TextStyle(
-      fontSize: 16,
+      fontSize: 18,
       fontWeight: FontWeight.w600,
       height: 1.20,
       letterSpacing: 0.10,
@@ -97,6 +111,12 @@ class AppTypography extends ThemeExtension<AppTypography> {
       height: 1.28,
       letterSpacing: 0.05,
     ),
+    subTitle: TextStyle(
+      fontSize: 24,
+      fontWeight: FontWeight.w500,
+      height: 1.30,
+      letterSpacing: 0.10,
+    ),
     body: TextStyle(
       fontSize: 18,
       fontWeight: FontWeight.w400,
@@ -110,7 +130,7 @@ class AppTypography extends ThemeExtension<AppTypography> {
       letterSpacing: 0.30,
     ),
     button: TextStyle(
-      fontSize: 16,
+      fontSize: 18,
       fontWeight: FontWeight.w600,
       height: 1.20,
       letterSpacing: 0.10,
@@ -124,8 +144,9 @@ class AppTypography extends ThemeExtension<AppTypography> {
     return AppTypography(
       hero: hero.copyWith(color: scheme.onSurface),
       title: title.copyWith(color: scheme.onSurface),
+      subTitle: subTitle.copyWith(color: scheme.onSurface),
       // slightly lower contrast for long-form reading
-      body: body.copyWith(color: scheme.onSurface.withAlpha(200)),
+      body: body.copyWith(color: scheme.onSurface),
       label: label.copyWith(color: scheme.onSurfaceVariant),
       button: button.copyWith(color: buttonColor),
     );
@@ -137,6 +158,7 @@ class AppTypography extends ThemeExtension<AppTypography> {
     return AppTypography(
       hero: f(hero),
       title: f(title),
+      subTitle: f(subTitle),
       body: f(body),
       label: f(label),
       button: f(button),
@@ -195,6 +217,7 @@ class AppTypography extends ThemeExtension<AppTypography> {
   AppTypography copyWith({
     TextStyle? hero,
     TextStyle? title,
+    TextStyle? subTitle,
     TextStyle? body,
     TextStyle? label,
     TextStyle? button,
@@ -202,6 +225,7 @@ class AppTypography extends ThemeExtension<AppTypography> {
     return AppTypography(
       hero: hero ?? this.hero,
       title: title ?? this.title,
+      subTitle: subTitle ?? this.subTitle,
       body: body ?? this.body,
       label: label ?? this.label,
       button: button ?? this.button,

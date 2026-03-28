@@ -1,26 +1,28 @@
 import 'dart:io';
 
+import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' show dotenv;
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart'
     show MultiProvider, ChangeNotifierProvider, Consumer2;
-import 'package:tamyez_app/core/functions/has_google_services.dart';
-import 'package:tamyez_app/core/layers/theme/factory/app_theme_factory.dart';
-import 'package:tamyez_app/core/routing/routing_provider.dart';
-import 'package:tamyez_app/core/utils/awesome_notification/awesome_notification_service.dart';
-import 'package:tamyez_app/core/utils/di/di_init.dart';
-import 'package:tamyez_app/core/utils/firebase/messaging/firebase_cloud_messaging_service.dart';
-import 'package:tamyez_app/modules/splash/splash_screen.dart';
 
+import 'core/functions/has_google_services.dart';
 import 'core/layers/localization/l10n/generated/app_localizations.dart'
     show AppLocalizations;
 import 'core/layers/localization/l10n/manager/localization_manager.dart'
     show LocalizationManager;
 import 'core/layers/theme/extensions/app_typography.dart' show AppTypography;
+import 'core/layers/theme/factory/app_theme_factory.dart';
 import 'core/layers/theme/manager/theme_manager.dart' show ThemeManager;
+import 'core/routing/routing_provider.dart';
 import 'core/screen/custom_breakpoints.dart' show CustomBreakpoints;
+import 'core/utils/awesome_notification/awesome_notification_service.dart';
+import 'core/utils/di/di_init.dart';
+import 'core/utils/firebase/messaging/firebase_cloud_messaging_service.dart';
 import 'firebase_options.dart';
+import 'modules/splash/splash_screen.dart';
 
 GlobalKey<NavigatorState> globalNavigatorKey = GlobalKey<NavigatorState>();
 void main() async {
@@ -28,14 +30,21 @@ void main() async {
   await dotenv.load(fileName: 'config/.env');
   await configureDependencies();
 
-  runApp(const MyApp());
+  runApp(
+    DevicePreview(
+      enabled: false,
+      builder: (context) {
+        return const MyApp();
+      },
+    ),
+  );
 
   Future.delayed(Duration.zero, () async {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
     if (Platform.isAndroid && !(await hasGoogleServices())) {
-      showDialog(
+      showDialog<AlertDialog>(
         context: globalNavigatorKey.currentContext!,
         builder: (context) {
           final appTypography = Theme.of(context).extension<AppTypography>()!;
@@ -44,11 +53,11 @@ void main() async {
             title: Text(
               l10n.warning,
               style: appTypography.title.copyWith(color: Colors.red),
-              textAlign: .center,
+              textAlign: TextAlign.center,
             ),
             content: Text(
               l10n.googlePlayServicesMissingMessage,
-              textAlign: .center,
+              textAlign: TextAlign.center,
               style: appTypography.title,
             ),
             actions: [
@@ -94,6 +103,7 @@ class MyApp extends StatelessWidget {
                 data: AppThemeFactory.create(
                   brightness: themeManager.currentTheme,
                   device: CustomBreakpoints().of(context),
+                  fontFamily: GoogleFonts.manrope().fontFamily,
                 ),
                 child: child!,
               );

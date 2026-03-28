@@ -1,5 +1,5 @@
 import 'package:injectable/injectable.dart';
-import 'package:isar_community/isar.dart' show Isar, QueryFilters, QueryExecute;
+import 'package:isar_community/isar.dart' show Isar;
 
 import '../contracts/email_repository.dart';
 import '../models/email/email_model.dart';
@@ -12,6 +12,6 @@ class EmailRepositoryImp extends IsarBaseRepository<Email>
 
   @override
   Future<Email?> findByTitle(String title) {
-    return isar.emails.where().filter().titleEqualTo(title).findFirst();
+    return isar.emails.getByTitle(title);
   }
 }
