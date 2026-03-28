@@ -40,5 +40,14 @@
   "discoverYourTruePotential": "اكتشف إمكانياتك الحقيقية وافتح المسار المهني المخصص لك.",
   "chooseYourLanguage": "اختر لغتك",
   "selectYourPreferredLanguage": "اختر لغتك المفضلة لاستخدام تميز بسهولة",
-  "continueWord": "متابعة"
+  "continueWord": "متابعة",
+  "loginScreen": "شاشة تسجيل الدخول",
+  "email": "البريد الإلكتروني",
+  "password": "كلمة المرور",
+  "rememberMe": "تذكرني",
+  "forgotPassword": "هل نسيت كلمة المرور؟",
+  "resendVerificationEmail": "إعادة إرسال رسالة التحقق",
+  "signIn": "تسجيل الدخول",
+  "orSignInWith": "أو تسجيل الدخول باستخدام",
+  "google": "جوجل"
 }

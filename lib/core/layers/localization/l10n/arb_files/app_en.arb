@@ -40,5 +40,14 @@
   "discoverYourTruePotential": "Discover your true potential and unlock the career path meant for you.",
   "chooseYourLanguage": "Choose your language",
   "selectYourPreferredLanguage": "Select your preferred language to use Tamyez easily",
-  "continueWord": "Continue"
+  "continueWord": "Continue",
+  "loginScreen": "Login Screen",
+  "email": "Email",
+  "password": "Password",
+  "rememberMe": "Remember me",
+  "forgotPassword": "Forgot Password?",
+  "resendVerificationEmail": "Resend verification email",
+  "signIn": "Sign in",
+  "orSignInWith": "Or sign in with",
+  "google": "Google"
 }

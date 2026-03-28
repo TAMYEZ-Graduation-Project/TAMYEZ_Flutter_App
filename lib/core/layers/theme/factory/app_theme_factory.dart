@@ -41,7 +41,24 @@ abstract class AppThemeFactory {
       extensions: [typography],
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
-          padding: const EdgeInsetsGeometry.symmetric(vertical: 14),
+          padding: const EdgeInsetsGeometry.symmetric(vertical: 16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          textStyle: typography.button.copyWith(
+            color: AppColors.light,
+          ),
+        ),
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          backgroundColor: AppColors.gray,
+          padding: const EdgeInsetsGeometry.symmetric(vertical: 16),
+          side: BorderSide.none,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          textStyle: typography.button.copyWith(color: AppColors.dark),
         ),
       ),
       appBarTheme: AppBarTheme(
@@ -49,6 +66,37 @@ abstract class AppThemeFactory {
             ? AppColors.lightBlue
             : null,
       ),
+      inputDecorationTheme: InputDecorationTheme(
+        hintStyle: typography.subTitle.copyWith(color: AppColors.lightGreen),
+        filled: true,
+        fillColor: AppColors.gray,
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 24,
+          vertical: 18,
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20),
+          borderSide: BorderSide.none,
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20),
+          borderSide: BorderSide.none,
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20),
+          borderSide: BorderSide.none,
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20),
+          borderSide: BorderSide(color: AppColors.red),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20),
+          borderSide: BorderSide(color: AppColors.red),
+        ),
+        errorStyle: typography.label.copyWith(color: AppColors.red),
+      ),
+      checkboxTheme: _getCheckBoxTheme(brightness),
     );
   }
 
@@ -78,6 +126,43 @@ abstract class AppThemeFactory {
           onError: AppColors.red,
           surface: AppColors.light,
           onSurface: Colors.black,
+        );
+    }
+  }
+
+  static CheckboxThemeData _getCheckBoxTheme(Brightness brightness) {
+    switch (brightness) {
+      case Brightness.light:
+        return CheckboxThemeData(
+          side: BorderSide(color: AppColors.gray, width: 2),
+          fillColor: WidgetStateProperty.resolveWith((states) {
+            if (states.contains(WidgetState.selected)) {
+              return AppColors.blue;
+            }
+            return AppColors.lightPink;
+          }),
+          checkColor: WidgetStateProperty.resolveWith((states) {
+            if (states.contains(WidgetState.selected)) {
+              return AppColors.light;
+            }
+            return null;
+          }),
+        );
+      case Brightness.dark:
+        return CheckboxThemeData(
+          side: BorderSide(color: AppColors.gray, width: 2),
+          fillColor: WidgetStateProperty.resolveWith((states) {
+            if (states.contains(WidgetState.selected)) {
+              return AppColors.blue;
+            }
+            return AppColors.dark;
+          }),
+          checkColor: WidgetStateProperty.resolveWith((states) {
+            if (states.contains(WidgetState.selected)) {
+              return AppColors.light;
+            }
+            return null;
+          }),
         );
     }
   }

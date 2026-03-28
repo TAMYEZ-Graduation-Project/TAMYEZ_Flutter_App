@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-
 import '../../../../core/bases/base_stateful_widget_state.dart';
+import '../../../../core/constants/asset_paths.dart';
+import '../../../../core/layers/theme/colors/app_colors.dart';
+import '../../../../core/widgets/custom_text_field.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -10,15 +12,131 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends BaseStatefulWidgetState<LoginScreen> {
+  ValueNotifier<bool> rememberMe = ValueNotifier<bool>(false);
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Login Screen'), centerTitle: true),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Center(child: Text('Login Screen', style: typography.title)),
-        ],
+      resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        title: Text(appLocalizations.loginScreen),
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        child: Form(
+          key: formKey,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          child: Column(
+            spacing: 16,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              CustomTextField(
+                hintText: appLocalizations.email,
+                validator: validateFunctions.validationOfEmail,
+              ),
+              CustomTextField(
+                hintText: appLocalizations.password,
+                isPassword: true,
+                validator: validateFunctions.validationOfPassword,
+              ),
+              Row(
+                children: [
+                  ValueListenableBuilder(
+                    valueListenable: rememberMe,
+                    builder: (context, value, child) {
+                      return Transform.scale(
+                        scale: 1.5,
+                        child: Checkbox(
+                          value: value,
+                          onChanged: (value) {
+                            rememberMe.value = value ?? false;
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                  Text(
+                    appLocalizations.rememberMe,
+                    style: typography.subTitle.copyWith(color: AppColors.blue),
+                  ),
+                  const Spacer(),
+                  TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      appLocalizations.forgotPassword,
+                      style: typography.body.copyWith(
+                        color: AppColors.blue,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              TextButton(
+                onPressed: () {},
+                child: Text(
+                  appLocalizations.resendVerificationEmail,
+                  style: typography.subTitle.copyWith(
+                    color: AppColors.blue,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ),
+              FilledButton(
+                onPressed: () {},
+                child: Text(appLocalizations.signIn),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                child: Text(
+                  appLocalizations.orSignInWith,
+                  style: typography.title,
+                ),
+              ),
+              OutlinedButton(
+                onPressed: () {},
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(AssetPaths.googleIcon, height: 24),
+                    const SizedBox(width: 8),
+                    Text(
+                      appLocalizations.google,
+                      style: typography.button.copyWith(color: AppColors.dark),
+                    ),
+                  ],
+                ),
+              ),
+              RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: "Don't have an account? ",
+                      style: typography.subTitle.copyWith(color: AppColors.dark),
+                    ),
+                    WidgetSpan(
+                      child: InkWell(
+                        onTap: () {},
+                        child: Text(
+                          "Sign Up",
+                          style: typography.subTitle.copyWith(
+                            color: AppColors.blue,
+                            fontWeight: FontWeight.w700,
+                            decoration: TextDecoration.underline,
+                            decorationThickness: 3,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

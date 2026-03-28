@@ -140,4 +140,31 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get continueWord => 'متابعة';
+
+  @override
+  String get loginScreen => 'شاشة تسجيل الدخول';
+
+  @override
+  String get email => 'البريد الإلكتروني';
+
+  @override
+  String get password => 'كلمة المرور';
+
+  @override
+  String get rememberMe => 'تذكرني';
+
+  @override
+  String get forgotPassword => 'هل نسيت كلمة المرور؟';
+
+  @override
+  String get resendVerificationEmail => 'إعادة إرسال رسالة التحقق';
+
+  @override
+  String get signIn => 'تسجيل الدخول';
+
+  @override
+  String get orSignInWith => 'أو تسجيل الدخول باستخدام';
+
+  @override
+  String get google => 'جوجل';
 }
