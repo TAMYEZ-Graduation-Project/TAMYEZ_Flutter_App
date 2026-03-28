@@ -45,9 +45,7 @@ abstract class AppThemeFactory {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
-          textStyle: typography.button.copyWith(
-            color: AppColors.light,
-          ),
+          textStyle: typography.button.copyWith(color: AppColors.light),
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(

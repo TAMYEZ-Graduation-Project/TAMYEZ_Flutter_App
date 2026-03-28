@@ -115,7 +115,9 @@ class _LoginScreenState extends BaseStatefulWidgetState<LoginScreen> {
                   children: [
                     TextSpan(
                       text: appLocalizations.dontHaveAnAccount,
-                      style: typography.subTitle.copyWith(color: AppColors.dark),
+                      style: typography.subTitle.copyWith(
+                        color: AppColors.dark,
+                      ),
                     ),
                     WidgetSpan(
                       child: InkWell(
