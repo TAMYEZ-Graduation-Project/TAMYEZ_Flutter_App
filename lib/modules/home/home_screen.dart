@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../core/bases/base_stateful_widget_state.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -7,9 +9,14 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends BaseStatefulWidgetState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [Center(child: Text('Home screen', style: typography.title))],
+      ),
+    );
   }
 }
