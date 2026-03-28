@@ -33,12 +33,12 @@ jobs:
         run: |
           if [ -z "$(find test -name '*_test.dart')" ]; then
             echo "No test files found."
-            echo "run_tests=false" >> $GITHUB_ENV
+            echo "run_tests=false" >> $GITHUB_OUTPUT
           else
             echo "Test files found."
-            echo "run_tests=true" >> $GITHUB_ENV
+            echo "run_tests=true" >> $GITHUB_OUTPUT
           fi
 
       - name: Run tests
-        if: env.run_tests == 'true'
+        if: steps.check_tests.outputs.run_tests == 'true'
         run: flutter test
