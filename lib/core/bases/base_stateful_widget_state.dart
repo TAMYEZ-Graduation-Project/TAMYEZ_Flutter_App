@@ -29,7 +29,7 @@ abstract class BaseStatefulWidgetState<T extends StatefulWidget>
     typography = theme.extension<AppTypography>() ?? AppTypography.mobileBase;
     screenSize = MediaQuery.sizeOf(context);
     localizationManager = getIt.get<LocalizationManager>();
-    appLocalizations = AppLocalizations.of(context)!;
+    appLocalizations = getIt.get<AppLocalizations>();
     validateFunctions = getIt.get<ValidateFunctions>();
   }
 

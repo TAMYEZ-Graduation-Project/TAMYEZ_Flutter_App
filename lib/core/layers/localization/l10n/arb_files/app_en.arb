@@ -34,5 +34,11 @@
   "homeScreen": "Home Screen",
   "warning": "Warning",
   "googlePlayServicesMissingMessage": "This device does not have Google Play Services. Some features, such as notifications or location services, may not work correctly.",
-  "ok": "OK"
+  "ok": "OK",
+  "welcomeToTamyez": "Welcome To TAMYEZ",
+  "discoverStrengthAndPathMessage": "Discover your strengths and find your ideal path",
+  "discoverYourTruePotential": "Discover your true potential and unlock the career path meant for you.",
+  "chooseYourLanguage": "Choose your language",
+  "selectYourPreferredLanguage": "Select your preferred language to use Tamyez easily",
+  "continueWord": "Continue"
 }

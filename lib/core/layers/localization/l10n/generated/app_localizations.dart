@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
+import 'app_localizations_ar.dart';
 import 'app_localizations_en.dart';
 
 // ignore_for_file: type=lint
@@ -92,7 +93,10 @@ abstract class AppLocalizations {
       ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[Locale('en')];
+  static const List<Locale> supportedLocales = <Locale>[
+    Locale('ar'),
+    Locale('en'),
+  ];
 
   /// No description provided for @errorMessages_____.
   ///
@@ -309,6 +313,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'OK'**
   String get ok;
+
+  /// No description provided for @welcomeToTamyez.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome To TAMYEZ'**
+  String get welcomeToTamyez;
+
+  /// No description provided for @discoverStrengthAndPathMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Discover your strengths and find your ideal path'**
+  String get discoverStrengthAndPathMessage;
+
+  /// No description provided for @discoverYourTruePotential.
+  ///
+  /// In en, this message translates to:
+  /// **'Discover your true potential and unlock the career path meant for you.'**
+  String get discoverYourTruePotential;
+
+  /// No description provided for @chooseYourLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose your language'**
+  String get chooseYourLanguage;
+
+  /// No description provided for @selectYourPreferredLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Select your preferred language to use Tamyez easily'**
+  String get selectYourPreferredLanguage;
+
+  /// No description provided for @continueWord.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continueWord;
 }
 
 class _AppLocalizationsDelegate
@@ -322,7 +362,7 @@ class _AppLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['en'].contains(locale.languageCode);
+      <String>['ar', 'en'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -331,6 +371,8 @@ class _AppLocalizationsDelegate
 AppLocalizations lookupAppLocalizations(Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
+    case 'ar':
+      return AppLocalizationsAr();
     case 'en':
       return AppLocalizationsEn();
   }

@@ -39,6 +39,16 @@ abstract class AppThemeFactory {
       brightness: brightness,
       colorScheme: colorScheme,
       extensions: [typography],
+      filledButtonTheme: FilledButtonThemeData(
+        style: FilledButton.styleFrom(
+          padding: const EdgeInsetsGeometry.symmetric(vertical: 14),
+        ),
+      ),
+      appBarTheme: AppBarTheme(
+        backgroundColor: brightness == Brightness.light
+            ? AppColors.lightBlue
+            : null,
+      ),
     );
   }
 
@@ -47,9 +57,9 @@ abstract class AppThemeFactory {
       case Brightness.dark:
         return ColorScheme(
           brightness: Brightness.dark,
-          primary: AppColors.lightBlue,
+          primary: AppColors.blue,
           onPrimary: AppColors.light,
-          secondary: AppColors.lightGray,
+          secondary: AppColors.gray,
           onSecondary: Colors.black,
           error: AppColors.light,
           onError: AppColors.red,
@@ -60,9 +70,9 @@ abstract class AppThemeFactory {
       case Brightness.light:
         return ColorScheme(
           brightness: Brightness.light,
-          primary: AppColors.lightBlue,
+          primary: AppColors.blue,
           onPrimary: AppColors.light,
-          secondary: AppColors.lightGray,
+          secondary: AppColors.gray,
           onSecondary: Colors.black,
           error: AppColors.light,
           onError: AppColors.red,

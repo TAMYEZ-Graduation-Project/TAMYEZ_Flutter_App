@@ -1,7 +1,8 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:tamyez_app/core/utils/awesome_notification/awesome_notification_service.dart';
+
+import '../../awesome_notification/awesome_notification_service.dart';
 
 @lazySingleton
 class FirebaseCloudMessagingService {
@@ -18,32 +19,32 @@ class FirebaseCloudMessagingService {
     final NotificationSettings notificationSettings = await _firebaseMessaging
         .requestPermission();
     debugPrint(
-      "Notification Authorization Status: ${notificationSettings.authorizationStatus}",
+      'Notification Authorization Status: ${notificationSettings.authorizationStatus}',
     );
     if (notificationSettings.authorizationStatus ==
         AuthorizationStatus.authorized) {
       // get token for this device
       final fcmToken = await _firebaseMessaging.getToken();
-      debugPrint("======> Token:$fcmToken");
+      debugPrint('======> Token:$fcmToken');
       _firebaseMessaging.onTokenRefresh
           .listen((newFcmToken) {
-            debugPrint("======> Refreshed Token:$newFcmToken");
+            debugPrint('======> Refreshed Token:$newFcmToken');
           })
-          .onError((error) {
-            debugPrint("Error Refreshing Token: $error");
+          .onError((Object error) {
+            debugPrint('Error Refreshing Token: $error');
           });
       // init setup for handling push notifications
       _initPushNotifications();
     } else {
       debugPrint(
-        "Notification Authorization Status: ${notificationSettings.authorizationStatus}",
+        'Notification Authorization Status: ${notificationSettings.authorizationStatus}',
       );
     }
   }
 
   // received messages handling function
   Future<void> handleMessage(RemoteMessage? message) async {
-    debugPrint("current state ========>");
+    debugPrint('current state ========>');
     if (message == null) return;
     // Navigate to a new screen
   }
@@ -64,15 +65,15 @@ class FirebaseCloudMessagingService {
   }
 
   /// Handles messages received while the app is in the foreground
-  void _onForegroundMessage(RemoteMessage message) {
+  Future<void> _onForegroundMessage(RemoteMessage message) async {
     debugPrint('Foreground message received: ${message.data}');
     final notificationData = message.notification;
     if (notificationData != null) {
       // Display a local notification using the service
-      _awesomeNotificationService.showNotification(
-        title: notificationData.title ?? "No Title",
-        body: notificationData.body ?? "",
-          imageUrl: notificationData.android?.imageUrl
+      await _awesomeNotificationService.showNotification(
+        title: notificationData.title ?? 'No Title',
+        body: notificationData.body ?? '',
+        imageUrl: notificationData.android?.imageUrl,
       );
     }
   }
@@ -80,6 +81,6 @@ class FirebaseCloudMessagingService {
 
 @pragma('vm:entry-point')
 Future<void> backgroundMessageHandler(RemoteMessage message) async {
-  debugPrint("Background Handler");
+  debugPrint('Background Handler');
   // Handle the message
 }

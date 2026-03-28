@@ -4,9 +4,8 @@ part 'email_model.g.dart';
 
 @collection
 class Email {
-  Id id = Isar.autoIncrement; // you can also use id = null to auto increment
-
-  @Index(type: IndexType.value)
+  Id id = Isar.autoIncrement;
+  @Index(type: IndexType.value, unique: true)
   String? title;
 
   List<Recipient>? recipients;

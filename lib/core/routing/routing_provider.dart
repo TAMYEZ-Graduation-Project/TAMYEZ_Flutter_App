@@ -1,41 +1,49 @@
 import 'package:flutter/material.dart';
-import 'package:tamyez_app/core/routing/defined_routes.dart';
-import 'package:tamyez_app/core/routing/page_transitions.dart';
-import 'package:tamyez_app/modules/home/home_screen.dart';
-import 'package:tamyez_app/modules/splash/splash_screen.dart';
+
+import '../../modules/auth/screens/login/login_screen.dart';
+import '../../modules/home/home_screen.dart';
+import '../../modules/onboarding/onboarding_screen.dart';
+import '../../modules/splash/splash_screen.dart';
+import 'defined_routes.dart';
+import 'page_transitions.dart';
 
 abstract class RoutingProvider {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     try {
-      String? name = settings.name;
+      final String? name = settings.name;
       //var args = settings.arguments;
       switch (name) {
         case DefinedRoutes.splashRoute:
           return PageRouteBuilder(
             pageBuilder: (context, animation, secondaryAnimation) =>
                 const SplashScreen(),
-            transitionsBuilder:
-                (context, animation, secondaryAnimation, child) =>
-                    PageTransitions.fadeTransition(
-                      context,
-                      animation,
-                      secondaryAnimation,
-                      child,
-                    ),
+            transitionsBuilder: PageTransitions.fadeTransition,
+
+            /// This is important for testing
+            settings: const RouteSettings(name: DefinedRoutes.splashRoute),
           );
 
+        case DefinedRoutes.onboardingRoute:
+          return PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                const OnboardingScreen(),
+            transitionsBuilder: PageTransitions.zoom,
+            settings: const RouteSettings(name: DefinedRoutes.onboardingRoute),
+          );
+
+        case DefinedRoutes.loginRoute:
+          return PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                const LoginScreen(),
+            transitionsBuilder: PageTransitions.slideAndFade,
+            settings: const RouteSettings(name: DefinedRoutes.loginRoute),
+          );
         case DefinedRoutes.homeRoute:
           return PageRouteBuilder(
             pageBuilder: (context, animation, secondaryAnimation) =>
                 const HomeScreen(),
-            transitionsBuilder:
-                (context, animation, secondaryAnimation, child) =>
-                    PageTransitions.slideAndFade(
-                      context,
-                      animation,
-                      secondaryAnimation,
-                      child,
-                    ),
+            transitionsBuilder: PageTransitions.slideAndFade,
+            settings: const RouteSettings(name: DefinedRoutes.homeRoute),
           );
 
         default:
@@ -57,7 +65,7 @@ abstract class RoutingProvider {
               children: [
                 Center(
                   child: Text(
-                    "Error! You Have Navigated To A Wrong Route. Or Navigated With Wrong Arguments",
+                    'Error! You Have Navigated To A Wrong Route. Or Navigated With Wrong Arguments',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 30,
