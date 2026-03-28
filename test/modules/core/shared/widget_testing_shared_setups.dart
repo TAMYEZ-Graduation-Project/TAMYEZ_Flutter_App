@@ -34,10 +34,11 @@ class WidgetTestingSharedSetups {
     appLocalizations = await AppLocalizations.delegate.load(
       Locale(LanguagesEnum.en.getLanguageCode()),
     );
-    getIt..registerSingleton<AppLocalizations>(
-        appLocalizations)..registerSingleton<ValidateFunctions>(
-      ValidateFunctions(appLocalizations),
-    );
+    getIt
+      ..registerSingleton<AppLocalizations>(appLocalizations)
+      ..registerSingleton<ValidateFunctions>(
+        ValidateFunctions(appLocalizations),
+      );
   }
 
   Future<void> sharedSetup() async {

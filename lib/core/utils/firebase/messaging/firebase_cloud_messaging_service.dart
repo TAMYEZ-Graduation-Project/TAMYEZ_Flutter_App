@@ -19,8 +19,7 @@ class FirebaseCloudMessagingService {
     final NotificationSettings notificationSettings = await _firebaseMessaging
         .requestPermission();
     debugPrint(
-      'Notification Authorization Status: ${notificationSettings
-          .authorizationStatus}',
+      'Notification Authorization Status: ${notificationSettings.authorizationStatus}',
     );
     if (notificationSettings.authorizationStatus ==
         AuthorizationStatus.authorized) {
@@ -29,17 +28,16 @@ class FirebaseCloudMessagingService {
       debugPrint('======> Token:$fcmToken');
       _firebaseMessaging.onTokenRefresh
           .listen((newFcmToken) {
-        debugPrint('======> Refreshed Token:$newFcmToken');
+            debugPrint('======> Refreshed Token:$newFcmToken');
           })
           .onError((Object error) {
-        debugPrint('Error Refreshing Token: $error');
+            debugPrint('Error Refreshing Token: $error');
           });
       // init setup for handling push notifications
       _initPushNotifications();
     } else {
       debugPrint(
-        'Notification Authorization Status: ${notificationSettings
-            .authorizationStatus}',
+        'Notification Authorization Status: ${notificationSettings.authorizationStatus}',
       );
     }
   }
@@ -73,9 +71,9 @@ class FirebaseCloudMessagingService {
     if (notificationData != null) {
       // Display a local notification using the service
       await _awesomeNotificationService.showNotification(
-          title: notificationData.title ?? 'No Title',
-          body: notificationData.body ?? '',
-          imageUrl: notificationData.android?.imageUrl
+        title: notificationData.title ?? 'No Title',
+        body: notificationData.body ?? '',
+        imageUrl: notificationData.android?.imageUrl,
       );
     }
   }

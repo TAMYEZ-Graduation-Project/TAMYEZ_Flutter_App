@@ -13,10 +13,7 @@ class _LoginScreenState extends BaseStatefulWidgetState<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login Screen'),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text('Login Screen'), centerTitle: true),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

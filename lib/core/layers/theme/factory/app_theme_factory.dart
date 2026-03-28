@@ -39,13 +39,16 @@ abstract class AppThemeFactory {
       brightness: brightness,
       colorScheme: colorScheme,
       extensions: [typography],
-        filledButtonTheme: FilledButtonThemeData(
-          style: FilledButton.styleFrom(
-              padding: const EdgeInsetsGeometry.symmetric(vertical: 14)),
+      filledButtonTheme: FilledButtonThemeData(
+        style: FilledButton.styleFrom(
+          padding: const EdgeInsetsGeometry.symmetric(vertical: 14),
         ),
-        appBarTheme: AppBarTheme(backgroundColor: brightness == Brightness.light
+      ),
+      appBarTheme: AppBarTheme(
+        backgroundColor: brightness == Brightness.light
             ? AppColors.lightBlue
-            : null,)
+            : null,
+      ),
     );
   }
 
