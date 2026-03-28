@@ -1,7 +1,7 @@
 name: Check PR Title
 on:
   pull_request:
-    types: [ opened, edited ]
+    types: [ opened, edited, synchronize ]
     branches:
       - '**'
 jobs:
