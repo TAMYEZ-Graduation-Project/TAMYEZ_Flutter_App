@@ -9,14 +9,11 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:dio/dio.dart' as _i361;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i558;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:isar_community/isar.dart' as _i214;
 
-import '../api/callers/dio/dio_service.dart' as _i530;
-import '../api/error/api_error_handler.dart' as _i367;
 import '../layers/db/contracts/email_repository.dart' as _i150;
 import '../layers/db/implementation/email_repository_imp.dart' as _i948;
 import '../layers/db/initializer/db_initializer.dart' as _i1006;
@@ -31,6 +28,8 @@ import '../layers/storage/implementation/flutter_secure_storage_service_imp.dart
 import '../layers/storage/initializer/storage_initializer.dart' as _i272;
 import '../layers/theme/initializer/theme_initializer.dart' as _i990;
 import '../layers/theme/manager/theme_manager.dart' as _i701;
+import '../network/dio/dio_factory.dart' as _i638;
+import '../network/error/api_error_handler.dart' as _i576;
 import '../utils/awesome_notification/awesome_notification_service.dart'
     as _i243;
 import '../utils/firebase/messaging/firebase_cloud_messaging_service.dart'
@@ -45,11 +44,11 @@ extension GetItInjectableX on _i174.GetIt {
   }) async {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final dbInitializer = _$DbInitializer();
-    final dioService = _$DioService();
     final storagesInitializer = _$StoragesInitializer();
     final localeInitializer = _$LocaleInitializer();
     final themeInitializer = _$ThemeInitializer();
     final appLocalizationRegister = _$AppLocalizationRegister();
+    gh.factory<_i638.DioFactory>(() => _i638.DioFactory());
     await gh.factoryAsync<_i214.Isar>(
       () => dbInitializer.initIsar(),
       preResolve: true,
@@ -57,7 +56,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i243.AwesomeNotificationService>(
       () => _i243.AwesomeNotificationService(),
     );
-    gh.lazySingleton<_i361.Dio>(() => dioService.getInstance());
     gh.lazySingleton<_i558.FlutterSecureStorage>(
       () => storagesInitializer.initFlutterSecureStorage(),
     );
@@ -105,8 +103,8 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i990.InitialTheme>(instanceName: 'InitialCurrentTheme'),
       ),
     );
-    gh.lazySingleton<_i367.ApiErrorHandler>(
-      () => _i367.ApiErrorHandler(gh<_i58.AppLocalizations>()),
+    gh.lazySingleton<_i576.ApiErrorHandler>(
+      () => _i576.ApiErrorHandler(gh<_i58.AppLocalizations>()),
     );
     gh.lazySingleton<_i166.ValidateFunctions>(
       () => _i166.ValidateFunctions(gh<_i58.AppLocalizations>()),
@@ -116,8 +114,6 @@ extension GetItInjectableX on _i174.GetIt {
 }
 
 class _$DbInitializer extends _i1006.DbInitializer {}
-
-class _$DioService extends _i530.DioService {}
 
 class _$StoragesInitializer extends _i272.StoragesInitializer {}
 

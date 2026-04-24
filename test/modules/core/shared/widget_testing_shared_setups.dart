@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart' show NavigatorObserver, Locale;
 import 'package:mockito/annotations.dart';
-import 'package:tamyez_app/core/di/injectable_initializer.dart' show getIt;
+import 'package:tamyez_app/core/di/di.dart' show getIt;
 import 'package:tamyez_app/core/layers/localization/enums/languages_enum.dart'
     show LanguagesEnum, LanguagesEnumExtension;
 import 'package:tamyez_app/core/layers/localization/l10n/generated/app_localizations.dart'

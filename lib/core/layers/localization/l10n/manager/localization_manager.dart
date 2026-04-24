@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart' show ChangeNotifier, Locale;
 import 'package:injectable/injectable.dart' show Named, singleton;
 
-import '../../../../api/error/api_error_handler.dart';
-import '../../../../di/injectable_initializer.dart' show getIt;
+import '../../../../di/di.dart' show getIt;
+import '../../../../network/error/api_error_handler.dart' show ApiErrorHandler;
 import '../../../../validation/validation_functions.dart';
 import '../../../storage/constants/storage_constants.dart';
 import '../../../storage/contracts/storage_service_contract.dart';
