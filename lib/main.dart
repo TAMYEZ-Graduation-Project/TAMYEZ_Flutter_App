@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart'
     show MultiProvider, ChangeNotifierProvider, Consumer2;
 
+import 'core/di/di.dart';
 import 'core/functions/has_google_services.dart';
 import 'core/layers/localization/l10n/generated/app_localizations.dart'
     show AppLocalizations;
@@ -19,7 +20,6 @@ import 'core/layers/theme/manager/theme_manager.dart' show ThemeManager;
 import 'core/routing/routing_provider.dart';
 import 'core/screen/custom_breakpoints.dart' show CustomBreakpoints;
 import 'core/utils/awesome_notification/awesome_notification_service.dart';
-import 'core/utils/di/di_init.dart';
 import 'core/utils/firebase/messaging/firebase_cloud_messaging_service.dart';
 import 'firebase_options.dart';
 import 'modules/splash/splash_screen.dart';
@@ -29,7 +29,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: 'config/.env');
   await configureDependencies();
-
   runApp(
     DevicePreview(
       enabled: false,

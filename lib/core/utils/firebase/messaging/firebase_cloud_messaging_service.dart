@@ -1,7 +1,7 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../functions/safe_print.dart';
 import '../../awesome_notification/awesome_notification_service.dart';
 
 @lazySingleton
@@ -18,25 +18,25 @@ class FirebaseCloudMessagingService {
     // request permission from user
     final NotificationSettings notificationSettings = await _firebaseMessaging
         .requestPermission();
-    debugPrint(
+    safePrint(
       'Notification Authorization Status: ${notificationSettings.authorizationStatus}',
     );
     if (notificationSettings.authorizationStatus ==
         AuthorizationStatus.authorized) {
       // get token for this device
       final fcmToken = await _firebaseMessaging.getToken();
-      debugPrint('======> Token:$fcmToken');
+      safePrint('======> Token:$fcmToken');
       _firebaseMessaging.onTokenRefresh
           .listen((newFcmToken) {
-            debugPrint('======> Refreshed Token:$newFcmToken');
+            safePrint('======> Refreshed Token:$newFcmToken');
           })
           .onError((Object error) {
-            debugPrint('Error Refreshing Token: $error');
+            safePrint('Error Refreshing Token: $error');
           });
       // init setup for handling push notifications
       _initPushNotifications();
     } else {
-      debugPrint(
+      safePrint(
         'Notification Authorization Status: ${notificationSettings.authorizationStatus}',
       );
     }
@@ -44,7 +44,7 @@ class FirebaseCloudMessagingService {
 
   // received messages handling function
   Future<void> handleMessage(RemoteMessage? message) async {
-    debugPrint('current state ========>');
+    safePrint('current state ========>');
     if (message == null) return;
     // Navigate to a new screen
   }
@@ -66,7 +66,7 @@ class FirebaseCloudMessagingService {
 
   /// Handles messages received while the app is in the foreground
   Future<void> _onForegroundMessage(RemoteMessage message) async {
-    debugPrint('Foreground message received: ${message.data}');
+    safePrint('Foreground message received: ${message.data}');
     final notificationData = message.notification;
     if (notificationData != null) {
       // Display a local notification using the service
@@ -81,6 +81,6 @@ class FirebaseCloudMessagingService {
 
 @pragma('vm:entry-point')
 Future<void> backgroundMessageHandler(RemoteMessage message) async {
-  debugPrint('Background Handler');
+  safePrint('Background Handler');
   // Handle the message
 }

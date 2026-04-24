@@ -45,8 +45,8 @@ extension GetItInjectableX on _i174.GetIt {
   }) async {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final dbInitializer = _$DbInitializer();
-    final dioService = _$DioService();
     final storagesInitializer = _$StoragesInitializer();
+    final dioService = _$DioService();
     final localeInitializer = _$LocaleInitializer();
     final themeInitializer = _$ThemeInitializer();
     final appLocalizationRegister = _$AppLocalizationRegister();
@@ -57,10 +57,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i243.AwesomeNotificationService>(
       () => _i243.AwesomeNotificationService(),
     );
-    gh.lazySingleton<_i361.Dio>(() => dioService.getInstance());
     gh.lazySingleton<_i558.FlutterSecureStorage>(
       () => storagesInitializer.initFlutterSecureStorage(),
     );
+    gh.lazySingleton<_i361.Dio>(() => dioService.getInstance());
     gh.factory<_i150.EmailRepository>(
       () => _i948.EmailRepositoryImp(gh<_i214.Isar>()),
     );
@@ -105,11 +105,11 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i990.InitialTheme>(instanceName: 'InitialCurrentTheme'),
       ),
     );
-    gh.lazySingleton<_i367.ApiErrorHandler>(
-      () => _i367.ApiErrorHandler(gh<_i58.AppLocalizations>()),
-    );
     gh.lazySingleton<_i166.ValidateFunctions>(
       () => _i166.ValidateFunctions(gh<_i58.AppLocalizations>()),
+    );
+    gh.lazySingleton<_i367.ApiErrorHandler>(
+      () => _i367.ApiErrorHandler(gh<_i58.AppLocalizations>()),
     );
     return this;
   }
@@ -117,9 +117,9 @@ extension GetItInjectableX on _i174.GetIt {
 
 class _$DbInitializer extends _i1006.DbInitializer {}
 
-class _$DioService extends _i530.DioService {}
-
 class _$StoragesInitializer extends _i272.StoragesInitializer {}
+
+class _$DioService extends _i530.DioService {}
 
 class _$LocaleInitializer extends _i806.LocaleInitializer {}
 

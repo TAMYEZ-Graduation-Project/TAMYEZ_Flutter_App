@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import '../../../../core/bases/base_stateful_widget_state.dart';
-import '../../../../core/constants/asset_paths.dart';
-import '../../../../core/layers/theme/colors/app_colors.dart';
-import '../../../../core/widgets/custom_text_field.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+
+import '../../../../../core/bases/base_stateful_widget_state.dart';
+import '../../../../../core/constants/asset_paths.dart';
+import '../../../../../core/layers/theme/colors/app_colors.dart';
+import '../../../../../core/widgets/custom_text_field.dart'
+    show CustomTextField;
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -95,6 +98,17 @@ class _LoginScreenState extends BaseStatefulWidgetState<LoginScreen> {
                   style: typography.title,
                 ),
               ),
+              if (GoogleSignIn.instance.supportsAuthenticate())
+                ElevatedButton(
+                  onPressed: () async {
+                    try {
+                      await GoogleSignIn.instance.authenticate();
+                    } catch (e) {
+                      // ···
+                    }
+                  },
+                  child: const Text('SIGN IN'),
+                ),
               OutlinedButton(
                 onPressed: () {},
                 child: Row(

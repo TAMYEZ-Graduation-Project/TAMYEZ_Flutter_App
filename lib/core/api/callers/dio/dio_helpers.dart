@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart' show Dio, BaseOptions;
 
-import '../../../di/injectable_initializer.dart';
+import '../../../di/di.dart';
 import '../../endpoints/api_endpoints.dart';
 
 abstract class DioHelpers {
