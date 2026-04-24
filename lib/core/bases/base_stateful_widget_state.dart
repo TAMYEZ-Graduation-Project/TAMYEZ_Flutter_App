@@ -3,7 +3,7 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart'
 import 'package:flutter/material.dart';
 
 import '../../main.dart' show globalNavigatorKey;
-import '../di/injectable_initializer.dart' show getIt;
+import '../di/di.dart' show getIt;
 import '../layers/localization/l10n/generated/app_localizations.dart'
     show AppLocalizations;
 import '../layers/localization/l10n/manager/localization_manager.dart';
