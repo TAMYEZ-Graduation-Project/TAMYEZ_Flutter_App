@@ -9,11 +9,13 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:dio/dio.dart' as _i361;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i558;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:isar_community/isar.dart' as _i214;
 
+import '../auth/auth_provider.dart' as _i658;
 import '../layers/db/contracts/email_repository.dart' as _i150;
 import '../layers/db/implementation/email_repository_imp.dart' as _i948;
 import '../layers/db/initializer/db_initializer.dart' as _i1006;
@@ -28,8 +30,11 @@ import '../layers/storage/implementation/flutter_secure_storage_service_imp.dart
 import '../layers/storage/initializer/storage_initializer.dart' as _i272;
 import '../layers/theme/initializer/theme_initializer.dart' as _i990;
 import '../layers/theme/manager/theme_manager.dart' as _i701;
+import '../network/api_config/main_api_config.dart' as _i732;
 import '../network/dio/dio_factory.dart' as _i638;
+import '../network/dio/network_module.dart' as _i426;
 import '../network/error/api_error_handler.dart' as _i576;
+import '../network/interceptors/auth_interceptor.dart' as _i745;
 import '../utils/awesome_notification/awesome_notification_service.dart'
     as _i243;
 import '../utils/firebase/messaging/firebase_cloud_messaging_service.dart'
@@ -45,6 +50,7 @@ extension GetItInjectableX on _i174.GetIt {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final dbInitializer = _$DbInitializer();
     final storagesInitializer = _$StoragesInitializer();
+    final networkModule = _$NetworkModule();
     final localeInitializer = _$LocaleInitializer();
     final themeInitializer = _$ThemeInitializer();
     final appLocalizationRegister = _$AppLocalizationRegister();
@@ -53,11 +59,20 @@ extension GetItInjectableX on _i174.GetIt {
       () => dbInitializer.initIsar(),
       preResolve: true,
     );
+    gh.factory<_i732.MainApiConfig>(() => _i732.MainApiConfig());
     gh.lazySingleton<_i243.AwesomeNotificationService>(
       () => _i243.AwesomeNotificationService(),
     );
     gh.lazySingleton<_i558.FlutterSecureStorage>(
       () => storagesInitializer.initFlutterSecureStorage(),
+    );
+    gh.lazySingleton<_i658.AuthProvider>(() => _i658.AuthProvider());
+    gh.lazySingleton<_i361.Dio>(
+      () => networkModule.createMainDio(
+        gh<_i638.DioFactory>(),
+        gh<_i732.MainApiConfig>(),
+      ),
+      instanceName: 'mainDio',
     );
     gh.factory<_i150.EmailRepository>(
       () => _i948.EmailRepositoryImp(gh<_i214.Isar>()),
@@ -70,6 +85,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i1003.StorageService>(
       () => _i856.SecureStorageServiceImp(gh<_i558.FlutterSecureStorage>()),
       instanceName: 'secureStorage',
+    );
+    gh.lazySingleton<_i745.AuthInterceptor>(
+      () => _i745.AuthInterceptor(
+        gh<_i1003.StorageService>(instanceName: 'secureStorage'),
+        gh<_i658.AuthProvider>(),
+      ),
     );
     await gh.factoryAsync<String>(
       () => localeInitializer.initCurrentLocal(
@@ -116,6 +137,8 @@ extension GetItInjectableX on _i174.GetIt {
 class _$DbInitializer extends _i1006.DbInitializer {}
 
 class _$StoragesInitializer extends _i272.StoragesInitializer {}
+
+class _$NetworkModule extends _i426.NetworkModule {}
 
 class _$LocaleInitializer extends _i806.LocaleInitializer {}
 

@@ -2,13 +2,16 @@ abstract class DioNames {
   static const String mainDio = 'mainDio';
 }
 
-class DioHeaders {
+abstract class DioHeaders {
   static const authorization = 'Authorization';
   static const contentType = 'Content-Type';
-
-  static const accept = "Accept";
+  static const accept = 'Accept';
 }
 
-class DioContentType {
-  static const json = 'application/json';
+abstract class DioContentType {
+  static const String json = 'application/json';
+}
+
+abstract class DioKeys {
+  static const String requiresAuth = 'requiresAuth';
 }
