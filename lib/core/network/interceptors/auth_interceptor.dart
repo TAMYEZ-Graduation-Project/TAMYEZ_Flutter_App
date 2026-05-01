@@ -3,16 +3,18 @@ import 'package:injectable/injectable.dart';
 
 import '../../auth/auth_provider.dart';
 import '../../auth/auth_status.dart' show AuthStatus;
+import '../../auth/user_provider.dart';
 import '../../layers/storage/constants/storage_constants.dart';
 import '../../layers/storage/contracts/storage_service_contract.dart';
 import '../dio/dio_constants.dart';
 
 @lazySingleton
 class AuthInterceptor extends Interceptor {
-  final StorageService storageService;
+  final UserProvider userProvider;
   final AuthProvider authProvider;
+  final StorageService storageService;
 
-  AuthInterceptor(
+  AuthInterceptor(this.userProvider,
     @Named(StorageConstants.secureStorage) this.storageService,
     this.authProvider,
   );
@@ -23,12 +25,9 @@ class AuthInterceptor extends Interceptor {
     RequestInterceptorHandler handler,
   ) async {
     if (_requiresAuth(options)) {
-      final token = await storageService.getString(
-        StorageConstants.accessToken,
-      );
-
-      if (token != null) {
-        options.headers[DioHeaders.authorization] = 'Bearer $token';
+      if (userProvider.token != null) {
+        options.headers[DioHeaders.authorization] = userProvider.token
+            ?.toHeaderValue();
       }
     }
 
@@ -53,6 +52,7 @@ class AuthInterceptor extends Interceptor {
   }
 
   Future<void> _handleUnauthorized() async {
+    userProvider.clear();
     await storageService.deleteValue(StorageConstants.accessToken);
     authProvider.setAuthStatus(AuthStatus.tokenExpired, notify: true);
     ();
