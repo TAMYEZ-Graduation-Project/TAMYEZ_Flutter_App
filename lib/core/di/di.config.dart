@@ -16,10 +16,13 @@ import 'package:injectable/injectable.dart' as _i526;
 import 'package:isar_community/isar.dart' as _i214;
 
 import '../auth/auth_provider.dart' as _i658;
+import '../auth/data/service/session_service_imp.dart' as _i352;
+import '../auth/domain/service/session_storage_service.dart' as _i640;
+import '../auth/user_provider.dart' as _i1;
+import '../bootstrap/app_initializer.dart' as _i4;
 import '../layers/db/contracts/email_repository.dart' as _i150;
 import '../layers/db/implementation/email_repository_imp.dart' as _i948;
 import '../layers/db/initializer/db_initializer.dart' as _i1006;
-import '../layers/localization/initializer/locale_initializer.dart' as _i806;
 import '../layers/localization/l10n/generated/app_localizations.dart' as _i58;
 import '../layers/localization/l10n/manager/localization_manager.dart' as _i362;
 import '../layers/localization/l10n/register/app_localization_register.dart'
@@ -28,7 +31,6 @@ import '../layers/storage/contracts/storage_service_contract.dart' as _i1003;
 import '../layers/storage/implementation/flutter_secure_storage_service_imp.dart'
     as _i856;
 import '../layers/storage/initializer/storage_initializer.dart' as _i272;
-import '../layers/theme/initializer/theme_initializer.dart' as _i990;
 import '../layers/theme/manager/theme_manager.dart' as _i701;
 import '../network/api_config/main_api_config.dart' as _i732;
 import '../network/dio/dio_factory.dart' as _i638;
@@ -50,10 +52,8 @@ extension GetItInjectableX on _i174.GetIt {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final dbInitializer = _$DbInitializer();
     final storagesInitializer = _$StoragesInitializer();
-    final networkModule = _$NetworkModule();
-    final localeInitializer = _$LocaleInitializer();
-    final themeInitializer = _$ThemeInitializer();
     final appLocalizationRegister = _$AppLocalizationRegister();
+    final networkModule = _$NetworkModule();
     gh.factory<_i638.DioFactory>(() => _i638.DioFactory());
     await gh.factoryAsync<_i214.Isar>(
       () => dbInitializer.initIsar(),
@@ -67,12 +67,25 @@ extension GetItInjectableX on _i174.GetIt {
       () => storagesInitializer.initFlutterSecureStorage(),
     );
     gh.lazySingleton<_i658.AuthProvider>(() => _i658.AuthProvider());
+    gh.lazySingleton<_i1.UserProvider>(() => _i1.UserProvider());
+    await gh.factoryAsync<_i58.AppLocalizations>(
+      () => appLocalizationRegister.register(
+        gh<String>(instanceName: 'initCurrentLocal'),
+      ),
+      preResolve: true,
+    );
     gh.lazySingleton<_i361.Dio>(
       () => networkModule.createMainDio(
         gh<_i638.DioFactory>(),
         gh<_i732.MainApiConfig>(),
       ),
       instanceName: 'mainDio',
+    );
+    gh.lazySingleton<_i576.ApiErrorHandler>(
+      () => _i576.ApiErrorHandler(gh<_i58.AppLocalizations>()),
+    );
+    gh.lazySingleton<_i166.ValidateFunctions>(
+      () => _i166.ValidateFunctions(gh<_i58.AppLocalizations>()),
     );
     gh.factory<_i150.EmailRepository>(
       () => _i948.EmailRepositoryImp(gh<_i214.Isar>()),
@@ -88,47 +101,37 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i745.AuthInterceptor>(
       () => _i745.AuthInterceptor(
+        gh<_i1.UserProvider>(),
         gh<_i1003.StorageService>(instanceName: 'secureStorage'),
         gh<_i658.AuthProvider>(),
       ),
     );
-    await gh.factoryAsync<String>(
-      () => localeInitializer.initCurrentLocal(
+    gh.lazySingleton<_i640.SessionStorageService>(
+      () => _i352.SessionStorageServiceImp(
         gh<_i1003.StorageService>(instanceName: 'secureStorage'),
-      ),
-      instanceName: 'initCurrentLocal',
-      preResolve: true,
-    );
-    await gh.factoryAsync<_i990.InitialTheme>(
-      () => themeInitializer.getInitCurrentTheme(
-        gh<_i1003.StorageService>(instanceName: 'secureStorage'),
-      ),
-      instanceName: 'InitialCurrentTheme',
-      preResolve: true,
-    );
-    await gh.factoryAsync<_i58.AppLocalizations>(
-      () => appLocalizationRegister.register(
-        gh<String>(instanceName: 'initCurrentLocal'),
-      ),
-      preResolve: true,
-    );
-    gh.singleton<_i362.LocalizationManager>(
-      () => _i362.LocalizationManager(
-        gh<_i1003.StorageService>(instanceName: 'secureStorage'),
-        gh<String>(instanceName: 'initCurrentLocal'),
       ),
     );
     gh.singleton<_i701.ThemeManager>(
       () => _i701.ThemeManager(
         gh<_i1003.StorageService>(instanceName: 'secureStorage'),
-        gh<_i990.InitialTheme>(instanceName: 'InitialCurrentTheme'),
       ),
     );
-    gh.lazySingleton<_i576.ApiErrorHandler>(
-      () => _i576.ApiErrorHandler(gh<_i58.AppLocalizations>()),
+    gh.singleton<_i362.LocalizationManager>(
+      () => _i362.LocalizationManager(
+        gh<_i1003.StorageService>(instanceName: 'secureStorage'),
+      ),
     );
-    gh.lazySingleton<_i166.ValidateFunctions>(
-      () => _i166.ValidateFunctions(gh<_i58.AppLocalizations>()),
+    gh.lazySingleton<_i4.AppInitializer>(
+      () => _i4.AppInitializer(
+        gh<_i1003.StorageService>(instanceName: 'secureStorage'),
+        gh<_i640.SessionStorageService>(),
+        gh<_i362.LocalizationManager>(),
+        gh<_i701.ThemeManager>(),
+        gh<_i1.UserProvider>(),
+        gh<_i658.AuthProvider>(),
+        gh<_i243.AwesomeNotificationService>(),
+        gh<_i760.FirebaseCloudMessagingService>(),
+      ),
     );
     return this;
   }
@@ -138,10 +141,6 @@ class _$DbInitializer extends _i1006.DbInitializer {}
 
 class _$StoragesInitializer extends _i272.StoragesInitializer {}
 
-class _$NetworkModule extends _i426.NetworkModule {}
-
-class _$LocaleInitializer extends _i806.LocaleInitializer {}
-
-class _$ThemeInitializer extends _i990.ThemeInitializer {}
-
 class _$AppLocalizationRegister extends _i555.AppLocalizationRegister {}
+
+class _$NetworkModule extends _i426.NetworkModule {}

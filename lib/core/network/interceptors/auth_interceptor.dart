@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../auth/auth_provider.dart';
-import '../../auth/auth_status.dart' show AuthStatus;
+import '../../auth/domain/entities/auth_status.dart' show AuthStatus;
 import '../../auth/user_provider.dart';
 import '../../layers/storage/constants/storage_constants.dart';
 import '../../layers/storage/contracts/storage_service_contract.dart';

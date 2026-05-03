@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:device_preview/device_preview.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' show dotenv;
 import 'package:google_fonts/google_fonts.dart';
@@ -9,7 +8,8 @@ import 'package:provider/provider.dart'
     show MultiProvider, ChangeNotifierProvider, Consumer2;
 
 import 'core/auth/auth_provider.dart';
-import 'core/auth/auth_status.dart';
+import 'core/auth/domain/entities/auth_status.dart';
+import 'core/bootstrap/app_initializer.dart';
 import 'core/di/di.dart';
 import 'core/functions/has_google_services.dart';
 import 'core/layers/localization/l10n/generated/app_localizations.dart'
@@ -22,10 +22,7 @@ import 'core/layers/theme/manager/theme_manager.dart' show ThemeManager;
 import 'core/routing/defined_routes.dart';
 import 'core/routing/routing_provider.dart';
 import 'core/screen/custom_breakpoints.dart' show CustomBreakpoints;
-import 'core/utils/awesome_notification/awesome_notification_service.dart';
 import 'core/utils/dialogs/app_dialogs.dart';
-import 'core/utils/firebase/messaging/firebase_cloud_messaging_service.dart';
-import 'firebase_options.dart';
 import 'modules/splash/splash_screen.dart';
 
 GlobalKey<NavigatorState> globalNavigatorKey = GlobalKey<NavigatorState>();
@@ -33,6 +30,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: 'config/.env');
   await configureDependencies();
+
+  final appInitializer = getIt.get<AppInitializer>();
+  await appInitializer.initializeEssential();
 
   runApp(
     DevicePreview(
@@ -43,10 +43,12 @@ void main() async {
     ),
   );
 
-  Future.delayed(Duration.zero, () async {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
+  Future.microtask(() async {
+    await appInitializer.initializeLight();
+  });
+
+  WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+    appInitializer.initializeHeavy();
     if (Platform.isAndroid && !(await hasGoogleServices())) {
       showDialog<AlertDialog>(
         context: globalNavigatorKey.currentContext!,
@@ -75,9 +77,6 @@ void main() async {
           );
         },
       );
-    } else {
-      await getIt.get<AwesomeNotificationService>().initInstance;
-      await getIt.get<FirebaseCloudMessagingService>().initNotifications();
     }
   });
 }

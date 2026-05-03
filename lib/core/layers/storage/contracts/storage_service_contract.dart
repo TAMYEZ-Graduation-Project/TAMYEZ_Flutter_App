@@ -1,13 +1,13 @@
 abstract interface class StorageService {
-  void setInt(String key, int value);
+  Future<void> setInt(String key, int value);
 
-  void setDouble(String key, double value);
+  Future<void> setDouble(String key, double value);
 
-  void setBool(String key, bool value);
+  Future<void> setBool(String key, bool value);
 
-  void setString(String key, String value);
+  Future<void> setString(String key, String value);
 
-  void setStringList(String key, List<String> value);
+  Future<void> setStringList(String key, List<String> value);
 
   Future<int?> getInt(String key);
 

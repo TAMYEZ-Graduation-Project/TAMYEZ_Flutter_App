@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart' show lazySingleton;
 
-import 'user_entity.dart';
+import 'domain/entities/auth_token.dart' show AuthToken;
+import 'domain/entities/user_entity.dart';
 
 @lazySingleton
 class UserProvider {
@@ -19,27 +20,5 @@ class UserProvider {
   void clear() {
     _user = null;
     _token = null;
-  }
-}
-
-enum UserRole { user, admin, superAdmin, guest }
-
-class AuthToken {
-  final String value;
-  final UserRole role;
-
-  AuthToken({required this.value, required this.role});
-
-  String toHeaderValue() {
-    switch (role) {
-      case UserRole.admin:
-        return 'Admin $value';
-      case UserRole.user:
-        return 'Bearer $value';
-      case UserRole.guest:
-        return '';
-      case UserRole.superAdmin:
-        return 'SuperAdmin $value';
-    }
   }
 }

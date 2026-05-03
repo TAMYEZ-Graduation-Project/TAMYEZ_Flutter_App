@@ -6,22 +6,24 @@ import '../../../../network/error/api_error_handler.dart' show ApiErrorHandler;
 import '../../../../validation/validation_functions.dart';
 import '../../../storage/constants/storage_constants.dart';
 import '../../../storage/contracts/storage_service_contract.dart';
-import '../../constants/l10n_constants.dart';
 import '../../enums/languages_enum.dart';
 import '../generated/app_localizations.dart' show AppLocalizations;
 
 @singleton
 class LocalizationManager extends ChangeNotifier {
-  String _currentLocale;
+  late String _currentLocale;
   final StorageService _storageService;
 
   LocalizationManager(
     @Named(StorageConstants.secureStorage) this._storageService,
-    @Named(L10nConstants.initCurrentLocal) this._currentLocale,
   );
 
   String get currentLocale {
     return _currentLocale;
+  }
+
+  void setInitLocal(String initLocal) {
+    _currentLocale = initLocal;
   }
 
   Future<void> changeLocal(LanguagesEnum languageEnum) async {

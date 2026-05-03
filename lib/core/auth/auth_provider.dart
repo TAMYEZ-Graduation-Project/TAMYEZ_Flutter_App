@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart' show ChangeNotifier;
 import 'package:injectable/injectable.dart';
 
-import 'auth_status.dart' show AuthStatus;
+import 'domain/entities/auth_status.dart' show AuthStatus;
 
 @lazySingleton
 class AuthProvider extends ChangeNotifier {
