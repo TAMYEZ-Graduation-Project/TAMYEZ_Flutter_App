@@ -6,12 +6,13 @@ import '../../awesome_notification/awesome_notification_service.dart';
 
 @lazySingleton
 class FirebaseCloudMessagingService {
-  late final AwesomeNotificationService _awesomeNotificationService;
+  final AwesomeNotificationService _awesomeNotificationService;
+  final FirebaseMessaging _firebaseMessaging;
 
-  FirebaseCloudMessagingService(this._awesomeNotificationService);
-
-  // creating an instance from firebase messaging
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+  FirebaseCloudMessagingService(
+    this._awesomeNotificationService,
+    this._firebaseMessaging,
+  );
 
   // notifications initialization function
   Future<void> initNotifications() async {

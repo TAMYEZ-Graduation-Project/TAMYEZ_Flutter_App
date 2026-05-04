@@ -11,12 +11,12 @@ import '../generated/app_localizations.dart' show AppLocalizations;
 
 @singleton
 class LocalizationManager extends ChangeNotifier {
-  late String _currentLocale;
   final StorageService _storageService;
-
   LocalizationManager(
     @Named(StorageConstants.secureStorage) this._storageService,
   );
+
+  String _currentLocale = LanguagesEnum.en.getLanguageCode();
 
   String get currentLocale {
     return _currentLocale;
@@ -24,6 +24,7 @@ class LocalizationManager extends ChangeNotifier {
 
   void setInitLocal(String initLocal) {
     _currentLocale = initLocal;
+    notifyListeners();
   }
 
   Future<void> changeLocal(LanguagesEnum languageEnum) async {

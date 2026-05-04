@@ -1,10 +1,9 @@
 import 'dart:io' show Platform;
 import 'dart:ui' show Brightness;
 
-import 'package:firebase_core/firebase_core.dart' show Firebase;
+import 'package:flutter_dotenv/flutter_dotenv.dart' show dotenv;
 import 'package:injectable/injectable.dart' show lazySingleton, Named;
 
-import '../../firebase_options.dart' show DefaultFirebaseOptions;
 import '../auth/auth_provider.dart';
 import '../auth/domain/entities/auth_status.dart';
 import '../auth/domain/service/session_storage_service.dart';
@@ -48,8 +47,9 @@ class AppInitializer {
 
   /// Essential Initialization (BEFORE runApp)
   Future<void> initializeEssential() async {
-    final session = await _sessionStorage.restoreSession();
+    await dotenv.load(fileName: 'config/.env');
 
+    final session = await _sessionStorage.restoreSession();
     if (session != null) {
       _userProvider.setSession(user: session.user, token: session.token);
       _authProvider.setAuthStatus(AuthStatus.authenticated);
@@ -61,17 +61,14 @@ class AppInitializer {
 
   /// Light Background Tasks (after runApp)
   Future<void> initializeLight() async {
-    final savedTheme = await _storageService.getString(
-      StorageConstants.themeKey,
-    );
+    final [savedLocale, savedTheme] = await Future.wait([
+      _storageService.getString(StorageConstants.localeKey),
+      _storageService.getString(StorageConstants.themeKey),
+    ]);
     _themeManager.setInitTheme(
       savedTheme != null
           ? BrightnessEnumExtension.getBrightnessValue(savedTheme)
           : Brightness.light,
-    );
-
-    final savedLocale = await _storageService.getString(
-      StorageConstants.localeKey,
     );
     _localizationManager.setInitLocal(
       savedLocale ?? LanguagesEnum.en.getLanguageCode(),
@@ -80,9 +77,6 @@ class AppInitializer {
 
   /// Heavy Background Tasks (after first frame)
   Future<void> initializeHeavy() async {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
     if (Platform.isAndroid && (await hasGoogleServices())) {
       await _awesomeNotificationService.initInstance;
       await _firebaseCloudMessagingService.initNotifications();

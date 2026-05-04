@@ -10,6 +10,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:dio/dio.dart' as _i361;
+import 'package:firebase_messaging/firebase_messaging.dart' as _i892;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i558;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
@@ -41,6 +42,7 @@ import '../utils/awesome_notification/awesome_notification_service.dart'
     as _i243;
 import '../utils/firebase/messaging/firebase_cloud_messaging_service.dart'
     as _i760;
+import '../utils/firebase/messaging/firebase_messaging_module.dart' as _i109;
 import '../validation/validation_functions.dart' as _i166;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -50,11 +52,16 @@ extension GetItInjectableX on _i174.GetIt {
     _i526.EnvironmentFilter? environmentFilter,
   }) async {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
+    final appLocalizationRegister = _$AppLocalizationRegister();
     final dbInitializer = _$DbInitializer();
     final storagesInitializer = _$StoragesInitializer();
-    final appLocalizationRegister = _$AppLocalizationRegister();
+    final firebaseMessagingModule = _$FirebaseMessagingModule();
     final networkModule = _$NetworkModule();
     gh.factory<_i638.DioFactory>(() => _i638.DioFactory());
+    await gh.factoryAsync<_i58.AppLocalizations>(
+      () => appLocalizationRegister.register(),
+      preResolve: true,
+    );
     await gh.factoryAsync<_i214.Isar>(
       () => dbInitializer.initIsar(),
       preResolve: true,
@@ -68,11 +75,14 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i658.AuthProvider>(() => _i658.AuthProvider());
     gh.lazySingleton<_i1.UserProvider>(() => _i1.UserProvider());
-    await gh.factoryAsync<_i58.AppLocalizations>(
-      () => appLocalizationRegister.register(
-        gh<String>(instanceName: 'initCurrentLocal'),
+    gh.lazySingleton<_i892.FirebaseMessaging>(
+      () => firebaseMessagingModule.create(),
+    );
+    gh.lazySingleton<_i760.FirebaseCloudMessagingService>(
+      () => _i760.FirebaseCloudMessagingService(
+        gh<_i243.AwesomeNotificationService>(),
+        gh<_i892.FirebaseMessaging>(),
       ),
-      preResolve: true,
     );
     gh.lazySingleton<_i361.Dio>(
       () => networkModule.createMainDio(
@@ -89,11 +99,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i150.EmailRepository>(
       () => _i948.EmailRepositoryImp(gh<_i214.Isar>()),
-    );
-    gh.lazySingleton<_i760.FirebaseCloudMessagingService>(
-      () => _i760.FirebaseCloudMessagingService(
-        gh<_i243.AwesomeNotificationService>(),
-      ),
     );
     gh.lazySingleton<_i1003.StorageService>(
       () => _i856.SecureStorageServiceImp(gh<_i558.FlutterSecureStorage>()),
@@ -137,10 +142,12 @@ extension GetItInjectableX on _i174.GetIt {
   }
 }
 
+class _$AppLocalizationRegister extends _i555.AppLocalizationRegister {}
+
 class _$DbInitializer extends _i1006.DbInitializer {}
 
 class _$StoragesInitializer extends _i272.StoragesInitializer {}
 
-class _$AppLocalizationRegister extends _i555.AppLocalizationRegister {}
+class _$FirebaseMessagingModule extends _i109.FirebaseMessagingModule {}
 
 class _$NetworkModule extends _i426.NetworkModule {}

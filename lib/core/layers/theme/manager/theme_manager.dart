@@ -8,9 +8,9 @@ import '../extensions/brightness_enum_extension.dart';
 @singleton
 class ThemeManager extends ChangeNotifier {
   final StorageService _storageService;
-  late Brightness _currentTheme;
-
   ThemeManager(@Named(StorageConstants.secureStorage) this._storageService);
+
+  Brightness _currentTheme = Brightness.light;
 
   Brightness get currentTheme {
     return _currentTheme;
@@ -18,6 +18,7 @@ class ThemeManager extends ChangeNotifier {
 
   void setInitTheme(Brightness initTheme) {
     _currentTheme = initTheme;
+    notifyListeners();
   }
 
   void changeTheme(Brightness newTheme) {

@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:device_preview/device_preview.dart';
+import 'package:firebase_core/firebase_core.dart' show Firebase;
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart' show dotenv;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart'
     show MultiProvider, ChangeNotifierProvider, Consumer2;
@@ -23,14 +23,20 @@ import 'core/routing/defined_routes.dart';
 import 'core/routing/routing_provider.dart';
 import 'core/screen/custom_breakpoints.dart' show CustomBreakpoints;
 import 'core/utils/dialogs/app_dialogs.dart';
+import 'firebase_options.dart' show DefaultFirebaseOptions;
 import 'modules/splash/splash_screen.dart';
 
 GlobalKey<NavigatorState> globalNavigatorKey = GlobalKey<NavigatorState>();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load(fileName: 'config/.env');
+
+  // Framework / platform initialization
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  // Dependency Injection
   await configureDependencies();
 
+  // App-level initialization (session, theme, locale...)
   final appInitializer = getIt.get<AppInitializer>();
   await appInitializer.initializeEssential();
 
@@ -43,10 +49,10 @@ void main() async {
     ),
   );
 
+  // Post-startup init
   Future.microtask(() async {
     await appInitializer.initializeLight();
   });
-
   WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
     appInitializer.initializeHeavy();
     if (Platform.isAndroid && !(await hasGoogleServices())) {
