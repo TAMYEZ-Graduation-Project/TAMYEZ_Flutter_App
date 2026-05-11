@@ -21,6 +21,7 @@ import '../auth/data/service/session_service_imp.dart' as _i352;
 import '../auth/domain/service/session_storage_service.dart' as _i640;
 import '../auth/user_provider.dart' as _i1;
 import '../bootstrap/app_initializer.dart' as _i4;
+import '../error/exceptions/exceptions_mapper.dart' as _i800;
 import '../layers/db/contracts/email_repository.dart' as _i150;
 import '../layers/db/implementation/email_repository_imp.dart' as _i948;
 import '../layers/db/initializer/db_initializer.dart' as _i1006;
@@ -36,7 +37,6 @@ import '../layers/theme/manager/theme_manager.dart' as _i701;
 import '../network/api_config/main_api_config.dart' as _i732;
 import '../network/dio/dio_factory.dart' as _i638;
 import '../network/dio/network_module.dart' as _i426;
-import '../network/error/api_error_handler.dart' as _i576;
 import '../network/interceptors/auth_interceptor.dart' as _i745;
 import '../utils/awesome_notification/awesome_notification_service.dart'
     as _i243;
@@ -78,6 +78,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i892.FirebaseMessaging>(
       () => firebaseMessagingModule.create(),
     );
+    gh.lazySingleton<_i800.ExceptionHandling>(() => _i800.ExceptionHandling());
     gh.lazySingleton<_i760.FirebaseCloudMessagingService>(
       () => _i760.FirebaseCloudMessagingService(
         gh<_i243.AwesomeNotificationService>(),
@@ -90,9 +91,6 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i732.MainApiConfig>(),
       ),
       instanceName: 'mainDio',
-    );
-    gh.lazySingleton<_i576.ApiErrorHandler>(
-      () => _i576.ApiErrorHandler(gh<_i58.AppLocalizations>()),
     );
     gh.lazySingleton<_i166.ValidateFunctions>(
       () => _i166.ValidateFunctions(gh<_i58.AppLocalizations>()),

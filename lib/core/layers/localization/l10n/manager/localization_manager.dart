@@ -2,7 +2,8 @@ import 'package:flutter/material.dart' show ChangeNotifier, Locale;
 import 'package:injectable/injectable.dart' show Named, singleton;
 
 import '../../../../di/di.dart' show getIt;
-import '../../../../network/error/api_error_handler.dart' show ApiErrorHandler;
+import '../../../../network/error/api_error_handler.dart'
+    show ExceptionHandling;
 import '../../../../validation/validation_functions.dart';
 import '../../../storage/constants/storage_constants.dart';
 import '../../../storage/contracts/storage_service_contract.dart';
@@ -37,7 +38,7 @@ class LocalizationManager extends ChangeNotifier {
     }
     getIt.registerSingleton<AppLocalizations>(appLocalization);
     getIt.get<ValidateFunctions>().appLocalizations = appLocalization;
-    getIt.get<ApiErrorHandler>().appLocalizations = appLocalization;
+    getIt.get<ExceptionHandling>().appLocalizations = appLocalization;
     _saveLocal(languageEnum.getLanguageCode());
     notifyListeners();
   }
