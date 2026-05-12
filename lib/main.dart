@@ -11,7 +11,6 @@ import 'core/auth/auth_provider.dart';
 import 'core/auth/domain/entities/auth_status.dart';
 import 'core/bootstrap/app_initializer.dart';
 import 'core/di/di.dart';
-import 'core/functions/has_google_services.dart';
 import 'core/layers/localization/l10n/generated/app_localizations.dart'
     show AppLocalizations;
 import 'core/layers/localization/l10n/manager/localization_manager.dart'
@@ -19,14 +18,16 @@ import 'core/layers/localization/l10n/manager/localization_manager.dart'
 import 'core/layers/theme/extensions/app_typography.dart' show AppTypography;
 import 'core/layers/theme/factory/app_theme_factory.dart';
 import 'core/layers/theme/manager/theme_manager.dart' show ThemeManager;
-import 'core/routing/defined_routes.dart';
-import 'core/routing/routing_provider.dart';
-import 'core/screen/custom_breakpoints.dart' show CustomBreakpoints;
-import 'core/utils/dialogs/app_dialogs.dart';
+import 'core/presentation/routing/defined_routes.dart' show DefinedRoutes;
+import 'core/presentation/routing/navigator_key.dart' show globalNavigatorKey;
+import 'core/presentation/routing/routing_provider.dart' show RoutingProvider;
+import 'core/presentation/screen/custom_breakpoints.dart'
+    show CustomBreakpoints;
+import 'core/presentation/utils/dialogs/app_dialogs.dart' show AppDialogs;
+import 'core/utils/functions/has_google_services.dart' show hasGoogleServices;
 import 'firebase_options.dart' show DefaultFirebaseOptions;
 import 'modules/splash/splash_screen.dart';
 
-GlobalKey<NavigatorState> globalNavigatorKey = GlobalKey<NavigatorState>();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 

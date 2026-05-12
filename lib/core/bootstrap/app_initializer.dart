@@ -8,7 +8,6 @@ import '../auth/auth_provider.dart';
 import '../auth/domain/entities/auth_status.dart';
 import '../auth/domain/service/session_storage_service.dart';
 import '../auth/user_provider.dart';
-import '../functions/has_google_services.dart' show hasGoogleServices;
 import '../layers/localization/enums/languages_enum.dart'
     show LanguagesEnum, LanguagesEnumExtension;
 import '../layers/localization/l10n/manager/localization_manager.dart';
@@ -16,10 +15,11 @@ import '../layers/storage/constants/storage_constants.dart';
 import '../layers/storage/contracts/storage_service_contract.dart';
 import '../layers/theme/extensions/brightness_enum_extension.dart';
 import '../layers/theme/manager/theme_manager.dart';
-import '../utils/awesome_notification/awesome_notification_service.dart'
+import '../presentation/utils/awesome_notification/awesome_notification_service.dart'
     show AwesomeNotificationService;
-import '../utils/firebase/messaging/firebase_cloud_messaging_service.dart'
+import '../presentation/utils/firebase/messaging/firebase_cloud_messaging_service.dart'
     show FirebaseCloudMessagingService;
+import '../utils/functions/has_google_services.dart';
 
 @lazySingleton
 class AppInitializer {

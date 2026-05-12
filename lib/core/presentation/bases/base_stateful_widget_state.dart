@@ -2,13 +2,11 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart'
     show AwesomeSnackbarContent, ContentType;
 import 'package:flutter/material.dart';
 
-import '../../main.dart' show globalNavigatorKey;
-import '../di/di.dart' show getIt;
-import '../layers/localization/l10n/generated/app_localizations.dart'
-    show AppLocalizations;
-import '../layers/localization/l10n/manager/localization_manager.dart';
-import '../layers/theme/extensions/app_typography.dart' show AppTypography;
-import '../validation/validation_functions.dart';
+import '../../di/di.dart';
+import '../../layers/localization/l10n/manager/localization_manager.dart'
+    show LocalizationManager;
+import '../../layers/theme/extensions/app_typography.dart' show AppTypography;
+import '../routing/navigator_key.dart' show globalNavigatorKey;
 
 typedef VoidFunction = void Function()?;
 
@@ -18,8 +16,6 @@ abstract class BaseStatefulWidgetState<T extends StatefulWidget>
   late AppTypography typography;
   late Size screenSize;
   late LocalizationManager localizationManager;
-  late AppLocalizations appLocalizations;
-  late ValidateFunctions validateFunctions;
 
   // This will always point to the correct context
   @override
@@ -29,8 +25,6 @@ abstract class BaseStatefulWidgetState<T extends StatefulWidget>
     typography = theme.extension<AppTypography>() ?? AppTypography.mobileBase;
     screenSize = MediaQuery.sizeOf(context);
     localizationManager = getIt.get<LocalizationManager>();
-    appLocalizations = getIt.get<AppLocalizations>();
-    validateFunctions = getIt.get<ValidateFunctions>();
   }
 
   // Current fresh context with runtime check

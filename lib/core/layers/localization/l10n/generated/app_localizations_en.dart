@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -21,7 +22,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get receiveTimeout => 'Receive timeout in connection with server ⏰';
 
   @override
-  String get cancel => 'Request to server was cancelled ✖';
+  String get requestCancelled => 'Request to server was cancelled ✖';
+
+  @override
+  String get sessionExpired => 'Session expired, please login again 🔑';
+
+  @override
+  String get localSaveFailed => 'Failed to save data locally 💾';
 
   @override
   String get connectionError => 'No Internet connection 😑';
@@ -46,6 +53,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get validationFunctions____________ => '\$\$\$ Comment \$\$\$';
 
   @override
+  String get fieldRequired => 'This field is required.';
+
+  @override
   String get pleaseEnterName => 'Please enter your name.';
 
   @override
@@ -54,6 +64,12 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get userNameLength =>
       'Username must be between 3 and 16 characters long.';
+
+  @override
+  String get userNameTooShort => 'Username must be at least 3 characters long.';
+
+  @override
+  String get userNameTooLong => 'Username cannot exceed 16 characters.';
 
   @override
   String get userNameRules =>

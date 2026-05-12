@@ -1,6 +1,5 @@
 class ApiErrorModel {
   ApiErrorModel({required this.error});
-
   final String? error;
 
   factory ApiErrorModel.fromJson(Map<String, dynamic> json) {

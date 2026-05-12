@@ -1,14 +1,9 @@
-import 'package:flutter/material.dart' show ChangeNotifier, Locale;
+import 'package:flutter/material.dart' show ChangeNotifier;
 import 'package:injectable/injectable.dart' show Named, singleton;
 
-import '../../../../di/di.dart' show getIt;
-import '../../../../network/error/api_error_handler.dart'
-    show ExceptionHandling;
-import '../../../../validation/validation_functions.dart';
 import '../../../storage/constants/storage_constants.dart';
 import '../../../storage/contracts/storage_service_contract.dart';
 import '../../enums/languages_enum.dart';
-import '../generated/app_localizations.dart' show AppLocalizations;
 
 @singleton
 class LocalizationManager extends ChangeNotifier {
@@ -30,15 +25,6 @@ class LocalizationManager extends ChangeNotifier {
 
   Future<void> changeLocal(LanguagesEnum languageEnum) async {
     _currentLocale = languageEnum.getLanguageCode();
-    final appLocalization = await AppLocalizations.delegate.load(
-      Locale(languageEnum.getLanguageCode()),
-    );
-    if (getIt.isRegistered<AppLocalizations>()) {
-      await getIt.unregister<AppLocalizations>();
-    }
-    getIt.registerSingleton<AppLocalizations>(appLocalization);
-    getIt.get<ValidateFunctions>().appLocalizations = appLocalization;
-    getIt.get<ExceptionHandling>().appLocalizations = appLocalization;
     _saveLocal(languageEnum.getLanguageCode());
     notifyListeners();
   }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../modules/auth/screens/login/login_screen.dart';
-import '../../modules/home/home_screen.dart';
-import '../../modules/onboarding/onboarding_screen.dart';
-import '../../modules/splash/splash_screen.dart';
+import '../../../modules/auth/screens/login/login_screen.dart';
+import '../../../modules/home/home_screen.dart' show HomeScreen;
+import '../../../modules/onboarding/onboarding_screen.dart';
+import '../../../modules/splash/splash_screen.dart' show SplashScreen;
 import 'defined_routes.dart';
 import 'page_transitions.dart';
 

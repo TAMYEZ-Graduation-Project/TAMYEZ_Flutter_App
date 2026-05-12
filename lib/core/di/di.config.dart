@@ -21,7 +21,6 @@ import '../auth/data/service/session_service_imp.dart' as _i352;
 import '../auth/domain/service/session_storage_service.dart' as _i640;
 import '../auth/user_provider.dart' as _i1;
 import '../bootstrap/app_initializer.dart' as _i4;
-import '../error/exceptions/exceptions_mapper.dart' as _i800;
 import '../layers/db/contracts/email_repository.dart' as _i150;
 import '../layers/db/implementation/email_repository_imp.dart' as _i948;
 import '../layers/db/initializer/db_initializer.dart' as _i1006;
@@ -38,12 +37,13 @@ import '../network/api_config/main_api_config.dart' as _i732;
 import '../network/dio/dio_factory.dart' as _i638;
 import '../network/dio/network_module.dart' as _i426;
 import '../network/interceptors/auth_interceptor.dart' as _i745;
-import '../utils/awesome_notification/awesome_notification_service.dart'
-    as _i243;
-import '../utils/firebase/messaging/firebase_cloud_messaging_service.dart'
-    as _i760;
-import '../utils/firebase/messaging/firebase_messaging_module.dart' as _i109;
-import '../validation/validation_functions.dart' as _i166;
+import '../presentation/error/failure_message_mapper.dart' as _i1019;
+import '../presentation/utils/awesome_notification/awesome_notification_service.dart'
+    as _i230;
+import '../presentation/utils/firebase/messaging/firebase_cloud_messaging_service.dart'
+    as _i510;
+import '../presentation/utils/firebase/messaging/firebase_messaging_module.dart'
+    as _i829;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -67,23 +67,17 @@ extension GetItInjectableX on _i174.GetIt {
       preResolve: true,
     );
     gh.factory<_i732.MainApiConfig>(() => _i732.MainApiConfig());
-    gh.lazySingleton<_i243.AwesomeNotificationService>(
-      () => _i243.AwesomeNotificationService(),
-    );
     gh.lazySingleton<_i558.FlutterSecureStorage>(
       () => storagesInitializer.initFlutterSecureStorage(),
     );
     gh.lazySingleton<_i658.AuthProvider>(() => _i658.AuthProvider());
     gh.lazySingleton<_i1.UserProvider>(() => _i1.UserProvider());
+    gh.lazySingleton<_i1019.FailureHandling>(() => _i1019.FailureHandling());
     gh.lazySingleton<_i892.FirebaseMessaging>(
       () => firebaseMessagingModule.create(),
     );
-    gh.lazySingleton<_i800.ExceptionHandling>(() => _i800.ExceptionHandling());
-    gh.lazySingleton<_i760.FirebaseCloudMessagingService>(
-      () => _i760.FirebaseCloudMessagingService(
-        gh<_i243.AwesomeNotificationService>(),
-        gh<_i892.FirebaseMessaging>(),
-      ),
+    gh.lazySingleton<_i230.AwesomeNotificationService>(
+      () => _i230.AwesomeNotificationService(),
     );
     gh.lazySingleton<_i361.Dio>(
       () => networkModule.createMainDio(
@@ -92,11 +86,14 @@ extension GetItInjectableX on _i174.GetIt {
       ),
       instanceName: 'mainDio',
     );
-    gh.lazySingleton<_i166.ValidateFunctions>(
-      () => _i166.ValidateFunctions(gh<_i58.AppLocalizations>()),
-    );
     gh.factory<_i150.EmailRepository>(
       () => _i948.EmailRepositoryImp(gh<_i214.Isar>()),
+    );
+    gh.lazySingleton<_i510.FirebaseCloudMessagingService>(
+      () => _i510.FirebaseCloudMessagingService(
+        gh<_i230.AwesomeNotificationService>(),
+        gh<_i892.FirebaseMessaging>(),
+      ),
     );
     gh.lazySingleton<_i1003.StorageService>(
       () => _i856.SecureStorageServiceImp(gh<_i558.FlutterSecureStorage>()),
@@ -132,8 +129,8 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i701.ThemeManager>(),
         gh<_i1.UserProvider>(),
         gh<_i658.AuthProvider>(),
-        gh<_i243.AwesomeNotificationService>(),
-        gh<_i760.FirebaseCloudMessagingService>(),
+        gh<_i230.AwesomeNotificationService>(),
+        gh<_i510.FirebaseCloudMessagingService>(),
       ),
     );
     return this;
@@ -146,6 +143,6 @@ class _$DbInitializer extends _i1006.DbInitializer {}
 
 class _$StoragesInitializer extends _i272.StoragesInitializer {}
 
-class _$FirebaseMessagingModule extends _i109.FirebaseMessagingModule {}
+class _$FirebaseMessagingModule extends _i829.FirebaseMessagingModule {}
 
 class _$NetworkModule extends _i426.NetworkModule {}

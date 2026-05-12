@@ -34,8 +34,9 @@ class RequestCancelledFailure extends NetworkFailure {
 // =================================
 class ServerFailure extends Failure {
   final int? statusCode;
+  final String? serverMessage;
 
-  const ServerFailure({this.statusCode});
+  const ServerFailure({this.statusCode, this.serverMessage});
 }
 
 class BadRequestFailure extends Failure {

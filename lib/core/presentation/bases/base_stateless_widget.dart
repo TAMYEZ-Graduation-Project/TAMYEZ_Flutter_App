@@ -2,14 +2,12 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart'
     show ContentType, AwesomeSnackbarContent;
 import 'package:flutter/material.dart';
 
-import '../../main.dart';
-import '../di/di.dart' show getIt;
-import '../layers/localization/l10n/generated/app_localizations.dart'
-    show AppLocalizations;
-import '../layers/localization/l10n/manager/localization_manager.dart'
+import '../../di/di.dart' show getIt;
+import '../../layers/localization/l10n/manager/localization_manager.dart'
     show LocalizationManager;
-import '../layers/theme/extensions/app_typography.dart' show AppTypography;
-import '../layers/theme/manager/theme_manager.dart';
+import '../../layers/theme/extensions/app_typography.dart' show AppTypography;
+import '../../layers/theme/manager/theme_manager.dart' show ThemeManager;
+import '../routing/navigator_key.dart' show globalNavigatorKey;
 
 abstract class BaseStatelessWidget extends StatelessWidget {
   const BaseStatelessWidget({super.key});
@@ -20,7 +18,6 @@ abstract class BaseStatelessWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final d = CommonDependency(
-      getIt.get<AppLocalizations>(),
       getIt.get<LocalizationManager>(),
       getIt.get<ThemeManager>(),
       theme,
@@ -32,7 +29,6 @@ abstract class BaseStatelessWidget extends StatelessWidget {
 }
 
 class CommonDependency {
-  AppLocalizations appLocalizations;
   ThemeData theme;
   LocalizationManager localizationManager;
   ThemeManager themeManager;
@@ -40,7 +36,6 @@ class CommonDependency {
   Size screenSize;
 
   CommonDependency(
-    this.appLocalizations,
     this.localizationManager,
     this.themeManager,
     this.theme,

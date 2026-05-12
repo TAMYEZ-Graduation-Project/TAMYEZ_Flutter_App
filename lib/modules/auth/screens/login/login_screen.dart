@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/bases/base_stateful_widget_state.dart';
+import '../../../../core/presentation/bases/base_stateful_widget_state.dart'
+    show BaseStatefulWidgetState;
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
