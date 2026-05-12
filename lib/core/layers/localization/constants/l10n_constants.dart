@@ -1,2 +1,1 @@
-abstract class L10nConstants {
-}
+abstract class L10nConstants {}

@@ -14,14 +14,13 @@ void main() {
   group('Test Splash Screen widget', () {
     final WidgetTestingSharedSetups sharedSetups = WidgetTestingSharedSetups();
 
-
     setUp(() async {
       await sharedSetups.sharedSetup();
     });
 
     tearDown(() async {
       await getIt.reset();
-    },);
+    });
 
     group('Test widget existence in the screen', () {
       testWidgets(

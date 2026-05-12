@@ -14,7 +14,8 @@ class AuthInterceptor extends Interceptor {
   final AuthProvider authProvider;
   final StorageService storageService;
 
-  AuthInterceptor(this.userProvider,
+  AuthInterceptor(
+    this.userProvider,
     @Named(StorageConstants.secureStorage) this.storageService,
     this.authProvider,
   );
