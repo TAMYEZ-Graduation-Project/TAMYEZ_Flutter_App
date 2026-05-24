@@ -2,14 +2,17 @@ import 'package:fit_ui/fit_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../core/bases/base_stateful_widget_state.dart';
+import '../../../../core/presentation/bases/base_stateful_widget_state.dart'
+    show BaseStatefulWidgetState;
 import '../../core/constants/asset_paths.dart';
 import '../../core/layers/theme/colors/app_colors.dart';
 import '../../core/layers/theme/extensions/app_typography.dart';
 import '../../core/layers/theme/factory/app_theme_factory.dart'
     show AppThemeFactory;
-import '../../core/routing/defined_routes.dart' show DefinedRoutes;
-import '../../core/screen/custom_breakpoints.dart' show CustomBreakpoints;
+import '../../core/presentation/extension/context_extension.dart';
+import '../../core/presentation/routing/defined_routes.dart' show DefinedRoutes;
+import '../../core/presentation/screen/custom_breakpoints.dart'
+    show CustomBreakpoints;
 import 'constants/splash_screen_constants.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -98,7 +101,7 @@ class _SplashScreenState extends BaseStatefulWidgetState<SplashScreen>
                               ),
                             ),
                             Text(
-                              appLocalizations.welcomeToTamyez,
+                              context.appLocalizations.welcomeToTamyez,
                               style: typography.hero.copyWith(
                                 fontWeight: FontWeight.w400,
                                 color:
@@ -122,7 +125,9 @@ class _SplashScreenState extends BaseStatefulWidgetState<SplashScreen>
                               ),
                             ),
                             Text(
-                              appLocalizations.discoverStrengthAndPathMessage,
+                              context
+                                  .appLocalizations
+                                  .discoverStrengthAndPathMessage,
                               style: Theme.of(
                                 context,
                               ).extension<AppTypography>()?.body,

@@ -9,6 +9,9 @@ abstract class StorageConstants {
   static const String intermediate = '67c797e226895f87ce0aa94c';
   static const String advance = '67c797e226895f87ce0aa94e';
 
+  static const String accessToken = 'accessToken';
+  static const String sessionKey = 'SessionKey';
+
   static String errorStoringMessage(String error) {
     return 'Error Storing Value: $error';
   }

@@ -68,6 +68,12 @@ class MockLocalizationManager extends _i1.Mock
           as bool);
 
   @override
+  void setInitLocal(String? initLocal) => super.noSuchMethod(
+    Invocation.method(#setInitLocal, [initLocal]),
+    returnValueForMissingStub: null,
+  );
+
+  @override
   _i4.Future<void> changeLocal(_i5.LanguagesEnum? languageEnum) =>
       (super.noSuchMethod(
             Invocation.method(#changeLocal, [languageEnum]),
@@ -131,6 +137,12 @@ class MockThemeManager extends _i1.Mock implements _i7.ThemeManager {
             returnValueForMissingStub: false,
           )
           as bool);
+
+  @override
+  void setInitTheme(_i6.Brightness? initTheme) => super.noSuchMethod(
+    Invocation.method(#setInitTheme, [initTheme]),
+    returnValueForMissingStub: null,
+  );
 
   @override
   void changeTheme(_i6.Brightness? newTheme) => super.noSuchMethod(

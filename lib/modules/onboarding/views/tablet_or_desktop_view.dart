@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/bases/base_stateless_widget.dart';
 import '../../../core/constants/asset_paths.dart' show AssetPaths;
 import '../../../core/layers/theme/colors/app_colors.dart' show AppColors;
-import '../../../core/routing/defined_routes.dart' show DefinedRoutes;
+import '../../../core/presentation/bases/base_stateless_widget.dart'
+    show BaseStatelessWidget;
+import '../../../core/presentation/extension/context_extension.dart'
+    show ContextExtension;
+import '../../../core/presentation/routing/defined_routes.dart'
+    show DefinedRoutes;
 import '../constants/onboarding_screen_constants.dart'
     show OnboardingScreenConstants;
 import '../widget/choose_language_widget.dart';
@@ -64,7 +68,7 @@ class TabletOrDesktopView extends BaseStatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Text(
-                          d.appLocalizations.discoverYourTruePotential,
+                          context.appLocalizations.discoverYourTruePotential,
                           style: d.typography.title.copyWith(fontSize: 16),
                           textAlign: TextAlign.center,
                         ),
@@ -78,11 +82,11 @@ class TabletOrDesktopView extends BaseStatelessWidget {
                               children: [
                                 TextSpan(
                                   text:
-                                      '${d.appLocalizations.chooseYourLanguage}\n',
+                                      '${context.appLocalizations.chooseYourLanguage}\n',
                                   style: d.typography.title,
                                 ),
                                 TextSpan(
-                                  text: d
+                                  text: context
                                       .appLocalizations
                                       .selectYourPreferredLanguage,
                                   style: d.typography.subTitle,
@@ -101,7 +105,7 @@ class TabletOrDesktopView extends BaseStatelessWidget {
                               DefinedRoutes.loginRoute,
                             );
                           },
-                          child: Text(d.appLocalizations.continueWord),
+                          child: Text(context.appLocalizations.continueWord),
                         ),
                       ],
                     ),

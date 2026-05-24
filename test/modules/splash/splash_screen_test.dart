@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:tamyez_app/core/routing/defined_routes.dart';
+import 'package:tamyez_app/core/di/di.dart';
+import 'package:tamyez_app/core/presentation/routing/defined_routes.dart'
+    show DefinedRoutes;
 import 'package:tamyez_app/modules/splash/constants/splash_screen_constants.dart';
 import 'package:tamyez_app/modules/splash/splash_screen.dart' show SplashScreen;
 
@@ -12,12 +14,12 @@ void main() {
   group('Test Splash Screen widget', () {
     final WidgetTestingSharedSetups sharedSetups = WidgetTestingSharedSetups();
 
-    setUpAll(() async {
-      await sharedSetups.sharedSetupAll();
-    });
-
     setUp(() async {
       await sharedSetups.sharedSetup();
+    });
+
+    tearDown(() async {
+      await getIt.reset();
     });
 
     group('Test widget existence in the screen', () {

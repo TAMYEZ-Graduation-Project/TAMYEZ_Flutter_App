@@ -1,14 +1,16 @@
 import 'dart:io';
 
 import 'package:device_preview/device_preview.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_core/firebase_core.dart' show Firebase;
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart' show dotenv;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart'
     show MultiProvider, ChangeNotifierProvider, Consumer2;
 
-import 'core/functions/has_google_services.dart';
+import 'core/auth/auth_provider.dart';
+import 'core/auth/domain/entities/auth_status.dart';
+import 'core/bootstrap/app_initializer.dart';
+import 'core/di/di.dart';
 import 'core/layers/localization/l10n/generated/app_localizations.dart'
     show AppLocalizations;
 import 'core/layers/localization/l10n/manager/localization_manager.dart'
@@ -16,19 +18,28 @@ import 'core/layers/localization/l10n/manager/localization_manager.dart'
 import 'core/layers/theme/extensions/app_typography.dart' show AppTypography;
 import 'core/layers/theme/factory/app_theme_factory.dart';
 import 'core/layers/theme/manager/theme_manager.dart' show ThemeManager;
-import 'core/routing/routing_provider.dart';
-import 'core/screen/custom_breakpoints.dart' show CustomBreakpoints;
-import 'core/utils/awesome_notification/awesome_notification_service.dart';
-import 'core/utils/di/di_init.dart';
-import 'core/utils/firebase/messaging/firebase_cloud_messaging_service.dart';
-import 'firebase_options.dart';
+import 'core/presentation/routing/defined_routes.dart' show DefinedRoutes;
+import 'core/presentation/routing/navigator_key.dart' show globalNavigatorKey;
+import 'core/presentation/routing/routing_provider.dart' show RoutingProvider;
+import 'core/presentation/screen/custom_breakpoints.dart'
+    show CustomBreakpoints;
+import 'core/presentation/utils/dialogs/app_dialogs.dart' show AppDialogs;
+import 'core/utils/functions/has_google_services.dart' show hasGoogleServices;
+import 'firebase_options.dart' show DefaultFirebaseOptions;
 import 'modules/splash/splash_screen.dart';
 
-GlobalKey<NavigatorState> globalNavigatorKey = GlobalKey<NavigatorState>();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load(fileName: 'config/.env');
+
+  // Framework / platform initialization
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  // Dependency Injection
   await configureDependencies();
+
+  // App-level initialization (session, theme, locale...)
+  final appInitializer = getIt.get<AppInitializer>();
+  await appInitializer.initializeEssential();
 
   runApp(
     DevicePreview(
@@ -39,10 +50,12 @@ void main() async {
     ),
   );
 
-  Future.delayed(Duration.zero, () async {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
+  // Post-startup init
+  Future.microtask(() async {
+    await appInitializer.initializeLight();
+  });
+  WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+    appInitializer.initializeHeavy();
     if (Platform.isAndroid && !(await hasGoogleServices())) {
       showDialog<AlertDialog>(
         context: globalNavigatorKey.currentContext!,
@@ -71,15 +84,48 @@ void main() async {
           );
         },
       );
-    } else {
-      await getIt.get<AwesomeNotificationService>().initInstance;
-      await getIt.get<FirebaseCloudMessagingService>().initNotifications();
     }
   });
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  late AuthProvider authProvider;
+
+  @override
+  void initState() {
+    super.initState();
+    authProvider = getIt.get<AuthProvider>();
+    authProvider.addListener(_onAuthStateChanged);
+  }
+
+  void _onAuthStateChanged() {
+    switch (authProvider.authStatus) {
+      case AuthStatus.tokenExpired:
+        AppDialogs.defaultDialog(
+          context,
+          title: 'Token Expired!',
+          content: 'Please, re-login again',
+          firstButtonText: 'Go to Login',
+          dismissible: false,
+          firstButtonAction: () {
+            Navigator.of(context).pushNamedAndRemoveUntil(
+              DefinedRoutes.loginRoute,
+              (route) => false,
+            );
+          },
+        );
+        break;
+      default:
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -113,5 +159,11 @@ class MyApp extends StatelessWidget {
         },
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    authProvider.removeListener(_onAuthStateChanged);
+    super.dispose();
   }
 }
