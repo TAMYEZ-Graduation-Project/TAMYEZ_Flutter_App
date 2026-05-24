@@ -11,11 +11,12 @@ import 'package:tamyez_app/core/layers/theme/factory/app_theme_factory.dart'
     show AppThemeFactory;
 import 'package:tamyez_app/core/layers/theme/manager/theme_manager.dart'
     show ThemeManager;
-import 'package:tamyez_app/core/routing/routing_provider.dart'
+import 'package:tamyez_app/core/presentation/routing/navigator_key.dart'
+    show globalNavigatorKey;
+import 'package:tamyez_app/core/presentation/routing/routing_provider.dart'
     show RoutingProvider;
-import 'package:tamyez_app/core/screen/custom_breakpoints.dart'
+import 'package:tamyez_app/core/presentation/screen/custom_breakpoints.dart'
     show CustomBreakpoints;
-import 'package:tamyez_app/main.dart' show globalNavigatorKey;
 
 Widget buildWidget({
   required Widget home,

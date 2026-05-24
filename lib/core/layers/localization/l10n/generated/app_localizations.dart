@@ -122,11 +122,23 @@ abstract class AppLocalizations {
   /// **'Receive timeout in connection with server ⏰'**
   String get receiveTimeout;
 
-  /// No description provided for @cancel.
+  /// No description provided for @requestCancelled.
   ///
   /// In en, this message translates to:
   /// **'Request to server was cancelled ✖'**
-  String get cancel;
+  String get requestCancelled;
+
+  /// No description provided for @sessionExpired.
+  ///
+  /// In en, this message translates to:
+  /// **'Session expired, please login again 🔑'**
+  String get sessionExpired;
+
+  /// No description provided for @localSaveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to save data locally 💾'**
+  String get localSaveFailed;
 
   /// No description provided for @connectionError.
   ///
@@ -170,6 +182,12 @@ abstract class AppLocalizations {
   /// **'\$\$\$ Comment \$\$\$'**
   String get validationFunctions____________;
 
+  /// No description provided for @fieldRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'This field is required.'**
+  String get fieldRequired;
+
   /// No description provided for @pleaseEnterName.
   ///
   /// In en, this message translates to:
@@ -187,6 +205,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Username must be between 3 and 16 characters long.'**
   String get userNameLength;
+
+  /// No description provided for @userNameTooShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Username must be at least 3 characters long.'**
+  String get userNameTooShort;
+
+  /// No description provided for @userNameTooLong.
+  ///
+  /// In en, this message translates to:
+  /// **'Username cannot exceed 16 characters.'**
+  String get userNameTooLong;
 
   /// No description provided for @userNameRules.
   ///

@@ -1,5 +1,7 @@
-import 'package:flutter/material.dart' show NavigatorObserver, Locale;
+import 'package:flutter/material.dart'
+    show NavigatorObserver, Locale, Brightness;
 import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 import 'package:tamyez_app/core/di/di.dart' show getIt;
 import 'package:tamyez_app/core/layers/localization/enums/languages_enum.dart'
     show LanguagesEnum, LanguagesEnumExtension;
@@ -9,8 +11,6 @@ import 'package:tamyez_app/core/layers/localization/l10n/manager/localization_ma
     show LocalizationManager;
 import 'package:tamyez_app/core/layers/theme/manager/theme_manager.dart'
     show ThemeManager;
-import 'package:tamyez_app/core/validation/validation_functions.dart'
-    show ValidateFunctions;
 
 import 'widget_testing_shared_setups.mocks.dart';
 
@@ -29,28 +29,25 @@ class WidgetTestingSharedSetups {
   /// you must call sharedSetupAll and sharedSetup in there correct places \n
   WidgetTestingSharedSetups();
 
-  Future<void> sharedSetupAll() async {
+  Future<void> sharedSetup() async {
     mockNavigatorObserver = MockNavigatorObserver();
     appLocalizations = await AppLocalizations.delegate.load(
       Locale(LanguagesEnum.en.getLanguageCode()),
     );
-    getIt
-      ..registerSingleton<AppLocalizations>(appLocalizations)
-      ..registerSingleton<ValidateFunctions>(
-        ValidateFunctions(appLocalizations),
-      );
-  }
-
-  Future<void> sharedSetup() async {
     mockLocalizationManager = MockLocalizationManager();
     if (getIt.isRegistered<LocalizationManager>()) {
       await getIt.unregister<LocalizationManager>();
     }
+    when(
+      mockLocalizationManager.currentLocale,
+    ).thenReturn(LanguagesEnum.en.getLanguageCode());
     getIt.registerSingleton<LocalizationManager>(mockLocalizationManager);
+
     mockThemeManager = MockThemeManager();
     if (getIt.isRegistered<ThemeManager>()) {
       await getIt.unregister<ThemeManager>();
     }
     getIt.registerSingleton<ThemeManager>(mockThemeManager);
+    when(mockThemeManager.currentTheme).thenReturn(Brightness.light);
   }
 }

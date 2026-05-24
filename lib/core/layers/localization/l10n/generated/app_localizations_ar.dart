@@ -21,7 +21,14 @@ class AppLocalizationsAr extends AppLocalizations {
   String get receiveTimeout => 'انتهت مهلة الاستلام في الاتصال بالخادم ⏰';
 
   @override
-  String get cancel => 'تم إلغاء الطلب إلى الخادم ✖';
+  String get requestCancelled => 'تم إلغاء الطلب إلى الخادم ✖';
+
+  @override
+  String get sessionExpired =>
+      'انتهت صلاحية الجلسة، يرجى تسجيل الدخول مرة أخرى 🔑';
+
+  @override
+  String get localSaveFailed => 'فشل حفظ البيانات محلياً 💾';
 
   @override
   String get connectionError => 'لا يوجد اتصال بالإنترنت 😑';
@@ -45,6 +52,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get validationFunctions____________ => '\$\$\$ تعليق \$\$\$';
 
   @override
+  String get fieldRequired => 'هذا الحقل مطلوب.';
+
+  @override
   String get pleaseEnterName => 'الرجاء إدخال اسمك.';
 
   @override
@@ -52,6 +62,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get userNameLength => 'يجب أن يكون اسم المستخدم بين 3 و 16 حرفاً.';
+
+  @override
+  String get userNameTooShort => 'يجب أن يكون اسم المستخدم 3 أحرف على الأقل.';
+
+  @override
+  String get userNameTooLong => 'لا يمكن أن يتجاوز اسم المستخدم 16 حرفاً.';
 
   @override
   String get userNameRules =>

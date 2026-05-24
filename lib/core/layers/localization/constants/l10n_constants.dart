@@ -1,3 +1,1 @@
-abstract class L10nConstants {
-  static const String initCurrentLocal = 'initCurrentLocal';
-}
+abstract class L10nConstants {}

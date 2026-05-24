@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' show RichText, FilledButton, Text;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:tamyez_app/core/di/di.dart' show getIt;
 import 'package:tamyez_app/core/layers/localization/enums/languages_enum.dart';
-import 'package:tamyez_app/core/routing/defined_routes.dart';
+import 'package:tamyez_app/core/presentation/routing/defined_routes.dart'
+    show DefinedRoutes;
 import 'package:tamyez_app/modules/onboarding/constants/onboarding_screen_constants.dart'
     show OnboardingScreenConstants;
 import 'package:tamyez_app/modules/onboarding/onboarding_screen.dart';
@@ -19,12 +21,12 @@ void main() {
   group('Test OnboardingScreen widget', () {
     final WidgetTestingSharedSetups sharedSetups = WidgetTestingSharedSetups();
 
-    setUpAll(() async {
-      await sharedSetups.sharedSetupAll();
-    });
-
     setUp(() async {
       await sharedSetups.sharedSetup();
+    });
+
+    tearDown(() async {
+      await getIt.reset();
     });
 
     group('Test widgets existence in the screen', () {

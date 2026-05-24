@@ -1,40 +1,30 @@
-import 'package:flutter/material.dart' show ChangeNotifier, Locale;
+import 'package:flutter/material.dart' show ChangeNotifier;
 import 'package:injectable/injectable.dart' show Named, singleton;
 
-import '../../../../api/error/api_error_handler.dart' show ApiErrorHandler;
-import '../../../../di/di.dart' show getIt;
-import '../../../../validation/validation_functions.dart';
 import '../../../storage/constants/storage_constants.dart';
 import '../../../storage/contracts/storage_service_contract.dart';
-import '../../constants/l10n_constants.dart';
 import '../../enums/languages_enum.dart';
-import '../generated/app_localizations.dart' show AppLocalizations;
 
 @singleton
 class LocalizationManager extends ChangeNotifier {
-  String _currentLocale;
   final StorageService _storageService;
-
   LocalizationManager(
     @Named(StorageConstants.secureStorage) this._storageService,
-    @Named(L10nConstants.initCurrentLocal) this._currentLocale,
   );
+
+  String _currentLocale = LanguagesEnum.en.getLanguageCode();
 
   String get currentLocale {
     return _currentLocale;
   }
 
+  void setInitLocal(String initLocal) {
+    _currentLocale = initLocal;
+    notifyListeners();
+  }
+
   Future<void> changeLocal(LanguagesEnum languageEnum) async {
     _currentLocale = languageEnum.getLanguageCode();
-    final appLocalization = await AppLocalizations.delegate.load(
-      Locale(languageEnum.getLanguageCode()),
-    );
-    if (getIt.isRegistered<AppLocalizations>()) {
-      await getIt.unregister<AppLocalizations>();
-    }
-    getIt.registerSingleton<AppLocalizations>(appLocalization);
-    getIt.get<ValidateFunctions>().appLocalizations = appLocalization;
-    getIt.get<ApiErrorHandler>().appLocalizations = appLocalization;
     _saveLocal(languageEnum.getLanguageCode());
     notifyListeners();
   }
