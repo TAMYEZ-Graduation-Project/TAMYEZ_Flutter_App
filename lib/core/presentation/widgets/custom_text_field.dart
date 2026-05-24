@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-
+import '../../layers/theme/colors/app_colors.dart';
+import '../../validation/validation_error.dart';
 import '../bases/base_stateful_widget_state.dart';
-import '../layers/theme/colors/app_colors.dart';
+import '../validation/form_validator.dart';
 
 class CustomTextField extends StatefulWidget {
   const CustomTextField({
@@ -12,7 +13,7 @@ class CustomTextField extends StatefulWidget {
     this.isPassword = false,
     this.suffixIcon,
     this.prefixIcon,
-    this.validator,
+    this.validatingFunc,
     this.keyboardType,
     this.onChanged,
   });
@@ -23,7 +24,7 @@ class CustomTextField extends StatefulWidget {
   final bool obscureText;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
-  final String? Function(String?)? validator;
+  final ValidationError? Function(String?)? validatingFunc;
   final TextInputType? keyboardType;
   final void Function(String)? onChanged;
 
@@ -39,7 +40,9 @@ class _CustomTextFieldState extends BaseStatefulWidgetState<CustomTextField> {
     return TextFormField(
       controller: widget.controller,
       obscureText: widget.isPassword ? _obscureText : widget.obscureText,
-      validator: widget.validator,
+      validator: widget.validatingFunc != null
+          ? (value) => validateField(context, value, widget.validatingFunc!)
+          : null,
       keyboardType: widget.keyboardType,
       onChanged: widget.onChanged,
       onTapOutside: (_) => FocusManager.instance.primaryFocus?.unfocus(),

@@ -5,9 +5,10 @@ import 'validation_message_mapper.dart' show mapValidationErrorToMessage;
 
 String? validateField(
   BuildContext context,
-  ValidationError? Function() validate,
+  String? value,
+  ValidationError? Function(String? value) validate,
 ) {
-  final error = validate();
+  final error = validate(value);
   if (error == null) return null;
   return mapValidationErrorToMessage(context, error);
 }

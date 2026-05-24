@@ -1,7 +1,7 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../functions/safe_print.dart';
+import '../../../../utils/functions/safe_print.dart' show safePrint;
 import '../../awesome_notification/awesome_notification_service.dart';
 
 @lazySingleton

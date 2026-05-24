@@ -54,9 +54,10 @@ extension GetItInjectableX on _i174.GetIt {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final appLocalizationRegister = _$AppLocalizationRegister();
     final dbInitializer = _$DbInitializer();
-    final storagesInitializer = _$StoragesInitializer();
     final firebaseMessagingModule = _$FirebaseMessagingModule();
+    final storagesInitializer = _$StoragesInitializer();
     final networkModule = _$NetworkModule();
+    gh.factory<_i732.MainApiConfig>(() => _i732.MainApiConfig());
     gh.factory<_i638.DioFactory>(() => _i638.DioFactory());
     await gh.factoryAsync<_i58.AppLocalizations>(
       () => appLocalizationRegister.register(),
@@ -66,18 +67,17 @@ extension GetItInjectableX on _i174.GetIt {
       () => dbInitializer.initIsar(),
       preResolve: true,
     );
-    gh.factory<_i732.MainApiConfig>(() => _i732.MainApiConfig());
-    gh.lazySingleton<_i558.FlutterSecureStorage>(
-      () => storagesInitializer.initFlutterSecureStorage(),
-    );
-    gh.lazySingleton<_i658.AuthProvider>(() => _i658.AuthProvider());
     gh.lazySingleton<_i1.UserProvider>(() => _i1.UserProvider());
+    gh.lazySingleton<_i658.AuthProvider>(() => _i658.AuthProvider());
     gh.lazySingleton<_i1019.FailureHandling>(() => _i1019.FailureHandling());
     gh.lazySingleton<_i892.FirebaseMessaging>(
       () => firebaseMessagingModule.create(),
     );
     gh.lazySingleton<_i230.AwesomeNotificationService>(
       () => _i230.AwesomeNotificationService(),
+    );
+    gh.lazySingleton<_i558.FlutterSecureStorage>(
+      () => storagesInitializer.initFlutterSecureStorage(),
     );
     gh.lazySingleton<_i361.Dio>(
       () => networkModule.createMainDio(
@@ -141,8 +141,8 @@ class _$AppLocalizationRegister extends _i555.AppLocalizationRegister {}
 
 class _$DbInitializer extends _i1006.DbInitializer {}
 
-class _$StoragesInitializer extends _i272.StoragesInitializer {}
-
 class _$FirebaseMessagingModule extends _i829.FirebaseMessagingModule {}
+
+class _$StoragesInitializer extends _i272.StoragesInitializer {}
 
 class _$NetworkModule extends _i426.NetworkModule {}
