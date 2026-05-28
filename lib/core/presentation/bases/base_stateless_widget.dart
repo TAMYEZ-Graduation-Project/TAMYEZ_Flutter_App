@@ -3,6 +3,7 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart'
 import 'package:flutter/material.dart';
 
 import '../../di/di.dart' show getIt;
+import '../../layers/localization/l10n/generated/app_localizations.dart';
 import '../../layers/localization/l10n/manager/localization_manager.dart'
     show LocalizationManager;
 import '../../layers/theme/extensions/app_typography.dart' show AppTypography;
@@ -19,6 +20,7 @@ abstract class BaseStatelessWidget extends StatelessWidget {
     final theme = Theme.of(context);
     final d = CommonDependency(
       getIt.get<LocalizationManager>(),
+      AppLocalizations.of(context)!,
       getIt.get<ThemeManager>(),
       theme,
       MediaQuery.sizeOf(context),
@@ -30,6 +32,7 @@ abstract class BaseStatelessWidget extends StatelessWidget {
 
 class CommonDependency {
   ThemeData theme;
+  AppLocalizations appLocalizations;
   LocalizationManager localizationManager;
   ThemeManager themeManager;
   AppTypography typography;
@@ -37,6 +40,7 @@ class CommonDependency {
 
   CommonDependency(
     this.localizationManager,
+    this.appLocalizations,
     this.themeManager,
     this.theme,
     this.screenSize,

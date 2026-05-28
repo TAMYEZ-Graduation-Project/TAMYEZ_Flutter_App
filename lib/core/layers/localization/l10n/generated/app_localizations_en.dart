@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -37,7 +38,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get badCertificate =>
-      'The certificate provided by the server is not valid 📑';
+      'The certificate provided by the server is not valid 📜';
 
   @override
   String get somethingWentWrong => 'Something Went Wrong 🤔';
@@ -46,7 +47,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get badRequest => 'Bad request format 👎';
 
   @override
-  String get couldNotFindSource => 'Couldn\'t find the source 😱';
+  String get couldNotFindSource => 'Couldn\'t find the source 😲';
 
   @override
   String get validationFunctions____________ => '\$\$\$ Comment \$\$\$';
@@ -190,4 +191,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get signUp => 'Sign Up';
+
+  @override
+  String get loginSuccess => 'Login Success!';
+
+  @override
+  String get googleLoginFailed => 'Google login failed';
+
+  @override
+  String get googleLoginNotSupported => 'Google login is not supported';
 }

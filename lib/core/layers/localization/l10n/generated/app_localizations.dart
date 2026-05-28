@@ -155,7 +155,7 @@ abstract class AppLocalizations {
   /// No description provided for @badCertificate.
   ///
   /// In en, this message translates to:
-  /// **'The certificate provided by the server is not valid 📑'**
+  /// **'The certificate provided by the server is not valid 📜'**
   String get badCertificate;
 
   /// No description provided for @somethingWentWrong.
@@ -173,7 +173,7 @@ abstract class AppLocalizations {
   /// No description provided for @couldNotFindSource.
   ///
   /// In en, this message translates to:
-  /// **'Couldn\'t find the source 😱'**
+  /// **'Couldn\'t find the source 😲'**
   String get couldNotFindSource;
 
   /// No description provided for @validationFunctions____________.
@@ -445,6 +445,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Sign Up'**
   String get signUp;
+
+  /// No description provided for @loginSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Login Success!'**
+  String get loginSuccess;
+
+  /// No description provided for @googleLoginFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Google login failed'**
+  String get googleLoginFailed;
+
+  /// No description provided for @googleLoginNotSupported.
+  ///
+  /// In en, this message translates to:
+  /// **'Google login is not supported'**
+  String get googleLoginNotSupported;
 }
 
 class _AppLocalizationsDelegate

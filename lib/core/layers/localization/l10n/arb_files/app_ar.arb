@@ -57,5 +57,8 @@
   "orSignInWith": "أو تسجيل الدخول باستخدام",
   "google": "جوجل",
   "dontHaveAnAccount": "ليس لديك حساب؟ ",
-  "signUp": "إنشاء حساب"
+  "signUp": "إنشاء حساب",
+  "loginSuccess": "تم تسجيل الدخول بنجاح!",
+  "googleLoginFailed": "فشل تسجيل الدخول باستخدام جوجل",
+  "googleLoginNotSupported": "تسجيل الدخول باستخدام جوجل غير مدعوم"
 }

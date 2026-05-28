@@ -1,14 +1,9 @@
-import 'package:flutter/material.dart' show BuildContext;
-
+import '../../layers/localization/l10n/generated/app_localizations.dart';
 import '../../validation/validation_error.dart' show ValidationError;
-import '../extension/context_extension.dart';
 
-String mapValidationErrorToMessage(
-  BuildContext context,
+String mapValidationErrorToMessage(AppLocalizations l10n,
   ValidationError error,
 ) {
-  final l10n = context.appLocalizations;
-
   switch (error) {
     case ValidationError.emptyField:
       return l10n.fieldRequired;

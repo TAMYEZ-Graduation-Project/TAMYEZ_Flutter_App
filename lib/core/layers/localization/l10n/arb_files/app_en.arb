@@ -7,12 +7,12 @@
   "requestCancelled": "Request to server was cancelled ✖",
   "sessionExpired": "Session expired, please login again 🔑",
   "localSaveFailed": "Failed to save data locally 💾",
-  "connectionError": "No Internet connection \uD83D\uDE11",
-  "unknownError": "Something Went Wrong \uD83E\uDD14",
-  "badCertificate": "The certificate provided by the server is not valid \uD83D\uDCD1",
-  "somethingWentWrong": "Something Went Wrong \uD83E\uDD14",
-  "badRequest": "Bad request format \uD83D\uDC4E",
-  "couldNotFindSource": "Couldn't find the source \uD83D\uDE31",
+  "connectionError": "No Internet connection 😑",
+  "unknownError": "Something Went Wrong 🤔",
+  "badCertificate": "The certificate provided by the server is not valid 📜",
+  "somethingWentWrong": "Something Went Wrong 🤔",
+  "badRequest": "Bad request format 👎",
+  "couldNotFindSource": "Couldn't find the source 😲",
   "validationFunctions____________": "$$$ Comment $$$",
   "fieldRequired": "This field is required.",
   "pleaseEnterName": "Please enter your name.",
@@ -57,5 +57,8 @@
   "orSignInWith": "Or sign in with",
   "google": "Google",
   "dontHaveAnAccount": "Don't have an account? ",
-  "signUp": "Sign Up"
+  "signUp": "Sign Up",
+  "loginSuccess": "Login Success!",
+  "googleLoginFailed": "Google login failed",
+  "googleLoginNotSupported": "Google login is not supported"
 }

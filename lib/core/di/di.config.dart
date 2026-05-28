@@ -13,9 +13,21 @@ import 'package:dio/dio.dart' as _i361;
 import 'package:firebase_messaging/firebase_messaging.dart' as _i892;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i558;
 import 'package:get_it/get_it.dart' as _i174;
+import 'package:google_sign_in/google_sign_in.dart' as _i116;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:isar_community/isar.dart' as _i214;
 
+import '../../modules/auth/data/data_sources/remote/auth_di_module.dart'
+    as _i301;
+import '../../modules/auth/data/data_sources/remote/auth_remote_data_source.dart'
+    as _i911;
+import '../../modules/auth/data/data_sources/remote/auth_remote_data_source_imp.dart'
+    as _i5;
+import '../../modules/auth/data/repositories/auth_repo_imp.dart' as _i23;
+import '../../modules/auth/domain/repositories/auth_repository.dart' as _i779;
+import '../../modules/auth/domain/use_case/google_login_use_case.dart' as _i941;
+import '../../modules/auth/ui/screens/login/view_model/login_view_model.dart'
+    as _i1050;
 import '../auth/auth_provider.dart' as _i658;
 import '../auth/data/service/session_service_imp.dart' as _i352;
 import '../auth/domain/service/session_storage_service.dart' as _i640;
@@ -37,7 +49,6 @@ import '../network/api_config/main_api_config.dart' as _i732;
 import '../network/dio/dio_factory.dart' as _i638;
 import '../network/dio/network_module.dart' as _i426;
 import '../network/interceptors/auth_interceptor.dart' as _i745;
-import '../presentation/error/failure_message_mapper.dart' as _i1019;
 import '../presentation/utils/awesome_notification/awesome_notification_service.dart'
     as _i230;
 import '../presentation/utils/firebase/messaging/firebase_cloud_messaging_service.dart'
@@ -56,6 +67,7 @@ extension GetItInjectableX on _i174.GetIt {
     final dbInitializer = _$DbInitializer();
     final firebaseMessagingModule = _$FirebaseMessagingModule();
     final storagesInitializer = _$StoragesInitializer();
+    final authDiModule = _$AuthDiModule();
     final networkModule = _$NetworkModule();
     gh.factory<_i732.MainApiConfig>(() => _i732.MainApiConfig());
     gh.factory<_i638.DioFactory>(() => _i638.DioFactory());
@@ -69,7 +81,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i1.UserProvider>(() => _i1.UserProvider());
     gh.lazySingleton<_i658.AuthProvider>(() => _i658.AuthProvider());
-    gh.lazySingleton<_i1019.FailureHandling>(() => _i1019.FailureHandling());
     gh.lazySingleton<_i892.FirebaseMessaging>(
       () => firebaseMessagingModule.create(),
     );
@@ -78,6 +89,10 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i558.FlutterSecureStorage>(
       () => storagesInitializer.initFlutterSecureStorage(),
+    );
+    gh.lazySingleton<_i116.GoogleSignIn>(() => authDiModule.googleSignIn());
+    gh.factory<_i911.AuthRemoteDataSource>(
+      () => _i5.AuthRemoteDataSourceImp(gh<_i116.GoogleSignIn>()),
     );
     gh.lazySingleton<_i361.Dio>(
       () => networkModule.createMainDio(
@@ -99,6 +114,9 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i856.SecureStorageServiceImp(gh<_i558.FlutterSecureStorage>()),
       instanceName: 'secureStorage',
     );
+    gh.factory<_i779.AuthRepository>(
+      () => _i23.AuthRepoImp(gh<_i911.AuthRemoteDataSource>()),
+    );
     gh.lazySingleton<_i745.AuthInterceptor>(
       () => _i745.AuthInterceptor(
         gh<_i1.UserProvider>(),
@@ -110,6 +128,9 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i352.SessionStorageServiceImp(
         gh<_i1003.StorageService>(instanceName: 'secureStorage'),
       ),
+    );
+    gh.factory<_i941.GoogleLoginUseCase>(
+      () => _i941.GoogleLoginUseCase(gh<_i779.AuthRepository>()),
     );
     gh.singleton<_i701.ThemeManager>(
       () => _i701.ThemeManager(
@@ -133,6 +154,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i510.FirebaseCloudMessagingService>(),
       ),
     );
+    gh.factory<_i1050.LoginViewModel>(
+      () => _i1050.LoginViewModel(gh<_i941.GoogleLoginUseCase>()),
+    );
     return this;
   }
 }
@@ -144,5 +168,7 @@ class _$DbInitializer extends _i1006.DbInitializer {}
 class _$FirebaseMessagingModule extends _i829.FirebaseMessagingModule {}
 
 class _$StoragesInitializer extends _i272.StoragesInitializer {}
+
+class _$AuthDiModule extends _i301.AuthDiModule {}
 
 class _$NetworkModule extends _i426.NetworkModule {}

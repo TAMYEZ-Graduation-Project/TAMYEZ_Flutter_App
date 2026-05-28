@@ -72,6 +72,10 @@ android {
     }
 
     buildTypes {
+        getByName("debug") {
+            signingConfig = signingConfigs.getByName("release")
+
+        }
         getByName("release") {
             signingConfig = signingConfigs.getByName("release")
             // Uncomment if you want to enable ProGuard

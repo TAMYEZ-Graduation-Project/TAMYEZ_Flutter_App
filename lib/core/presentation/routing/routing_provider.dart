@@ -45,7 +45,6 @@ abstract class RoutingProvider {
             transitionsBuilder: PageTransitions.slideAndFade,
             settings: const RouteSettings(name: DefinedRoutes.homeRoute),
           );
-
         default:
           return _errorRoute();
       }

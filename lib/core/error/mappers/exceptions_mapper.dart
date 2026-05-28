@@ -26,6 +26,15 @@ abstract class ExceptionHandling {
           case CacheException():
             return const CacheFailure();
 
+          case GoogleLoginException():
+            return const GoogleLoginFailure();
+
+          case PlatformException():
+            switch (error) {
+              case GoogleLoginNotSupportedException():
+                return const GoogleLoginNotSupportedFailure();
+            }
+
           default:
             return const UnknownFailure();
         }

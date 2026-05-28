@@ -12,3 +12,9 @@ class NetworkException extends AppException {}
 class CacheException extends AppException {}
 
 class UnauthorizedException extends AppException {}
+
+class GoogleLoginException extends AppException {}
+
+sealed class PlatformException extends AppException {}
+
+class GoogleLoginNotSupportedException extends PlatformException {}
