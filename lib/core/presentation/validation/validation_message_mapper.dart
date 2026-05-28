@@ -1,7 +1,8 @@
 import '../../layers/localization/l10n/generated/app_localizations.dart';
 import '../../validation/validation_error.dart' show ValidationError;
 
-String mapValidationErrorToMessage(AppLocalizations l10n,
+String mapValidationErrorToMessage(
+  AppLocalizations l10n,
   ValidationError error,
 ) {
   switch (error) {

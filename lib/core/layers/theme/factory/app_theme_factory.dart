@@ -46,7 +46,7 @@ abstract class AppThemeFactory {
             borderRadius: BorderRadius.circular(20),
           ),
           textStyle: typography.button.copyWith(color: AppColors.light),
-            disabledBackgroundColor: AppColors.darkGray
+          disabledBackgroundColor: AppColors.darkGray,
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
@@ -58,7 +58,7 @@ abstract class AppThemeFactory {
             borderRadius: BorderRadius.circular(20),
           ),
           textStyle: typography.button.copyWith(color: AppColors.dark),
-            disabledForegroundColor: AppColors.darkGray
+          disabledForegroundColor: AppColors.darkGray,
         ),
       ),
       appBarTheme: AppBarTheme(

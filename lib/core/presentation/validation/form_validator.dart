@@ -3,7 +3,8 @@ import '../../layers/localization/l10n/generated/app_localizations.dart'
 import '../../validation/validation_error.dart' show ValidationError;
 import 'validation_message_mapper.dart' show mapValidationErrorToMessage;
 
-String? validateField(AppLocalizations l10n,
+String? validateField(
+  AppLocalizations l10n,
   String? value,
   ValidationError? Function(String? value) validate,
 ) {
