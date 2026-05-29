@@ -53,6 +53,7 @@
   "rememberMe": "تذكرني",
   "forgotPassword": "هل نسيت كلمة المرور؟",
   "resendVerificationEmail": "إعادة إرسال رسالة التحقق",
+  "error": "خطأ",
   "signIn": "تسجيل الدخول",
   "orSignInWith": "أو تسجيل الدخول باستخدام",
   "google": "جوجل",

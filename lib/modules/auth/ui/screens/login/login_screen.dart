@@ -40,7 +40,8 @@ class _LoginScreenState extends BaseStatefulWidgetState<LoginScreen> {
         case DisplayErrorEffect():
           displaySnackBar(
             contentType: ContentType.failure,
-            title: FailureHandling.mapFailureToMessage(
+            title: appLocalizations.error,
+            message: FailureHandling.mapFailureToMessage(
               appLocalizations,
               event.failure,
             ),

@@ -1,20 +1,35 @@
-sealed class AppException implements Exception {}
+sealed class AppException implements Exception {
+  final String? message;
+
+  const AppException({this.message});
+}
 
 class ServerException extends AppException {
   final int? statusCode;
-  final String? message; // raw backend message
 
-  ServerException({this.statusCode, this.message});
+  ServerException({this.statusCode, super.message});
 }
 
-class NetworkException extends AppException {}
+class NetworkException extends AppException {
+  const NetworkException({super.message});
+}
 
-class CacheException extends AppException {}
+class CacheException extends AppException {
+  const CacheException({super.message});
+}
 
-class UnauthorizedException extends AppException {}
+class UnauthorizedException extends AppException {
+  const UnauthorizedException({super.message});
+}
 
-class GoogleLoginException extends AppException {}
+class GoogleLoginException extends AppException {
+  const GoogleLoginException({super.message});
+}
 
-sealed class PlatformException extends AppException {}
+sealed class PlatformException extends AppException {
+  const PlatformException({super.message});
+}
 
-class GoogleLoginNotSupportedException extends PlatformException {}
+class GoogleLoginNotSupportedException extends PlatformException {
+  const GoogleLoginNotSupportedException({super.message});
+}

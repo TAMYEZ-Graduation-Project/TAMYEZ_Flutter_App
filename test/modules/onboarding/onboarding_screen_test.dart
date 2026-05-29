@@ -1,11 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' show RichText, FilledButton, Text;
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:tamyez_app/core/di/di.dart' show getIt;
 import 'package:tamyez_app/core/layers/localization/enums/languages_enum.dart';
 import 'package:tamyez_app/core/presentation/routing/defined_routes.dart'
     show DefinedRoutes;
+import 'package:tamyez_app/modules/auth/ui/screens/login/view_model/login_state.dart';
+import 'package:tamyez_app/modules/auth/ui/screens/login/view_model/login_view_model.dart';
 import 'package:tamyez_app/modules/onboarding/constants/onboarding_screen_constants.dart'
     show OnboardingScreenConstants;
 import 'package:tamyez_app/modules/onboarding/onboarding_screen.dart';
@@ -16,13 +19,20 @@ import 'package:tamyez_app/modules/splash/splash_screen.dart';
 import '../core/shared/build_widget.dart';
 import '../core/shared/widget_testing_shared_setups.dart'
     show WidgetTestingSharedSetups;
+import 'onboarding_screen_test.mocks.dart';
 
+@GenerateNiceMocks([MockSpec<LoginViewModel>()])
 void main() {
   group('Test OnboardingScreen widget', () {
     final WidgetTestingSharedSetups sharedSetups = WidgetTestingSharedSetups();
-
+    late MockLoginViewModel mockLoginViewModel;
     setUp(() async {
       await sharedSetups.sharedSetup();
+      if (getIt.isRegistered<LoginViewModel>()) {
+        getIt.unregister<LoginViewModel>();
+      }
+      mockLoginViewModel = MockLoginViewModel();
+      getIt.registerFactory<LoginViewModel>(() => mockLoginViewModel);
     });
 
     tearDown(() async {
@@ -140,6 +150,7 @@ void main() {
               navigatorObserver: sharedSetups.mockNavigatorObserver,
             ),
           );
+          when(mockLoginViewModel.state).thenReturn(const LoginState());
           await widgetTester.pump(const Duration(seconds: 3));
           await widgetTester.pump(const Duration(seconds: 1));
           await widgetTester.pump(const Duration(seconds: 1));

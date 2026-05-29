@@ -100,7 +100,7 @@ class TabletOrDesktopView extends BaseStatelessWidget {
                         SizedBox(height: constraints.maxHeight * (3 / 100)),
                         FilledButton(
                           onPressed: () {
-                            Navigator.pushNamed(
+                            Navigator.pushReplacementNamed(
                               context,
                               DefinedRoutes.loginRoute,
                             );

@@ -53,6 +53,7 @@
   "rememberMe": "Remember me",
   "forgotPassword": "Forgot Password?",
   "resendVerificationEmail": "Resend verification email",
+  "error": "Error",
   "signIn": "Sign in",
   "orSignInWith": "Or sign in with",
   "google": "Google",

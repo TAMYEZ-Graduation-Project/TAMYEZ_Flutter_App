@@ -1,3 +1,5 @@
+import 'dart:io' show Platform;
+
 import 'package:fit_ui/fit_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -5,14 +7,19 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../../core/presentation/bases/base_stateful_widget_state.dart'
     show BaseStatefulWidgetState;
 import '../../core/constants/asset_paths.dart';
+import '../../core/layers/localization/l10n/generated/app_localizations.dart'
+    show AppLocalizations;
 import '../../core/layers/theme/colors/app_colors.dart';
 import '../../core/layers/theme/extensions/app_typography.dart';
 import '../../core/layers/theme/factory/app_theme_factory.dart'
     show AppThemeFactory;
 import '../../core/presentation/extension/context_extension.dart';
 import '../../core/presentation/routing/defined_routes.dart' show DefinedRoutes;
+import '../../core/presentation/routing/navigator_key.dart';
 import '../../core/presentation/screen/custom_breakpoints.dart'
     show CustomBreakpoints;
+import '../../core/utils/functions/has_google_services.dart'
+    show hasGoogleServices;
 import 'constants/splash_screen_constants.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -39,9 +46,45 @@ class _SplashScreenState extends BaseStatefulWidgetState<SplashScreen>
     controller.forward().then((value) {
       Future.delayed(const Duration(seconds: 1), () async {
         if (!mounted) return;
-        await Navigator.pushNamed(context, DefinedRoutes.onboardingRoute);
+        Navigator.pushReplacementNamed(context, DefinedRoutes.onboardingRoute);
+        WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+          checkGooglePlayServices();
+        });
       });
     });
+  }
+
+  Future<void> checkGooglePlayServices() async {
+    if (Platform.isAndroid && !(await hasGoogleServices())) {
+      showDialog<AlertDialog>(
+        context: globalNavigatorKey.currentContext!,
+        barrierDismissible: false,
+        builder: (context) {
+          final appTypography = Theme.of(context).extension<AppTypography>()!;
+          final l10n = AppLocalizations.of(context)!;
+          return AlertDialog(
+            title: Text(
+              l10n.warning,
+              style: appTypography.title.copyWith(color: Colors.red),
+              textAlign: TextAlign.center,
+            ),
+            content: Text(
+              l10n.googlePlayServicesMissingMessage,
+              textAlign: TextAlign.center,
+              style: appTypography.title,
+            ),
+            actions: [
+              FilledButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text(l10n.ok, style: appTypography.button),
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 
   @override

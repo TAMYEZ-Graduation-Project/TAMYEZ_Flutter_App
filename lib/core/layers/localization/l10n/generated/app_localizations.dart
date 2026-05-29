@@ -416,6 +416,12 @@ abstract class AppLocalizations {
   /// **'Resend verification email'**
   String get resendVerificationEmail;
 
+  /// No description provided for @error.
+  ///
+  /// In en, this message translates to:
+  /// **'Error'**
+  String get error;
+
   /// No description provided for @signIn.
   ///
   /// In en, this message translates to:
