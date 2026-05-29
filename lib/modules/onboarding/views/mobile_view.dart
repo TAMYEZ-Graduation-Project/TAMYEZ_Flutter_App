@@ -79,7 +79,9 @@ class MobileView extends BaseStatelessWidget {
                     FilledButton(
                       onPressed: () async {
                         Navigator.pushReplacementNamed(
-                            context, DefinedRoutes.loginRoute);
+                          context,
+                          DefinedRoutes.loginRoute,
+                        );
                       },
                       child: Text(context.appLocalizations.continueWord),
                     ),
