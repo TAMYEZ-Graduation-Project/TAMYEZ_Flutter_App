@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../../modules/auth/ui/screens/login/login_screen.dart';
+import '../../../modules/auth/ui/screens/sign_up/sign_up_screen.dart'
+    show SignUpScreen;
 import '../../../modules/home/home_screen.dart' show HomeScreen;
 import '../../../modules/onboarding/onboarding_screen.dart';
 import '../../../modules/splash/splash_screen.dart' show SplashScreen;
@@ -37,6 +39,13 @@ abstract class RoutingProvider {
                 const LoginScreen(),
             transitionsBuilder: PageTransitions.slideAndFade,
             settings: const RouteSettings(name: DefinedRoutes.loginRoute),
+          );
+        case DefinedRoutes.signUpRoute:
+          return PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                const SignUpScreen(),
+            transitionsBuilder: PageTransitions.slideAndFade,
+            settings: const RouteSettings(name: DefinedRoutes.signUpRoute),
           );
         case DefinedRoutes.homeRoute:
           return PageRouteBuilder(

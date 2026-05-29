@@ -28,6 +28,8 @@ import '../../modules/auth/domain/repositories/auth_repository.dart' as _i779;
 import '../../modules/auth/domain/use_case/google_login_use_case.dart' as _i941;
 import '../../modules/auth/ui/screens/login/view_model/login_view_model.dart'
     as _i1050;
+import '../../modules/auth/ui/screens/sign_up/view_model/sign_up_view_model.dart'
+    as _i967;
 import '../auth/auth_provider.dart' as _i658;
 import '../auth/data/service/session_service_imp.dart' as _i352;
 import '../auth/domain/service/session_storage_service.dart' as _i640;
@@ -156,6 +158,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i1050.LoginViewModel>(
       () => _i1050.LoginViewModel(gh<_i941.GoogleLoginUseCase>()),
+    );
+    gh.factory<_i967.SignUpViewModel>(
+      () => _i967.SignUpViewModel(gh<_i941.GoogleLoginUseCase>()),
     );
     return this;
   }

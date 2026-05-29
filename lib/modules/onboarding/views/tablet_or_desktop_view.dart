@@ -4,8 +4,6 @@ import '../../../core/constants/asset_paths.dart' show AssetPaths;
 import '../../../core/layers/theme/colors/app_colors.dart' show AppColors;
 import '../../../core/presentation/bases/base_stateless_widget.dart'
     show BaseStatelessWidget;
-import '../../../core/presentation/extension/context_extension.dart'
-    show ContextExtension;
 import '../../../core/presentation/routing/defined_routes.dart'
     show DefinedRoutes;
 import '../constants/onboarding_screen_constants.dart'
@@ -68,7 +66,7 @@ class TabletOrDesktopView extends BaseStatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Text(
-                          context.appLocalizations.discoverYourTruePotential,
+                          d.appLocalizations.discoverYourTruePotential,
                           style: d.typography.title.copyWith(fontSize: 16),
                           textAlign: TextAlign.center,
                         ),
@@ -82,11 +80,11 @@ class TabletOrDesktopView extends BaseStatelessWidget {
                               children: [
                                 TextSpan(
                                   text:
-                                      '${context.appLocalizations.chooseYourLanguage}\n',
+                                      '${d.appLocalizations.chooseYourLanguage}\n',
                                   style: d.typography.title,
                                 ),
                                 TextSpan(
-                                  text: context
+                                  text: d
                                       .appLocalizations
                                       .selectYourPreferredLanguage,
                                   style: d.typography.subTitle,
@@ -105,7 +103,7 @@ class TabletOrDesktopView extends BaseStatelessWidget {
                               DefinedRoutes.loginRoute,
                             );
                           },
-                          child: Text(context.appLocalizations.continueWord),
+                          child: Text(d.appLocalizations.continueWord),
                         ),
                       ],
                     ),

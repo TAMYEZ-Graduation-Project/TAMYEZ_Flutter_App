@@ -61,5 +61,13 @@
   "signUp": "Sign Up",
   "loginSuccess": "Login Success!",
   "googleLoginFailed": "Google login failed",
-  "googleLoginNotSupported": "Google login is not supported"
+  "googleLoginNotSupported": "Google login is not supported",
+  "fullName": "Full name",
+  "confirmPassword": "Confirm password",
+  "phoneNumber": "Phone number",
+  "gender": "Gender",
+  "female": "Female",
+  "male": "Male",
+  "orSignUpWith": "Or sign up with",
+  "termsAndPrivacy": "By continuing, you agree to our Terms of Service and Privacy Policy"
 }

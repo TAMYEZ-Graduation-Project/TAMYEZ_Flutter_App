@@ -61,5 +61,13 @@
   "signUp": "إنشاء حساب",
   "loginSuccess": "تم تسجيل الدخول بنجاح!",
   "googleLoginFailed": "فشل تسجيل الدخول باستخدام جوجل",
-  "googleLoginNotSupported": "تسجيل الدخول باستخدام جوجل غير مدعوم"
+  "googleLoginNotSupported": "تسجيل الدخول باستخدام جوجل غير مدعوم",
+  "fullName": "الاسم الكامل",
+  "confirmPassword": "تأكيد كلمة المرور",
+  "phoneNumber": "رقم الهاتف",
+  "gender": "الجنس",
+  "female": "أنثى",
+  "male": "ذكر",
+  "orSignUpWith": "أو التسجيل باستخدام",
+  "termsAndPrivacy": "من خلال الاستمرار، فإنك توافق على شروط الخدمة وسياسة الخصوصية الخاصة بنا"
 }

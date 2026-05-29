@@ -61,6 +61,15 @@ abstract class AppThemeFactory {
           disabledForegroundColor: AppColors.darkGray,
         ),
       ),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          foregroundColor: AppColors.blue,
+          padding: const EdgeInsetsGeometry.symmetric(vertical: 16),
+          side: BorderSide.none,
+          textStyle: typography.button,
+          disabledForegroundColor: AppColors.darkGray,
+        ),
+      ),
       appBarTheme: AppBarTheme(
         backgroundColor: brightness == Brightness.light
             ? AppColors.lightBlue
@@ -97,6 +106,15 @@ abstract class AppThemeFactory {
         errorStyle: typography.label.copyWith(color: AppColors.red),
       ),
       checkboxTheme: _getCheckBoxTheme(brightness),
+      radioTheme: RadioThemeData(
+        innerRadius: const WidgetStatePropertyAll(3.5),
+        fillColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return AppColors.blue;
+          }
+          return AppColors.gray;
+        }),
+      ),
     );
   }
 

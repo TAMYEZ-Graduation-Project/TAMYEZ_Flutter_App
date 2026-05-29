@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -202,4 +203,29 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get googleLoginNotSupported => 'Google login is not supported';
+
+  @override
+  String get fullName => 'Full name';
+
+  @override
+  String get confirmPassword => 'Confirm password';
+
+  @override
+  String get phoneNumber => 'Phone number';
+
+  @override
+  String get gender => 'Gender';
+
+  @override
+  String get female => 'Female';
+
+  @override
+  String get male => 'Male';
+
+  @override
+  String get orSignUpWith => 'Or sign up with';
+
+  @override
+  String get termsAndPrivacy =>
+      'By continuing, you agree to our Terms of Service and Privacy Policy';
 }

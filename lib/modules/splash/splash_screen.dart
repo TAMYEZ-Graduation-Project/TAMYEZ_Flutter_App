@@ -13,7 +13,6 @@ import '../../core/layers/theme/colors/app_colors.dart';
 import '../../core/layers/theme/extensions/app_typography.dart';
 import '../../core/layers/theme/factory/app_theme_factory.dart'
     show AppThemeFactory;
-import '../../core/presentation/extension/context_extension.dart';
 import '../../core/presentation/routing/defined_routes.dart' show DefinedRoutes;
 import '../../core/presentation/routing/navigator_key.dart';
 import '../../core/presentation/screen/custom_breakpoints.dart'
@@ -144,7 +143,7 @@ class _SplashScreenState extends BaseStatefulWidgetState<SplashScreen>
                               ),
                             ),
                             Text(
-                              context.appLocalizations.welcomeToTamyez,
+                              appLocalizations.welcomeToTamyez,
                               style: typography.hero.copyWith(
                                 fontWeight: FontWeight.w400,
                                 color:
@@ -168,9 +167,7 @@ class _SplashScreenState extends BaseStatefulWidgetState<SplashScreen>
                               ),
                             ),
                             Text(
-                              context
-                                  .appLocalizations
-                                  .discoverStrengthAndPathMessage,
+                              appLocalizations.discoverStrengthAndPathMessage,
                               style: Theme.of(
                                 context,
                               ).extension<AppTypography>()?.body,
