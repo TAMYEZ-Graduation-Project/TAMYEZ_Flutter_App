@@ -75,6 +75,31 @@ class AppLocalizationsEn extends AppLocalizations {
       'Username can only contain letters, numbers, and underscores.';
 
   @override
+  String get invalidFullName => 'Enter a valid full name (e.g. John Doe)';
+
+  @override
+  String get invalidPassword =>
+      'Password must be at least 8 chars, include uppercase, lowercase, number & special character';
+
+  @override
+  String get passwordLength => 'Password must be at least 8 characters long.';
+
+  @override
+  String get uppercaseRulePassword =>
+      'At least one uppercase letter is required.';
+
+  @override
+  String get lowercaseRulePassword =>
+      'At least one lowercase letter is required.';
+
+  @override
+  String get digitRulePassword => 'At least one digit is required.';
+
+  @override
+  String get specialCharactersRulePassword =>
+      'At least one special character is required (e.g. #?!@\$%^&*-).';
+
+  @override
   String get pleaseEnterFirstName => 'Please enter first name.';
 
   @override
@@ -94,26 +119,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get phoneNumberRules =>
-      'Number must start with one of the valid prefixes:\n010, 011, 012, or 015\nfollowed by 8 digits.';
+      'Enter a valid Egyptian phone number (+20XXXXXXXXXX)';
 
   @override
   String get pleaseEnterPassword => 'Please enter your password.';
-
-  @override
-  String get passwordLength => 'Password must be at least 8 characters long.';
-
-  @override
-  String get uppercaseRulePassword => 'At least one one uppercase letter.';
-
-  @override
-  String get lowercaseRulePassword => 'At least one one lowercase letter.';
-
-  @override
-  String get digitRulePassword => 'At least one digit must be there.';
-
-  @override
-  String get specialCharactersRulePassword =>
-      'At least one special character(e.g., #?!@\$%^&*-) must be included.';
 
   @override
   String get pleaseConfirmPassword => 'Please confirm password.';
@@ -196,6 +205,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get loginSuccess => 'Login Success!';
+
+  @override
+  String get signUpSuccess =>
+      'Sign Up Success! Check your inbox for verification link ✉';
 
   @override
   String get googleLoginFailed => 'Google login failed';

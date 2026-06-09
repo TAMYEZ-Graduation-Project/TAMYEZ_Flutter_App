@@ -25,10 +25,19 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends BaseStatefulWidgetState<SignUpScreen> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final SignUpViewModel signUpViewModel = getIt.get();
+  late final SignUpControllers signUpControllers;
 
   @override
   void initState() {
     super.initState();
+    signUpControllers = SignUpControllers(
+      fullNameController: TextEditingController(),
+      emailController: TextEditingController(),
+      passwordController: TextEditingController(),
+      confirmPasswordController: TextEditingController(),
+      phoneNumberController: TextEditingController(),
+      genderController: TextEditingController(),
+    );
     signUpViewModel.effectStream.listen((event) {
       switch (event) {
         case DisplayErrorEffect():
@@ -55,6 +64,12 @@ class _SignUpScreenState extends BaseStatefulWidgetState<SignUpScreen> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    signUpControllers.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => signUpViewModel,
@@ -68,8 +83,14 @@ class _SignUpScreenState extends BaseStatefulWidgetState<SignUpScreen> {
               spacing: 16,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                SignUpForm(formKey: formKey),
-                SignUpActionsSection(formKey: formKey),
+                SignUpForm(
+                  formKey: formKey,
+                  signUpControllers: signUpControllers,
+                ),
+                SignUpActionsSection(
+                  formKey: formKey,
+                  signUpController: signUpControllers,
+                ),
                 InkWell(
                   onTap: () {},
                   child: Text(
@@ -88,5 +109,32 @@ class _SignUpScreenState extends BaseStatefulWidgetState<SignUpScreen> {
         ),
       ),
     );
+  }
+}
+
+class SignUpControllers {
+  final TextEditingController fullNameController;
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
+  final TextEditingController confirmPasswordController;
+  final TextEditingController phoneNumberController;
+  final TextEditingController genderController;
+
+  SignUpControllers({
+    required this.fullNameController,
+    required this.emailController,
+    required this.passwordController,
+    required this.confirmPasswordController,
+    required this.phoneNumberController,
+    required this.genderController,
+  });
+
+  void dispose() {
+    fullNameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    phoneNumberController.dispose();
+    genderController.dispose();
   }
 }

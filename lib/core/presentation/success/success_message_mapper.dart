@@ -9,6 +9,8 @@ abstract class SuccessHandling {
     switch (success) {
       case SuccessEnum.loginSuccess:
         return l10n.loginSuccess;
+      case SuccessEnum.signUpSuccess:
+        return l10n.signUpSuccess;
     }
   }
 }

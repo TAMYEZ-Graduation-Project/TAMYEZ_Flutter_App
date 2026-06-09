@@ -1,5 +1,5 @@
-// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format width=80
 
 // **************************************************************************
 // InjectableConfigGenerator
@@ -17,15 +17,25 @@ import 'package:google_sign_in/google_sign_in.dart' as _i116;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:isar_community/isar.dart' as _i214;
 
+import '../../modules/auth/data/data_sources/remote/auth_api_client.dart'
+    as _i362;
 import '../../modules/auth/data/data_sources/remote/auth_di_module.dart'
     as _i301;
 import '../../modules/auth/data/data_sources/remote/auth_remote_data_source.dart'
     as _i911;
 import '../../modules/auth/data/data_sources/remote/auth_remote_data_source_imp.dart'
     as _i5;
+import '../../modules/auth/data/data_sources/remote/social_auth_service.dart'
+    as _i622;
+import '../../modules/auth/data/data_sources/remote/social_auth_service_imp.dart'
+    as _i301;
 import '../../modules/auth/data/repositories/auth_repo_imp.dart' as _i23;
 import '../../modules/auth/domain/repositories/auth_repository.dart' as _i779;
-import '../../modules/auth/domain/use_case/google_login_use_case.dart' as _i941;
+import '../../modules/auth/domain/use_case/gmail_login_use_case.dart' as _i280;
+import '../../modules/auth/domain/use_case/gmail_sign_up_use_case.dart'
+    as _i123;
+import '../../modules/auth/domain/use_case/login_use_case.dart' as _i46;
+import '../../modules/auth/domain/use_case/sign_up_use_case.dart' as _i246;
 import '../../modules/auth/ui/screens/login/view_model/login_view_model.dart'
     as _i1050;
 import '../../modules/auth/ui/screens/sign_up/view_model/sign_up_view_model.dart'
@@ -65,36 +75,40 @@ extension GetItInjectableX on _i174.GetIt {
     _i526.EnvironmentFilter? environmentFilter,
   }) async {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
-    final appLocalizationRegister = _$AppLocalizationRegister();
     final dbInitializer = _$DbInitializer();
-    final firebaseMessagingModule = _$FirebaseMessagingModule();
+    final appLocalizationRegister = _$AppLocalizationRegister();
     final storagesInitializer = _$StoragesInitializer();
+    final firebaseMessagingModule = _$FirebaseMessagingModule();
     final authDiModule = _$AuthDiModule();
     final networkModule = _$NetworkModule();
-    gh.factory<_i732.MainApiConfig>(() => _i732.MainApiConfig());
-    gh.factory<_i638.DioFactory>(() => _i638.DioFactory());
-    await gh.factoryAsync<_i58.AppLocalizations>(
-      () => appLocalizationRegister.register(),
-      preResolve: true,
-    );
     await gh.factoryAsync<_i214.Isar>(
       () => dbInitializer.initIsar(),
       preResolve: true,
     );
-    gh.lazySingleton<_i1.UserProvider>(() => _i1.UserProvider());
+    await gh.factoryAsync<_i58.AppLocalizations>(
+      () => appLocalizationRegister.register(),
+      preResolve: true,
+    );
+    gh.factory<_i732.MainApiConfig>(() => _i732.MainApiConfig());
+    gh.factory<_i638.DioFactory>(() => _i638.DioFactory());
     gh.lazySingleton<_i658.AuthProvider>(() => _i658.AuthProvider());
-    gh.lazySingleton<_i892.FirebaseMessaging>(
-      () => firebaseMessagingModule.create(),
+    gh.lazySingleton<_i1.UserProvider>(() => _i1.UserProvider());
+    gh.lazySingleton<_i558.FlutterSecureStorage>(
+      () => storagesInitializer.initFlutterSecureStorage(),
     );
     gh.lazySingleton<_i230.AwesomeNotificationService>(
       () => _i230.AwesomeNotificationService(),
     );
-    gh.lazySingleton<_i558.FlutterSecureStorage>(
-      () => storagesInitializer.initFlutterSecureStorage(),
+    gh.lazySingleton<_i892.FirebaseMessaging>(
+      () => firebaseMessagingModule.create(),
     );
     gh.lazySingleton<_i116.GoogleSignIn>(() => authDiModule.googleSignIn());
-    gh.factory<_i911.AuthRemoteDataSource>(
-      () => _i5.AuthRemoteDataSourceImp(gh<_i116.GoogleSignIn>()),
+    gh.factory<_i622.SocialAuthService>(
+      () => _i301.SocialAuthServiceImp(gh<_i116.GoogleSignIn>()),
+    );
+    gh.lazySingleton<_i1003.StorageService>(
+      () => _i856.SecureStorageServiceImp(gh<_i558.FlutterSecureStorage>()),
+      instanceName: 'secureStorage',
     );
     gh.lazySingleton<_i361.Dio>(
       () => networkModule.createMainDio(
@@ -103,21 +117,14 @@ extension GetItInjectableX on _i174.GetIt {
       ),
       instanceName: 'mainDio',
     );
+    gh.lazySingleton<_i362.AuthApiClient>(
+      () => _i362.AuthApiClient(gh<_i361.Dio>(instanceName: 'mainDio')),
+    );
+    gh.factory<_i911.AuthRemoteDataSource>(
+      () => _i5.AuthRemoteDataSourceImp(gh<_i362.AuthApiClient>()),
+    );
     gh.factory<_i150.EmailRepository>(
       () => _i948.EmailRepositoryImp(gh<_i214.Isar>()),
-    );
-    gh.lazySingleton<_i510.FirebaseCloudMessagingService>(
-      () => _i510.FirebaseCloudMessagingService(
-        gh<_i230.AwesomeNotificationService>(),
-        gh<_i892.FirebaseMessaging>(),
-      ),
-    );
-    gh.lazySingleton<_i1003.StorageService>(
-      () => _i856.SecureStorageServiceImp(gh<_i558.FlutterSecureStorage>()),
-      instanceName: 'secureStorage',
-    );
-    gh.factory<_i779.AuthRepository>(
-      () => _i23.AuthRepoImp(gh<_i911.AuthRemoteDataSource>()),
     );
     gh.lazySingleton<_i745.AuthInterceptor>(
       () => _i745.AuthInterceptor(
@@ -131,18 +138,39 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i1003.StorageService>(instanceName: 'secureStorage'),
       ),
     );
-    gh.factory<_i941.GoogleLoginUseCase>(
-      () => _i941.GoogleLoginUseCase(gh<_i779.AuthRepository>()),
+    gh.singleton<_i362.LocalizationManager>(
+      () => _i362.LocalizationManager(
+        gh<_i1003.StorageService>(instanceName: 'secureStorage'),
+      ),
     );
     gh.singleton<_i701.ThemeManager>(
       () => _i701.ThemeManager(
         gh<_i1003.StorageService>(instanceName: 'secureStorage'),
       ),
     );
-    gh.singleton<_i362.LocalizationManager>(
-      () => _i362.LocalizationManager(
-        gh<_i1003.StorageService>(instanceName: 'secureStorage'),
+    gh.lazySingleton<_i510.FirebaseCloudMessagingService>(
+      () => _i510.FirebaseCloudMessagingService(
+        gh<_i230.AwesomeNotificationService>(),
+        gh<_i892.FirebaseMessaging>(),
       ),
+    );
+    gh.factory<_i779.AuthRepository>(
+      () => _i23.AuthRepoImp(
+        gh<_i911.AuthRemoteDataSource>(),
+        gh<_i622.SocialAuthService>(),
+      ),
+    );
+    gh.factory<_i280.GmailLoginUseCase>(
+      () => _i280.GmailLoginUseCase(gh<_i779.AuthRepository>()),
+    );
+    gh.factory<_i123.GmailSignUpUseCase>(
+      () => _i123.GmailSignUpUseCase(gh<_i779.AuthRepository>()),
+    );
+    gh.factory<_i46.LoginUseCase>(
+      () => _i46.LoginUseCase(gh<_i779.AuthRepository>()),
+    );
+    gh.factory<_i246.SignUpUseCase>(
+      () => _i246.SignUpUseCase(gh<_i779.AuthRepository>()),
     );
     gh.lazySingleton<_i4.AppInitializer>(
       () => _i4.AppInitializer(
@@ -156,23 +184,29 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i510.FirebaseCloudMessagingService>(),
       ),
     );
-    gh.factory<_i1050.LoginViewModel>(
-      () => _i1050.LoginViewModel(gh<_i941.GoogleLoginUseCase>()),
-    );
     gh.factory<_i967.SignUpViewModel>(
-      () => _i967.SignUpViewModel(gh<_i941.GoogleLoginUseCase>()),
+      () => _i967.SignUpViewModel(
+        gh<_i246.SignUpUseCase>(),
+        gh<_i123.GmailSignUpUseCase>(),
+      ),
+    );
+    gh.factory<_i1050.LoginViewModel>(
+      () => _i1050.LoginViewModel(
+        gh<_i46.LoginUseCase>(),
+        gh<_i280.GmailLoginUseCase>(),
+      ),
     );
     return this;
   }
 }
 
-class _$AppLocalizationRegister extends _i555.AppLocalizationRegister {}
-
 class _$DbInitializer extends _i1006.DbInitializer {}
 
-class _$FirebaseMessagingModule extends _i829.FirebaseMessagingModule {}
+class _$AppLocalizationRegister extends _i555.AppLocalizationRegister {}
 
 class _$StoragesInitializer extends _i272.StoragesInitializer {}
+
+class _$FirebaseMessagingModule extends _i829.FirebaseMessagingModule {}
 
 class _$AuthDiModule extends _i301.AuthDiModule {}
 

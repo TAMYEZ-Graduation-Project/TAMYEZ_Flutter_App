@@ -25,12 +25,17 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends BaseStatefulWidgetState<LoginScreen> {
   ValueNotifier<bool> rememberMe = ValueNotifier<bool>(false);
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
   final LoginViewModel _loginViewModel = getIt.get();
+
+  late final LoginControllers loginControllers;
 
   @override
   void initState() {
     super.initState();
+    loginControllers = LoginControllers(
+      emailController: TextEditingController(),
+      passwordController: TextEditingController(),
+    );
     _loginViewModel.effectStream.listen((event) {
       switch (event) {
         case DisplayErrorEffect():
@@ -57,6 +62,12 @@ class _LoginScreenState extends BaseStatefulWidgetState<LoginScreen> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    loginControllers.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => _loginViewModel,
@@ -73,9 +84,13 @@ class _LoginScreenState extends BaseStatefulWidgetState<LoginScreen> {
               spacing: 16,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                LoginForm(formKey: formKey),
+                LoginForm(formKey: formKey, loginControllers: loginControllers),
                 AuthHelperSection(rememberMe: rememberMe),
-                LoginActionsSection(formKey: formKey),
+                LoginActionsSection(
+                  formKey: formKey,
+                  loginControllers: loginControllers,
+                  rememberMe: rememberMe.value,
+                ),
                 RichText(
                   textAlign: TextAlign.center,
                   text: TextSpan(
@@ -114,5 +129,20 @@ class _LoginScreenState extends BaseStatefulWidgetState<LoginScreen> {
         ),
       ),
     );
+  }
+}
+
+class LoginControllers {
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
+
+  const LoginControllers({
+    required this.emailController,
+    required this.passwordController,
+  });
+
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
   }
 }

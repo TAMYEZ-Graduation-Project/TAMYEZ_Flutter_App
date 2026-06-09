@@ -5,35 +5,68 @@ import '../../../../../../core/presentation/bases/base_cubit.dart';
 import '../../../../../../core/presentation/result/ui_effect.dart';
 import '../../../../../../core/presentation/result/ui_result.dart';
 import '../../../../../../core/success/success_enum.dart';
-import '../../../../domain/use_case/google_login_use_case.dart'
-    show GoogleLoginUseCase;
+import '../../../../domain/entities/login_response_entity.dart'
+    show LoginResponseEntity;
+import '../../../../domain/entities/sign_up_params.dart';
+import '../../../../domain/entities/sign_up_response_entity.dart';
+import '../../../../domain/use_case/gmail_sign_up_use_case.dart';
+import '../../../../domain/use_case/sign_up_use_case.dart';
 import 'sign_up_intent.dart';
 import 'sign_up_state.dart';
 
 @injectable
 class SignUpViewModel extends BaseCubit<SignUpState, UiEffect> {
-  final GoogleLoginUseCase _googleLoginUseCase;
+  final SignUpUseCase _signUpUseCase;
+  final GmailSignUpUseCase _gmailSignUpUseCase;
 
-  SignUpViewModel(this._googleLoginUseCase) : super(const SignUpState());
+  SignUpViewModel(this._signUpUseCase, this._gmailSignUpUseCase)
+    : super(const SignUpState());
 
   Future<void> doIntent(SignUpIntent intent) async {
     switch (intent) {
+      case SystemSignUpIntent():
+        await _systemSignUp(intent: intent);
+        break;
       case GoogleSignUpIntent():
-        await _googleSignUp();
+        await _gmailSignUp();
         break;
     }
   }
 
-  Future<void> _googleSignUp() async {
-    emit(state.copyWith(googleSignUpResult: const Loading()));
-    final OperationResult<void> result = await _googleLoginUseCase.call();
+  Future<void> _systemSignUp({required SystemSignUpIntent intent}) async {
+    emit(state.copyWith(systemSignUpResult: const Loading()));
+    final OperationResult<SignUpResponseEntity> result = await _signUpUseCase
+        .call(
+          params: SignUpParams(
+            fullName: intent.fullName,
+            email: intent.email,
+            password: intent.password,
+            confirmPassword: intent.confirmPassword,
+            gender: intent.gender,
+            phoneNumber: intent.phone,
+          ),
+        );
+
+    emit(state.copyWith(systemSignUpResult: const Initial()));
 
     switch (result) {
-      case OperationSuccess<void>():
-        emit(state.copyWith(googleSignUpResult: const Success(null)));
+      case OperationSuccess<SignUpResponseEntity>():
+        emitEffect(const SuccessEffect(success: SuccessEnum.signUpSuccess));
+      case OperationFailure<SignUpResponseEntity>():
+        emitEffect(DisplayErrorEffect(failure: result.failure));
+    }
+  }
+
+  Future<void> _gmailSignUp() async {
+    emit(state.copyWith(googleSignUpResult: const Loading()));
+    final OperationResult<LoginResponseEntity> result =
+        await _gmailSignUpUseCase.call();
+    emit(state.copyWith(googleSignUpResult: const Initial()));
+
+    switch (result) {
+      case OperationSuccess<LoginResponseEntity>():
         emitEffect(const SuccessEffect(success: SuccessEnum.loginSuccess));
-      case OperationFailure<void>():
-        emit(state.copyWith(googleSignUpResult: Error(result.failure)));
+      case OperationFailure<LoginResponseEntity>():
         emitEffect(DisplayErrorEffect(failure: result.failure));
     }
   }

@@ -21,21 +21,6 @@ String mapValidationErrorToMessage(
     case ValidationError.usernameInvalidChars:
       return l10n.userNameRules;
 
-    case ValidationError.passwordTooShort:
-      return l10n.passwordLength;
-
-    case ValidationError.passwordMissingUppercase:
-      return l10n.uppercaseRulePassword;
-
-    case ValidationError.passwordMissingLowercase:
-      return l10n.lowercaseRulePassword;
-
-    case ValidationError.passwordMissingDigit:
-      return l10n.digitRulePassword;
-
-    case ValidationError.passwordMissingSpecialChar:
-      return l10n.specialCharactersRulePassword;
-
     case ValidationError.passwordMismatch:
       return l10n.noMatch;
 
@@ -47,5 +32,11 @@ String mapValidationErrorToMessage(
 
     case ValidationError.invalidName:
       return l10n.namesRules;
+
+    case ValidationError.invalidFullName:
+      return l10n.invalidFullName;
+
+    case ValidationError.invalidPassword:
+      return l10n.invalidPassword;
   }
 }

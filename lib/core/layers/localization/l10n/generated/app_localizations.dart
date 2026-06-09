@@ -224,6 +224,48 @@ abstract class AppLocalizations {
   /// **'Username can only contain letters, numbers, and underscores.'**
   String get userNameRules;
 
+  /// No description provided for @invalidFullName.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid full name (e.g. John Doe)'**
+  String get invalidFullName;
+
+  /// No description provided for @invalidPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must be at least 8 chars, include uppercase, lowercase, number & special character'**
+  String get invalidPassword;
+
+  /// No description provided for @passwordLength.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must be at least 8 characters long.'**
+  String get passwordLength;
+
+  /// No description provided for @uppercaseRulePassword.
+  ///
+  /// In en, this message translates to:
+  /// **'At least one uppercase letter is required.'**
+  String get uppercaseRulePassword;
+
+  /// No description provided for @lowercaseRulePassword.
+  ///
+  /// In en, this message translates to:
+  /// **'At least one lowercase letter is required.'**
+  String get lowercaseRulePassword;
+
+  /// No description provided for @digitRulePassword.
+  ///
+  /// In en, this message translates to:
+  /// **'At least one digit is required.'**
+  String get digitRulePassword;
+
+  /// No description provided for @specialCharactersRulePassword.
+  ///
+  /// In en, this message translates to:
+  /// **'At least one special character is required (e.g. #?!@\$%^&*-).'**
+  String get specialCharactersRulePassword;
+
   /// No description provided for @pleaseEnterFirstName.
   ///
   /// In en, this message translates to:
@@ -263,7 +305,7 @@ abstract class AppLocalizations {
   /// No description provided for @phoneNumberRules.
   ///
   /// In en, this message translates to:
-  /// **'Number must start with one of the valid prefixes:\n010, 011, 012, or 015\nfollowed by 8 digits.'**
+  /// **'Enter a valid Egyptian phone number (+20XXXXXXXXXX)'**
   String get phoneNumberRules;
 
   /// No description provided for @pleaseEnterPassword.
@@ -271,36 +313,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please enter your password.'**
   String get pleaseEnterPassword;
-
-  /// No description provided for @passwordLength.
-  ///
-  /// In en, this message translates to:
-  /// **'Password must be at least 8 characters long.'**
-  String get passwordLength;
-
-  /// No description provided for @uppercaseRulePassword.
-  ///
-  /// In en, this message translates to:
-  /// **'At least one one uppercase letter.'**
-  String get uppercaseRulePassword;
-
-  /// No description provided for @lowercaseRulePassword.
-  ///
-  /// In en, this message translates to:
-  /// **'At least one one lowercase letter.'**
-  String get lowercaseRulePassword;
-
-  /// No description provided for @digitRulePassword.
-  ///
-  /// In en, this message translates to:
-  /// **'At least one digit must be there.'**
-  String get digitRulePassword;
-
-  /// No description provided for @specialCharactersRulePassword.
-  ///
-  /// In en, this message translates to:
-  /// **'At least one special character(e.g., #?!@\$%^&*-) must be included.'**
-  String get specialCharactersRulePassword;
 
   /// No description provided for @pleaseConfirmPassword.
   ///
@@ -457,6 +469,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Login Success!'**
   String get loginSuccess;
+
+  /// No description provided for @signUpSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Up Success! Check your inbox for verification link ✉'**
+  String get signUpSuccess;
 
   /// No description provided for @googleLoginFailed.
   ///

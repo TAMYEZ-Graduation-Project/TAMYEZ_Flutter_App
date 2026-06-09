@@ -1,1 +1,1 @@
-enum SuccessEnum { loginSuccess }
+enum SuccessEnum { loginSuccess, signUpSuccess }

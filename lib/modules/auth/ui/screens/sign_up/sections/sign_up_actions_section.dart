@@ -8,14 +8,20 @@ import '../../../../../../core/presentation/bases/base_stateless_widget.dart';
 import '../../../../../../core/presentation/result/ui_result.dart';
 import '../../../../../../core/presentation/widgets/app_loading_widget.dart'
     show AppLoadingWidget;
+import '../sign_up_screen.dart' show SignUpControllers;
 import '../view_model/sign_up_intent.dart';
 import '../view_model/sign_up_state.dart' show SignUpState;
 import '../view_model/sign_up_view_model.dart' show SignUpViewModel;
 
 class SignUpActionsSection extends BaseStatelessWidget {
   final GlobalKey<FormState> formKey;
+  final SignUpControllers signUpController;
 
-  const SignUpActionsSection({super.key, required this.formKey});
+  const SignUpActionsSection({
+    super.key,
+    required this.formKey,
+    required this.signUpController,
+  });
 
   @override
   Widget buildWith(BuildContext context, CommonDependency d) {
@@ -31,7 +37,19 @@ class SignUpActionsSection extends BaseStatelessWidget {
                       state.googleSignUpResult is Loading
                   ? null
                   : () {
-                      formKey.currentState?.validate();
+                      if (formKey.currentState!.validate()) {
+                        signUpViewModel.doIntent(
+                          SystemSignUpIntent(
+                            fullName: signUpController.fullNameController.text,
+                            email: signUpController.emailController.text,
+                            password: signUpController.passwordController.text,
+                            phone: signUpController.phoneNumberController.text,
+                            confirmPassword:
+                                signUpController.confirmPasswordController.text,
+                            gender: signUpController.genderController.text,
+                          ),
+                        );
+                      }
                     },
               child: state.systemSignUpResult is Loading
                   ? const CircularProgressIndicator()

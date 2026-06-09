@@ -4,19 +4,32 @@ import '../../../../../../core/presentation/bases/base_stateful_widget_state.dar
 import '../../../../../../core/presentation/widgets/custom_text_field.dart'
     show CustomTextField;
 import '../../../../../../core/validation/validators.dart' show Validators;
+import '../sign_up_screen.dart';
 import '../view_model/sign_up_state.dart';
 
 class SignUpForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
+  final SignUpControllers signUpControllers;
 
-  const SignUpForm({super.key, required this.formKey});
+  const SignUpForm({
+    super.key,
+    required this.formKey,
+    required this.signUpControllers,
+  });
 
   @override
   State<SignUpForm> createState() => _SignUpFormState();
 }
 
 class _SignUpFormState extends BaseStatefulWidgetState<SignUpForm> {
+  late final SignUpControllers controllers;
   GenderEnum? selectedGender;
+
+  @override
+  void initState() {
+    super.initState();
+    controllers = widget.signUpControllers;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,22 +38,38 @@ class _SignUpFormState extends BaseStatefulWidgetState<SignUpForm> {
       child: Column(
         spacing: 16,
         children: [
-          CustomTextField(hintText: appLocalizations.fullName),
           CustomTextField(
+            controller: controllers.fullNameController,
+            hintText: appLocalizations.fullName,
+            validatingFunc: Validators.validateFullName,
+          ),
+          CustomTextField(
+            controller: controllers.emailController,
             hintText: appLocalizations.email,
             validatingFunc: Validators.validateEmail,
           ),
           CustomTextField(
+            controller: controllers.passwordController,
             hintText: appLocalizations.password,
             isPassword: true,
             validatingFunc: Validators.validatePassword,
           ),
           CustomTextField(
+            controller: controllers.confirmPasswordController,
             hintText: appLocalizations.confirmPassword,
             isPassword: true,
-            validatingFunc: Validators.validatePassword,
+            validatingFunc: (value) {
+              return Validators.validateConfirmPassword(
+                value,
+                controllers.passwordController.text,
+              );
+            },
           ),
-          CustomTextField(hintText: appLocalizations.phoneNumber),
+          CustomTextField(
+            controller: controllers.phoneNumberController,
+            hintText: appLocalizations.phoneNumber,
+            validatingFunc: Validators.validatePhoneNumber,
+          ),
           LayoutBuilder(
             builder: (context, constraints) {
               return StatefulBuilder(
@@ -50,6 +79,7 @@ class _SignUpFormState extends BaseStatefulWidgetState<SignUpForm> {
                     onChanged: (value) {
                       setState(() {
                         selectedGender = value;
+                        controllers.genderController.text = value?.value ?? '';
                       });
                     },
                     child: Row(

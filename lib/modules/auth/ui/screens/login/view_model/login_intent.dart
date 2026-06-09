@@ -2,6 +2,13 @@ sealed class LoginIntent {
   const LoginIntent();
 }
 
-class GoogleLoginIntent extends LoginIntent {
-  const GoogleLoginIntent();
+class SystemLoginIntent extends LoginIntent {
+  final String email;
+  final String password;
+
+  const SystemLoginIntent({required this.email, required this.password});
+}
+
+class GmailLoginIntent extends LoginIntent {
+  const GmailLoginIntent();
 }

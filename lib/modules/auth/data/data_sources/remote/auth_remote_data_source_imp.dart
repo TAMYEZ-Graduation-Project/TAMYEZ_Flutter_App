@@ -1,40 +1,38 @@
-import 'dart:io';
-
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../../core/error/exceptions/app_exceptions.dart'
-    show GoogleLoginNotSupportedException, GoogleLoginException;
-import '../../../../../core/utils/functions/has_google_services.dart';
-import '../../../../../core/utils/functions/safe_print.dart';
+import '../../models/gmail_login_request.dart';
+import '../../models/login_request.dart';
+import '../../models/login_response.dart';
+import '../../models/sign_up_request.dart';
+import '../../models/sign_up_response.dart';
+import 'auth_api_client.dart';
 import 'auth_remote_data_source.dart';
 
 @Injectable(as: AuthRemoteDataSource)
 class AuthRemoteDataSourceImp implements AuthRemoteDataSource {
-  final GoogleSignIn _googleSignIn;
+  final AuthApiClient _authApiClient;
 
-  const AuthRemoteDataSourceImp(this._googleSignIn);
+  const AuthRemoteDataSourceImp(this._authApiClient);
 
-  Future<String> _googleSignInAuth() async {
-    if (!_googleSignIn.supportsAuthenticate() ||
-        (Platform.isAndroid && !(await hasGoogleServices()))) {
-      throw const GoogleLoginNotSupportedException();
-    }
-    try {
-      final GoogleSignInAccount googleUser = await _googleSignIn.authenticate();
-      final String? idToken = googleUser.authentication.idToken;
-
-      if (idToken != null) return idToken;
-      throw const GoogleLoginException();
-    } catch (e) {
-      safePrint(e.toString());
-      throw GoogleLoginException(message: e.toString());
-    }
+  @override
+  Future<SignUpResponse> signUp({required SignUpRequest request}) {
+    return _authApiClient.signUp(request);
   }
 
   @override
-  Future<void> googleSocialLogin() async {
-    final String token = await _googleSignInAuth();
-    safePrint('google idToken: $token');
+  Future<LoginResponse> gmailSignUp({
+    required GmailLoginRequest request,
+  }) async {
+    return _authApiClient.gmailSignUp(request);
+  }
+
+  @override
+  Future<LoginResponse> login({required LoginRequest request}) {
+    return _authApiClient.login(request);
+  }
+
+  @override
+  Future<LoginResponse> gmailLogin({required GmailLoginRequest request}) {
+    return _authApiClient.gmailLogin(request);
   }
 }

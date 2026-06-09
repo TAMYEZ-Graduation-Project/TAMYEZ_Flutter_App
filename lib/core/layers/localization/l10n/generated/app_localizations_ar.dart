@@ -74,6 +74,29 @@ class AppLocalizationsAr extends AppLocalizations {
       'يمكن أن يحتوي اسم المستخدم فقط على أحرف وأرقام وشرطات سفلية.';
 
   @override
+  String get invalidFullName => 'أدخل اسماً كاملاً صالحاً (مثال: محمد أحمد)';
+
+  @override
+  String get invalidPassword =>
+      'يجب أن تتكون كلمة المرور من 8 أحرف على الأقل، وتتضمن حرفاً كبيراً وحرفاً صغيراً ورقماً وحرفاً خاصاً';
+
+  @override
+  String get passwordLength => 'يجب أن تتكون كلمة المرور من 8 أحرف على الأقل.';
+
+  @override
+  String get uppercaseRulePassword => 'يجب وجود حرف كبير واحد على الأقل.';
+
+  @override
+  String get lowercaseRulePassword => 'يجب وجود حرف صغير واحد على الأقل.';
+
+  @override
+  String get digitRulePassword => 'يجب وجود رقم واحد على الأقل.';
+
+  @override
+  String get specialCharactersRulePassword =>
+      'يجب تضمين حرف خاص واحد على الأقل (مثل #?!@\$%^&*-).';
+
+  @override
   String get pleaseEnterFirstName => 'الرجاء إدخال الاسم الأول.';
 
   @override
@@ -97,22 +120,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get pleaseEnterPassword => 'الرجاء إدخال كلمة المرور الخاصة بك.';
-
-  @override
-  String get passwordLength => 'يجب أن تتكون كلمة المرور من 8 أحرف على الأقل.';
-
-  @override
-  String get uppercaseRulePassword => 'يجب وجود حرف كبير واحد على الأقل.';
-
-  @override
-  String get lowercaseRulePassword => 'يجب وجود حرف صغير واحد على الأقل.';
-
-  @override
-  String get digitRulePassword => 'يجب وجود رقم واحد على الأقل.';
-
-  @override
-  String get specialCharactersRulePassword =>
-      'يجب تضمين حرف خاص واحد على الأقل (مثل #?!@\$%^&*-).';
 
   @override
   String get pleaseConfirmPassword => 'الرجاء تأكيد كلمة المرور.';
@@ -195,6 +202,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get loginSuccess => 'تم تسجيل الدخول بنجاح!';
+
+  @override
+  String get signUpSuccess =>
+      'تم التسجيل بنجاح! تحقق من بريدك الوارد للحصول على رابط التفعيل ✉.';
 
   @override
   String get googleLoginFailed => 'فشل تسجيل الدخول باستخدام جوجل';

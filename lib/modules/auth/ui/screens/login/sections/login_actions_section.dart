@@ -8,14 +8,23 @@ import '../../../../../../core/presentation/bases/base_stateless_widget.dart';
 import '../../../../../../core/presentation/result/ui_result.dart' show Loading;
 import '../../../../../../core/presentation/widgets/app_loading_widget.dart'
     show AppLoadingWidget;
-import '../view_model/login_intent.dart' show GoogleLoginIntent;
+import '../login_screen.dart' show LoginControllers;
+import '../view_model/login_intent.dart'
+    show GmailLoginIntent, SystemLoginIntent;
 import '../view_model/login_state.dart' show LoginState;
 import '../view_model/login_view_model.dart' show LoginViewModel;
 
 class LoginActionsSection extends BaseStatelessWidget {
   final GlobalKey<FormState> formKey;
+  final LoginControllers loginControllers;
+  final bool rememberMe;
 
-  const LoginActionsSection({super.key, required this.formKey});
+  const LoginActionsSection({
+    super.key,
+    required this.formKey,
+    required this.loginControllers,
+    required this.rememberMe,
+  });
 
   @override
   Widget buildWith(BuildContext context, CommonDependency d) {
@@ -31,7 +40,14 @@ class LoginActionsSection extends BaseStatelessWidget {
                       state.googleLoginResult is Loading
                   ? null
                   : () {
-                      formKey.currentState?.validate();
+                      if (formKey.currentState!.validate()) {
+                        loginViewModel.doIntent(
+                          SystemLoginIntent(
+                            email: loginControllers.emailController.text,
+                            password: loginControllers.passwordController.text,
+                          ),
+                        );
+                      }
                     },
               child: state.systemLoginResult is Loading
                   ? const CircularProgressIndicator()
@@ -54,7 +70,7 @@ class LoginActionsSection extends BaseStatelessWidget {
                       state.systemLoginResult is Loading
                   ? null
                   : () {
-                      loginViewModel.doIntent(const GoogleLoginIntent());
+                      loginViewModel.doIntent(const GmailLoginIntent());
                     },
               child: state.googleLoginResult is Loading
                   ? const AppLoadingWidget(dimension: 20)

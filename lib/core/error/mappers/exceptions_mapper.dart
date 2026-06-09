@@ -73,8 +73,8 @@ abstract class ExceptionHandling {
         return ServerFailure(
           statusCode: error.response?.statusCode,
           serverMessage: ApiErrorModel.fromJson(
-            error.response as Map<String, dynamic>,
-          ).error,
+            error.response?.data as Map<String, dynamic>,
+          ).error?.message,
         );
 
       case DioExceptionType.unknown:
