@@ -4,6 +4,8 @@ import '../../../../../../core/execution/operation_result.dart';
 import '../../../../../../core/presentation/bases/base_cubit.dart';
 import '../../../../../../core/presentation/result/ui_effect.dart';
 import '../../../../../../core/presentation/result/ui_result.dart';
+import '../../../../../../core/presentation/routing/defined_routes.dart'
+    show DefinedRoutes;
 import '../../../../../../core/success/success_enum.dart';
 import '../../../../domain/entities/login_response_entity.dart'
     show LoginResponseEntity;
@@ -52,6 +54,7 @@ class SignUpViewModel extends BaseCubit<SignUpState, UiEffect> {
     switch (result) {
       case OperationSuccess<SignUpResponseEntity>():
         emitEffect(const SuccessEffect(success: SuccessEnum.signUpSuccess));
+        emitEffect(const NavigateEffect(route: DefinedRoutes.previousRoute));
       case OperationFailure<SignUpResponseEntity>():
         emitEffect(DisplayErrorEffect(failure: result.failure));
     }
@@ -66,6 +69,7 @@ class SignUpViewModel extends BaseCubit<SignUpState, UiEffect> {
     switch (result) {
       case OperationSuccess<LoginResponseEntity>():
         emitEffect(const SuccessEffect(success: SuccessEnum.loginSuccess));
+        emitEffect(const NavigateEffect(route: DefinedRoutes.homeRoute));
       case OperationFailure<LoginResponseEntity>():
         emitEffect(DisplayErrorEffect(failure: result.failure));
     }

@@ -47,7 +47,7 @@ class _SplashScreenState extends BaseStatefulWidgetState<SplashScreen>
     controller = AnimationController(
       duration: const Duration(seconds: 2),
       vsync: this,
-    )..repeat(count: 1);
+    );
 
     controller.forward().then((value) {
       Future.delayed(const Duration(seconds: 1), () async {
@@ -128,75 +128,68 @@ class _SplashScreenState extends BaseStatefulWidgetState<SplashScreen>
               child: ResponsiveLayoutBuilder(
                 breakpointProvider: CustomBreakpoints(),
                 builder: (screenType, constraints) {
-                  return AnimatedBuilder(
-                    animation: controller,
-                    builder: (BuildContext context, Widget? child) {
-                      return AnimatedScale(
-                        scale: controller.status.isCompleted
-                            ? 1
-                            : 0.2 + controller.value,
-                        duration: const Duration(seconds: 1),
-                        child: Column(
-                          key: const Key(
-                            SplashScreenConstants.splashScreenColumnKey,
-                          ),
-                          spacing: 5,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: EdgeInsetsGeometry.symmetric(
-                                horizontal: !screenType.isMobile
-                                    ? constraints.maxWidth * (40 / 100)
-                                    : constraints.maxWidth * (30 / 100),
-                              ),
-                              child: Center(
-                                child: Image.asset(
-                                  key: const Key(
-                                    SplashScreenConstants.appLogoImageKey,
-                                  ),
-                                  Theme.brightnessOf(context) ==
-                                          Brightness.light
-                                      ? AssetPaths.appLogo
-                                      : AssetPaths.appLogoDark,
-                                  cacheWidth: 320,
-                                  cacheHeight: 340,
-                                ),
-                              ),
-                            ),
-                            Text(
-                              appLocalizations.welcomeToTamyez,
-                              style: typography.hero.copyWith(
-                                fontWeight: FontWeight.w400,
-                                color:
-                                    Theme.brightnessOf(context) ==
-                                        Brightness.light
-                                    ? AppColors.darkBlue
-                                    : AppColors.blue,
-                                fontFamily: GoogleFonts.lilitaOne().fontFamily,
-                                shadows: [
-                                  Shadow(
-                                    offset: const Offset(
-                                      0.0,
-                                      5.0,
-                                    ), // X and Y offset
-                                    blurRadius: 15.0, // The blur radius
-                                    color: Colors.black.withAlpha(
-                                      90,
-                                    ), // The color of the shadow
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Text(
-                              appLocalizations.discoverStrengthAndPathMessage,
-                              style: Theme.of(
-                                context,
-                              ).extension<AppTypography>()?.body,
-                            ),
-                          ],
+                  return ScaleTransition(
+                    scale: controller,
+                    child: RepaintBoundary(
+                      child: Column(
+                        key: const Key(
+                          SplashScreenConstants.splashScreenColumnKey,
                         ),
-                      );
-                    },
+                        spacing: 5,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: EdgeInsetsGeometry.symmetric(
+                              horizontal: !screenType.isMobile
+                                  ? constraints.maxWidth * (40 / 100)
+                                  : constraints.maxWidth * (30 / 100),
+                            ),
+                            child: Center(
+                              child: Image.asset(
+                                key: const Key(
+                                  SplashScreenConstants.appLogoImageKey,
+                                ),
+                                Theme.brightnessOf(context) == Brightness.light
+                                    ? AssetPaths.appLogo
+                                    : AssetPaths.appLogoDark,
+                                cacheWidth: 320,
+                                cacheHeight: 340,
+                              ),
+                            ),
+                          ),
+                          Text(
+                            appLocalizations.welcomeToTamyez,
+                            style: typography.hero.copyWith(
+                              fontWeight: FontWeight.w400,
+                              color:
+                                  Theme.brightnessOf(context) ==
+                                      Brightness.light
+                                  ? AppColors.darkBlue
+                                  : AppColors.blue,
+                              fontFamily: GoogleFonts.lilitaOne().fontFamily,
+                              shadows: [
+                                Shadow(
+                                  offset: const Offset(
+                                    0.0,
+                                    5.0,
+                                  ), // X and Y offset
+                                  blurRadius: 15.0, // The blur radius
+                                  color: Colors.black.withAlpha(
+                                    90,
+                                  ), // The color of the shadow
+                                ),
+                              ],
+                            ),
+                          ),
+                          Text(
+                            appLocalizations.discoverStrengthAndPathMessage,
+                            style: Theme.of(
+                              context,
+                            ).extension<AppTypography>()?.body,
+                          ),
+                        ],
+                      ),
+                    ),
                   );
                 },
               ),

@@ -5,13 +5,13 @@ class LoginResponse {
     success = json['success'] as bool?;
     message = json['message'] as String?;
     body = json['body'] != null
-        ? BodyDto.fromJson(json['body'] as Map<String, dynamic>)
+        ? LoginBodyDto.fromJson(json['body'] as Map<String, dynamic>)
         : null;
   }
 
   bool? success;
   String? message;
-  BodyDto? body;
+  LoginBodyDto? body;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -24,10 +24,10 @@ class LoginResponse {
   }
 }
 
-class BodyDto {
-  BodyDto({this.accessToken, this.user});
+class LoginBodyDto {
+  LoginBodyDto({this.accessToken, this.user});
 
-  BodyDto.fromJson(Map<String, dynamic> json) {
+  LoginBodyDto.fromJson(Map<String, dynamic> json) {
     accessToken = json['accessToken'] as String?;
     user = json['user'] != null
         ? UserDto.fromJson(json['user'] as Map<String, dynamic>)

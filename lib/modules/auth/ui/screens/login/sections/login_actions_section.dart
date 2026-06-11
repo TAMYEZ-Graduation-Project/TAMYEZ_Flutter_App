@@ -69,7 +69,9 @@ class LoginActionsSection extends BaseStatelessWidget {
                       state.systemLoginResult is Loading
                   ? null
                   : () {
-                      loginViewModel.doIntent(const GmailLoginIntent());
+                      loginViewModel.doIntent(
+                        GmailLoginIntent(rememberMe: rememberMe.value),
+                      );
                     },
               child: state.googleLoginResult is Loading
                   ? const AppLoadingWidget(dimension: 20)
@@ -78,9 +80,7 @@ class LoginActionsSection extends BaseStatelessWidget {
                       children: [
                         Image.asset(AssetPaths.googleIcon, height: 24),
                         const SizedBox(width: 8),
-                        Text(
-                          d.appLocalizations.google,
-                        ),
+                        Text(d.appLocalizations.google),
                       ],
                     ),
             );

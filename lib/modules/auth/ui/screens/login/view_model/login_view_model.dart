@@ -28,7 +28,7 @@ class LoginViewModel extends BaseCubit<LoginState, UiEffect> {
         await _systemLogin(intent: intent);
         break;
       case GmailLoginIntent():
-        await _gmailLogin();
+        await _gmailLogin(intent: intent);
     }
   }
 
@@ -51,16 +51,17 @@ class LoginViewModel extends BaseCubit<LoginState, UiEffect> {
     }
   }
 
-  Future<void> _gmailLogin() async {
+  Future<void> _gmailLogin({required GmailLoginIntent intent}) async {
     emit(state.copyWith(googleLoginResult: const Loading()));
     final OperationResult<LoginResponseEntity> result = await _gmailLoginUseCase
-        .call();
+        .call(rememberMe: intent.rememberMe);
 
     emit(state.copyWith(googleLoginResult: const Initial()));
 
     switch (result) {
       case OperationSuccess<LoginResponseEntity>():
         emitEffect(const SuccessEffect(success: SuccessEnum.loginSuccess));
+        emitEffect(const NavigateEffect(route: DefinedRoutes.homeRoute));
       case OperationFailure<LoginResponseEntity>():
         emitEffect(DisplayErrorEffect(failure: result.failure));
     }

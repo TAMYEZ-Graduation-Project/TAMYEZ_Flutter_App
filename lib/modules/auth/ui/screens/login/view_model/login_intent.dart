@@ -15,5 +15,7 @@ class SystemLoginIntent extends LoginIntent {
 }
 
 class GmailLoginIntent extends LoginIntent {
-  const GmailLoginIntent();
+  final bool rememberMe;
+
+  const GmailLoginIntent({required this.rememberMe});
 }

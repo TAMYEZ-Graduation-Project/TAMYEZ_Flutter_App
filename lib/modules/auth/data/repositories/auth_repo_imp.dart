@@ -1,18 +1,14 @@
-import 'dart:convert';
-
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/error/exceptions/app_exceptions.dart';
 import '../../../../core/execution/operation_result.dart';
-import '../../../../core/layers/storage/constants/storage_constants.dart'
-    show StorageConstants;
-import '../../../../core/layers/storage/contracts/storage_service_contract.dart';
 import '../../../../core/utils/functions/repo_result_handler.dart';
+import '../../../../core/utils/functions/safe_print.dart';
 import '../../domain/entities/login_params.dart';
 import '../../domain/entities/login_response_entity.dart';
 import '../../domain/entities/sign_up_params.dart';
 import '../../domain/entities/sign_up_response_entity.dart';
 import '../../domain/repositories/auth_repository.dart';
+import '../data_sources/local/auth_local_data_source.dart';
 import '../data_sources/remote/auth_remote_data_source.dart';
 import '../data_sources/remote/social_auth_service.dart';
 import '../mappers/auth_mapper.dart';
@@ -22,12 +18,13 @@ import '../models/gmail_login_request.dart';
 class AuthRepoImp implements AuthRepository {
   final AuthRemoteDataSource _authRemoteDataSource;
   final SocialAuthService _socialAuthService;
-  final StorageService _storageService;
+
+  final AuthLocalDataSource _authLocalDataSource;
 
   const AuthRepoImp(
     this._authRemoteDataSource,
     this._socialAuthService,
-    @Named(StorageConstants.secureStorage) this._storageService,
+    this._authLocalDataSource,
   );
 
   @override
@@ -49,6 +46,7 @@ class AuthRepoImp implements AuthRepository {
       final response = await _authRemoteDataSource.gmailSignUp(
         request: GmailLoginRequest(idToken: token),
       );
+      await _authLocalDataSource.saveLoginSession(body: response.body);
       return response.toEntity();
     });
   }
@@ -63,42 +61,31 @@ class AuthRepoImp implements AuthRepository {
         request: params.toModel(),
       );
       if (rememberMe) {
-        if (response.body?.user == null || response.body?.accessToken == null) {
-          throw const LoginBadResponseException();
-        }
-        await Future.wait([
-          _storageService.setString(
-            StorageConstants.userKey,
-            jsonEncode(response.body!.user!.toJson()),
-          ),
-          _storageService.setString(
-            StorageConstants.accessToken,
-            jsonEncode(response.body!.accessToken),
-          ),
-        ]);
+        safePrint('Saving login session');
+        await _authLocalDataSource.saveLoginSession(body: response.body);
       }
       return response.toEntity();
     });
   }
 
   @override
-  Future<OperationResult<LoginResponseEntity>> gmailLogin() {
+  Future<OperationResult<LoginResponseEntity>> gmailLogin({
+    required bool rememberMe,
+  }) {
     return repoResultHandler(() async {
       final String token = await _socialAuthService.getGoogleIdToken();
       final response = await _authRemoteDataSource.gmailLogin(
         request: GmailLoginRequest(idToken: token),
       );
+      if (rememberMe) {
+        await _authLocalDataSource.saveLoginSession(body: response.body);
+      }
       return response.toEntity();
     });
   }
 
   @override
-  Future<bool> isThereLoginSession() async {
-    final List<String?> savedValues = await Future.wait([
-      _storageService.getString(StorageConstants.userKey),
-      _storageService.getString(StorageConstants.accessToken),
-    ]);
-
-    return savedValues[0] != null && savedValues[1] != null;
+  Future<bool> isThereLoginSession() {
+    return _authLocalDataSource.isThereLoginSession();
   }
 }

@@ -9,6 +9,8 @@ import '../../../../../core/presentation/bases/base_stateful_widget_state.dart';
 import '../../../../../core/presentation/error/failure_message_mapper.dart'
     show FailureHandling;
 import '../../../../../core/presentation/result/ui_effect.dart';
+import '../../../../../core/presentation/routing/defined_routes.dart'
+    show DefinedRoutes;
 import '../../../../../core/presentation/success/success_message_mapper.dart'
     show SuccessHandling;
 import 'sections/sign_up_actions_section.dart';
@@ -44,6 +46,7 @@ class _SignUpScreenState extends BaseStatefulWidgetState<SignUpScreen> {
           displaySnackBar(
             contentType: ContentType.failure,
             title: appLocalizations.error,
+            durationInSeconds: 10,
             message: FailureHandling.mapFailureToMessage(
               appLocalizations,
               event.failure,
@@ -57,8 +60,13 @@ class _SignUpScreenState extends BaseStatefulWidgetState<SignUpScreen> {
               event.success!,
             ),
           );
-        default:
-          break;
+        case NavigateEffect():
+          if (!mounted) return;
+          if (event.route == DefinedRoutes.previousRoute) {
+            Navigator.pop(context);
+            return;
+          }
+          Navigator.pushReplacementNamed(context, event.route);
       }
     });
   }
@@ -74,7 +82,6 @@ class _SignUpScreenState extends BaseStatefulWidgetState<SignUpScreen> {
     return BlocProvider(
       create: (context) => signUpViewModel,
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
         appBar: AppBar(title: Text(appLocalizations.signUp), centerTitle: true),
         body: SingleChildScrollView(
           child: Padding(

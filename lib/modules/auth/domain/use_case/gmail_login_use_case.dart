@@ -10,7 +10,9 @@ class GmailLoginUseCase {
 
   const GmailLoginUseCase(this._authRepository);
 
-  Future<OperationResult<LoginResponseEntity>> call() {
-    return _authRepository.gmailLogin();
+  Future<OperationResult<LoginResponseEntity>> call({
+    required bool rememberMe,
+  }) {
+    return _authRepository.gmailLogin(rememberMe: rememberMe);
   }
 }

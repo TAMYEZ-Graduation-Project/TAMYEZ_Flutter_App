@@ -20,6 +20,7 @@ class LoginForm extends BaseStatelessWidget {
   Widget buildWith(BuildContext context, CommonDependency d) {
     return Form(
       key: formKey,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Column(
         spacing: 16,
         children: [

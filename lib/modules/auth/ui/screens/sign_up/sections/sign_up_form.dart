@@ -35,6 +35,7 @@ class _SignUpFormState extends BaseStatefulWidgetState<SignUpForm> {
   Widget build(BuildContext context) {
     return Form(
       key: widget.formKey,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Column(
         spacing: 16,
         children: [

@@ -7,8 +7,8 @@ class GmailLoginRequest {
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['deviceId'] = deviceId;
-    map['fcmToken'] = fcmToken;
+    if (deviceId != null) map['deviceId'] = deviceId;
+    if (fcmToken != null) map['fcmToken'] = fcmToken;
     map['idToken'] = idToken;
     return map;
   }

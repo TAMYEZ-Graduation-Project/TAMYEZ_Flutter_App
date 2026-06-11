@@ -1,6 +1,7 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart' show Firebase;
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart'
     show MultiProvider, ChangeNotifierProvider, Consumer2;
@@ -26,6 +27,7 @@ import 'modules/startup/ui/splash/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: WidgetsBinding.instance);
 
   // Framework / platform initialization
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -39,6 +41,7 @@ void main() async {
 
   runApp(
     DevicePreview(
+      enabled: false,
       builder: (context) {
         return const MyApp();
       },
@@ -69,6 +72,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     authProvider = getIt.get<AuthProvider>();
     authProvider.addListener(_onAuthStateChanged);
+    FlutterNativeSplash.remove();
   }
 
   void _onAuthStateChanged() {
