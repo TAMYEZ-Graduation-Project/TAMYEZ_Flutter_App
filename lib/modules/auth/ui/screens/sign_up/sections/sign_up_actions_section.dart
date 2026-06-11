@@ -52,7 +52,7 @@ class SignUpActionsSection extends BaseStatelessWidget {
                       }
                     },
               child: state.systemSignUpResult is Loading
-                  ? const AppLoadingWidget(dimension: 20,)
+                  ? const AppLoadingWidget(dimension: 20)
                   : Text(d.appLocalizations.signUp),
             );
           },

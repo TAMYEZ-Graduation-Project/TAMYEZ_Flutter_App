@@ -54,26 +54,29 @@ abstract class RoutingProvider {
         case DefinedRoutes.forgetPasswordRoute:
           return PageRouteBuilder(
             pageBuilder: (context, animation, secondaryAnimation) =>
-            const ForgetPasswordScreen(),
+                const ForgetPasswordScreen(),
             transitionsBuilder: PageTransitions.slideAndFade,
             settings: const RouteSettings(
-                name: DefinedRoutes.forgetPasswordRoute),
+              name: DefinedRoutes.forgetPasswordRoute,
+            ),
           );
         case DefinedRoutes.verificationCodeRoute:
           return PageRouteBuilder(
             pageBuilder: (context, animation, secondaryAnimation) =>
-            const VerificationCodeScreen(),
+                const VerificationCodeScreen(),
             transitionsBuilder: PageTransitions.slideAndFade,
-            settings:
-            const RouteSettings(name: DefinedRoutes.verificationCodeRoute),
+            settings: const RouteSettings(
+              name: DefinedRoutes.verificationCodeRoute,
+            ),
           );
         case DefinedRoutes.resetPasswordRoute:
           return PageRouteBuilder(
             pageBuilder: (context, animation, secondaryAnimation) =>
-            const ResetPasswordScreen(),
+                const ResetPasswordScreen(),
             transitionsBuilder: PageTransitions.slideAndFade,
             settings: const RouteSettings(
-                name: DefinedRoutes.resetPasswordRoute),
+              name: DefinedRoutes.resetPasswordRoute,
+            ),
           );
         case DefinedRoutes.homeRoute:
           return PageRouteBuilder(
