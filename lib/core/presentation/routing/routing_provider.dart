@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 
+import '../../../modules/auth/ui/screens/forget_password/forget_password_screen.dart';
+import '../../../modules/auth/ui/screens/forget_password/reset_password_screen.dart';
+import '../../../modules/auth/ui/screens/forget_password/verification_code_screen.dart';
 import '../../../modules/auth/ui/screens/login/login_screen.dart';
 import '../../../modules/auth/ui/screens/sign_up/sign_up_screen.dart'
     show SignUpScreen;
 import '../../../modules/home/home_screen.dart' show HomeScreen;
-import '../../../modules/onboarding/onboarding_screen.dart';
-import '../../../modules/splash/splash_screen.dart' show SplashScreen;
+import '../../../modules/startup/ui/onboarding/onboarding_screen.dart';
+import '../../../modules/startup/ui/splash/splash_screen.dart'
+    show SplashScreen;
 import 'defined_routes.dart';
 import 'page_transitions.dart';
 
@@ -46,6 +50,30 @@ abstract class RoutingProvider {
                 const SignUpScreen(),
             transitionsBuilder: PageTransitions.slideAndFade,
             settings: const RouteSettings(name: DefinedRoutes.signUpRoute),
+          );
+        case DefinedRoutes.forgetPasswordRoute:
+          return PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) =>
+            const ForgetPasswordScreen(),
+            transitionsBuilder: PageTransitions.slideAndFade,
+            settings: const RouteSettings(
+                name: DefinedRoutes.forgetPasswordRoute),
+          );
+        case DefinedRoutes.verificationCodeRoute:
+          return PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) =>
+            const VerificationCodeScreen(),
+            transitionsBuilder: PageTransitions.slideAndFade,
+            settings:
+            const RouteSettings(name: DefinedRoutes.verificationCodeRoute),
+          );
+        case DefinedRoutes.resetPasswordRoute:
+          return PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) =>
+            const ResetPasswordScreen(),
+            transitionsBuilder: PageTransitions.slideAndFade,
+            settings: const RouteSettings(
+                name: DefinedRoutes.resetPasswordRoute),
           );
         case DefinedRoutes.homeRoute:
           return PageRouteBuilder(

@@ -17,6 +17,10 @@ import 'package:google_sign_in/google_sign_in.dart' as _i116;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:isar_community/isar.dart' as _i214;
 
+import '../../modules/auth/data/data_sources/local/auth_local_data_source.dart'
+    as _i376;
+import '../../modules/auth/data/data_sources/local/auth_local_data_source_imp.dart'
+    as _i405;
 import '../../modules/auth/data/data_sources/remote/auth_api_client.dart'
     as _i362;
 import '../../modules/auth/data/data_sources/remote/auth_di_module.dart'
@@ -31,6 +35,8 @@ import '../../modules/auth/data/data_sources/remote/social_auth_service_imp.dart
     as _i301;
 import '../../modules/auth/data/repositories/auth_repo_imp.dart' as _i23;
 import '../../modules/auth/domain/repositories/auth_repository.dart' as _i779;
+import '../../modules/auth/domain/use_case/check_login_session_use_case.dart'
+    as _i1046;
 import '../../modules/auth/domain/use_case/gmail_login_use_case.dart' as _i280;
 import '../../modules/auth/domain/use_case/gmail_sign_up_use_case.dart'
     as _i123;
@@ -138,6 +144,11 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i1003.StorageService>(instanceName: 'secureStorage'),
       ),
     );
+    gh.factory<_i376.AuthLocalDataSource>(
+      () => _i405.AuthLocalDataSourceImp(
+        gh<_i1003.StorageService>(instanceName: 'secureStorage'),
+      ),
+    );
     gh.singleton<_i362.LocalizationManager>(
       () => _i362.LocalizationManager(
         gh<_i1003.StorageService>(instanceName: 'secureStorage'),
@@ -158,7 +169,11 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i23.AuthRepoImp(
         gh<_i911.AuthRemoteDataSource>(),
         gh<_i622.SocialAuthService>(),
+        gh<_i376.AuthLocalDataSource>(),
       ),
+    );
+    gh.factory<_i1046.CheckLoginSessionUseCase>(
+      () => _i1046.CheckLoginSessionUseCase(gh<_i779.AuthRepository>()),
     );
     gh.factory<_i280.GmailLoginUseCase>(
       () => _i280.GmailLoginUseCase(gh<_i779.AuthRepository>()),

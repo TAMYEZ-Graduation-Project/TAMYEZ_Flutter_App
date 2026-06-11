@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../../../../core/layers/theme/colors/app_colors.dart'
     show AppColors;
 import '../../../../../../core/presentation/bases/base_stateless_widget.dart';
+import '../../../../../../core/presentation/routing/defined_routes.dart'
+    show DefinedRoutes;
 
 class AuthHelperSection extends BaseStatelessWidget {
   final ValueNotifier<bool> rememberMe;
@@ -35,7 +37,9 @@ class AuthHelperSection extends BaseStatelessWidget {
             ),
             const Spacer(),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, DefinedRoutes.forgetPasswordRoute);
+              },
               child: Text(
                 d.appLocalizations.forgotPassword,
                 style: d.typography.body.copyWith(
