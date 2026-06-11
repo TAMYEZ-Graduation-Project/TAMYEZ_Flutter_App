@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -240,4 +241,34 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get termsAndPrivacy =>
       'By continuing, you agree to our Terms of Service and Privacy Policy';
+
+  @override
+  String get pleaseEnterEmailAssociated =>
+      'Please enter your email associated to your account';
+
+  @override
+  String get resetPassword => 'Reset password';
+
+  @override
+  String get passwordRequirements =>
+      'Password must not be empty and must contain 6 characters with upper case letter and one number at least';
+
+  @override
+  String get enterNewPassword => 'Enter your new password';
+
+  @override
+  String get emailVerification => 'Email verification';
+
+  @override
+  String get enterCodeSent =>
+      'Please enter your code that send to your email address';
+
+  @override
+  String get invalidCode => 'Invalid code';
+
+  @override
+  String get didNotReceiveCode => 'Didn\'t receive code? ';
+
+  @override
+  String get resent => 'Resent';
 }

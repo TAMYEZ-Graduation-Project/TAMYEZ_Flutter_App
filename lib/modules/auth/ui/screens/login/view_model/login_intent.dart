@@ -5,8 +5,13 @@ sealed class LoginIntent {
 class SystemLoginIntent extends LoginIntent {
   final String email;
   final String password;
+  final bool rememberMe;
 
-  const SystemLoginIntent({required this.email, required this.password});
+  const SystemLoginIntent({
+    required this.email,
+    required this.password,
+    required this.rememberMe,
+  });
 }
 
 class GmailLoginIntent extends LoginIntent {

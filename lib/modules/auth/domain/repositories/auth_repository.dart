@@ -13,7 +13,11 @@ abstract interface class AuthRepository {
 
   Future<OperationResult<LoginResponseEntity>> login({
     required LoginParams params,
+    required bool rememberMe
   });
 
   Future<OperationResult<LoginResponseEntity>> gmailLogin();
+
+
+  Future<bool> isThereLoginSession();
 }

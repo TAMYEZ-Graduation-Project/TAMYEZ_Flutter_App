@@ -4,11 +4,12 @@ import 'package:mockito/mockito.dart';
 import 'package:tamyez_app/core/di/di.dart';
 import 'package:tamyez_app/core/presentation/routing/defined_routes.dart'
     show DefinedRoutes;
-import 'package:tamyez_app/modules/splash/constants/splash_screen_constants.dart';
-import 'package:tamyez_app/modules/splash/splash_screen.dart' show SplashScreen;
+import 'package:tamyez_app/modules/startup/ui/splash/constants/splash_screen_constants.dart';
+import 'package:tamyez_app/modules/startup/ui/splash/splash_screen.dart'
+    show SplashScreen;
 
-import '../core/shared/build_widget.dart' show buildWidget;
-import '../core/shared/widget_testing_shared_setups.dart';
+import '../../../core/shared/build_widget.dart' show buildWidget;
+import '../../../core/shared/widget_testing_shared_setups.dart';
 
 void main() {
   group('Test Splash Screen widget', () {

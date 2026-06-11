@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart' show BlocBuilder, ReadContext;
 
 import '../../../../../../core/constants/asset_paths.dart' show AssetPaths;
-import '../../../../../../core/layers/theme/colors/app_colors.dart'
-    show AppColors;
 import '../../../../../../core/presentation/bases/base_stateless_widget.dart';
 import '../../../../../../core/presentation/result/ui_result.dart' show Loading;
 import '../../../../../../core/presentation/widgets/app_loading_widget.dart'
@@ -17,7 +15,7 @@ import '../view_model/login_view_model.dart' show LoginViewModel;
 class LoginActionsSection extends BaseStatelessWidget {
   final GlobalKey<FormState> formKey;
   final LoginControllers loginControllers;
-  final bool rememberMe;
+  final ValueNotifier<bool> rememberMe;
 
   const LoginActionsSection({
     super.key,
@@ -45,12 +43,13 @@ class LoginActionsSection extends BaseStatelessWidget {
                           SystemLoginIntent(
                             email: loginControllers.emailController.text,
                             password: loginControllers.passwordController.text,
+                            rememberMe: rememberMe.value,
                           ),
                         );
                       }
                     },
               child: state.systemLoginResult is Loading
-                  ? const CircularProgressIndicator()
+                  ? const AppLoadingWidget(dimension: 20)
                   : Text(d.appLocalizations.signIn),
             );
           },
@@ -81,9 +80,6 @@ class LoginActionsSection extends BaseStatelessWidget {
                         const SizedBox(width: 8),
                         Text(
                           d.appLocalizations.google,
-                          style: d.typography.button.copyWith(
-                            color: AppColors.dark,
-                          ),
                         ),
                       ],
                     ),

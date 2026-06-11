@@ -1,9 +1,9 @@
 import 'package:fit_ui/fit_ui.dart';
 import 'package:flutter/material.dart';
 
-import '../../core/presentation/bases/base_stateless_widget.dart'
+import '../../../../core/presentation/bases/base_stateless_widget.dart'
     show BaseStatelessWidget;
-import '../../core/presentation/screen/custom_breakpoints.dart'
+import '../../../../core/presentation/screen/custom_breakpoints.dart'
     show CustomBreakpoints;
 import 'views/mobile_view.dart';
 import 'views/tablet_or_desktop_view.dart';

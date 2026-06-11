@@ -4,6 +4,8 @@ import '../../../../../../core/execution/operation_result.dart';
 import '../../../../../../core/presentation/bases/base_cubit.dart';
 import '../../../../../../core/presentation/result/ui_effect.dart';
 import '../../../../../../core/presentation/result/ui_result.dart';
+import '../../../../../../core/presentation/routing/defined_routes.dart'
+    show DefinedRoutes;
 import '../../../../../../core/success/success_enum.dart';
 import '../../../../domain/entities/login_params.dart';
 import '../../../../domain/entities/login_response_entity.dart';
@@ -35,6 +37,7 @@ class LoginViewModel extends BaseCubit<LoginState, UiEffect> {
     final OperationResult<LoginResponseEntity> result = await _loginUseCase
         .call(
           params: LoginParams(email: intent.email, password: intent.password),
+          rememberMe: intent.rememberMe,
         );
 
     emit(state.copyWith(systemLoginResult: const Initial()));
@@ -42,6 +45,7 @@ class LoginViewModel extends BaseCubit<LoginState, UiEffect> {
     switch (result) {
       case OperationSuccess<LoginResponseEntity>():
         emitEffect(const SuccessEffect(success: SuccessEnum.loginSuccess));
+        emitEffect(const NavigateEffect(route: DefinedRoutes.homeRoute));
       case OperationFailure<LoginResponseEntity>():
         emitEffect(DisplayErrorEffect(failure: result.failure));
     }

@@ -1,6 +1,12 @@
+import 'dart:convert';
+
 import 'package:injectable/injectable.dart';
 
+import '../../../../core/error/exceptions/app_exceptions.dart';
 import '../../../../core/execution/operation_result.dart';
+import '../../../../core/layers/storage/constants/storage_constants.dart'
+    show StorageConstants;
+import '../../../../core/layers/storage/contracts/storage_service_contract.dart';
 import '../../../../core/utils/functions/repo_result_handler.dart';
 import '../../domain/entities/login_params.dart';
 import '../../domain/entities/login_response_entity.dart';
@@ -16,8 +22,13 @@ import '../models/gmail_login_request.dart';
 class AuthRepoImp implements AuthRepository {
   final AuthRemoteDataSource _authRemoteDataSource;
   final SocialAuthService _socialAuthService;
+  final StorageService _storageService;
 
-  const AuthRepoImp(this._authRemoteDataSource, this._socialAuthService);
+  const AuthRepoImp(
+    this._authRemoteDataSource,
+    this._socialAuthService,
+    @Named(StorageConstants.secureStorage) this._storageService,
+  );
 
   @override
   Future<OperationResult<SignUpResponseEntity>> signUp({
@@ -45,11 +56,27 @@ class AuthRepoImp implements AuthRepository {
   @override
   Future<OperationResult<LoginResponseEntity>> login({
     required LoginParams params,
+    required bool rememberMe,
   }) {
     return repoResultHandler(() async {
       final response = await _authRemoteDataSource.login(
         request: params.toModel(),
       );
+      if (rememberMe) {
+        if (response.body?.user == null || response.body?.accessToken == null) {
+          throw const LoginBadResponseException();
+        }
+        await Future.wait([
+          _storageService.setString(
+            StorageConstants.userKey,
+            jsonEncode(response.body!.user!.toJson()),
+          ),
+          _storageService.setString(
+            StorageConstants.accessToken,
+            jsonEncode(response.body!.accessToken),
+          ),
+        ]);
+      }
       return response.toEntity();
     });
   }
@@ -63,5 +90,15 @@ class AuthRepoImp implements AuthRepository {
       );
       return response.toEntity();
     });
+  }
+
+  @override
+  Future<bool> isThereLoginSession() async {
+    final List<String?> savedValues = await Future.wait([
+      _storageService.getString(StorageConstants.userKey),
+      _storageService.getString(StorageConstants.accessToken),
+    ]);
+
+    return savedValues[0] != null && savedValues[1] != null;
   }
 }

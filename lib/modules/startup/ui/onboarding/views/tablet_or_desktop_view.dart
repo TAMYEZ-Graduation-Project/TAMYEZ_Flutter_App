@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/asset_paths.dart' show AssetPaths;
-import '../../../core/layers/theme/colors/app_colors.dart' show AppColors;
-import '../../../core/presentation/bases/base_stateless_widget.dart'
+import '../../../../../core/constants/asset_paths.dart' show AssetPaths;
+import '../../../../../core/layers/theme/colors/app_colors.dart' show AppColors;
+import '../../../../../core/presentation/bases/base_stateless_widget.dart'
     show BaseStatelessWidget;
-import '../../../core/presentation/routing/defined_routes.dart'
+import '../../../../../core/presentation/routing/defined_routes.dart'
     show DefinedRoutes;
 import '../constants/onboarding_screen_constants.dart'
     show OnboardingScreenConstants;

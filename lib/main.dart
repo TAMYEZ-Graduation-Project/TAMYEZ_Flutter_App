@@ -22,7 +22,7 @@ import 'core/presentation/screen/custom_breakpoints.dart'
     show CustomBreakpoints;
 import 'core/presentation/utils/dialogs/app_dialogs.dart' show AppDialogs;
 import 'firebase_options.dart' show DefaultFirebaseOptions;
-import 'modules/splash/splash_screen.dart';
+import 'modules/startup/ui/splash/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

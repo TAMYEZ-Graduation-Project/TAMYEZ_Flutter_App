@@ -55,8 +55,9 @@ class _LoginScreenState extends BaseStatefulWidgetState<LoginScreen> {
               event.success!,
             ),
           );
-        default:
-          break;
+        case NavigateEffect():
+          if (!mounted) return;
+          Navigator.pushReplacementNamed(context, event.route);
       }
     });
   }
@@ -89,7 +90,7 @@ class _LoginScreenState extends BaseStatefulWidgetState<LoginScreen> {
                 LoginActionsSection(
                   formKey: formKey,
                   loginControllers: loginControllers,
-                  rememberMe: rememberMe.value,
+                  rememberMe: rememberMe,
                 ),
                 RichText(
                   textAlign: TextAlign.center,

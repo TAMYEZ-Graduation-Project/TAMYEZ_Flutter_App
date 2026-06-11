@@ -15,8 +15,8 @@ class LoginRequest {
     final map = <String, dynamic>{};
     map['email'] = email;
     map['password'] = password;
-    map['deviceId'] = deviceId;
-    map['fcmToken'] = fcmToken;
+    if (deviceId != null) map['deviceId'] = deviceId;
+    if (fcmToken != null) map['fcmToken'] = fcmToken;
     return map;
   }
 }

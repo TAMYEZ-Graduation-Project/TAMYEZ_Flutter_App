@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -237,4 +238,34 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get termsAndPrivacy =>
       'من خلال الاستمرار، فإنك توافق على شروط الخدمة وسياسة الخصوصية الخاصة بنا';
+
+  @override
+  String get pleaseEnterEmailAssociated =>
+      'الرجاء إدخال بريدك الإلكتروني المرتبط بحسابك';
+
+  @override
+  String get resetPassword => 'إعادة تعيين كلمة المرور';
+
+  @override
+  String get passwordRequirements =>
+      'يجب ألا تكون كلمة المرور فارغة ويجب أن تحتوي على 6 أحرف مع حرف كبير ورقم واحد على الأقل';
+
+  @override
+  String get enterNewPassword => 'أدخل كلمة المرور الجديدة';
+
+  @override
+  String get emailVerification => 'التحقق من البريد الإلكتروني';
+
+  @override
+  String get enterCodeSent =>
+      'الرجاء إدخال الرمز الذي تم إرساله إلى بريدك الإلكتروني';
+
+  @override
+  String get invalidCode => 'رمز غير صالح';
+
+  @override
+  String get didNotReceiveCode => 'لم تصلك الرسالة؟ ';
+
+  @override
+  String get resent => 'إعادة إرسال';
 }

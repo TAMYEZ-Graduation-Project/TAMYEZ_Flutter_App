@@ -1,24 +1,28 @@
+import 'dart:async';
 import 'dart:io' show Platform;
 
 import 'package:fit_ui/fit_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../core/constants/asset_paths.dart';
+import '../../../../core/di/di.dart' show getIt;
+import '../../../../core/layers/localization/l10n/generated/app_localizations.dart'
+    show AppLocalizations;
+import '../../../../core/layers/theme/colors/app_colors.dart';
+import '../../../../core/layers/theme/extensions/app_typography.dart';
+import '../../../../core/layers/theme/factory/app_theme_factory.dart'
+    show AppThemeFactory;
 import '../../../../core/presentation/bases/base_stateful_widget_state.dart'
     show BaseStatefulWidgetState;
-import '../../core/constants/asset_paths.dart';
-import '../../core/layers/localization/l10n/generated/app_localizations.dart'
-    show AppLocalizations;
-import '../../core/layers/theme/colors/app_colors.dart';
-import '../../core/layers/theme/extensions/app_typography.dart';
-import '../../core/layers/theme/factory/app_theme_factory.dart'
-    show AppThemeFactory;
-import '../../core/presentation/routing/defined_routes.dart' show DefinedRoutes;
-import '../../core/presentation/routing/navigator_key.dart';
-import '../../core/presentation/screen/custom_breakpoints.dart'
+import '../../../../core/presentation/routing/defined_routes.dart'
+    show DefinedRoutes;
+import '../../../../core/presentation/routing/navigator_key.dart';
+import '../../../../core/presentation/screen/custom_breakpoints.dart'
     show CustomBreakpoints;
-import '../../core/utils/functions/has_google_services.dart'
+import '../../../../core/utils/functions/has_google_services.dart'
     show hasGoogleServices;
+import '../../../auth/domain/use_case/check_login_session_use_case.dart';
 import 'constants/splash_screen_constants.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -33,10 +37,13 @@ class _SplashScreenState extends BaseStatefulWidgetState<SplashScreen>
   late AnimationController controller;
   late Brightness systemBrightness;
 
+  final Completer<bool> isLoggedInCompleter = Completer<bool>();
+
   @override
   void initState() {
     super.initState();
 
+    checkLoginSession();
     controller = AnimationController(
       duration: const Duration(seconds: 2),
       vsync: this,
@@ -44,13 +51,27 @@ class _SplashScreenState extends BaseStatefulWidgetState<SplashScreen>
 
     controller.forward().then((value) {
       Future.delayed(const Duration(seconds: 1), () async {
+        final isLoggedIn = await isLoggedInCompleter.future;
         if (!mounted) return;
-        Navigator.pushReplacementNamed(context, DefinedRoutes.onboardingRoute);
+        if (isLoggedIn) {
+          Navigator.pushReplacementNamed(context, DefinedRoutes.homeRoute);
+        } else {
+          Navigator.pushReplacementNamed(
+            context,
+            DefinedRoutes.onboardingRoute,
+          );
+        }
         WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
           checkGooglePlayServices();
         });
       });
     });
+  }
+
+  Future<void> checkLoginSession() async {
+    isLoggedInCompleter.complete(
+      await getIt.get<CheckLoginSessionUseCase>().call(),
+    );
   }
 
   Future<void> checkGooglePlayServices() async {

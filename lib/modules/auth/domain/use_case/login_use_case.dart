@@ -13,7 +13,8 @@ class LoginUseCase {
 
   Future<OperationResult<LoginResponseEntity>> call({
     required LoginParams params,
+    required bool rememberMe,
   }) {
-    return _authRepository.login(params: params);
+    return _authRepository.login(params: params, rememberMe: rememberMe);
   }
 }

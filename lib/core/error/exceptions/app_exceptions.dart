@@ -22,6 +22,10 @@ class UnauthorizedException extends AppException {
   const UnauthorizedException({super.message});
 }
 
+class LoginBadResponseException extends AppException {
+  const LoginBadResponseException({super.message});
+}
+
 class GoogleLoginException extends AppException {
   const GoogleLoginException({super.message});
 }

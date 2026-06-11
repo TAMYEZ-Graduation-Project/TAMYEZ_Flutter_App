@@ -9,15 +9,15 @@ import 'package:tamyez_app/core/presentation/routing/defined_routes.dart'
     show DefinedRoutes;
 import 'package:tamyez_app/modules/auth/ui/screens/login/view_model/login_state.dart';
 import 'package:tamyez_app/modules/auth/ui/screens/login/view_model/login_view_model.dart';
-import 'package:tamyez_app/modules/onboarding/constants/onboarding_screen_constants.dart'
+import 'package:tamyez_app/modules/startup/ui/onboarding/constants/onboarding_screen_constants.dart'
     show OnboardingScreenConstants;
-import 'package:tamyez_app/modules/onboarding/onboarding_screen.dart';
-import 'package:tamyez_app/modules/onboarding/widget/choose_language_widget.dart'
+import 'package:tamyez_app/modules/startup/ui/onboarding/onboarding_screen.dart';
+import 'package:tamyez_app/modules/startup/ui/onboarding/widget/choose_language_widget.dart'
     show ChooseLanguageWidget;
-import 'package:tamyez_app/modules/splash/splash_screen.dart';
+import 'package:tamyez_app/modules/startup/ui/splash/splash_screen.dart';
 
-import '../core/shared/build_widget.dart';
-import '../core/shared/widget_testing_shared_setups.dart'
+import '../../../core/shared/build_widget.dart';
+import '../../../core/shared/widget_testing_shared_setups.dart'
     show WidgetTestingSharedSetups;
 import 'onboarding_screen_test.mocks.dart';
 

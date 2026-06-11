@@ -535,6 +535,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'By continuing, you agree to our Terms of Service and Privacy Policy'**
   String get termsAndPrivacy;
+
+  /// No description provided for @pleaseEnterEmailAssociated.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your email associated to your account'**
+  String get pleaseEnterEmailAssociated;
+
+  /// No description provided for @resetPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset password'**
+  String get resetPassword;
+
+  /// No description provided for @passwordRequirements.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must not be empty and must contain 6 characters with upper case letter and one number at least'**
+  String get passwordRequirements;
+
+  /// No description provided for @enterNewPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your new password'**
+  String get enterNewPassword;
+
+  /// No description provided for @emailVerification.
+  ///
+  /// In en, this message translates to:
+  /// **'Email verification'**
+  String get emailVerification;
+
+  /// No description provided for @enterCodeSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your code that send to your email address'**
+  String get enterCodeSent;
+
+  /// No description provided for @invalidCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid code'**
+  String get invalidCode;
+
+  /// No description provided for @didNotReceiveCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Didn\'t receive code? '**
+  String get didNotReceiveCode;
+
+  /// No description provided for @resent.
+  ///
+  /// In en, this message translates to:
+  /// **'Resent'**
+  String get resent;
 }
 
 class _AppLocalizationsDelegate

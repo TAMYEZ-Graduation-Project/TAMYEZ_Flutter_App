@@ -51,14 +51,15 @@ abstract class AppThemeFactory {
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
+          foregroundColor: AppColors.dark,
           backgroundColor: AppColors.gray,
           padding: const EdgeInsetsGeometry.symmetric(vertical: 16),
           side: BorderSide.none,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
-          textStyle: typography.button.copyWith(color: AppColors.dark),
-          disabledForegroundColor: AppColors.darkGray,
+          textStyle: typography.button,
+          disabledBackgroundColor: AppColors.darkGray,
         ),
       ),
       textButtonTheme: TextButtonThemeData(
