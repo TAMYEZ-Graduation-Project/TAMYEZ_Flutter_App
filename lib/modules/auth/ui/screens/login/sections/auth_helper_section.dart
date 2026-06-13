@@ -51,7 +51,12 @@ class AuthHelperSection extends BaseStatelessWidget {
           ],
         ),
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(
+              context,
+              DefinedRoutes.resendVerificationEmailRoute,
+            );
+          },
           child: Text(
             d.appLocalizations.resendVerificationEmail,
             style: d.typography.subTitle.copyWith(

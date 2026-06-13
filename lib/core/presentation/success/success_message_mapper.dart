@@ -11,6 +11,14 @@ abstract class SuccessHandling {
         return l10n.loginSuccess;
       case SuccessEnum.signUpSuccess:
         return l10n.signUpSuccess;
+      case SuccessEnum.otpResentSuccess:
+        return l10n.otpResentSuccess;
+      case SuccessEnum.resetPasswordSuccess:
+        return l10n.resetPasswordSuccess;
+      case SuccessEnum.forgetPasswordEmailSent:
+        return l10n.forgetPasswordEmailSent;
+      case SuccessEnum.otpVerifiedSuccess:
+        return l10n.otpVerifiedSuccess;
     }
   }
 }

@@ -37,13 +37,24 @@ import '../../modules/auth/data/repositories/auth_repo_imp.dart' as _i23;
 import '../../modules/auth/domain/repositories/auth_repository.dart' as _i779;
 import '../../modules/auth/domain/use_case/check_login_session_use_case.dart'
     as _i1046;
+import '../../modules/auth/domain/use_case/forget_password_use_case.dart'
+    as _i347;
 import '../../modules/auth/domain/use_case/gmail_login_use_case.dart' as _i280;
 import '../../modules/auth/domain/use_case/gmail_sign_up_use_case.dart'
     as _i123;
 import '../../modules/auth/domain/use_case/login_use_case.dart' as _i46;
+import '../../modules/auth/domain/use_case/resend_email_verification_use_case.dart'
+    as _i439;
+import '../../modules/auth/domain/use_case/reset_password_use_case.dart'
+    as _i807;
 import '../../modules/auth/domain/use_case/sign_up_use_case.dart' as _i246;
+import '../../modules/auth/domain/use_case/verify_code_use_case.dart' as _i5;
+import '../../modules/auth/ui/screens/forget_password/view_model/forget_password_view_model.dart'
+    as _i202;
 import '../../modules/auth/ui/screens/login/view_model/login_view_model.dart'
     as _i1050;
+import '../../modules/auth/ui/screens/resend_verification/view_model/resend_verification_email_view_model.dart'
+    as _i222;
 import '../../modules/auth/ui/screens/sign_up/view_model/sign_up_view_model.dart'
     as _i967;
 import '../auth/auth_provider.dart' as _i658;
@@ -73,6 +84,7 @@ import '../presentation/utils/firebase/messaging/firebase_cloud_messaging_servic
     as _i510;
 import '../presentation/utils/firebase/messaging/firebase_messaging_module.dart'
     as _i829;
+import '../utils/counter/count_down_utility.dart' as _i497;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -97,6 +109,7 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i732.MainApiConfig>(() => _i732.MainApiConfig());
     gh.factory<_i638.DioFactory>(() => _i638.DioFactory());
+    gh.factory<_i497.CountDownUtility>(() => _i497.CountDownUtility());
     gh.lazySingleton<_i658.AuthProvider>(() => _i658.AuthProvider());
     gh.lazySingleton<_i1.UserProvider>(() => _i1.UserProvider());
     gh.lazySingleton<_i558.FlutterSecureStorage>(
@@ -175,6 +188,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i1046.CheckLoginSessionUseCase>(
       () => _i1046.CheckLoginSessionUseCase(gh<_i779.AuthRepository>()),
     );
+    gh.factory<_i347.ForgetPasswordUseCase>(
+      () => _i347.ForgetPasswordUseCase(gh<_i779.AuthRepository>()),
+    );
     gh.factory<_i280.GmailLoginUseCase>(
       () => _i280.GmailLoginUseCase(gh<_i779.AuthRepository>()),
     );
@@ -184,8 +200,17 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i46.LoginUseCase>(
       () => _i46.LoginUseCase(gh<_i779.AuthRepository>()),
     );
+    gh.factory<_i439.ResendEmailVerificationUseCase>(
+      () => _i439.ResendEmailVerificationUseCase(gh<_i779.AuthRepository>()),
+    );
+    gh.factory<_i807.ResetPasswordUseCase>(
+      () => _i807.ResetPasswordUseCase(gh<_i779.AuthRepository>()),
+    );
     gh.factory<_i246.SignUpUseCase>(
       () => _i246.SignUpUseCase(gh<_i779.AuthRepository>()),
+    );
+    gh.factory<_i5.VerifyCodeUseCase>(
+      () => _i5.VerifyCodeUseCase(gh<_i779.AuthRepository>()),
     );
     gh.lazySingleton<_i4.AppInitializer>(
       () => _i4.AppInitializer(
@@ -199,6 +224,14 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i510.FirebaseCloudMessagingService>(),
       ),
     );
+    gh.factory<_i202.ForgetPasswordViewModel>(
+      () => _i202.ForgetPasswordViewModel(
+        gh<_i347.ForgetPasswordUseCase>(),
+        gh<_i5.VerifyCodeUseCase>(),
+        gh<_i807.ResetPasswordUseCase>(),
+        gh<_i497.CountDownUtility>(),
+      ),
+    );
     gh.factory<_i967.SignUpViewModel>(
       () => _i967.SignUpViewModel(
         gh<_i246.SignUpUseCase>(),
@@ -209,6 +242,11 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i1050.LoginViewModel(
         gh<_i46.LoginUseCase>(),
         gh<_i280.GmailLoginUseCase>(),
+      ),
+    );
+    gh.factory<_i222.ResendVerificationEmailViewModel>(
+      () => _i222.ResendVerificationEmailViewModel(
+        gh<_i439.ResendEmailVerificationUseCase>(),
       ),
     );
     return this;

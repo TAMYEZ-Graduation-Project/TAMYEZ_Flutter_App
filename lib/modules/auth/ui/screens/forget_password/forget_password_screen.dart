@@ -1,65 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/presentation/bases/base_stateless_widget.dart';
-import '../../../../../core/presentation/routing/defined_routes.dart';
-import '../../../../../core/presentation/widgets/custom_text_field.dart';
-import '../../../../../core/validation/validators.dart';
+import '../../../../../core/di/di.dart' show getIt;
+import '../../../../../core/presentation/bases/base_stateful_widget_state.dart';
+import '../../../../../core/presentation/mixins/effects_handling_mixin.dart'
+    show EffectsHandlingMixin;
+import '../../../../../core/presentation/result/ui_effect.dart';
+import 'pages/forget_email_page.dart';
+import 'pages/reset_password_page.dart';
+import 'pages/verification_code_page.dart';
+import 'view_model/forget_password_view_model.dart'
+    show ForgetPasswordViewModel;
 
-class ForgetPasswordScreen extends BaseStatelessWidget {
+class ForgetPasswordScreen extends StatefulWidget {
   const ForgetPasswordScreen({super.key});
 
   @override
-  Widget buildWith(BuildContext context, CommonDependency d) {
-    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-    final TextEditingController emailController = TextEditingController();
+  State<ForgetPasswordScreen> createState() => _ForgetPasswordScreenState();
+}
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(d.appLocalizations.password),
-        centerTitle: true,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-        child: Form(
-          key: formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(
-                d.appLocalizations.forgotPassword,
-                textAlign: TextAlign.center,
-                style: d.typography.title.copyWith(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                d.appLocalizations.pleaseEnterEmailAssociated,
-                textAlign: TextAlign.center,
-                style: d.typography.subTitle.copyWith(color: Colors.grey),
-              ),
-              const SizedBox(height: 32),
-              CustomTextField(
-                controller: emailController,
-                hintText: d.appLocalizations.email,
-                validatingFunc: Validators.validateEmail,
-              ),
-              const SizedBox(height: 32),
-              FilledButton(
-                onPressed: () {
-                  if (formKey.currentState!.validate()) {
-                    Navigator.pushNamed(
-                      context,
-                      DefinedRoutes.verificationCodeRoute,
-                    );
-                  }
-                },
-                child: Text(d.appLocalizations.continueWord),
-              ),
-            ],
-          ),
-        ),
+class _ForgetPasswordScreenState
+    extends BaseStatefulWidgetState<ForgetPasswordScreen>
+    with EffectsHandlingMixin {
+  final ForgetPasswordViewModel _viewModel = getIt.get();
+  final PageController _pageController = PageController();
+
+  @override
+  void initState() {
+    super.initState();
+    _viewModel.effectStream.listen((event) {
+      switch (event) {
+        case PageNavigationEffect():
+          _pageController.jumpToPage(event.page);
+        default:
+          handleEffects(event);
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => _viewModel,
+      child: PageView(
+        controller: _pageController,
+        physics: const NeverScrollableScrollPhysics(),
+        children: const [
+          ForgetEmailPage(),
+          VerificationCodePage(),
+          ResetPasswordPage(),
+        ],
       ),
     );
   }

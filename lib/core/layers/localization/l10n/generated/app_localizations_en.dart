@@ -211,6 +211,19 @@ class AppLocalizationsEn extends AppLocalizations {
       'Sign Up Success! Check your inbox for verification link ✉';
 
   @override
+  String get otpResentSuccess => 'OTP code has been resent successfully';
+
+  @override
+  String get resetPasswordSuccess => 'Password has been reset successfully';
+
+  @override
+  String get forgetPasswordEmailSent =>
+      'Reset code has been sent to your email';
+
+  @override
+  String get otpVerifiedSuccess => 'OTP code verified successfully';
+
+  @override
   String get googleLoginFailed => 'Google login failed';
 
   @override

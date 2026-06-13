@@ -2,11 +2,13 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../core/execution/operation_result.dart';
 import '../../../../core/utils/functions/repo_result_handler.dart';
-import '../../../../core/utils/functions/safe_print.dart';
 import '../../domain/entities/login_params.dart';
 import '../../domain/entities/login_response_entity.dart';
+import '../../domain/entities/reset_password_params.dart';
 import '../../domain/entities/sign_up_params.dart';
 import '../../domain/entities/sign_up_response_entity.dart';
+import '../../domain/entities/user_email_params.dart';
+import '../../domain/entities/verify_code_params.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../data_sources/local/auth_local_data_source.dart';
 import '../data_sources/remote/auth_remote_data_source.dart';
@@ -52,6 +54,18 @@ class AuthRepoImp implements AuthRepository {
   }
 
   @override
+  Future<OperationResult<bool>> resendEmailVerification({
+    required UserEmailParams params,
+  }) {
+    return repoResultHandler(() async {
+      final response = await _authRemoteDataSource.resendEmailVerification(
+        request: params.toModel(),
+      );
+      return response.success ?? true;
+    });
+  }
+
+  @override
   Future<OperationResult<LoginResponseEntity>> login({
     required LoginParams params,
     required bool rememberMe,
@@ -61,7 +75,6 @@ class AuthRepoImp implements AuthRepository {
         request: params.toModel(),
       );
       if (rememberMe) {
-        safePrint('Saving login session');
         await _authLocalDataSource.saveLoginSession(body: response.body);
       }
       return response.toEntity();
@@ -87,5 +100,39 @@ class AuthRepoImp implements AuthRepository {
   @override
   Future<bool> isThereLoginSession() {
     return _authLocalDataSource.isThereLoginSession();
+  }
+
+  @override
+  Future<OperationResult<bool>> forgetPassword({
+    required UserEmailParams params,
+  }) {
+    return repoResultHandler(() async {
+      final response = await _authRemoteDataSource.forgetPassword(
+        request: params.toModel(),
+      );
+      return response.success ?? true;
+    });
+  }
+
+  @override
+  Future<OperationResult<bool>> verifyCode({required VerifyCodeParams params}) {
+    return repoResultHandler(() async {
+      final response = await _authRemoteDataSource.verifyCode(
+        request: params.toModel(),
+      );
+      return response.success ?? true;
+    });
+  }
+
+  @override
+  Future<OperationResult<bool>> resetPassword({
+    required ResetPasswordParams params,
+  }) {
+    return repoResultHandler(() async {
+      final response = await _authRemoteDataSource.resetPassword(
+        request: params.toModel(),
+      );
+      return response.success ?? true;
+    });
   }
 }

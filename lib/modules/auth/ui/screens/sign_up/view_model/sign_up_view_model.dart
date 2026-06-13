@@ -2,6 +2,8 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../../../core/execution/operation_result.dart';
 import '../../../../../../core/presentation/bases/base_cubit.dart';
+import '../../../../../../core/presentation/mixins/effects_handling_mixin.dart'
+    show NavigationTypeEnum;
 import '../../../../../../core/presentation/result/ui_effect.dart';
 import '../../../../../../core/presentation/result/ui_result.dart';
 import '../../../../../../core/presentation/routing/defined_routes.dart'
@@ -49,13 +51,18 @@ class SignUpViewModel extends BaseCubit<SignUpState, UiEffect> {
           ),
         );
 
-    emit(state.copyWith(systemSignUpResult: const Initial()));
-
     switch (result) {
       case OperationSuccess<SignUpResponseEntity>():
+        emit(state.copyWith(systemSignUpResult: const Success(null)));
         emitEffect(const SuccessEffect(success: SuccessEnum.signUpSuccess));
-        emitEffect(const NavigateEffect(route: DefinedRoutes.previousRoute));
+        emitEffect(
+          const NavigateEffect(
+            route: DefinedRoutes.loginRoute,
+            navigationType: NavigationTypeEnum.pop,
+          ),
+        );
       case OperationFailure<SignUpResponseEntity>():
+        emit(state.copyWith(systemSignUpResult: Error(result.failure)));
         emitEffect(DisplayErrorEffect(failure: result.failure));
     }
   }
@@ -68,9 +75,16 @@ class SignUpViewModel extends BaseCubit<SignUpState, UiEffect> {
 
     switch (result) {
       case OperationSuccess<LoginResponseEntity>():
+        emit(state.copyWith(googleSignUpResult: const Success(null)));
         emitEffect(const SuccessEffect(success: SuccessEnum.loginSuccess));
-        emitEffect(const NavigateEffect(route: DefinedRoutes.homeRoute));
+        emitEffect(
+          const NavigateEffect(
+            route: DefinedRoutes.homeRoute,
+            navigationType: NavigationTypeEnum.pushNamedAndRemoveUntil,
+          ),
+        );
       case OperationFailure<LoginResponseEntity>():
+        emit(state.copyWith(googleSignUpResult: Error(result.failure)));
         emitEffect(DisplayErrorEffect(failure: result.failure));
     }
   }

@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/presentation/bases/base_stateless_widget.dart';
-import '../../../../../core/presentation/routing/defined_routes.dart';
-import '../../../../../core/presentation/widgets/custom_text_field.dart';
-import '../../../../../core/validation/validators.dart';
+import '../../../../../../core/presentation/bases/base_stateless_widget.dart';
+import '../../../../../../core/presentation/result/ui_result.dart';
+import '../../../../../../core/presentation/widgets/app_loading_widget.dart';
+import '../../../../../../core/presentation/widgets/custom_text_field.dart';
+import '../../../../../../core/validation/validators.dart';
+import '../view_model/forget_password_intent.dart';
+import '../view_model/forget_password_state.dart' show ForgetPasswordState;
+import '../view_model/forget_password_view_model.dart';
 
-class ResetPasswordScreen extends BaseStatelessWidget {
-  const ResetPasswordScreen({super.key});
+class ResetPasswordPage extends BaseStatelessWidget {
+  const ResetPasswordPage({super.key});
 
   @override
   Widget buildWith(BuildContext context, CommonDependency d) {
@@ -19,11 +24,20 @@ class ResetPasswordScreen extends BaseStatelessWidget {
       appBar: AppBar(
         title: Text(d.appLocalizations.password),
         centerTitle: true,
+        leading: IconButton(
+          onPressed: () {
+            context.read<ForgetPasswordViewModel>().doIntent(
+              const PageNavigationIntent(1),
+            );
+          },
+          icon: const Icon(Icons.arrow_back),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
         child: Form(
           key: formKey,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -59,17 +73,29 @@ class ResetPasswordScreen extends BaseStatelessWidget {
                 ),
               ),
               const SizedBox(height: 32),
-              FilledButton(
-                onPressed: () {
-                  if (formKey.currentState!.validate()) {
-                    Navigator.pushNamedAndRemoveUntil(
-                      context,
-                      DefinedRoutes.loginRoute,
-                      (route) => false,
-                    );
-                  }
+              BlocSelector<
+                ForgetPasswordViewModel,
+                ForgetPasswordState,
+                UiResult<void>
+              >(
+                selector: (state) => state.resetPasswordResult,
+                builder: (context, result) {
+                  return FilledButton(
+                    onPressed: result is Loading
+                        ? null
+                        : () {
+                            context.read<ForgetPasswordViewModel>().doIntent(
+                              ResetPasswordIntent(
+                                password: passwordController.text,
+                                confirmPassword: confirmPasswordController.text,
+                              ),
+                            );
+                          },
+                    child: result is Loading
+                        ? const AppLoadingWidget(dimension: 20)
+                        : Text(d.appLocalizations.continueWord),
+                  );
                 },
-                child: Text(d.appLocalizations.continueWord),
               ),
             ],
           ),

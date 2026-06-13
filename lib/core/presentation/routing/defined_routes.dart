@@ -6,6 +6,6 @@ abstract class DefinedRoutes {
   static const String signUpRoute = 'sign_up';
   static const String homeRoute = 'home';
   static const String forgetPasswordRoute = 'forget_password';
-  static const String verificationCodeRoute = 'verification_code';
-  static const String resetPasswordRoute = 'reset_password';
+  static const String resendVerificationEmailRoute =
+      'resend_verification_email';
 }

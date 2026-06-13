@@ -2,6 +2,8 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../../../core/execution/operation_result.dart';
 import '../../../../../../core/presentation/bases/base_cubit.dart';
+import '../../../../../../core/presentation/mixins/effects_handling_mixin.dart'
+    show NavigationTypeEnum;
 import '../../../../../../core/presentation/result/ui_effect.dart';
 import '../../../../../../core/presentation/result/ui_result.dart';
 import '../../../../../../core/presentation/routing/defined_routes.dart'
@@ -44,9 +46,16 @@ class LoginViewModel extends BaseCubit<LoginState, UiEffect> {
 
     switch (result) {
       case OperationSuccess<LoginResponseEntity>():
+        emit(state.copyWith(systemLoginResult: const Success(null)));
         emitEffect(const SuccessEffect(success: SuccessEnum.loginSuccess));
-        emitEffect(const NavigateEffect(route: DefinedRoutes.homeRoute));
+        emitEffect(
+          const NavigateEffect(
+            route: DefinedRoutes.homeRoute,
+            navigationType: NavigationTypeEnum.pushNamedAndRemoveUntil,
+          ),
+        );
       case OperationFailure<LoginResponseEntity>():
+        emit(state.copyWith(systemLoginResult: Error(result.failure)));
         emitEffect(DisplayErrorEffect(failure: result.failure));
     }
   }
@@ -56,13 +65,18 @@ class LoginViewModel extends BaseCubit<LoginState, UiEffect> {
     final OperationResult<LoginResponseEntity> result = await _gmailLoginUseCase
         .call(rememberMe: intent.rememberMe);
 
-    emit(state.copyWith(googleLoginResult: const Initial()));
-
     switch (result) {
       case OperationSuccess<LoginResponseEntity>():
+        emit(state.copyWith(googleLoginResult: const Success(null)));
         emitEffect(const SuccessEffect(success: SuccessEnum.loginSuccess));
-        emitEffect(const NavigateEffect(route: DefinedRoutes.homeRoute));
+        emitEffect(
+          const NavigateEffect(
+            route: DefinedRoutes.homeRoute,
+            navigationType: NavigationTypeEnum.pushNamedAndRemoveUntil,
+          ),
+        );
       case OperationFailure<LoginResponseEntity>():
+        emit(state.copyWith(googleLoginResult: Error(result.failure)));
         emitEffect(DisplayErrorEffect(failure: result.failure));
     }
   }

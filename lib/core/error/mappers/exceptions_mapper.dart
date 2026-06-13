@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 
+import '../../utils/functions/safe_print.dart';
 import '../exceptions/app_exceptions.dart';
 import '../failures/app_failures.dart';
 import '../models/api_error_model.dart';
@@ -44,6 +45,7 @@ abstract class ExceptionHandling {
   }
 
   static Failure _mapDioToFailure(DioException error) {
+    safePrint(error.type);
     switch (error.type) {
       case DioExceptionType.connectionTimeout:
         return const ConnectionTimeoutFailure();
@@ -66,9 +68,6 @@ abstract class ExceptionHandling {
       case DioExceptionType.badResponse:
         if (error.response?.statusCode == 401) {
           return const UnauthorizedFailure();
-        }
-        if (error.response?.statusCode == 400) {
-          return const BadRequestFailure();
         }
         return ServerFailure(
           statusCode: error.response?.statusCode,

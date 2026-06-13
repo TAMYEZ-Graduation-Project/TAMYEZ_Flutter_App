@@ -1,18 +1,11 @@
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart'
-    show ContentType;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart' show BlocProvider;
 
 import '../../../../../core/di/di.dart' show getIt;
 import '../../../../../core/layers/theme/colors/app_colors.dart';
 import '../../../../../core/presentation/bases/base_stateful_widget_state.dart';
-import '../../../../../core/presentation/error/failure_message_mapper.dart'
-    show FailureHandling;
-import '../../../../../core/presentation/result/ui_effect.dart';
-import '../../../../../core/presentation/routing/defined_routes.dart'
-    show DefinedRoutes;
-import '../../../../../core/presentation/success/success_message_mapper.dart'
-    show SuccessHandling;
+import '../../../../../core/presentation/mixins/effects_handling_mixin.dart'
+    show EffectsHandlingMixin;
 import 'sections/sign_up_actions_section.dart';
 import 'sections/sign_up_form.dart';
 import 'view_model/sign_up_view_model.dart';
@@ -24,7 +17,8 @@ class SignUpScreen extends StatefulWidget {
   State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _SignUpScreenState extends BaseStatefulWidgetState<SignUpScreen> {
+class _SignUpScreenState extends BaseStatefulWidgetState<SignUpScreen>
+    with EffectsHandlingMixin<SignUpScreen> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final SignUpViewModel signUpViewModel = getIt.get();
   late final SignUpControllers signUpControllers;
@@ -40,35 +34,7 @@ class _SignUpScreenState extends BaseStatefulWidgetState<SignUpScreen> {
       phoneNumberController: TextEditingController(),
       genderController: TextEditingController(),
     );
-    signUpViewModel.effectStream.listen((event) {
-      switch (event) {
-        case DisplayErrorEffect():
-          displaySnackBar(
-            contentType: ContentType.failure,
-            title: appLocalizations.error,
-            durationInSeconds: 10,
-            message: FailureHandling.mapFailureToMessage(
-              appLocalizations,
-              event.failure,
-            ),
-          );
-        case SuccessEffect():
-          displaySnackBar(
-            contentType: ContentType.success,
-            title: SuccessHandling.mapSuccessToMessage(
-              appLocalizations,
-              event.success!,
-            ),
-          );
-        case NavigateEffect():
-          if (!mounted) return;
-          if (event.route == DefinedRoutes.previousRoute) {
-            Navigator.pop(context);
-            return;
-          }
-          Navigator.pushReplacementNamed(context, event.route);
-      }
-    });
+    signUpViewModel.effectStream.listen(handleEffects);
   }
 
   @override

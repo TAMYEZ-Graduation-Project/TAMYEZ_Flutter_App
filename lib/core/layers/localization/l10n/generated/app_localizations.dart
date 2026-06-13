@@ -476,6 +476,30 @@ abstract class AppLocalizations {
   /// **'Sign Up Success! Check your inbox for verification link ✉'**
   String get signUpSuccess;
 
+  /// No description provided for @otpResentSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'OTP code has been resent successfully'**
+  String get otpResentSuccess;
+
+  /// No description provided for @resetPasswordSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Password has been reset successfully'**
+  String get resetPasswordSuccess;
+
+  /// No description provided for @forgetPasswordEmailSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset code has been sent to your email'**
+  String get forgetPasswordEmailSent;
+
+  /// No description provided for @otpVerifiedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'OTP code verified successfully'**
+  String get otpVerifiedSuccess;
+
   /// No description provided for @googleLoginFailed.
   ///
   /// In en, this message translates to:

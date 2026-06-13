@@ -208,6 +208,19 @@ class AppLocalizationsAr extends AppLocalizations {
       'تم التسجيل بنجاح! تحقق من بريدك الوارد للحصول على رابط التفعيل ✉.';
 
   @override
+  String get otpResentSuccess => 'تم إعادة إرسال رمز التحقق بنجاح';
+
+  @override
+  String get resetPasswordSuccess => 'تم إعادة تعيين كلمة المرور بنجاح';
+
+  @override
+  String get forgetPasswordEmailSent =>
+      'تم إرسال رمز إعادة التعيين إلى بريدك الإلكتروني';
+
+  @override
+  String get otpVerifiedSuccess => 'تم التحقق من رمز التحقق بنجاح';
+
+  @override
   String get googleLoginFailed => 'فشل تسجيل الدخول باستخدام جوجل';
 
   @override

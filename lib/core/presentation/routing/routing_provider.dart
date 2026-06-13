@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../../modules/auth/ui/screens/forget_password/forget_password_screen.dart';
-import '../../../modules/auth/ui/screens/forget_password/reset_password_screen.dart';
-import '../../../modules/auth/ui/screens/forget_password/verification_code_screen.dart';
 import '../../../modules/auth/ui/screens/login/login_screen.dart';
+import '../../../modules/auth/ui/screens/resend_verification/resend_verification_email_screen.dart'
+    show ResendVerificationEmailScreen;
 import '../../../modules/auth/ui/screens/sign_up/sign_up_screen.dart'
     show SignUpScreen;
 import '../../../modules/home/home_screen.dart' show HomeScreen;
@@ -60,22 +60,13 @@ abstract class RoutingProvider {
               name: DefinedRoutes.forgetPasswordRoute,
             ),
           );
-        case DefinedRoutes.verificationCodeRoute:
+        case DefinedRoutes.resendVerificationEmailRoute:
           return PageRouteBuilder(
             pageBuilder: (context, animation, secondaryAnimation) =>
-                const VerificationCodeScreen(),
+                const ResendVerificationEmailScreen(),
             transitionsBuilder: PageTransitions.slideAndFade,
             settings: const RouteSettings(
-              name: DefinedRoutes.verificationCodeRoute,
-            ),
-          );
-        case DefinedRoutes.resetPasswordRoute:
-          return PageRouteBuilder(
-            pageBuilder: (context, animation, secondaryAnimation) =>
-                const ResetPasswordScreen(),
-            transitionsBuilder: PageTransitions.slideAndFade,
-            settings: const RouteSettings(
-              name: DefinedRoutes.resetPasswordRoute,
+              name: DefinedRoutes.resendVerificationEmailRoute,
             ),
           );
         case DefinedRoutes.homeRoute:
