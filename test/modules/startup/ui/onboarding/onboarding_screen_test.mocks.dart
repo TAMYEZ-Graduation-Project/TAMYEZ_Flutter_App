@@ -8,6 +8,8 @@ import 'dart:async' as _i4;
 import 'package:flutter_bloc/flutter_bloc.dart' as _i7;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:tamyez_app/core/presentation/result/ui_effect.dart' as _i5;
+import 'package:tamyez_app/modules/auth/domain/use_case/check_login_session_use_case.dart'
+    as _i8;
 import 'package:tamyez_app/modules/auth/ui/screens/login/view_model/login_intent.dart'
     as _i6;
 import 'package:tamyez_app/modules/auth/ui/screens/login/view_model/login_state.dart'
@@ -125,4 +127,19 @@ class MockLoginViewModel extends _i1.Mock implements _i3.LoginViewModel {
     Invocation.method(#onError, [error, stackTrace]),
     returnValueForMissingStub: null,
   );
+}
+
+/// A class which mocks [CheckLoginSessionUseCase].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockCheckLoginSessionUseCase extends _i1.Mock
+    implements _i8.CheckLoginSessionUseCase {
+  @override
+  _i4.Future<bool> call() =>
+      (super.noSuchMethod(
+            Invocation.method(#call, []),
+            returnValue: _i4.Future<bool>.value(false),
+            returnValueForMissingStub: _i4.Future<bool>.value(false),
+          )
+          as _i4.Future<bool>);
 }

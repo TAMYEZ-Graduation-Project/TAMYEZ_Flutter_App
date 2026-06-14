@@ -1,22 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:tamyez_app/core/di/di.dart';
 import 'package:tamyez_app/core/presentation/routing/defined_routes.dart'
     show DefinedRoutes;
+import 'package:tamyez_app/modules/auth/domain/use_case/check_login_session_use_case.dart';
 import 'package:tamyez_app/modules/startup/ui/splash/constants/splash_screen_constants.dart';
 import 'package:tamyez_app/modules/startup/ui/splash/splash_screen.dart'
     show SplashScreen;
 
 import '../../../core/shared/build_widget.dart' show buildWidget;
 import '../../../core/shared/widget_testing_shared_setups.dart';
+import 'splash_screen_test.mocks.dart';
 
+@GenerateNiceMocks([MockSpec<CheckLoginSessionUseCase>()])
 void main() {
   group('Test Splash Screen widget', () {
     final WidgetTestingSharedSetups sharedSetups = WidgetTestingSharedSetups();
+    late MockCheckLoginSessionUseCase checkLoginSessionUseCase;
 
     setUp(() async {
       await sharedSetups.sharedSetup();
+      checkLoginSessionUseCase = MockCheckLoginSessionUseCase();
+      when(checkLoginSessionUseCase.call()).thenAnswer((_) async => false);
+      if (getIt.isRegistered<CheckLoginSessionUseCase>()) {
+        await getIt.unregister<CheckLoginSessionUseCase>();
+      }
+      getIt.registerFactory<CheckLoginSessionUseCase>(
+        () => checkLoginSessionUseCase,
+      );
     });
 
     tearDown(() async {
@@ -99,16 +112,18 @@ void main() {
 
           // assert
           verify(
-            sharedSetups.mockNavigatorObserver.didPush(
-              argThat(
+            sharedSetups.mockNavigatorObserver.didReplace(
+              newRoute: argThat(
                 predicate<Route<dynamic>>((route) {
                   return route.settings.name == DefinedRoutes.onboardingRoute;
                 }),
+                named: 'newRoute',
               ),
-              argThat(
+              oldRoute: argThat(
                 predicate<Route<dynamic>>((route) {
                   return route.settings.name == DefinedRoutes.splashRoute;
                 }),
+                named: 'oldRoute',
               ),
             ),
           ).called(1);

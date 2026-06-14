@@ -7,6 +7,7 @@ import 'package:tamyez_app/core/di/di.dart' show getIt;
 import 'package:tamyez_app/core/layers/localization/enums/languages_enum.dart';
 import 'package:tamyez_app/core/presentation/routing/defined_routes.dart'
     show DefinedRoutes;
+import 'package:tamyez_app/modules/auth/domain/use_case/check_login_session_use_case.dart';
 import 'package:tamyez_app/modules/auth/ui/screens/login/view_model/login_state.dart';
 import 'package:tamyez_app/modules/auth/ui/screens/login/view_model/login_view_model.dart';
 import 'package:tamyez_app/modules/startup/ui/onboarding/constants/onboarding_screen_constants.dart'
@@ -21,11 +22,15 @@ import '../../../core/shared/widget_testing_shared_setups.dart'
     show WidgetTestingSharedSetups;
 import 'onboarding_screen_test.mocks.dart';
 
-@GenerateNiceMocks([MockSpec<LoginViewModel>()])
+@GenerateNiceMocks([
+  MockSpec<LoginViewModel>(),
+  MockSpec<CheckLoginSessionUseCase>(),
+])
 void main() {
   group('Test OnboardingScreen widget', () {
     final WidgetTestingSharedSetups sharedSetups = WidgetTestingSharedSetups();
     late MockLoginViewModel mockLoginViewModel;
+    late MockCheckLoginSessionUseCase mockCheckLoginSessionUseCase;
     setUp(() async {
       await sharedSetups.sharedSetup();
       if (getIt.isRegistered<LoginViewModel>()) {
@@ -33,6 +38,15 @@ void main() {
       }
       mockLoginViewModel = MockLoginViewModel();
       getIt.registerFactory<LoginViewModel>(() => mockLoginViewModel);
+
+      mockCheckLoginSessionUseCase = MockCheckLoginSessionUseCase();
+      if (getIt.isRegistered<CheckLoginSessionUseCase>()) {
+        getIt.unregister<CheckLoginSessionUseCase>();
+      }
+      getIt.registerFactory<CheckLoginSessionUseCase>(
+            () => mockCheckLoginSessionUseCase,
+      );
+      when(mockCheckLoginSessionUseCase.call()).thenAnswer((_) async => false);
     });
 
     tearDown(() async {
@@ -167,16 +181,18 @@ void main() {
 
           // assert
           verify(
-            sharedSetups.mockNavigatorObserver.didPush(
-              argThat(
+            sharedSetups.mockNavigatorObserver.didReplace(
+              newRoute: argThat(
                 predicate<Route<dynamic>>((route) {
                   return route.settings.name == DefinedRoutes.loginRoute;
                 }),
+                  named: 'newRoute'
               ),
-              argThat(
+              oldRoute: argThat(
                 predicate<Route<dynamic>>((route) {
                   return route.settings.name == DefinedRoutes.onboardingRoute;
                 }),
+                  named: 'oldRoute'
               ),
             ),
           ).called(1);
