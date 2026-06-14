@@ -74,6 +74,33 @@ class AppLocalizationsAr extends AppLocalizations {
       'يمكن أن يحتوي اسم المستخدم فقط على أحرف وأرقام وشرطات سفلية.';
 
   @override
+  String get invalidFullName => 'أدخل اسماً كاملاً صالحاً (مثال: محمد أحمد)';
+
+  @override
+  String get invalidPassword =>
+      'يجب أن تتكون كلمة المرور من 8 أحرف على الأقل، وتتضمن حرفاً كبيراً وحرفاً صغيراً ورقماً وحرفاً خاصاً';
+
+  @override
+  String get invalidGender =>
+      'نوع الجنس غير صالح، يجب أن يكون إما \'ذكر\' أو \'أنثى';
+
+  @override
+  String get passwordLength => 'يجب أن تتكون كلمة المرور من 8 أحرف على الأقل.';
+
+  @override
+  String get uppercaseRulePassword => 'يجب وجود حرف كبير واحد على الأقل.';
+
+  @override
+  String get lowercaseRulePassword => 'يجب وجود حرف صغير واحد على الأقل.';
+
+  @override
+  String get digitRulePassword => 'يجب وجود رقم واحد على الأقل.';
+
+  @override
+  String get specialCharactersRulePassword =>
+      'يجب تضمين حرف خاص واحد على الأقل (مثل #?!@\$%^&*-).';
+
+  @override
   String get pleaseEnterFirstName => 'الرجاء إدخال الاسم الأول.';
 
   @override
@@ -92,27 +119,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get pleaseEnterPhoneNumber => 'الرجاء إدخال رقم هاتفك.';
 
   @override
-  String get phoneNumberRules =>
-      'يجب أن يبدأ الرقم بأحد البوادئ الصالحة:\n010 أو 011 أو 012 أو 015\nمتبوعاً بـ 8 أرقام.';
+  String get phoneNumberRules => 'أدخل رقم هاتف مصري صحيح (+20XXXXXXXXXX)';
 
   @override
   String get pleaseEnterPassword => 'الرجاء إدخال كلمة المرور الخاصة بك.';
-
-  @override
-  String get passwordLength => 'يجب أن تتكون كلمة المرور من 8 أحرف على الأقل.';
-
-  @override
-  String get uppercaseRulePassword => 'يجب وجود حرف كبير واحد على الأقل.';
-
-  @override
-  String get lowercaseRulePassword => 'يجب وجود حرف صغير واحد على الأقل.';
-
-  @override
-  String get digitRulePassword => 'يجب وجود رقم واحد على الأقل.';
-
-  @override
-  String get specialCharactersRulePassword =>
-      'يجب تضمين حرف خاص واحد على الأقل (مثل #?!@\$%^&*-).';
 
   @override
   String get pleaseConfirmPassword => 'الرجاء تأكيد كلمة المرور.';
@@ -156,4 +166,121 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get continueWord => 'متابعة';
+
+  @override
+  String get loginScreen => 'شاشة تسجيل الدخول';
+
+  @override
+  String get email => 'البريد الإلكتروني';
+
+  @override
+  String get password => 'كلمة المرور';
+
+  @override
+  String get rememberMe => 'تذكرني';
+
+  @override
+  String get forgotPassword => 'هل نسيت كلمة المرور؟';
+
+  @override
+  String get resendVerificationEmail => 'إعادة إرسال رسالة التحقق';
+
+  @override
+  String get error => 'خطأ';
+
+  @override
+  String get signIn => 'تسجيل الدخول';
+
+  @override
+  String get orSignInWith => 'أو تسجيل الدخول باستخدام';
+
+  @override
+  String get google => 'جوجل';
+
+  @override
+  String get dontHaveAnAccount => 'ليس لديك حساب؟ ';
+
+  @override
+  String get signUp => 'إنشاء حساب';
+
+  @override
+  String get loginSuccess => 'تم تسجيل الدخول بنجاح!';
+
+  @override
+  String get signUpSuccess =>
+      'تم التسجيل بنجاح! تحقق من بريدك الوارد للحصول على رابط التفعيل ✉.';
+
+  @override
+  String get otpResentSuccess => 'تم إعادة إرسال رمز التحقق بنجاح';
+
+  @override
+  String get resetPasswordSuccess => 'تم إعادة تعيين كلمة المرور بنجاح';
+
+  @override
+  String get forgetPasswordEmailSent =>
+      'تم إرسال رمز إعادة التعيين إلى بريدك الإلكتروني';
+
+  @override
+  String get otpVerifiedSuccess => 'تم التحقق من رمز التحقق بنجاح';
+
+  @override
+  String get googleLoginFailed => 'فشل تسجيل الدخول باستخدام جوجل';
+
+  @override
+  String get googleLoginNotSupported => 'تسجيل الدخول باستخدام جوجل غير مدعوم';
+
+  @override
+  String get fullName => 'الاسم الكامل';
+
+  @override
+  String get confirmPassword => 'تأكيد كلمة المرور';
+
+  @override
+  String get phoneNumber => 'رقم الهاتف';
+
+  @override
+  String get gender => 'الجنس';
+
+  @override
+  String get female => 'أنثى';
+
+  @override
+  String get male => 'ذكر';
+
+  @override
+  String get orSignUpWith => 'أو التسجيل باستخدام';
+
+  @override
+  String get termsAndPrivacy =>
+      'من خلال الاستمرار، فإنك توافق على شروط الخدمة وسياسة الخصوصية الخاصة بنا';
+
+  @override
+  String get pleaseEnterEmailAssociated =>
+      'الرجاء إدخال بريدك الإلكتروني المرتبط بحسابك';
+
+  @override
+  String get resetPassword => 'إعادة تعيين كلمة المرور';
+
+  @override
+  String get passwordRequirements =>
+      'يجب ألا تكون كلمة المرور فارغة ويجب أن تحتوي على 6 أحرف مع حرف كبير ورقم واحد على الأقل';
+
+  @override
+  String get enterNewPassword => 'أدخل كلمة المرور الجديدة';
+
+  @override
+  String get emailVerification => 'التحقق من البريد الإلكتروني';
+
+  @override
+  String get enterCodeSent =>
+      'الرجاء إدخال الرمز الذي تم إرساله إلى بريدك الإلكتروني';
+
+  @override
+  String get invalidCode => 'رمز غير صالح';
+
+  @override
+  String get didNotReceiveCode => 'لم تصلك الرسالة؟ ';
+
+  @override
+  String get resent => 'إعادة إرسال';
 }

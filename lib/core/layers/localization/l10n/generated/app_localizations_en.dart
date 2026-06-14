@@ -37,7 +37,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get badCertificate =>
-      'The certificate provided by the server is not valid 📑';
+      'The certificate provided by the server is not valid 📜';
 
   @override
   String get somethingWentWrong => 'Something Went Wrong 🤔';
@@ -46,7 +46,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get badRequest => 'Bad request format 👎';
 
   @override
-  String get couldNotFindSource => 'Couldn\'t find the source 😱';
+  String get couldNotFindSource => 'Couldn\'t find the source 😲';
 
   @override
   String get validationFunctions____________ => '\$\$\$ Comment \$\$\$';
@@ -75,6 +75,35 @@ class AppLocalizationsEn extends AppLocalizations {
       'Username can only contain letters, numbers, and underscores.';
 
   @override
+  String get invalidFullName => 'Enter a valid full name (e.g. John Doe)';
+
+  @override
+  String get invalidPassword =>
+      'Password must be at least 8 chars, include uppercase, lowercase, number & special character';
+
+  @override
+  String get invalidGender =>
+      'Invalid gender, it should be either \'Male\' or \'Female\'';
+
+  @override
+  String get passwordLength => 'Password must be at least 8 characters long.';
+
+  @override
+  String get uppercaseRulePassword =>
+      'At least one uppercase letter is required.';
+
+  @override
+  String get lowercaseRulePassword =>
+      'At least one lowercase letter is required.';
+
+  @override
+  String get digitRulePassword => 'At least one digit is required.';
+
+  @override
+  String get specialCharactersRulePassword =>
+      'At least one special character is required (e.g. #?!@\$%^&*-).';
+
+  @override
   String get pleaseEnterFirstName => 'Please enter first name.';
 
   @override
@@ -94,26 +123,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get phoneNumberRules =>
-      'Number must start with one of the valid prefixes:\n010, 011, 012, or 015\nfollowed by 8 digits.';
+      'Enter a valid Egyptian phone number (+20XXXXXXXXXX)';
 
   @override
   String get pleaseEnterPassword => 'Please enter your password.';
-
-  @override
-  String get passwordLength => 'Password must be at least 8 characters long.';
-
-  @override
-  String get uppercaseRulePassword => 'At least one one uppercase letter.';
-
-  @override
-  String get lowercaseRulePassword => 'At least one one lowercase letter.';
-
-  @override
-  String get digitRulePassword => 'At least one digit must be there.';
-
-  @override
-  String get specialCharactersRulePassword =>
-      'At least one special character(e.g., #?!@\$%^&*-) must be included.';
 
   @override
   String get pleaseConfirmPassword => 'Please confirm password.';
@@ -157,4 +170,121 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get continueWord => 'Continue';
+
+  @override
+  String get loginScreen => 'Login Screen';
+
+  @override
+  String get email => 'Email';
+
+  @override
+  String get password => 'Password';
+
+  @override
+  String get rememberMe => 'Remember me';
+
+  @override
+  String get forgotPassword => 'Forgot Password?';
+
+  @override
+  String get resendVerificationEmail => 'Resend verification email';
+
+  @override
+  String get error => 'Error';
+
+  @override
+  String get signIn => 'Sign in';
+
+  @override
+  String get orSignInWith => 'Or sign in with';
+
+  @override
+  String get google => 'Google';
+
+  @override
+  String get dontHaveAnAccount => 'Don\'t have an account? ';
+
+  @override
+  String get signUp => 'Sign Up';
+
+  @override
+  String get loginSuccess => 'Login Success!';
+
+  @override
+  String get signUpSuccess =>
+      'Sign Up Success! Check your inbox for verification link ✉';
+
+  @override
+  String get otpResentSuccess => 'OTP code has been resent successfully';
+
+  @override
+  String get resetPasswordSuccess => 'Password has been reset successfully';
+
+  @override
+  String get forgetPasswordEmailSent =>
+      'Reset code has been sent to your email';
+
+  @override
+  String get otpVerifiedSuccess => 'OTP code verified successfully';
+
+  @override
+  String get googleLoginFailed => 'Google login failed';
+
+  @override
+  String get googleLoginNotSupported => 'Google login is not supported';
+
+  @override
+  String get fullName => 'Full name';
+
+  @override
+  String get confirmPassword => 'Confirm password';
+
+  @override
+  String get phoneNumber => 'Phone number';
+
+  @override
+  String get gender => 'Gender';
+
+  @override
+  String get female => 'Female';
+
+  @override
+  String get male => 'Male';
+
+  @override
+  String get orSignUpWith => 'Or sign up with';
+
+  @override
+  String get termsAndPrivacy =>
+      'By continuing, you agree to our Terms of Service and Privacy Policy';
+
+  @override
+  String get pleaseEnterEmailAssociated =>
+      'Please enter your email associated to your account';
+
+  @override
+  String get resetPassword => 'Reset password';
+
+  @override
+  String get passwordRequirements =>
+      'Password must not be empty and must contain 6 characters with upper case letter and one number at least';
+
+  @override
+  String get enterNewPassword => 'Enter your new password';
+
+  @override
+  String get emailVerification => 'Email verification';
+
+  @override
+  String get enterCodeSent =>
+      'Please enter your code that send to your email address';
+
+  @override
+  String get invalidCode => 'Invalid code';
+
+  @override
+  String get didNotReceiveCode => 'Didn\'t receive code? ';
+
+  @override
+  String get resent => 'Resent';
 }

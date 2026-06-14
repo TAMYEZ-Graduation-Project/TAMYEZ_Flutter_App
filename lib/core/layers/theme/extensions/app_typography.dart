@@ -51,7 +51,7 @@ class AppTypography extends ThemeExtension<AppTypography> {
     ),
     button: TextStyle(
       fontSize: 16,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w700,
       height: 1.20,
       letterSpacing: 0.10,
     ),
@@ -91,7 +91,7 @@ class AppTypography extends ThemeExtension<AppTypography> {
     ),
     button: TextStyle(
       fontSize: 18,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w700,
       height: 1.20,
       letterSpacing: 0.10,
     ),
@@ -131,7 +131,7 @@ class AppTypography extends ThemeExtension<AppTypography> {
     ),
     button: TextStyle(
       fontSize: 18,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w700,
       height: 1.20,
       letterSpacing: 0.10,
     ),

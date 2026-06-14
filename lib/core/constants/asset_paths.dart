@@ -9,4 +9,5 @@ abstract final class AssetPaths {
   static const String splashLogoDark = 'assets/images/splash_logo_dark.png';
   static const String discoverCareerImage =
       'assets/images/discover_career_image.png';
+  static const String googleIcon = 'assets/icons/google_icon.png';
 }

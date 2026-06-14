@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 
-import '../../../modules/auth/screens/login/login_screen.dart';
+import '../../../modules/auth/ui/screens/forget_password/forget_password_screen.dart';
+import '../../../modules/auth/ui/screens/login/login_screen.dart';
+import '../../../modules/auth/ui/screens/resend_verification/resend_verification_email_screen.dart'
+    show ResendVerificationEmailScreen;
+import '../../../modules/auth/ui/screens/sign_up/sign_up_screen.dart'
+    show SignUpScreen;
 import '../../../modules/home/home_screen.dart' show HomeScreen;
-import '../../../modules/onboarding/onboarding_screen.dart';
-import '../../../modules/splash/splash_screen.dart' show SplashScreen;
+import '../../../modules/startup/ui/onboarding/onboarding_screen.dart';
+import '../../../modules/startup/ui/splash/splash_screen.dart'
+    show SplashScreen;
 import 'defined_routes.dart';
 import 'page_transitions.dart';
 
@@ -38,6 +44,31 @@ abstract class RoutingProvider {
             transitionsBuilder: PageTransitions.slideAndFade,
             settings: const RouteSettings(name: DefinedRoutes.loginRoute),
           );
+        case DefinedRoutes.signUpRoute:
+          return PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                const SignUpScreen(),
+            transitionsBuilder: PageTransitions.slideAndFade,
+            settings: const RouteSettings(name: DefinedRoutes.signUpRoute),
+          );
+        case DefinedRoutes.forgetPasswordRoute:
+          return PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                const ForgetPasswordScreen(),
+            transitionsBuilder: PageTransitions.slideAndFade,
+            settings: const RouteSettings(
+              name: DefinedRoutes.forgetPasswordRoute,
+            ),
+          );
+        case DefinedRoutes.resendVerificationEmailRoute:
+          return PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                const ResendVerificationEmailScreen(),
+            transitionsBuilder: PageTransitions.slideAndFade,
+            settings: const RouteSettings(
+              name: DefinedRoutes.resendVerificationEmailRoute,
+            ),
+          );
         case DefinedRoutes.homeRoute:
           return PageRouteBuilder(
             pageBuilder: (context, animation, secondaryAnimation) =>
@@ -45,7 +76,6 @@ abstract class RoutingProvider {
             transitionsBuilder: PageTransitions.slideAndFade,
             settings: const RouteSettings(name: DefinedRoutes.homeRoute),
           );
-
         default:
           return _errorRoute();
       }

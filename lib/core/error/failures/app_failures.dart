@@ -2,6 +2,11 @@ sealed class Failure {
   const Failure();
 }
 
+// ============= General ==============
+class GoogleLoginFailure extends Failure {
+  const GoogleLoginFailure();
+}
+
 // =================================
 sealed class NetworkFailure extends Failure {
   const NetworkFailure();
@@ -57,4 +62,13 @@ class ParsingFailure extends Failure {
 
 class UnknownFailure extends Failure {
   const UnknownFailure();
+}
+
+// =========================
+sealed class PlatformFailure extends Failure {
+  const PlatformFailure();
+}
+
+class GoogleLoginNotSupportedFailure extends PlatformFailure {
+  const GoogleLoginNotSupportedFailure();
 }

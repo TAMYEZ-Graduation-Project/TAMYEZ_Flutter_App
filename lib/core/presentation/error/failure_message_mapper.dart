@@ -1,15 +1,9 @@
-import 'package:flutter/material.dart' show BuildContext;
-import 'package:injectable/injectable.dart' show lazySingleton;
-
 import '../../error/failures/app_failures.dart';
 import '../../layers/localization/l10n/generated/app_localizations.dart'
     show AppLocalizations;
 
-@lazySingleton
-class FailureHandling {
-  String mapFailureToMessage(BuildContext context, Failure failure) {
-    final l10n = AppLocalizations.of(context)!;
-
+abstract class FailureHandling {
+  static String mapFailureToMessage(AppLocalizations l10n, Failure failure) {
     switch (failure) {
       case NoInternetFailure():
         return l10n.connectionError;
@@ -44,13 +38,21 @@ class FailureHandling {
         }
         return l10n.somethingWentWrong;
 
+      case GoogleLoginFailure():
+        return l10n.googleLoginFailed;
+
+      case BadRequestFailure():
+        return l10n.badRequest;
+
+      case GoogleLoginNotSupportedFailure():
+        return l10n.googleLoginNotSupported;
+
       case UnknownFailure():
-      default:
         return l10n.unknownError;
     }
   }
 
-  bool _isUserSafeMessage(String? message) {
+  static bool _isUserSafeMessage(String? message) {
     if (message == null) return false;
 
     if (message.length > 150) return false;

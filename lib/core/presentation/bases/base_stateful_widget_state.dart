@@ -3,6 +3,7 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart'
 import 'package:flutter/material.dart';
 
 import '../../di/di.dart';
+import '../../layers/localization/l10n/generated/app_localizations.dart';
 import '../../layers/localization/l10n/manager/localization_manager.dart'
     show LocalizationManager;
 import '../../layers/theme/extensions/app_typography.dart' show AppTypography;
@@ -16,6 +17,7 @@ abstract class BaseStatefulWidgetState<T extends StatefulWidget>
   late AppTypography typography;
   late Size screenSize;
   late LocalizationManager localizationManager;
+  late AppLocalizations appLocalizations;
 
   // This will always point to the correct context
   @override
@@ -25,6 +27,7 @@ abstract class BaseStatefulWidgetState<T extends StatefulWidget>
     typography = theme.extension<AppTypography>() ?? AppTypography.mobileBase;
     screenSize = MediaQuery.sizeOf(context);
     localizationManager = getIt.get<LocalizationManager>();
+    appLocalizations = AppLocalizations.of(context)!;
   }
 
   // Current fresh context with runtime check
@@ -69,8 +72,6 @@ abstract class BaseStatefulWidgetState<T extends StatefulWidget>
       ),
     );
 
-    ScaffoldMessenger.of(safeContext)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(snackBar);
+    ScaffoldMessenger.of(safeContext).showSnackBar(snackBar);
   }
 }

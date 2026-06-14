@@ -2,6 +2,7 @@ enum ValidationError {
   emptyField,
 
   // Name
+  invalidFullName,
   invalidName,
   nameTooShort,
 
@@ -17,12 +18,11 @@ enum ValidationError {
   invalidPhoneNumber,
 
   // Password
-  passwordTooShort,
-  passwordMissingUppercase,
-  passwordMissingLowercase,
-  passwordMissingDigit,
-  passwordMissingSpecialChar,
+  invalidPassword,
 
   // Confirm password
   passwordMismatch,
+
+  // Gender
+  invalidGender,
 }
