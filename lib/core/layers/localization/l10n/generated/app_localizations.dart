@@ -236,6 +236,12 @@ abstract class AppLocalizations {
   /// **'Password must be at least 8 chars, include uppercase, lowercase, number & special character'**
   String get invalidPassword;
 
+  /// No description provided for @invalidGender.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid gender, it should be either \'Male\' or \'Female\''**
+  String get invalidGender;
+
   /// No description provided for @passwordLength.
   ///
   /// In en, this message translates to:

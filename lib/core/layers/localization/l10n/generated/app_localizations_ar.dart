@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -81,6 +82,10 @@ class AppLocalizationsAr extends AppLocalizations {
       'يجب أن تتكون كلمة المرور من 8 أحرف على الأقل، وتتضمن حرفاً كبيراً وحرفاً صغيراً ورقماً وحرفاً خاصاً';
 
   @override
+  String get invalidGender =>
+      'نوع الجنس غير صالح، يجب أن يكون إما \'ذكر\' أو \'أنثى';
+
+  @override
   String get passwordLength => 'يجب أن تتكون كلمة المرور من 8 أحرف على الأقل.';
 
   @override
@@ -115,8 +120,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get pleaseEnterPhoneNumber => 'الرجاء إدخال رقم هاتفك.';
 
   @override
-  String get phoneNumberRules =>
-      'يجب أن يبدأ الرقم بأحد البوادئ الصالحة:\n010 أو 011 أو 012 أو 015\nمتبوعاً بـ 8 أرقام.';
+  String get phoneNumberRules => 'أدخل رقم هاتف مصري صحيح (+20XXXXXXXXXX)';
 
   @override
   String get pleaseEnterPassword => 'الرجاء إدخال كلمة المرور الخاصة بك.';

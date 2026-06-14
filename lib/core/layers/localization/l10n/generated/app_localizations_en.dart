@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -80,6 +81,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get invalidPassword =>
       'Password must be at least 8 chars, include uppercase, lowercase, number & special character';
+
+  @override
+  String get invalidGender =>
+      'Invalid gender, it should be either \'Male\' or \'Female\'';
 
   @override
   String get passwordLength => 'Password must be at least 8 characters long.';

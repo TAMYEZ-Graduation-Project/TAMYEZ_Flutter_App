@@ -38,5 +38,7 @@ String mapValidationErrorToMessage(
 
     case ValidationError.invalidPassword:
       return l10n.invalidPassword;
+    case ValidationError.invalidGender:
+      return l10n.invalidGender;
   }
 }

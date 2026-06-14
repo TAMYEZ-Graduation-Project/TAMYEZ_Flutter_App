@@ -1,3 +1,5 @@
+import '../../modules/auth/ui/screens/sign_up/view_model/sign_up_state.dart'
+    show GenderEnum;
 import 'validation_error.dart' show ValidationError;
 
 abstract class Validators {
@@ -10,7 +12,7 @@ abstract class Validators {
 
   static final RegExp _phoneNumberRegex = RegExp(r'^(\+20)(10|11|12|15)\d{8}$');
 
-  static final emailRegex = RegExp(
+  static final _emailRegex = RegExp(
     r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
   );
 
@@ -62,10 +64,20 @@ abstract class Validators {
       return ValidationError.emptyField;
     }
 
-    if (!emailRegex.hasMatch(input)) {
+    if (!_emailRegex.hasMatch(input)) {
       return ValidationError.invalidEmail;
     }
 
+    return null;
+  }
+
+  static ValidationError? validateGender(String? input) {
+    if (input == null || input.trim().isEmpty) {
+      return ValidationError.emptyField;
+    }
+    if (input != GenderEnum.male.value && input != GenderEnum.female.value) {
+      return ValidationError.invalidGender;
+    }
     return null;
   }
 }

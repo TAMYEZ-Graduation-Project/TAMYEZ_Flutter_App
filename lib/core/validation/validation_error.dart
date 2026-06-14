@@ -22,4 +22,7 @@ enum ValidationError {
 
   // Confirm password
   passwordMismatch,
+
+  // Gender
+  invalidGender,
 }
