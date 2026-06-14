@@ -44,7 +44,7 @@ void main() {
         getIt.unregister<CheckLoginSessionUseCase>();
       }
       getIt.registerFactory<CheckLoginSessionUseCase>(
-            () => mockCheckLoginSessionUseCase,
+        () => mockCheckLoginSessionUseCase,
       );
       when(mockCheckLoginSessionUseCase.call()).thenAnswer((_) async => false);
     });
@@ -186,13 +186,13 @@ void main() {
                 predicate<Route<dynamic>>((route) {
                   return route.settings.name == DefinedRoutes.loginRoute;
                 }),
-                  named: 'newRoute'
+                named: 'newRoute',
               ),
               oldRoute: argThat(
                 predicate<Route<dynamic>>((route) {
                   return route.settings.name == DefinedRoutes.onboardingRoute;
                 }),
-                  named: 'oldRoute'
+                named: 'oldRoute',
               ),
             ),
           ).called(1);
