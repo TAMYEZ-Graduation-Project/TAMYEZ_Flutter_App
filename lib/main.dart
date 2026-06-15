@@ -1,5 +1,9 @@
-import 'package:device_preview/device_preview.dart';
+import 'dart:async';
+
 import 'package:firebase_core/firebase_core.dart' show Firebase;
+import 'package:firebase_crashlytics/firebase_crashlytics.dart'
+    show FirebaseCrashlytics;
+import 'package:flutter/foundation.dart' show PlatformDispatcher;
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -32,6 +36,13 @@ void main() async {
   // Framework / platform initialization
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
+  // Firebase Crashlytics
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    return true;
+  };
+
   // Dependency Injection
   await configureDependencies();
 
@@ -39,13 +50,7 @@ void main() async {
   final appInitializer = getIt.get<AppInitializer>();
   await appInitializer.initializeEssential();
 
-  runApp(
-    DevicePreview(
-      builder: (context) {
-        return const MyApp();
-      },
-    ),
-  );
+  runApp(const MyApp());
 
   // Post-startup init
   Future.microtask(() async {
