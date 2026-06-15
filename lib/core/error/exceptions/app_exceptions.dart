@@ -26,6 +26,10 @@ class LoginBadResponseException extends AppException {
   const LoginBadResponseException({super.message});
 }
 
+class QuizBadResponseException extends AppException {
+  const QuizBadResponseException({super.message});
+}
+
 class GoogleLoginException extends AppException {
   const GoogleLoginException({super.message});
 }

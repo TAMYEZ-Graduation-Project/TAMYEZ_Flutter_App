@@ -19,3 +19,25 @@ enum UserRoleEnum {
 
   const UserRoleEnum(this.strValue);
 }
+
+enum QuestionOptionIdsEnum {
+  empty('optEmpty'),
+  optionA('optA'),
+  optionB('optB'),
+  optionC('optC'),
+  optionD('optD');
+
+  final String strValue;
+
+  const QuestionOptionIdsEnum(this.strValue);
+}
+
+enum QuizQuestionTypesEnum {
+  mcqSingle('mcq-single'),
+  mcqMulti('mcq-multi'),
+  written('written');
+
+  final String strValue;
+
+  const QuizQuestionTypesEnum(this.strValue);
+}

@@ -43,8 +43,8 @@ class AuthLocalDataSourceImp implements AuthLocalDataSource {
   @override
   Future<LoginSessionDto> getLoginSession() async {
     final List<String?> savedValues = await Future.wait([
-      _storageService.getString(StorageConstants.userKey),
       _storageService.getString(StorageConstants.accessToken),
+      _storageService.getString(StorageConstants.userKey),
     ]);
 
     return LoginSessionDto(
