@@ -1,3 +1,4 @@
+import '../../../../core/mappers/base_auth_mapper.dart';
 import '../../domain/entities/gmail_login_params.dart' show GmailLoginParams;
 import '../../domain/entities/login_params.dart';
 import '../../domain/entities/login_response_entity.dart';
@@ -6,7 +7,6 @@ import '../../domain/entities/reset_password_params.dart'
 import '../../domain/entities/sign_up_params.dart';
 import '../../domain/entities/sign_up_response_entity.dart';
 import '../../domain/entities/user_email_params.dart' show UserEmailParams;
-import '../../domain/entities/user_entity.dart';
 import '../../domain/entities/verify_code_params.dart' show VerifyCodeParams;
 import '../models/gmail_login_request.dart' show GmailLoginRequest;
 import '../models/login_request.dart';
@@ -56,25 +56,7 @@ extension LoginResponseMapper on LoginResponse {
     return LoginResponseEntity(
       success: success,
       message: message,
-      accessToken: body?.accessToken,
-      user: body?.user?.toEntity(),
-    );
-  }
-}
-
-extension UserDtoMapper on UserDto {
-  UserEntity toEntity() {
-    return UserEntity(
-      id: id,
-      fullName: fullName,
-      email: email,
-      phoneNumber: phoneNumber,
-      gender: gender,
-      role: role,
-      assessmentStatus: assessmentStatus,
-      createdAt: createdAt,
-      updatedAt: updatedAt,
-      confirmedAt: confirmedAt,
+      body: body!.toEntity(),
     );
   }
 }

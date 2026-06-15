@@ -1,9 +1,9 @@
-import '../../models/login_response.dart';
+import '../../../../../core/network/models/login_session_dto.dart';
 
 abstract interface class AuthLocalDataSource {
-  Future<void> saveLoginSession({LoginBodyDto? body});
+  Future<void> saveLoginSession({LoginSessionDto? body});
 
   Future<void> clearLoginSession();
 
-  Future<bool> isThereLoginSession();
+  Future<LoginSessionDto> getLoginSession();
 }

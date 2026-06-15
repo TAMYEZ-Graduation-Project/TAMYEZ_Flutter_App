@@ -1,6 +1,12 @@
 import 'package:injectable/injectable.dart';
 
+import '../../../../core/entities/login_session_entity.dart';
+import '../../../../core/error/exceptions/app_exceptions.dart'
+    show LoginBadResponseException;
 import '../../../../core/execution/operation_result.dart';
+import '../../../../core/mappers/base_auth_mapper.dart'
+    show LoginSessionDtoMapper;
+import '../../../../core/network/models/login_session_dto.dart';
 import '../../../../core/utils/functions/repo_result_handler.dart';
 import '../../domain/entities/login_params.dart';
 import '../../domain/entities/login_response_entity.dart';
@@ -29,6 +35,13 @@ class AuthRepoImp implements AuthRepository {
     this._authLocalDataSource,
   );
 
+  bool _isLoginSessionValid(LoginSessionDto? session) {
+    if (session?.user == null || session?.accessToken == null) {
+      throw const LoginBadResponseException();
+    }
+    return true;
+  }
+
   @override
   Future<OperationResult<SignUpResponseEntity>> signUp({
     required SignUpParams params,
@@ -48,7 +61,9 @@ class AuthRepoImp implements AuthRepository {
       final response = await _authRemoteDataSource.gmailSignUp(
         request: GmailLoginRequest(idToken: token),
       );
-      await _authLocalDataSource.saveLoginSession(body: response.body);
+      if (_isLoginSessionValid(response.body)) {
+        await _authLocalDataSource.saveLoginSession(body: response.body);
+      }
       return response.toEntity();
     });
   }
@@ -74,7 +89,7 @@ class AuthRepoImp implements AuthRepository {
       final response = await _authRemoteDataSource.login(
         request: params.toModel(),
       );
-      if (rememberMe) {
+      if (rememberMe && _isLoginSessionValid(response.body)) {
         await _authLocalDataSource.saveLoginSession(body: response.body);
       }
       return response.toEntity();
@@ -90,7 +105,7 @@ class AuthRepoImp implements AuthRepository {
       final response = await _authRemoteDataSource.gmailLogin(
         request: GmailLoginRequest(idToken: token),
       );
-      if (rememberMe) {
+      if (rememberMe && _isLoginSessionValid(response.body)) {
         await _authLocalDataSource.saveLoginSession(body: response.body);
       }
       return response.toEntity();
@@ -98,8 +113,11 @@ class AuthRepoImp implements AuthRepository {
   }
 
   @override
-  Future<bool> isThereLoginSession() {
-    return _authLocalDataSource.isThereLoginSession();
+  Future<LoginSessionEntity?> getLoginSession() async {
+    final session = await _authLocalDataSource.getLoginSession();
+
+    if (session.accessToken != null || session.user != null) return null;
+    return session.toEntity();
   }
 
   @override

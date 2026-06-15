@@ -10,10 +10,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart'
     show MultiProvider, ChangeNotifierProvider, Consumer2;
 
-import 'core/auth/auth_provider.dart';
-import 'core/auth/domain/entities/auth_status.dart';
+import 'core/auth_providers/auth_provider.dart' show AuthProvider;
 import 'core/bootstrap/app_initializer.dart';
 import 'core/di/di.dart';
+import 'core/entities/auth_status.dart';
 import 'core/layers/localization/l10n/generated/app_localizations.dart'
     show AppLocalizations;
 import 'core/layers/localization/l10n/manager/localization_manager.dart'

@@ -1,7 +1,7 @@
 import 'package:injectable/injectable.dart' show lazySingleton;
 
-import 'domain/entities/auth_token.dart' show AuthToken;
-import 'domain/entities/user_entity.dart';
+import '../entities/auth_token.dart' show AuthToken;
+import '../entities/user_entity.dart';
 
 @lazySingleton
 class UserProvider {

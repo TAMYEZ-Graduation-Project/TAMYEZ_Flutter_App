@@ -4,10 +4,10 @@ import 'dart:ui' show Brightness;
 import 'package:flutter_dotenv/flutter_dotenv.dart' show dotenv;
 import 'package:injectable/injectable.dart' show lazySingleton, Named;
 
-import '../auth/auth_provider.dart';
-import '../auth/domain/entities/auth_status.dart';
-import '../auth/domain/service/session_storage_service.dart';
-import '../auth/user_provider.dart';
+import '../auth_providers/auth_provider.dart' show AuthProvider;
+import '../auth_providers/user_provider.dart' show UserProvider;
+import '../entities/auth_status.dart' show AuthStatus;
+import '../entities/login_session_entity.dart';
 import '../layers/localization/enums/languages_enum.dart'
     show LanguagesEnum, LanguagesEnumExtension;
 import '../layers/localization/l10n/manager/localization_manager.dart';
@@ -24,19 +24,15 @@ import '../utils/functions/has_google_services.dart';
 @lazySingleton
 class AppInitializer {
   final StorageService _storageService;
-  final SessionStorageService _sessionStorage;
   final LocalizationManager _localizationManager;
   final ThemeManager _themeManager;
-
   final UserProvider _userProvider;
-
   final AuthProvider _authProvider;
   final AwesomeNotificationService _awesomeNotificationService;
   final FirebaseCloudMessagingService _firebaseCloudMessagingService;
 
   const AppInitializer(
     @Named(StorageConstants.secureStorage) this._storageService,
-    this._sessionStorage,
     this._localizationManager,
     this._themeManager,
     this._userProvider,
@@ -48,15 +44,6 @@ class AppInitializer {
   /// Essential Initialization (BEFORE runApp)
   Future<void> initializeEssential() async {
     await dotenv.load(fileName: 'config/.env');
-
-    final session = await _sessionStorage.restoreSession();
-    if (session != null) {
-      _userProvider.setSession(user: session.user, token: session.token);
-      _authProvider.setAuthStatus(AuthStatus.authenticated);
-    } else {
-      _userProvider.clear();
-      _authProvider.setAuthStatus(AuthStatus.unauthenticated);
-    }
   }
 
   /// Light Background Tasks (after runApp)
@@ -80,6 +67,16 @@ class AppInitializer {
     if (Platform.isAndroid && (await hasGoogleServices())) {
       await _awesomeNotificationService.initInstance;
       await _firebaseCloudMessagingService.initNotifications();
+    }
+  }
+
+  void initAuthAndUserProvider(LoginSessionEntity? session) {
+    if (session != null) {
+      _userProvider.setSession(user: session.user, token: session.token);
+      _authProvider.setAuthStatus(AuthStatus.authenticated);
+    } else {
+      _userProvider.clear();
+      _authProvider.setAuthStatus(AuthStatus.unauthenticated);
     }
   }
 }

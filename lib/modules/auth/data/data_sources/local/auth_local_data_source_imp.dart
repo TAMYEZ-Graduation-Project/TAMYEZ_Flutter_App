@@ -1,14 +1,13 @@
-import 'dart:convert' show jsonEncode;
+import 'dart:convert' show jsonEncode, jsonDecode;
 
 import 'package:injectable/injectable.dart';
 
-import '../../../../../core/error/exceptions/app_exceptions.dart'
-    show LoginBadResponseException;
 import '../../../../../core/layers/storage/constants/storage_constants.dart'
     show StorageConstants;
 import '../../../../../core/layers/storage/contracts/storage_service_contract.dart'
     show StorageService;
-import '../../models/login_response.dart';
+import '../../../../../core/network/models/login_session_dto.dart';
+import '../../../../../core/network/models/user_dto.dart';
 import 'auth_local_data_source.dart';
 
 @Injectable(as: AuthLocalDataSource)
@@ -20,10 +19,7 @@ class AuthLocalDataSourceImp implements AuthLocalDataSource {
   );
 
   @override
-  Future<void> saveLoginSession({LoginBodyDto? body}) async {
-    if (body?.user == null || body?.accessToken == null) {
-      throw const LoginBadResponseException();
-    }
+  Future<void> saveLoginSession({LoginSessionDto? body}) async {
     await Future.wait([
       _storageService.setString(
         StorageConstants.userKey,
@@ -45,12 +41,17 @@ class AuthLocalDataSourceImp implements AuthLocalDataSource {
   }
 
   @override
-  Future<bool> isThereLoginSession() async {
+  Future<LoginSessionDto> getLoginSession() async {
     final List<String?> savedValues = await Future.wait([
       _storageService.getString(StorageConstants.userKey),
       _storageService.getString(StorageConstants.accessToken),
     ]);
 
-    return savedValues[0] != null && savedValues[1] != null;
+    return LoginSessionDto(
+      accessToken: savedValues[0],
+      user: UserDto.fromJson(
+        jsonDecode(savedValues[1]!) as Map<String, dynamic>,
+      ),
+    );
   }
 }

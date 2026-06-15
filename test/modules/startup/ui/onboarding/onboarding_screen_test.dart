@@ -7,7 +7,7 @@ import 'package:tamyez_app/core/di/di.dart' show getIt;
 import 'package:tamyez_app/core/layers/localization/enums/languages_enum.dart';
 import 'package:tamyez_app/core/presentation/routing/defined_routes.dart'
     show DefinedRoutes;
-import 'package:tamyez_app/modules/auth/domain/use_case/check_login_session_use_case.dart';
+import 'package:tamyez_app/modules/auth/domain/use_case/get_login_session_use_case.dart';
 import 'package:tamyez_app/modules/auth/ui/screens/login/view_model/login_state.dart';
 import 'package:tamyez_app/modules/auth/ui/screens/login/view_model/login_view_model.dart';
 import 'package:tamyez_app/modules/startup/ui/onboarding/constants/onboarding_screen_constants.dart'
@@ -24,13 +24,13 @@ import 'onboarding_screen_test.mocks.dart';
 
 @GenerateNiceMocks([
   MockSpec<LoginViewModel>(),
-  MockSpec<CheckLoginSessionUseCase>(),
+  MockSpec<GetLoginSessionUseCase>(),
 ])
 void main() {
   group('Test OnboardingScreen widget', () {
     final WidgetTestingSharedSetups sharedSetups = WidgetTestingSharedSetups();
     late MockLoginViewModel mockLoginViewModel;
-    late MockCheckLoginSessionUseCase mockCheckLoginSessionUseCase;
+    late MockGetLoginSessionUseCase mockGetLoginSessionUseCase;
     setUp(() async {
       await sharedSetups.sharedSetup();
       if (getIt.isRegistered<LoginViewModel>()) {
@@ -39,14 +39,14 @@ void main() {
       mockLoginViewModel = MockLoginViewModel();
       getIt.registerFactory<LoginViewModel>(() => mockLoginViewModel);
 
-      mockCheckLoginSessionUseCase = MockCheckLoginSessionUseCase();
-      if (getIt.isRegistered<CheckLoginSessionUseCase>()) {
-        getIt.unregister<CheckLoginSessionUseCase>();
+      mockGetLoginSessionUseCase = MockGetLoginSessionUseCase();
+      if (getIt.isRegistered<GetLoginSessionUseCase>()) {
+        getIt.unregister<GetLoginSessionUseCase>();
       }
-      getIt.registerFactory<CheckLoginSessionUseCase>(
-        () => mockCheckLoginSessionUseCase,
+      getIt.registerFactory<GetLoginSessionUseCase>(
+        () => mockGetLoginSessionUseCase,
       );
-      when(mockCheckLoginSessionUseCase.call()).thenAnswer((_) async => false);
+      when(mockGetLoginSessionUseCase.call()).thenAnswer((_) async => null);
     });
 
     tearDown(() async {

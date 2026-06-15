@@ -9,6 +9,8 @@ import '../../../../../../core/presentation/result/ui_result.dart';
 import '../../../../../../core/presentation/routing/defined_routes.dart'
     show DefinedRoutes;
 import '../../../../../../core/success/success_enum.dart';
+import '../../../../../../core/utils/functions/user_completed_assessment.dart'
+    show userCompletedAssessment;
 import '../../../../domain/entities/login_params.dart';
 import '../../../../domain/entities/login_response_entity.dart';
 import '../../../../domain/use_case/gmail_login_use_case.dart';
@@ -49,8 +51,10 @@ class LoginViewModel extends BaseCubit<LoginState, UiEffect> {
         emit(state.copyWith(systemLoginResult: const Success(null)));
         emitEffect(const SuccessEffect(success: SuccessEnum.loginSuccess));
         emitEffect(
-          const NavigateEffect(
-            route: DefinedRoutes.homeRoute,
+          NavigateEffect(
+            route: userCompletedAssessment(result.data.body.user)
+                ? DefinedRoutes.homeRoute
+                : DefinedRoutes.discoverYourPotentialRoute,
             navigationType: NavigationTypeEnum.pushNamedAndRemoveUntil,
           ),
         );

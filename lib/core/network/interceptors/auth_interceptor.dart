@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../auth/auth_provider.dart';
-import '../../auth/domain/entities/auth_status.dart' show AuthStatus;
-import '../../auth/user_provider.dart';
+import '../../auth_providers/auth_provider.dart' show AuthProvider;
+import '../../auth_providers/user_provider.dart' show UserProvider;
+import '../../entities/auth_status.dart' show AuthStatus;
 import '../../layers/storage/constants/storage_constants.dart';
 import '../../layers/storage/contracts/storage_service_contract.dart';
 import '../dio/dio_constants.dart';
