@@ -10,4 +10,6 @@ abstract final class AssetPaths {
   static const String discoverCareerImage =
       'assets/images/discover_career_image.png';
   static const String googleIcon = 'assets/icons/google_icon.png';
+  static const String discoverYourPotential =
+      'assets/images/discover_your_potential.png';
 }

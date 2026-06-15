@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -156,6 +157,16 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get discoverYourTruePotential =>
       'اكتشف إمكانياتك الحقيقية وافتح المسار المهني المخصص لك.';
+
+  @override
+  String get discoverYourTruePotentialTitle => 'اكتشف إمكانياتك\nالحقيقية';
+
+  @override
+  String get discoverYourTruePotentialSubtitle =>
+      'اكتشف نقاط قوتك الفريدة وجد المسار المهني\nالمثالي من خلال مساعدنا المدعوم\nبالذكاء الاصطناعي.';
+
+  @override
+  String get getStarted => 'ابدأ الآن';
 
   @override
   String get chooseYourLanguage => 'اختر لغتك';

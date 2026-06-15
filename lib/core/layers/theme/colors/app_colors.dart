@@ -15,6 +15,9 @@ abstract final class AppColors {
 
   static const Color _lightPink = Color(0xFFFFFBFB);
 
+  static const Color _middleCoffee = Color(0xFFeee8de);
+  static const Color _lightCoffee = Color(0xFFf3f3eb);
+
   static Color get light => _light;
 
   static Color get dark => _dark;
@@ -33,4 +36,8 @@ abstract final class AppColors {
   static Color get red => _red;
 
   static Color get lightPink => _lightPink;
+
+  static Color get lightCoffee => _lightCoffee;
+
+  static Color get middleCoffee => _middleCoffee;
 }

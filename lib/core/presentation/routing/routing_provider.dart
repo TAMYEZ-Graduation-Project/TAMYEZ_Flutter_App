@@ -6,6 +6,9 @@ import '../../../modules/auth/ui/screens/resend_verification/resend_verification
     show ResendVerificationEmailScreen;
 import '../../../modules/auth/ui/screens/sign_up/sign_up_screen.dart'
     show SignUpScreen;
+import '../../../modules/career_assessment/ui/screens/career_assessment/career_assessment_screen.dart'
+    show CareerAssessmentScreen;
+import '../../../modules/career_assessment/ui/screens/discover_your_potential/discover_your_potential_screen.dart';
 import '../../../modules/home/home_screen.dart' show HomeScreen;
 import '../../../modules/startup/ui/onboarding/onboarding_screen.dart';
 import '../../../modules/startup/ui/splash/splash_screen.dart'
@@ -67,6 +70,24 @@ abstract class RoutingProvider {
             transitionsBuilder: PageTransitions.slideAndFade,
             settings: const RouteSettings(
               name: DefinedRoutes.resendVerificationEmailRoute,
+            ),
+          );
+        case DefinedRoutes.discoverYourPotentialRoute:
+          return PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                const DiscoverYourPotentialScreen(),
+            transitionsBuilder: PageTransitions.slideAndFade,
+            settings: const RouteSettings(
+              name: DefinedRoutes.discoverYourPotentialRoute,
+            ),
+          );
+        case DefinedRoutes.careerAssessmentRoute:
+          return PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                const CareerAssessmentScreen(),
+            transitionsBuilder: PageTransitions.slideAndFade,
+            settings: const RouteSettings(
+              name: DefinedRoutes.careerAssessmentRoute,
             ),
           );
         case DefinedRoutes.homeRoute:

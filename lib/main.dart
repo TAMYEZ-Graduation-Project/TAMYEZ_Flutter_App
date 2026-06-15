@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:device_preview/device_preview.dart' show DevicePreview;
 import 'package:firebase_core/firebase_core.dart' show Firebase;
 import 'package:firebase_crashlytics/firebase_crashlytics.dart'
     show FirebaseCrashlytics;
@@ -50,7 +51,13 @@ void main() async {
   final appInitializer = getIt.get<AppInitializer>();
   await appInitializer.initializeEssential();
 
-  runApp(const MyApp());
+  runApp(
+    DevicePreview(
+      builder: (context) {
+        return const MyApp();
+      },
+    ),
+  );
 
   // Post-startup init
   Future.microtask(() async {

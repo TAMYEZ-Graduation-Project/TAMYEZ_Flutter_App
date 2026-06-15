@@ -76,7 +76,7 @@ class MobileView extends BaseStatelessWidget {
                     const ChooseLanguageWidget(),
                     const Spacer(),
                     FilledButton(
-                      onPressed: () async {
+                      onPressed: () {
                         Navigator.pushReplacementNamed(
                           context,
                           DefinedRoutes.loginRoute,

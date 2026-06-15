@@ -49,9 +49,11 @@ class AuthLocalDataSourceImp implements AuthLocalDataSource {
 
     return LoginSessionDto(
       accessToken: savedValues[0],
-      user: UserDto.fromJson(
-        jsonDecode(savedValues[1]!) as Map<String, dynamic>,
-      ),
+      user: savedValues[1] == null
+          ? null
+          : UserDto.fromJson(
+              jsonDecode(savedValues[1]!) as Map<String, dynamic>,
+            ),
     );
   }
 }

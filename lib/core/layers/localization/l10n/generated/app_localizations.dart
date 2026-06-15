@@ -380,6 +380,24 @@ abstract class AppLocalizations {
   /// **'Discover your true potential and unlock the career path meant for you.'**
   String get discoverYourTruePotential;
 
+  /// No description provided for @discoverYourTruePotentialTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Discover Your True\nPotential'**
+  String get discoverYourTruePotentialTitle;
+
+  /// No description provided for @discoverYourTruePotentialSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock your unique strengths and find the\nperfect career path with our AI-powered\nassistant.'**
+  String get discoverYourTruePotentialSubtitle;
+
+  /// No description provided for @getStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Get Started'**
+  String get getStarted;
+
   /// No description provided for @chooseYourLanguage.
   ///
   /// In en, this message translates to:

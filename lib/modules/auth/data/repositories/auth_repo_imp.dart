@@ -115,8 +115,7 @@ class AuthRepoImp implements AuthRepository {
   @override
   Future<LoginSessionEntity?> getLoginSession() async {
     final session = await _authLocalDataSource.getLoginSession();
-
-    if (session.accessToken != null || session.user != null) return null;
+    if (session.accessToken == null || session.user == null) return null;
     return session.toEntity();
   }
 
