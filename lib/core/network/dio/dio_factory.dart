@@ -8,18 +8,15 @@ import 'dio_constants.dart' show DioHeaders, DioContentType;
 class DioFactory {
   Dio create(ApiConfig apiConfig) {
     return Dio(
-        BaseOptions(
-          baseUrl: apiConfig.baseUrl,
-          connectTimeout: apiConfig.timeout,
-          receiveTimeout: apiConfig.timeout,
-          headers: {
-            DioHeaders.contentType: DioContentType.json,
-            DioHeaders.accept: DioContentType.json,
-          },
-        ),
-      )
-      ..interceptors.addAll([
-        ...apiConfig.interceptors,
-      ]);
+      BaseOptions(
+        baseUrl: apiConfig.baseUrl,
+        connectTimeout: apiConfig.timeout,
+        receiveTimeout: apiConfig.timeout,
+        headers: {
+          DioHeaders.contentType: DioContentType.json,
+          DioHeaders.accept: DioContentType.json,
+        },
+      ),
+    )..interceptors.addAll([...apiConfig.interceptors]);
   }
 }

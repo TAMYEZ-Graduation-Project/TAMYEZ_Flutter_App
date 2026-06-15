@@ -51,12 +51,10 @@ void main() async {
   await appInitializer.initializeEssential();
 
   runZonedGuarded(
-        () {
-      runApp(
-        const MyApp(),
-      );
+    () {
+      runApp(const MyApp());
     },
-        (error, stack) {
+    (error, stack) {
       FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
     },
   );
