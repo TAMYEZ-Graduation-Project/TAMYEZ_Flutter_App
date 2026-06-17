@@ -11,10 +11,11 @@ class QuestionWidgetFactory {
     required QuizQuestionTypesEnum type,
     required QuestionEntity question,
     List<QuestionOptionIdsEnum>? selectedOptionsIds,
-    void Function(QuestionOptionIdsEnum? optionId)? onOptionSelected,
+    void Function(QuestionOptionIdsEnum optionId)? onOptionSelected,
     void Function(bool value, QuestionOptionIdsEnum optionId)?
     onMultiOptionSelected,
-    TextEditingController? controller,
+    String? writtenAnswer,
+    void Function(String value)? onWrittenAnswerChange,
   }) {
     switch (type) {
       case QuizQuestionTypesEnum.mcqSingle:
@@ -32,7 +33,8 @@ class QuestionWidgetFactory {
       case QuizQuestionTypesEnum.written:
         return WrittenQuestionWidget(
           question: question,
-          controller: controller,
+          value: writtenAnswer,
+          onChanged: onWrittenAnswerChange,
         );
     }
   }

@@ -10,3 +10,7 @@ abstract class CareerAssessmentEndpoints {
     return 'career/$suggestedCareerId/choose-suggested-career';
   }
 }
+
+abstract class CareerAssessmentQueryParams {
+  static const String discardActiveAttempt = 'discardActiveAttempt';
+}

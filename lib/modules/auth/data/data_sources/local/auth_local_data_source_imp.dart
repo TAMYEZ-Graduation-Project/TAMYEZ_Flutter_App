@@ -27,7 +27,7 @@ class AuthLocalDataSourceImp implements AuthLocalDataSource {
       ),
       _storageService.setString(
         StorageConstants.accessToken,
-        jsonEncode(body.accessToken),
+        body.accessToken!,
       ),
     ]);
   }

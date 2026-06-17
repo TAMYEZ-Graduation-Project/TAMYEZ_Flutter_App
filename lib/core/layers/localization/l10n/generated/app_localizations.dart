@@ -637,6 +637,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Resent'**
   String get resent;
+
+  /// No description provided for @retry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get retry;
+
+  /// No description provided for @loginBadResponse.
+  ///
+  /// In en, this message translates to:
+  /// **'The server returned an invalid login response'**
+  String get loginBadResponse;
+
+  /// No description provided for @quizBadResponse.
+  ///
+  /// In en, this message translates to:
+  /// **'The server returned an invalid quiz response'**
+  String get quizBadResponse;
 }
 
 class _AppLocalizationsDelegate

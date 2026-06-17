@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../constants/app_enums.dart' show UserRoleEnum;
+import '../constants/app_enums.dart' show UserRoleEnum, TokenBearerKeysEnum;
 
 class AuthToken extends Equatable {
   final String value;
@@ -10,14 +10,14 @@ class AuthToken extends Equatable {
 
   String toHeaderValue() {
     switch (role) {
-      case UserRoleEnum.admin:
-        return 'Admin $value';
       case UserRoleEnum.user:
-        return 'Bearer $value';
+        return '${TokenBearerKeysEnum.bearerUser.strValue} $value';
+      case UserRoleEnum.admin:
+        return '${TokenBearerKeysEnum.bearerSystem.strValue} $value';
+      case UserRoleEnum.superAdmin:
+        return '${TokenBearerKeysEnum.bearerSuperSystem.strValue} $value';
       case UserRoleEnum.guest:
         return '';
-      case UserRoleEnum.superAdmin:
-        return 'SuperAdmin $value';
     }
   }
 

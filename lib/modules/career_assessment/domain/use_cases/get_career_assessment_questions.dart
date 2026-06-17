@@ -5,10 +5,10 @@ import '../../../../core/execution/operation_result.dart';
 import '../repositories/career_assessment_repo.dart';
 
 @injectable
-class GetCareerAssessmentQuestions {
+class GetCareerAssessmentQuestionsUseCase {
   final CareerAssessmentRepo _repo;
 
-  const GetCareerAssessmentQuestions(this._repo);
+  const GetCareerAssessmentQuestionsUseCase(this._repo);
 
   Future<OperationResult<QuizAttemptEntity>> call() {
     return _repo.getCareerAssessmentQuestions();

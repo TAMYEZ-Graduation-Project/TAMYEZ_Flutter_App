@@ -20,9 +20,12 @@ class _CareerAssessmentApiClient implements CareerAssessmentApiClient {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<GetQuizQuestionsResponseDto> getCareerAssessmentQuestions() async {
-    final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+  Future<GetQuizQuestionsResponseDto> getCareerAssessmentQuestions(
+      bool discardActiveAttempt,) async {
+    final _extra = <String, dynamic>{'requiresAuth': true};
+    final queryParameters = <String, dynamic>{
+      r'discardActiveAttempt': discardActiveAttempt,
+    };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<GetQuizQuestionsResponseDto>(

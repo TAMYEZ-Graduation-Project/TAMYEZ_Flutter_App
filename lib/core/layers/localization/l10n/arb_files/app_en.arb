@@ -89,5 +89,8 @@
   "enterCodeSent": "Please enter your code that send to your email address",
   "invalidCode": "Invalid code",
   "didNotReceiveCode": "Didn't receive code? ",
-  "resent": "Resent"
+  "resent": "Resent",
+  "retry": "Retry",
+  "loginBadResponse": "The server returned an invalid login response",
+  "quizBadResponse": "The server returned an invalid quiz response"
 }

@@ -61,10 +61,9 @@ class QuizAttempt {
     createdAt = json['createdAt'] as String?;
     updatedAt = json['updatedAt'] as String?;
     if (json['questions'] != null) {
-      questions = [];
-      json['questions'].forEach((Map<String, dynamic> v) {
-        questions?.add(QuestionDto.fromJson(v));
-      });
+      questions = (json['questions'] as List)
+          .map((e) => QuestionDto.fromJson(e as Map<String, dynamic>))
+          .toList();
     }
   }
 
@@ -97,10 +96,9 @@ class QuestionDto {
     text = json['text'] as String?;
     type = json['type'] as String?;
     if (json['options'] != null) {
-      options = [];
-      json['options'].forEach((Map<String, dynamic> v) {
-        options?.add(OptionDto.fromJson(v));
-      });
+      options = (json['options'] as List)
+          .map((e) => OptionDto.fromJson(e as Map<String, dynamic>))
+          .toList();
     }
   }
 

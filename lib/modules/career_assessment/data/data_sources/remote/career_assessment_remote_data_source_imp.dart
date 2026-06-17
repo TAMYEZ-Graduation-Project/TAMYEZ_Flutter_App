@@ -14,6 +14,6 @@ class CareerAssessmentRemoteDataSourceImp
 
   @override
   Future<GetQuizQuestionsResponseDto> getCareerAssessmentQuestions() {
-    return _client.getCareerAssessmentQuestions();
+    return _client.getCareerAssessmentQuestions(true);
   }
 }

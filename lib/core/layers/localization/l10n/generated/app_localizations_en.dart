@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -297,4 +298,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get resent => 'Resent';
+
+  @override
+  String get retry => 'Retry';
+
+  @override
+  String get loginBadResponse =>
+      'The server returned an invalid login response';
+
+  @override
+  String get quizBadResponse => 'The server returned an invalid quiz response';
 }

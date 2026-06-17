@@ -20,6 +20,16 @@ enum UserRoleEnum {
   const UserRoleEnum(this.strValue);
 }
 
+enum TokenBearerKeysEnum {
+  bearerUser('BUser'),
+  bearerSystem('BSystem'),
+  bearerSuperSystem('BSuperSystem');
+
+  final String strValue;
+
+  const TokenBearerKeysEnum(this.strValue);
+}
+
 enum QuestionOptionIdsEnum {
   empty('optEmpty'),
   optionA('optA'),
