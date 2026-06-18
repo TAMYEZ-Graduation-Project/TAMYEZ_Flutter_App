@@ -7,12 +7,13 @@ import '../entities/check_career_assessment_answers_response_entity.dart'
 abstract interface class CareerAssessmentRepo {
   Future<OperationResult<QuizAttemptEntity>> getCareerAssessmentQuestions();
 
-  Future<OperationResult<
-      List<SuggestedCareerEntity>>> checkCareerAssessmentAnswers({
+  Future<OperationResult<List<SuggestedCareerEntity>>>
+  checkCareerAssessmentAnswers({
     required String quizAttemptId,
     required CheckQuestionAnswersParams params,
   });
 
-  Future<OperationResult<void>> chooseSuggestedCareer(
-      {required String suggestedCareerId});
+  Future<OperationResult<void>> chooseSuggestedCareer({
+    required String suggestedCareerId,
+  });
 }
