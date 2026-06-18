@@ -4,12 +4,12 @@ abstract final class AppColors {
   static const Color _light = Color(0xFFFFFFFF);
   static const Color _dark = Color(0xFF01101C);
   static const Color _darkBlue = Color(0xFF053155);
-
   static const Color _lightGreen = Color(0xFF5daab8);
   static const Color _blue = Color(0xFF0E6A97);
   static const Color _middleBlue = Color(0xFFCFDEE8);
   static const Color _lightBlue = Color(0xFFF7FAFC);
   static const Color _gray = Color(0xFFE8F0F2);
+  static const Color _middleGray = Color(0xFFE0E0E0);
   static const Color _lightGray = Color(0xFFFAFAFA);
   static const Color _darkGray = Color(0xFF8D9193);
   static const Color _red = Color(0xFFFF0A0A);
@@ -34,6 +34,7 @@ abstract final class AppColors {
   static Color get gray => _gray;
   static Color get lightGray => _lightGray;
 
+  static Color get middleGray => _middleGray;
   static Color get darkGray => _darkGray;
 
   static Color get red => _red;

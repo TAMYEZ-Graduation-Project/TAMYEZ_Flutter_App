@@ -23,19 +23,25 @@ class NextAndBackRowWidget extends BaseStatelessWidget {
             width: double.infinity,
             child: FilledButton(
               onPressed: onNextTap,
-              child: const Text('Next'),
+              child: Text(d.appLocalizations.next),
             ),
           )
         : Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              OutlinedButton(onPressed: onBackTap, child: const Text('Back')),
+              OutlinedButton(
+                onPressed: onBackTap,
+                child: Text(d.appLocalizations.back),
+              ),
               if (!isLastQuestion)
-                FilledButton(onPressed: onNextTap, child: const Text('Next'))
+                FilledButton(
+                  onPressed: onNextTap,
+                  child: Text(d.appLocalizations.next),
+                )
               else
                 FilledButton(
                   onPressed: onSubmitTap,
-                  child: const Text('Submit'),
+                  child: Text(d.appLocalizations.submit),
                 ),
             ],
           );

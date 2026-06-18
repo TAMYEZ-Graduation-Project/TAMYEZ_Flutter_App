@@ -12,4 +12,7 @@ abstract final class AssetPaths {
   static const String googleIcon = 'assets/icons/google_icon.png';
   static const String discoverYourPotential =
       'assets/images/discover_your_potential.png';
+
+  static const String robotAnimation =
+      'assets/animations/cloud_robotics_abstract.json';
 }

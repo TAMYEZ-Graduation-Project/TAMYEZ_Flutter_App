@@ -19,7 +19,10 @@ class QuestionsProgressBarWidget extends BaseStatelessWidget {
       spacing: 12,
       children: [
         Text(
-          'Question ${currentQuestionIndex + 1} of $totalQuestions',
+          d.appLocalizations.questionCounter(
+            currentQuestionIndex + 1,
+            totalQuestions,
+          ),
           style: d.typography.subTitle,
         ),
         LinearProgressIndicator(

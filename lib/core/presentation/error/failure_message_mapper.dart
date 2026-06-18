@@ -53,6 +53,8 @@ abstract class FailureHandling {
         return l10n.loginBadResponse;
       case QuizBadResponseFailure():
         return l10n.quizBadResponse;
+      case CheckCareerAssessmentAnswersBadResponseFailure():
+        return l10n.checkCareerAssessmentAnswersBadResponse;
     }
   }
 

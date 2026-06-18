@@ -655,6 +655,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The server returned an invalid quiz response'**
   String get quizBadResponse;
+
+  /// No description provided for @checkCareerAssessmentAnswersBadResponse.
+  ///
+  /// In en, this message translates to:
+  /// **'The server returned an invalid career assessment result.'**
+  String get checkCareerAssessmentAnswersBadResponse;
+
+  /// No description provided for @next.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get next;
+
+  /// No description provided for @back.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get back;
+
+  /// No description provided for @submit.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit'**
+  String get submit;
+
+  /// No description provided for @checkingAnswers.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking your answers...\nThis may take a few seconds'**
+  String get checkingAnswers;
+
+  /// No description provided for @topCareers.
+  ///
+  /// In en, this message translates to:
+  /// **'Top Careers'**
+  String get topCareers;
+
+  /// No description provided for @yourTopCareerMatches.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Top Career Matches'**
+  String get yourTopCareerMatches;
+
+  /// No description provided for @confidence.
+  ///
+  /// In en, this message translates to:
+  /// **'Confidence: '**
+  String get confidence;
+
+  /// No description provided for @view.
+  ///
+  /// In en, this message translates to:
+  /// **'View'**
+  String get view;
+
+  /// No description provided for @questionCounter.
+  ///
+  /// In en, this message translates to:
+  /// **'Question {current} of {total}'**
+  String questionCounter(int current, int total);
+
+  /// No description provided for @tamyez.
+  ///
+  /// In en, this message translates to:
+  /// **'TAMYEZ'**
+  String get tamyez;
+
+  /// No description provided for @verifyYourEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify your email'**
+  String get verifyYourEmail;
+
+  /// No description provided for @verifyEmailMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please verify your email address to continue.\nWe\'ve sent a verification link to your inbox.'**
+  String get verifyEmailMessage;
+
+  /// No description provided for @didNotReceiveEmailCheckSpam.
+  ///
+  /// In en, this message translates to:
+  /// **'Didn\'t receive the email? Check your spam folder '**
+  String get didNotReceiveEmailCheckSpam;
 }
 
 class _AppLocalizationsDelegate

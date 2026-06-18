@@ -67,10 +67,16 @@ import '../../modules/career_assessment/data/repositories/career_assessment_repo
     as _i456;
 import '../../modules/career_assessment/domain/repositories/career_assessment_repo.dart'
     as _i201;
+import '../../modules/career_assessment/domain/use_cases/check_career_assessment_answers_use_case.dart'
+    as _i610;
+import '../../modules/career_assessment/domain/use_cases/choose_suggested_career_use_case.dart'
+    as _i80;
 import '../../modules/career_assessment/domain/use_cases/get_career_assessment_questions.dart'
     as _i508;
 import '../../modules/career_assessment/ui/screens/career_assessment/view_model/career_assessment_view_model.dart'
     as _i365;
+import '../../modules/career_assessment/ui/screens/top_career_matches/view_model/top_career_matches_view_model.dart'
+    as _i455;
 import '../auth_providers/auth_provider.dart' as _i842;
 import '../auth_providers/user_provider.dart' as _i9;
 import '../bootstrap/app_initializer.dart' as _i4;
@@ -245,6 +251,14 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i510.FirebaseCloudMessagingService>(),
       ),
     );
+    gh.factory<_i610.CheckCareerAssessmentAnswersUseCase>(
+      () => _i610.CheckCareerAssessmentAnswersUseCase(
+        gh<_i201.CareerAssessmentRepo>(),
+      ),
+    );
+    gh.factory<_i80.ChooseSuggestedCareerUseCase>(
+      () => _i80.ChooseSuggestedCareerUseCase(gh<_i201.CareerAssessmentRepo>()),
+    );
     gh.factory<_i508.GetCareerAssessmentQuestionsUseCase>(
       () => _i508.GetCareerAssessmentQuestionsUseCase(
         gh<_i201.CareerAssessmentRepo>(),
@@ -264,9 +278,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i123.GmailSignUpUseCase>(),
       ),
     );
-    gh.factory<_i365.CareerAssessmentViewModel>(
-      () => _i365.CareerAssessmentViewModel(
-        gh<_i508.GetCareerAssessmentQuestionsUseCase>(),
+    gh.factory<_i455.TopCareerMatchesViewModel>(
+      () => _i455.TopCareerMatchesViewModel(
+        gh<_i80.ChooseSuggestedCareerUseCase>(),
       ),
     );
     gh.factory<_i1050.LoginViewModel>(
@@ -278,6 +292,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i222.ResendVerificationEmailViewModel>(
       () => _i222.ResendVerificationEmailViewModel(
         gh<_i439.ResendEmailVerificationUseCase>(),
+      ),
+    );
+    gh.factory<_i365.CareerAssessmentViewModel>(
+      () => _i365.CareerAssessmentViewModel(
+        gh<_i508.GetCareerAssessmentQuestionsUseCase>(),
+        gh<_i610.CheckCareerAssessmentAnswersUseCase>(),
       ),
     );
     return this;

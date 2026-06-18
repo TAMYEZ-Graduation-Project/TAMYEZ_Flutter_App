@@ -29,7 +29,7 @@ class _WrittenQuestionWidgetState
   @override
   void initState() {
     super.initState();
-    _controller.text = widget.value ?? '';
+    _controller.text = widget.value?.trim() ?? '';
     subject.debounceTime(const Duration(milliseconds: 500)).listen((value) {
       widget.onChanged?.call(value);
     });

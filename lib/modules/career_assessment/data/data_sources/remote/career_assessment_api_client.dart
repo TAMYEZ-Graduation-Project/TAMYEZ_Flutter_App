@@ -5,7 +5,10 @@ import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
 
 import '../../../../../core/network/dio/dio_constants.dart';
+import '../../../../../core/network/models/check_question_answers_request.dart';
 import '../../../../../core/network/models/get_quiz_questions_response.dart';
+import '../../../../../core/network/models/simple_api_response.dart';
+import '../../models/check_career_assessment_answers_response.dart';
 import 'career_assessment_endpoints.dart';
 
 part 'career_assessment_api_client.g.dart';
@@ -20,7 +23,20 @@ abstract class CareerAssessmentApiClient {
   @GET(CareerAssessmentEndpoints.getCareerAssessmentQuestions)
   @Extra({DioKeys.requiresAuth: true})
   Future<GetQuizQuestionsResponseDto> getCareerAssessmentQuestions(
-    @Query(CareerAssessmentQueryParams.discardActiveAttempt)
+    @Query(CareerAssessmentApiParams.discardActiveAttempt)
     bool discardActiveAttempt,
+  );
+
+  @POST(CareerAssessmentEndpoints.checkCareerAssessmentAnswers)
+  @Extra({DioKeys.requiresAuth: true})
+  Future<CheckCareerAssessmentAnswersResponse> checkCareerAssessmentAnswers(
+    @Path(CareerAssessmentApiParams.quizAttemptId) String quizAttemptId,
+    @Body() CheckQuestionAnswersRequest request,
+  );
+
+  @GET(CareerAssessmentEndpoints.chooseSuggestedCareer)
+  @Extra({DioKeys.requiresAuth: true})
+  Future<SimpleApiResponse> chooseSuggestedCareer(
+    @Path(CareerAssessmentApiParams.suggestedCareerId) String suggestedCareerId,
   );
 }

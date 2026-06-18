@@ -55,6 +55,7 @@ dependencies:
   intl: any
   isar_community: ^3.3.2
   isar_community_flutter_libs: ^3.3.2
+  lottie: ^3.3.3
   path_provider: ^2.1.5
   provider: ^6.1.5+1
   retrofit: ^4.9.2
@@ -84,6 +85,7 @@ flutter:
     - config/.env
     - assets/icons/
     - assets/images/
+    - assets/animations/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

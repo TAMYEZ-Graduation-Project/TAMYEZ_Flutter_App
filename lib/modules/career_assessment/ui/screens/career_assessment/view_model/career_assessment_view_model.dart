@@ -2,14 +2,19 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../../../core/constants/app_enums.dart'
     show QuizQuestionTypesEnum, QuestionOptionIdsEnum;
+import '../../../../../../core/entities/check_question_answers_param.dart';
 import '../../../../../../core/entities/get_quiz_questions_entity.dart';
 import '../../../../../../core/entities/question_answer_entity.dart'
     show QuestionAnswerEntity;
 import '../../../../../../core/execution/operation_result.dart';
 import '../../../../../../core/presentation/bases/base_cubit.dart';
+import '../../../../../../core/presentation/mixins/effects_handling_mixin.dart';
 import '../../../../../../core/presentation/result/ui_effect.dart';
 import '../../../../../../core/presentation/result/ui_result.dart';
-import '../../../../../../core/utils/functions/safe_print.dart';
+import '../../../../../../core/presentation/routing/defined_routes.dart'
+    show DefinedRoutes;
+import '../../../../domain/entities/check_career_assessment_answers_response_entity.dart';
+import '../../../../domain/use_cases/check_career_assessment_answers_use_case.dart';
 import '../../../../domain/use_cases/get_career_assessment_questions.dart';
 import 'career_assessment_intent.dart';
 import 'career_assessment_state.dart';
@@ -20,8 +25,13 @@ class CareerAssessmentViewModel
   final GetCareerAssessmentQuestionsUseCase
   _getCareerAssessmentQuestionsUseCase;
 
-  CareerAssessmentViewModel(this._getCareerAssessmentQuestionsUseCase)
-    : super(const CareerAssessmentState());
+  final CheckCareerAssessmentAnswersUseCase
+  _checkCareerAssessmentAnswersUseCase;
+
+  CareerAssessmentViewModel(
+    this._getCareerAssessmentQuestionsUseCase,
+    this._checkCareerAssessmentAnswersUseCase,
+  ) : super(const CareerAssessmentState());
 
   Future<void> doIntent(CareerAssessmentIntent intent) async {
     switch (intent) {
@@ -38,7 +48,7 @@ class CareerAssessmentViewModel
       case OnBackTapIntent():
         _onBackTap();
       case OnSubmitTapIntent():
-        safePrint('Submitted');
+        _onSubmit();
     }
   }
 
@@ -105,7 +115,7 @@ class CareerAssessmentViewModel
     emit(state.copyWith(questionAnswers: answers));
   }
 
-  void _onNextTap() {
+  void _checkIfQuestionNotAnsweredBeforePreceding() {
     final question =
         (state.careerAssessmentResult as Success<QuizAttemptEntity>)
             .data
@@ -119,10 +129,15 @@ class CareerAssessmentViewModel
         type: question.type,
         answer: const [QuestionOptionIdsEnum.empty],
         writtenAnswer: question.type == QuizQuestionTypesEnum.written
-            ? ''
+            ? ' '
             : null,
       );
+      emit(state.copyWith(questionAnswers: answers));
     }
+  }
+
+  void _onNextTap() {
+    _checkIfQuestionNotAnsweredBeforePreceding();
     emit(state.copyWith(currentQuestionIndex: state.currentQuestionIndex + 1));
     emitEffect(PageNavigationEffect(page: state.currentQuestionIndex));
   }
@@ -130,5 +145,35 @@ class CareerAssessmentViewModel
   void _onBackTap() {
     emit(state.copyWith(currentQuestionIndex: state.currentQuestionIndex - 1));
     emitEffect(PageNavigationEffect(page: state.currentQuestionIndex));
+  }
+
+  Future<void> _onSubmit() async {
+    _checkIfQuestionNotAnsweredBeforePreceding();
+    emit(state.copyWith(checkCareerAssessmentAnswersResult: const Loading()));
+    final result = await _checkCareerAssessmentAnswersUseCase(
+      quizAttemptId:
+          (state.careerAssessmentResult as Success<QuizAttemptEntity>).data.id,
+      params: CheckQuestionAnswersParams(
+        answers: state.questionAnswers.values.toList(),
+      ),
+    );
+
+    switch (result) {
+      case OperationSuccess<List<SuggestedCareerEntity>>():
+        emitEffect(
+          NavigateEffect(
+            route: DefinedRoutes.topCareerMatchesRoute,
+            navigationType: NavigationTypeEnum.pushReplacementNamed,
+            argument: result.data,
+          ),
+        );
+      case OperationFailure<List<SuggestedCareerEntity>>():
+        emit(
+          state.copyWith(
+            checkCareerAssessmentAnswersResult: Error(result.failure),
+          ),
+        );
+        emitEffect(DisplayErrorEffect(failure: result.failure));
+    }
   }
 }

@@ -1,7 +1,9 @@
 import '../constants/app_enums.dart' show QuizQuestionTypesEnum;
+import '../entities/check_question_answers_param.dart';
 import '../entities/get_quiz_questions_entity.dart';
 import '../entities/question_answer_entity.dart' show QuestionAnswerEntity;
 import '../extensions/quiz_question_type_enum_value.dart';
+import '../network/models/check_question_answers_request.dart';
 import '../network/models/get_quiz_questions_response.dart';
 import '../network/models/question_answer_dto.dart' show QuestionAnswerDto;
 
@@ -55,12 +57,20 @@ extension OptionDtoMapper on OptionDto {
   }
 }
 
+extension CheckQuestionAnswersParamMapper on CheckQuestionAnswersParams {
+  CheckQuestionAnswersRequest toModel() {
+    return CheckQuestionAnswersRequest(
+      answers: answers.map((e) => e.toDto()).toList(),
+    );
+  }
+}
+
 extension QuestionAnswerEntityMapper on QuestionAnswerEntity {
   QuestionAnswerDto toDto() {
     return QuestionAnswerDto(
       questionId: questionId,
       type: type.strValue,
-      answer: answer.map((e) => e.strValue) as List<String>,
+      answer: answer.map((e) => e.strValue).toList(),
       writtenAnswer: writtenAnswer,
     );
   }

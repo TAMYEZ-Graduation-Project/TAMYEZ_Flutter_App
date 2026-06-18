@@ -92,5 +92,29 @@
   "resent": "Resent",
   "retry": "Retry",
   "loginBadResponse": "The server returned an invalid login response",
-  "quizBadResponse": "The server returned an invalid quiz response"
+  "quizBadResponse": "The server returned an invalid quiz response",
+  "checkCareerAssessmentAnswersBadResponse": "The server returned an invalid career assessment result.",
+  "next": "Next",
+  "back": "Back",
+  "submit": "Submit",
+  "checkingAnswers": "Checking your answers...\nThis may take a few seconds",
+  "topCareers": "Top Careers",
+  "yourTopCareerMatches": "Your Top Career Matches",
+  "confidence": "Confidence: ",
+  "view": "View",
+  "questionCounter": "Question {current} of {total}",
+  "@questionCounter": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "tamyez": "TAMYEZ",
+  "verifyYourEmail": "Verify your email",
+  "verifyEmailMessage": "Please verify your email address to continue.\nWe've sent a verification link to your inbox.",
+  "didNotReceiveEmailCheckSpam": "Didn't receive the email? Check your spam folder "
 }

@@ -6,9 +6,12 @@ import '../../../modules/auth/ui/screens/resend_verification/resend_verification
     show ResendVerificationEmailScreen;
 import '../../../modules/auth/ui/screens/sign_up/sign_up_screen.dart'
     show SignUpScreen;
+import '../../../modules/career_assessment/domain/entities/check_career_assessment_answers_response_entity.dart'
+    show SuggestedCareerEntity;
 import '../../../modules/career_assessment/ui/screens/career_assessment/career_assessment_screen.dart'
     show CareerAssessmentScreen;
 import '../../../modules/career_assessment/ui/screens/discover_your_potential/discover_your_potential_screen.dart';
+import '../../../modules/career_assessment/ui/screens/top_career_matches/top_career_matches_screen.dart';
 import '../../../modules/home/home_screen.dart' show HomeScreen;
 import '../../../modules/startup/ui/onboarding/onboarding_screen.dart';
 import '../../../modules/startup/ui/splash/splash_screen.dart'
@@ -20,7 +23,7 @@ abstract class RoutingProvider {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     try {
       final String? name = settings.name;
-      //var args = settings.arguments;
+      final args = settings.arguments;
       switch (name) {
         case DefinedRoutes.splashRoute:
           return PageRouteBuilder(
@@ -88,6 +91,17 @@ abstract class RoutingProvider {
             transitionsBuilder: PageTransitions.slideAndFade,
             settings: const RouteSettings(
               name: DefinedRoutes.careerAssessmentRoute,
+            ),
+          );
+        case DefinedRoutes.topCareerMatchesRoute:
+          return PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                TopCareerMatchesScreen(
+                  suggestedCareers: args as List<SuggestedCareerEntity>,
+                ),
+            transitionsBuilder: PageTransitions.slideAndFade,
+            settings: const RouteSettings(
+              name: DefinedRoutes.topCareerMatchesRoute,
             ),
           );
         case DefinedRoutes.homeRoute:

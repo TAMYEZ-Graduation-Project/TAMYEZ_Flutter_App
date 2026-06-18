@@ -15,6 +15,10 @@ class QuizBadResponseFailure extends Failure {
   const QuizBadResponseFailure();
 }
 
+class CheckCareerAssessmentAnswersBadResponseFailure extends Failure {
+  const CheckCareerAssessmentAnswersBadResponseFailure();
+}
+
 // =================================
 sealed class NetworkFailure extends Failure {
   const NetworkFailure();

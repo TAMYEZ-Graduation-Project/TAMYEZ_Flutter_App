@@ -307,4 +307,52 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get quizBadResponse => 'The server returned an invalid quiz response';
+
+  @override
+  String get checkCareerAssessmentAnswersBadResponse =>
+      'The server returned an invalid career assessment result.';
+
+  @override
+  String get next => 'Next';
+
+  @override
+  String get back => 'Back';
+
+  @override
+  String get submit => 'Submit';
+
+  @override
+  String get checkingAnswers =>
+      'Checking your answers...\nThis may take a few seconds';
+
+  @override
+  String get topCareers => 'Top Careers';
+
+  @override
+  String get yourTopCareerMatches => 'Your Top Career Matches';
+
+  @override
+  String get confidence => 'Confidence: ';
+
+  @override
+  String get view => 'View';
+
+  @override
+  String questionCounter(int current, int total) {
+    return 'Question $current of $total';
+  }
+
+  @override
+  String get tamyez => 'TAMYEZ';
+
+  @override
+  String get verifyYourEmail => 'Verify your email';
+
+  @override
+  String get verifyEmailMessage =>
+      'Please verify your email address to continue.\nWe\'ve sent a verification link to your inbox.';
+
+  @override
+  String get didNotReceiveEmailCheckSpam =>
+      'Didn\'t receive the email? Check your spam folder ';
 }

@@ -303,4 +303,52 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get quizBadResponse => 'أرسل الخادم استجابة غير صالحة للاختبار';
+
+  @override
+  String get checkCareerAssessmentAnswersBadResponse =>
+      'أعاد الخادم نتيجة غير صالحة لتقييم المسار المهني.';
+
+  @override
+  String get next => 'التالي';
+
+  @override
+  String get back => 'السابق';
+
+  @override
+  String get submit => 'إرسال';
+
+  @override
+  String get checkingAnswers =>
+      'جاري التحقق من إجاباتك...\nقد يستغرق هذا بضع ثوانٍ';
+
+  @override
+  String get topCareers => 'أفضل المسارات المهنية';
+
+  @override
+  String get yourTopCareerMatches => 'أفضل المسارات المهنية المناسبة لك';
+
+  @override
+  String get confidence => 'نسبة التطابق: ';
+
+  @override
+  String get view => 'عرض';
+
+  @override
+  String questionCounter(int current, int total) {
+    return 'السؤال $current من $total';
+  }
+
+  @override
+  String get tamyez => 'تميز';
+
+  @override
+  String get verifyYourEmail => 'تأكيد بريدك الإلكتروني';
+
+  @override
+  String get verifyEmailMessage =>
+      'يرجى تأكيد عنوان بريدك الإلكتروني للمتابعة.\nلقد أرسلنا رابط التحقق إلى بريدك الوارد.';
+
+  @override
+  String get didNotReceiveEmailCheckSpam =>
+      'لم تستلم البريد الإلكتروني؟ تحقق من مجلد الرسائل غير المرغوب فيها ';
 }

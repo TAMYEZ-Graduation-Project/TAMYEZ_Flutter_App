@@ -49,6 +49,64 @@ class _CareerAssessmentApiClient implements CareerAssessmentApiClient {
     return _value;
   }
 
+  @override
+  Future<CheckCareerAssessmentAnswersResponse> checkCareerAssessmentAnswers(
+      String quizAttemptId,
+      CheckQuestionAnswersRequest request,) async {
+    final _extra = <String, dynamic>{'requiresAuth': true};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(request.toJson());
+    final _options = _setStreamType<CheckCareerAssessmentAnswersResponse>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+        _dio.options,
+        'career/${quizAttemptId}/check-assessment',
+        queryParameters: queryParameters,
+        data: _data,
+      )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<dynamic>(_options);
+    late CheckCareerAssessmentAnswersResponse _value;
+    try {
+      _value = CheckCareerAssessmentAnswersResponse.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options, response: _result);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<SimpleApiResponse> chooseSuggestedCareer(
+      String suggestedCareerId,) async {
+    final _extra = <String, dynamic>{'requiresAuth': true};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<SimpleApiResponse>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+        _dio.options,
+        'career/${suggestedCareerId}/choose-suggested-career',
+        queryParameters: queryParameters,
+        data: _data,
+      )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late SimpleApiResponse _value;
+    try {
+      _value = SimpleApiResponse.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options, response: _result);
+      rethrow;
+    }
+    return _value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

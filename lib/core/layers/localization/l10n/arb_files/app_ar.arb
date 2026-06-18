@@ -92,5 +92,29 @@
   "resent": "إعادة إرسال",
   "retry": "إعادة المحاولة",
   "loginBadResponse": "أرسل الخادم استجابة غير صالحة أثناء تسجيل الدخول",
-  "quizBadResponse": "أرسل الخادم استجابة غير صالحة للاختبار"
+  "quizBadResponse": "أرسل الخادم استجابة غير صالحة للاختبار",
+  "checkCareerAssessmentAnswersBadResponse": "أعاد الخادم نتيجة غير صالحة لتقييم المسار المهني.",
+  "next": "التالي",
+  "back": "السابق",
+  "submit": "إرسال",
+  "checkingAnswers": "جاري التحقق من إجاباتك...\nقد يستغرق هذا بضع ثوانٍ",
+  "topCareers": "أفضل المسارات المهنية",
+  "yourTopCareerMatches": "أفضل المسارات المهنية المناسبة لك",
+  "confidence": "نسبة التطابق: ",
+  "view": "عرض",
+  "questionCounter": "السؤال {current} من {total}",
+  "@questionCounter": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "tamyez": "تميز",
+  "verifyYourEmail": "تأكيد بريدك الإلكتروني",
+  "verifyEmailMessage": "يرجى تأكيد عنوان بريدك الإلكتروني للمتابعة.\nلقد أرسلنا رابط التحقق إلى بريدك الوارد.",
+  "didNotReceiveEmailCheckSpam": "لم تستلم البريد الإلكتروني؟ تحقق من مجلد الرسائل غير المرغوب فيها "
 }
