@@ -12,8 +12,9 @@ abstract interface class CareerAssessmentRemoteDataSource {
     required CheckQuestionAnswersRequest request,
   });
 
-  Future<ChooseSuggestedCareerResponse> chooseSuggestedCareer(
-      {required String suggestedCareerId});
+  Future<ChooseSuggestedCareerResponse> chooseSuggestedCareer({
+    required String suggestedCareerId,
+  });
 
   Future<CareerDetailsResponse> getCareerDetails({required String careerId});
 }

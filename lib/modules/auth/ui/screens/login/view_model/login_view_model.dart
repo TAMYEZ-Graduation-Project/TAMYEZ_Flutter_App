@@ -25,9 +25,11 @@ class LoginViewModel extends BaseCubit<LoginState, UiEffect> {
   final GmailLoginUseCase _gmailLoginUseCase;
   final AppInitializer _appInitializer;
 
-  LoginViewModel(this._loginUseCase, this._gmailLoginUseCase,
-      this._appInitializer)
-    : super(const LoginState());
+  LoginViewModel(
+    this._loginUseCase,
+    this._gmailLoginUseCase,
+    this._appInitializer,
+  ) : super(const LoginState());
 
   Future<void> doIntent(LoginIntent intent) async {
     switch (intent) {

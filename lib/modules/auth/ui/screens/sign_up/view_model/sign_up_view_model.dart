@@ -25,9 +25,11 @@ class SignUpViewModel extends BaseCubit<SignUpState, UiEffect> {
   final GmailSignUpUseCase _gmailSignUpUseCase;
   final AppInitializer _appInitializer;
 
-  SignUpViewModel(this._signUpUseCase, this._gmailSignUpUseCase,
-      this._appInitializer)
-    : super(const SignUpState());
+  SignUpViewModel(
+    this._signUpUseCase,
+    this._gmailSignUpUseCase,
+    this._appInitializer,
+  ) : super(const SignUpState());
 
   Future<void> doIntent(SignUpIntent intent) async {
     switch (intent) {

@@ -10,8 +10,9 @@ class ChooseSuggestedCareerUseCase {
 
   const ChooseSuggestedCareerUseCase(this._repo);
 
-  Future<OperationResult<UserEntity>> call(
-      {required String suggestedCareerId}) {
+  Future<OperationResult<UserEntity>> call({
+    required String suggestedCareerId,
+  }) {
     return _repo.chooseSuggestedCareer(suggestedCareerId: suggestedCareerId);
   }
 }
