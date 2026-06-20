@@ -392,5 +392,5 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get routingError =>
-      'Error! You Have Navigated To A Wrong Route. Or Navigated With Wrong Arguments';
+      'حدث خطأ أثناء التنقل داخل التطبيق. قد يكون المسار غير صحيح أو البيانات المرسلة غير صالحة.';
 }

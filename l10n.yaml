@@ -3,5 +3,6 @@ template-arb-file: app_en.arb
 output-dir: lib/core/layers/localization/l10n/generated
 output-localization-file: app_localizations.dart
 require-resource-attributes: false
+untranslated-messages-file: lib/core/layers/localization/l10n/generated/untranslated_messages.json
 
 # command: flutter gen-l10n

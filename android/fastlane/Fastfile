@@ -42,7 +42,7 @@ platform :android do
         release = firebase_app_distribution(
             app: "1:364066125522:android:b58ddcf01e400daabc1f0b",
             groups:"tamyez-team",
-            release_notes: "Finished Authentication module",
+            release_notes: "Finished Career Assessment module",
             android_artifact_type:"APK",
             android_artifact_path:"../build/app/outputs/apk/release/app-release.apk",
             service_credentials_file:"/home/mk369/.tamyez-app-405ad-firebase-adminsdk-fbsvc-e70ed7dfb1.json"
