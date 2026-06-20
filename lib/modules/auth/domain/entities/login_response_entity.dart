@@ -1,20 +1,15 @@
 import 'package:equatable/equatable.dart';
 
-import 'user_entity.dart';
+import '../../../../core/entities/login_session_entity.dart'
+    show LoginSessionEntity;
 
 class LoginResponseEntity extends Equatable {
   final bool? success;
   final String? message;
-  final String? accessToken;
-  final UserEntity? user;
+  final LoginSessionEntity body;
 
-  const LoginResponseEntity({
-    this.success,
-    this.message,
-    this.accessToken,
-    this.user,
-  });
+  const LoginResponseEntity({this.success, this.message, required this.body});
 
   @override
-  List<Object?> get props => [success, message, accessToken, user];
+  List<Object?> get props => [success, message, body];
 }

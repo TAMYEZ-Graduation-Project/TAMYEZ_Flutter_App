@@ -25,7 +25,7 @@ class Error {
   Error({this.code, this.message});
 
   Error.fromJson(Map<String, dynamic> json) {
-    code = json['code'] as String?;
+    code = json['code'] is num ? '$code' : json['code'] as String?;
     message = json['message'] as String?;
   }
 

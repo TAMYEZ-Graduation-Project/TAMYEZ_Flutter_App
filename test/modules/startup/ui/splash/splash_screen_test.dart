@@ -5,7 +5,7 @@ import 'package:mockito/mockito.dart';
 import 'package:tamyez_app/core/di/di.dart';
 import 'package:tamyez_app/core/presentation/routing/defined_routes.dart'
     show DefinedRoutes;
-import 'package:tamyez_app/modules/auth/domain/use_case/check_login_session_use_case.dart';
+import 'package:tamyez_app/modules/auth/domain/use_case/get_login_session_use_case.dart';
 import 'package:tamyez_app/modules/startup/ui/splash/constants/splash_screen_constants.dart';
 import 'package:tamyez_app/modules/startup/ui/splash/splash_screen.dart'
     show SplashScreen;
@@ -14,21 +14,21 @@ import '../../../core/shared/build_widget.dart' show buildWidget;
 import '../../../core/shared/widget_testing_shared_setups.dart';
 import 'splash_screen_test.mocks.dart';
 
-@GenerateNiceMocks([MockSpec<CheckLoginSessionUseCase>()])
+@GenerateNiceMocks([MockSpec<GetLoginSessionUseCase>()])
 void main() {
   group('Test Splash Screen widget', () {
     final WidgetTestingSharedSetups sharedSetups = WidgetTestingSharedSetups();
-    late MockCheckLoginSessionUseCase checkLoginSessionUseCase;
+    late MockGetLoginSessionUseCase mockGetLoginSessionUseCase;
 
     setUp(() async {
       await sharedSetups.sharedSetup();
-      checkLoginSessionUseCase = MockCheckLoginSessionUseCase();
-      when(checkLoginSessionUseCase.call()).thenAnswer((_) async => false);
-      if (getIt.isRegistered<CheckLoginSessionUseCase>()) {
-        await getIt.unregister<CheckLoginSessionUseCase>();
+      mockGetLoginSessionUseCase = MockGetLoginSessionUseCase();
+      when(mockGetLoginSessionUseCase.call()).thenAnswer((_) async => null);
+      if (getIt.isRegistered<GetLoginSessionUseCase>()) {
+        await getIt.unregister<GetLoginSessionUseCase>();
       }
-      getIt.registerFactory<CheckLoginSessionUseCase>(
-        () => checkLoginSessionUseCase,
+      getIt.registerFactory<GetLoginSessionUseCase>(
+        () => mockGetLoginSessionUseCase,
       );
     });
 

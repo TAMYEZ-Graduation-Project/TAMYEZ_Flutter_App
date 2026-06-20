@@ -7,6 +7,18 @@ class GoogleLoginFailure extends Failure {
   const GoogleLoginFailure();
 }
 
+class LoginBadResponseFailure extends Failure {
+  const LoginBadResponseFailure();
+}
+
+class QuizBadResponseFailure extends Failure {
+  const QuizBadResponseFailure();
+}
+
+class CheckCareerAssessmentAnswersBadResponseFailure extends Failure {
+  const CheckCareerAssessmentAnswersBadResponseFailure();
+}
+
 // =================================
 sealed class NetworkFailure extends Failure {
   const NetworkFailure();

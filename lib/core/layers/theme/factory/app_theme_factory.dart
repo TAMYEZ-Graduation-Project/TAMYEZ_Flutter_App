@@ -41,7 +41,10 @@ abstract class AppThemeFactory {
       extensions: [typography],
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
-          padding: const EdgeInsetsGeometry.symmetric(vertical: 16),
+          padding: const EdgeInsetsGeometry.symmetric(
+            vertical: 16,
+            horizontal: 24,
+          ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
@@ -53,7 +56,10 @@ abstract class AppThemeFactory {
         style: OutlinedButton.styleFrom(
           foregroundColor: AppColors.dark,
           backgroundColor: AppColors.gray,
-          padding: const EdgeInsetsGeometry.symmetric(vertical: 16),
+          padding: const EdgeInsetsGeometry.symmetric(
+            vertical: 16,
+            horizontal: 24,
+          ),
           side: BorderSide.none,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
@@ -115,6 +121,12 @@ abstract class AppThemeFactory {
           }
           return AppColors.gray;
         }),
+      ),
+      progressIndicatorTheme: ProgressIndicatorThemeData(
+        linearTrackColor: AppColors.gray,
+        linearMinHeight: 8,
+        borderRadius: BorderRadius.circular(4),
+        color: AppColors.blue,
       ),
     );
   }

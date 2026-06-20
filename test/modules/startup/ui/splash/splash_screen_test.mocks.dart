@@ -6,7 +6,8 @@
 import 'dart:async' as _i3;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:tamyez_app/modules/auth/domain/use_case/check_login_session_use_case.dart'
+import 'package:tamyez_app/core/entities/login_session_entity.dart' as _i4;
+import 'package:tamyez_app/modules/auth/domain/use_case/get_login_session_use_case.dart'
     as _i2;
 
 // ignore_for_file: type=lint
@@ -24,17 +25,18 @@ import 'package:tamyez_app/modules/auth/domain/use_case/check_login_session_use_
 // ignore_for_file: subtype_of_sealed_class
 // ignore_for_file: invalid_use_of_internal_member
 
-/// A class which mocks [CheckLoginSessionUseCase].
+/// A class which mocks [GetLoginSessionUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockCheckLoginSessionUseCase extends _i1.Mock
-    implements _i2.CheckLoginSessionUseCase {
+class MockGetLoginSessionUseCase extends _i1.Mock
+    implements _i2.GetLoginSessionUseCase {
   @override
-  _i3.Future<bool> call() =>
+  _i3.Future<_i4.LoginSessionEntity?> call() =>
       (super.noSuchMethod(
             Invocation.method(#call, []),
-            returnValue: _i3.Future<bool>.value(false),
-            returnValueForMissingStub: _i3.Future<bool>.value(false),
+            returnValue: _i3.Future<_i4.LoginSessionEntity?>.value(),
+            returnValueForMissingStub:
+                _i3.Future<_i4.LoginSessionEntity?>.value(),
           )
-          as _i3.Future<bool>);
+          as _i3.Future<_i4.LoginSessionEntity?>);
 }

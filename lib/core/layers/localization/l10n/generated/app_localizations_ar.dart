@@ -158,6 +158,16 @@ class AppLocalizationsAr extends AppLocalizations {
       'اكتشف إمكانياتك الحقيقية وافتح المسار المهني المخصص لك.';
 
   @override
+  String get discoverYourTruePotentialTitle => 'اكتشف إمكانياتك\nالحقيقية';
+
+  @override
+  String get discoverYourTruePotentialSubtitle =>
+      'اكتشف نقاط قوتك الفريدة وجد المسار المهني\nالمثالي من خلال مساعدنا المدعوم\nبالذكاء الاصطناعي.';
+
+  @override
+  String get getStarted => 'ابدأ الآن';
+
+  @override
   String get chooseYourLanguage => 'اختر لغتك';
 
   @override
@@ -283,4 +293,104 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get resent => 'إعادة إرسال';
+
+  @override
+  String get retry => 'إعادة المحاولة';
+
+  @override
+  String get loginBadResponse =>
+      'أرسل الخادم استجابة غير صالحة أثناء تسجيل الدخول';
+
+  @override
+  String get quizBadResponse => 'أرسل الخادم استجابة غير صالحة للاختبار';
+
+  @override
+  String get checkCareerAssessmentAnswersBadResponse =>
+      'أعاد الخادم نتيجة غير صالحة لتقييم المسار المهني.';
+
+  @override
+  String get next => 'التالي';
+
+  @override
+  String get back => 'السابق';
+
+  @override
+  String get submit => 'إرسال';
+
+  @override
+  String get checkingAnswers =>
+      'جاري التحقق من إجاباتك...\nقد يستغرق هذا بضع ثوانٍ';
+
+  @override
+  String get topCareers => 'أفضل المسارات المهنية';
+
+  @override
+  String get yourTopCareerMatches => 'أفضل المسارات المهنية المناسبة لك';
+
+  @override
+  String get confidence => 'نسبة التطابق: ';
+
+  @override
+  String get view => 'عرض';
+
+  @override
+  String questionCounter(int current, int total) {
+    return 'السؤال $current من $total';
+  }
+
+  @override
+  String get tamyez => 'تميز';
+
+  @override
+  String get verifyYourEmail => 'تأكيد بريدك الإلكتروني';
+
+  @override
+  String get verifyEmailMessage =>
+      'يرجى تأكيد عنوان بريدك الإلكتروني للمتابعة.\nلقد أرسلنا رابط التحقق إلى بريدك الوارد.';
+
+  @override
+  String get didNotReceiveEmailCheckSpam =>
+      'لم تستلم البريد الإلكتروني؟ تحقق من مجلد الرسائل غير المرغوب فيها ';
+
+  @override
+  String get careerOverview => 'نظرة عامة على المهنة';
+
+  @override
+  String get roadmapPreview => 'معاينة خارطة الطريق';
+
+  @override
+  String get courses => 'الدورات';
+
+  @override
+  String get books => 'الكتب';
+
+  @override
+  String get youtubeExplanations => 'شروحات يوتيوب';
+
+  @override
+  String resourceSubtitle(String language, String type) {
+    return 'اللغة: $language • $type';
+  }
+
+  @override
+  String get failedToOpenUrl => 'فشل في فتح الرابط';
+
+  @override
+  String get writeYourAnswerHere => 'اكتب إجابتك هنا';
+
+  @override
+  String get tokenExpiredTitle => 'انتهت صلاحية الرمز!';
+
+  @override
+  String get tokenExpiredContent => 'يرجى تسجيل الدخول مرة أخرى';
+
+  @override
+  String get goToLogin => 'الذهاب لتسجيل الدخول';
+
+  @override
+  String get appTitle => 'تطبيق تميز، مشروع تخرجنا.';
+
+  @override
+  String get routingError =>
+      'Error! You Have Navigated To A Wrong Route. Or Navigated With Wrong Arguments';
 }

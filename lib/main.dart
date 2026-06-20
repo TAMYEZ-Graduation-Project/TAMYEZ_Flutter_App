@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:device_preview/device_preview.dart' show DevicePreview;
 import 'package:firebase_core/firebase_core.dart' show Firebase;
 import 'package:firebase_crashlytics/firebase_crashlytics.dart'
     show FirebaseCrashlytics;
@@ -10,10 +11,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart'
     show MultiProvider, ChangeNotifierProvider, Consumer2;
 
-import 'core/auth/auth_provider.dart';
-import 'core/auth/domain/entities/auth_status.dart';
+import 'core/auth_providers/auth_provider.dart' show AuthProvider;
 import 'core/bootstrap/app_initializer.dart';
 import 'core/di/di.dart';
+import 'core/entities/auth_status.dart';
 import 'core/layers/localization/l10n/generated/app_localizations.dart'
     show AppLocalizations;
 import 'core/layers/localization/l10n/manager/localization_manager.dart'
@@ -50,7 +51,13 @@ void main() async {
   final appInitializer = getIt.get<AppInitializer>();
   await appInitializer.initializeEssential();
 
-  runApp(const MyApp());
+  runApp(
+    DevicePreview(
+      builder: (context) {
+        return const MyApp();
+      },
+    ),
+  );
 
   // Post-startup init
   Future.microtask(() async {
@@ -80,13 +87,17 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _onAuthStateChanged() {
+    final context = globalNavigatorKey.currentContext;
+    if (context == null) return;
+    final l10n = AppLocalizations.of(context)!;
+
     switch (authProvider.authStatus) {
       case AuthStatus.tokenExpired:
         AppDialogs.defaultDialog(
           context,
-          title: 'Token Expired!',
-          content: 'Please, re-login again',
-          firstButtonText: 'Go to Login',
+          title: l10n.tokenExpiredTitle,
+          content: l10n.tokenExpiredContent,
+          firstButtonText: l10n.goToLogin,
           dismissible: false,
           firstButtonAction: () {
             Navigator.of(context).pushNamedAndRemoveUntil(
@@ -110,8 +121,9 @@ class _MyAppState extends State<MyApp> {
       ],
       child: Consumer2<LocalizationManager, ThemeManager>(
         builder: (context, l10nManager, themeManager, child) {
+          final l10n = AppLocalizations.of(context);
           return MaterialApp(
-            title: 'TAMYEZ App, Our Graduation Project.',
+            title: l10n?.appTitle ?? 'TAMYEZ App',
             debugShowCheckedModeBanner: false,
             navigatorKey: globalNavigatorKey,
             locale: Locale(l10nManager.currentLocale),

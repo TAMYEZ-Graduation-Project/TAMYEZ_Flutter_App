@@ -380,6 +380,24 @@ abstract class AppLocalizations {
   /// **'Discover your true potential and unlock the career path meant for you.'**
   String get discoverYourTruePotential;
 
+  /// No description provided for @discoverYourTruePotentialTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Discover Your True\nPotential'**
+  String get discoverYourTruePotentialTitle;
+
+  /// No description provided for @discoverYourTruePotentialSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock your unique strengths and find the\nperfect career path with our AI-powered\nassistant.'**
+  String get discoverYourTruePotentialSubtitle;
+
+  /// No description provided for @getStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Get Started'**
+  String get getStarted;
+
   /// No description provided for @chooseYourLanguage.
   ///
   /// In en, this message translates to:
@@ -619,6 +637,186 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Resent'**
   String get resent;
+
+  /// No description provided for @retry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get retry;
+
+  /// No description provided for @loginBadResponse.
+  ///
+  /// In en, this message translates to:
+  /// **'The server returned an invalid login response'**
+  String get loginBadResponse;
+
+  /// No description provided for @quizBadResponse.
+  ///
+  /// In en, this message translates to:
+  /// **'The server returned an invalid quiz response'**
+  String get quizBadResponse;
+
+  /// No description provided for @checkCareerAssessmentAnswersBadResponse.
+  ///
+  /// In en, this message translates to:
+  /// **'The server returned an invalid career assessment result.'**
+  String get checkCareerAssessmentAnswersBadResponse;
+
+  /// No description provided for @next.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get next;
+
+  /// No description provided for @back.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get back;
+
+  /// No description provided for @submit.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit'**
+  String get submit;
+
+  /// No description provided for @checkingAnswers.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking your answers...\nThis may take a few seconds'**
+  String get checkingAnswers;
+
+  /// No description provided for @topCareers.
+  ///
+  /// In en, this message translates to:
+  /// **'Top Careers'**
+  String get topCareers;
+
+  /// No description provided for @yourTopCareerMatches.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Top Career Matches'**
+  String get yourTopCareerMatches;
+
+  /// No description provided for @confidence.
+  ///
+  /// In en, this message translates to:
+  /// **'Confidence: '**
+  String get confidence;
+
+  /// No description provided for @view.
+  ///
+  /// In en, this message translates to:
+  /// **'View'**
+  String get view;
+
+  /// No description provided for @questionCounter.
+  ///
+  /// In en, this message translates to:
+  /// **'Question {current} of {total}'**
+  String questionCounter(int current, int total);
+
+  /// No description provided for @tamyez.
+  ///
+  /// In en, this message translates to:
+  /// **'TAMYEZ'**
+  String get tamyez;
+
+  /// No description provided for @verifyYourEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify your email'**
+  String get verifyYourEmail;
+
+  /// No description provided for @verifyEmailMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please verify your email address to continue.\nWe\'ve sent a verification link to your inbox.'**
+  String get verifyEmailMessage;
+
+  /// No description provided for @didNotReceiveEmailCheckSpam.
+  ///
+  /// In en, this message translates to:
+  /// **'Didn\'t receive the email? Check your spam folder '**
+  String get didNotReceiveEmailCheckSpam;
+
+  /// No description provided for @careerOverview.
+  ///
+  /// In en, this message translates to:
+  /// **'Career Overview'**
+  String get careerOverview;
+
+  /// No description provided for @roadmapPreview.
+  ///
+  /// In en, this message translates to:
+  /// **'Roadmap Preview'**
+  String get roadmapPreview;
+
+  /// No description provided for @courses.
+  ///
+  /// In en, this message translates to:
+  /// **'Courses'**
+  String get courses;
+
+  /// No description provided for @books.
+  ///
+  /// In en, this message translates to:
+  /// **'Books'**
+  String get books;
+
+  /// No description provided for @youtubeExplanations.
+  ///
+  /// In en, this message translates to:
+  /// **'YouTube Explanations'**
+  String get youtubeExplanations;
+
+  /// No description provided for @resourceSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Language: {language} • {type}'**
+  String resourceSubtitle(String language, String type);
+
+  /// No description provided for @failedToOpenUrl.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to open URL'**
+  String get failedToOpenUrl;
+
+  /// No description provided for @writeYourAnswerHere.
+  ///
+  /// In en, this message translates to:
+  /// **'Write your answer here'**
+  String get writeYourAnswerHere;
+
+  /// No description provided for @tokenExpiredTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Token Expired!'**
+  String get tokenExpiredTitle;
+
+  /// No description provided for @tokenExpiredContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Please, re-login again'**
+  String get tokenExpiredContent;
+
+  /// No description provided for @goToLogin.
+  ///
+  /// In en, this message translates to:
+  /// **'Go to Login'**
+  String get goToLogin;
+
+  /// No description provided for @appTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'TAMYEZ App, Our Graduation Project.'**
+  String get appTitle;
+
+  /// No description provided for @routingError.
+  ///
+  /// In en, this message translates to:
+  /// **'Error! You Have Navigated To A Wrong Route. Or Navigated With Wrong Arguments'**
+  String get routingError;
 }
 
 class _AppLocalizationsDelegate

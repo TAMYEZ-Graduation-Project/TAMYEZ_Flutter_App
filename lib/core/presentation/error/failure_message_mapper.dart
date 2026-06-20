@@ -49,6 +49,12 @@ abstract class FailureHandling {
 
       case UnknownFailure():
         return l10n.unknownError;
+      case LoginBadResponseFailure():
+        return l10n.loginBadResponse;
+      case QuizBadResponseFailure():
+        return l10n.quizBadResponse;
+      case CheckCareerAssessmentAnswersBadResponseFailure():
+        return l10n.checkCareerAssessmentAnswersBadResponse;
     }
   }
 

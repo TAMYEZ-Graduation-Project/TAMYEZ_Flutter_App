@@ -47,6 +47,9 @@
   "welcomeToTamyez": "Welcome To TAMYEZ",
   "discoverStrengthAndPathMessage": "Discover your strengths and find your ideal path",
   "discoverYourTruePotential": "Discover your true potential and unlock the career path meant for you.",
+  "discoverYourTruePotentialTitle": "Discover Your True\nPotential",
+  "discoverYourTruePotentialSubtitle": "Unlock your unique strengths and find the\nperfect career path with our AI-powered\nassistant.",
+  "getStarted": "Get Started",
   "chooseYourLanguage": "Choose your language",
   "selectYourPreferredLanguage": "Select your preferred language to use Tamyez easily",
   "continueWord": "Continue",
@@ -86,5 +89,55 @@
   "enterCodeSent": "Please enter your code that send to your email address",
   "invalidCode": "Invalid code",
   "didNotReceiveCode": "Didn't receive code? ",
-  "resent": "Resent"
+  "resent": "Resent",
+  "retry": "Retry",
+  "loginBadResponse": "The server returned an invalid login response",
+  "quizBadResponse": "The server returned an invalid quiz response",
+  "checkCareerAssessmentAnswersBadResponse": "The server returned an invalid career assessment result.",
+  "next": "Next",
+  "back": "Back",
+  "submit": "Submit",
+  "checkingAnswers": "Checking your answers...\nThis may take a few seconds",
+  "topCareers": "Top Careers",
+  "yourTopCareerMatches": "Your Top Career Matches",
+  "confidence": "Confidence: ",
+  "view": "View",
+  "questionCounter": "Question {current} of {total}",
+  "@questionCounter": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "tamyez": "TAMYEZ",
+  "verifyYourEmail": "Verify your email",
+  "verifyEmailMessage": "Please verify your email address to continue.\nWe've sent a verification link to your inbox.",
+  "didNotReceiveEmailCheckSpam": "Didn't receive the email? Check your spam folder ",
+  "careerOverview": "Career Overview",
+  "roadmapPreview": "Roadmap Preview",
+  "courses": "Courses",
+  "books": "Books",
+  "youtubeExplanations": "YouTube Explanations",
+  "resourceSubtitle": "Language: {language} • {type}",
+  "@resourceSubtitle": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      },
+      "type": {
+        "type": "String"
+      }
+    }
+  },
+  "failedToOpenUrl": "Failed to open URL",
+  "writeYourAnswerHere": "Write your answer here",
+  "tokenExpiredTitle": "Token Expired!",
+  "tokenExpiredContent": "Please, re-login again",
+  "goToLogin": "Go to Login",
+  "appTitle": "TAMYEZ App, Our Graduation Project.",
+  "routingError": "Error! You Have Navigated To A Wrong Route. Or Navigated With Wrong Arguments"
 }

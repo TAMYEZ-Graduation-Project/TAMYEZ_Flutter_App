@@ -1,3 +1,4 @@
+import '../../../../core/entities/login_session_entity.dart';
 import '../../../../core/execution/operation_result.dart';
 import '../entities/login_params.dart';
 import '../entities/login_response_entity.dart';
@@ -27,7 +28,7 @@ abstract interface class AuthRepository {
     required bool rememberMe,
   });
 
-  Future<bool> isThereLoginSession();
+  Future<LoginSessionEntity?> getLoginSession();
 
   Future<OperationResult<bool>> forgetPassword({
     required UserEmailParams params,

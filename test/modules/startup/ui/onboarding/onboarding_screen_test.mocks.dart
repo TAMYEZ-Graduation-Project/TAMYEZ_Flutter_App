@@ -7,8 +7,9 @@ import 'dart:async' as _i4;
 
 import 'package:flutter_bloc/flutter_bloc.dart' as _i7;
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:tamyez_app/core/entities/login_session_entity.dart' as _i9;
 import 'package:tamyez_app/core/presentation/result/ui_effect.dart' as _i5;
-import 'package:tamyez_app/modules/auth/domain/use_case/check_login_session_use_case.dart'
+import 'package:tamyez_app/modules/auth/domain/use_case/get_login_session_use_case.dart'
     as _i8;
 import 'package:tamyez_app/modules/auth/ui/screens/login/view_model/login_intent.dart'
     as _i6;
@@ -129,17 +130,18 @@ class MockLoginViewModel extends _i1.Mock implements _i3.LoginViewModel {
   );
 }
 
-/// A class which mocks [CheckLoginSessionUseCase].
+/// A class which mocks [GetLoginSessionUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockCheckLoginSessionUseCase extends _i1.Mock
-    implements _i8.CheckLoginSessionUseCase {
+class MockGetLoginSessionUseCase extends _i1.Mock
+    implements _i8.GetLoginSessionUseCase {
   @override
-  _i4.Future<bool> call() =>
+  _i4.Future<_i9.LoginSessionEntity?> call() =>
       (super.noSuchMethod(
             Invocation.method(#call, []),
-            returnValue: _i4.Future<bool>.value(false),
-            returnValueForMissingStub: _i4.Future<bool>.value(false),
+            returnValue: _i4.Future<_i9.LoginSessionEntity?>.value(),
+            returnValueForMissingStub:
+                _i4.Future<_i9.LoginSessionEntity?>.value(),
           )
-          as _i4.Future<bool>);
+          as _i4.Future<_i9.LoginSessionEntity?>);
 }

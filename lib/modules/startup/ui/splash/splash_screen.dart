@@ -5,8 +5,10 @@ import 'package:fit_ui/fit_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../core/bootstrap/app_initializer.dart';
 import '../../../../core/constants/asset_paths.dart';
 import '../../../../core/di/di.dart' show getIt;
+import '../../../../core/entities/login_session_entity.dart';
 import '../../../../core/layers/localization/l10n/generated/app_localizations.dart'
     show AppLocalizations;
 import '../../../../core/layers/theme/colors/app_colors.dart';
@@ -22,7 +24,8 @@ import '../../../../core/presentation/screen/custom_breakpoints.dart'
     show CustomBreakpoints;
 import '../../../../core/utils/functions/has_google_services.dart'
     show hasGoogleServices;
-import '../../../auth/domain/use_case/check_login_session_use_case.dart';
+import '../../../../core/utils/functions/user_completed_assessment.dart';
+import '../../../auth/domain/use_case/get_login_session_use_case.dart';
 import 'constants/splash_screen_constants.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -37,7 +40,7 @@ class _SplashScreenState extends BaseStatefulWidgetState<SplashScreen>
   late AnimationController controller;
   late Brightness systemBrightness;
 
-  final Completer<bool> isLoggedInCompleter = Completer<bool>();
+  final Completer<LoginSessionEntity?> loginSessionCompleter = Completer();
 
   @override
   void initState() {
@@ -49,18 +52,11 @@ class _SplashScreenState extends BaseStatefulWidgetState<SplashScreen>
       vsync: this,
     );
 
-    controller.forward().then((value) {
+    controller.forward().then((value) async {
+      final loginSession = await loginSessionCompleter.future;
+      if (!mounted) return;
+      determineNextScreenToNavigateTo(loginSession);
       Future.delayed(const Duration(seconds: 1), () async {
-        final isLoggedIn = await isLoggedInCompleter.future;
-        if (!mounted) return;
-        if (isLoggedIn) {
-          Navigator.pushReplacementNamed(context, DefinedRoutes.homeRoute);
-        } else {
-          Navigator.pushReplacementNamed(
-            context,
-            DefinedRoutes.onboardingRoute,
-          );
-        }
         WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
           checkGooglePlayServices();
         });
@@ -69,9 +65,25 @@ class _SplashScreenState extends BaseStatefulWidgetState<SplashScreen>
   }
 
   Future<void> checkLoginSession() async {
-    isLoggedInCompleter.complete(
-      await getIt.get<CheckLoginSessionUseCase>().call(),
+    loginSessionCompleter.complete(
+      await getIt.get<GetLoginSessionUseCase>().call(),
     );
+  }
+
+  void determineNextScreenToNavigateTo(LoginSessionEntity? loginSession) {
+    if (loginSession == null) {
+      Navigator.pushReplacementNamed(context, DefinedRoutes.onboardingRoute);
+    } else {
+      getIt.get<AppInitializer>().initAuthAndUserProvider(loginSession);
+      if (userCompletedAssessment(loginSession.user)) {
+        Navigator.pushReplacementNamed(context, DefinedRoutes.homeRoute);
+      } else {
+        Navigator.pushReplacementNamed(
+          context,
+          DefinedRoutes.discoverYourPotentialRoute,
+        );
+      }
+    }
   }
 
   Future<void> checkGooglePlayServices() async {

@@ -44,7 +44,7 @@ class _ResendVerificationEmailScreenState
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text('Verify your email'),
+          title: Text(appLocalizations.verifyYourEmail),
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -54,8 +54,9 @@ class _ResendVerificationEmailScreenState
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                const SizedBox(height: 20),
                 Text(
-                  "Please verify your email address to continue.\nWe've sent a verification link to your inbox.",
+                  appLocalizations.verifyEmailMessage,
                   textAlign: TextAlign.center,
                   style: typography.subTitle,
                 ),
@@ -85,14 +86,14 @@ class _ResendVerificationEmailScreenState
                             },
                       child: state is Loading
                           ? const AppLoadingWidget(dimension: 20)
-                          : const Text('Resend verification email'),
+                          : Text(appLocalizations.resendVerificationEmail),
                     );
                   },
                 ),
 
                 const SizedBox(height: 20),
                 Text(
-                  "Didn't receive the email? Check your spam folder ",
+                  appLocalizations.didNotReceiveEmailCheckSpam,
                   style: typography.body.copyWith(color: AppColors.blue),
                   textAlign: TextAlign.center,
                 ),

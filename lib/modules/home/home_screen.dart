@@ -16,7 +16,11 @@ class _HomeScreenState extends BaseStatefulWidgetState<HomeScreen> {
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [Center(child: Text('Home screen', style: typography.title))],
+        children: [
+          Center(
+            child: Text(appLocalizations.homeScreen, style: typography.title),
+          ),
+        ],
       ),
     );
   }

@@ -162,6 +162,16 @@ class AppLocalizationsEn extends AppLocalizations {
       'Discover your true potential and unlock the career path meant for you.';
 
   @override
+  String get discoverYourTruePotentialTitle => 'Discover Your True\nPotential';
+
+  @override
+  String get discoverYourTruePotentialSubtitle =>
+      'Unlock your unique strengths and find the\nperfect career path with our AI-powered\nassistant.';
+
+  @override
+  String get getStarted => 'Get Started';
+
+  @override
   String get chooseYourLanguage => 'Choose your language';
 
   @override
@@ -287,4 +297,104 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get resent => 'Resent';
+
+  @override
+  String get retry => 'Retry';
+
+  @override
+  String get loginBadResponse =>
+      'The server returned an invalid login response';
+
+  @override
+  String get quizBadResponse => 'The server returned an invalid quiz response';
+
+  @override
+  String get checkCareerAssessmentAnswersBadResponse =>
+      'The server returned an invalid career assessment result.';
+
+  @override
+  String get next => 'Next';
+
+  @override
+  String get back => 'Back';
+
+  @override
+  String get submit => 'Submit';
+
+  @override
+  String get checkingAnswers =>
+      'Checking your answers...\nThis may take a few seconds';
+
+  @override
+  String get topCareers => 'Top Careers';
+
+  @override
+  String get yourTopCareerMatches => 'Your Top Career Matches';
+
+  @override
+  String get confidence => 'Confidence: ';
+
+  @override
+  String get view => 'View';
+
+  @override
+  String questionCounter(int current, int total) {
+    return 'Question $current of $total';
+  }
+
+  @override
+  String get tamyez => 'TAMYEZ';
+
+  @override
+  String get verifyYourEmail => 'Verify your email';
+
+  @override
+  String get verifyEmailMessage =>
+      'Please verify your email address to continue.\nWe\'ve sent a verification link to your inbox.';
+
+  @override
+  String get didNotReceiveEmailCheckSpam =>
+      'Didn\'t receive the email? Check your spam folder ';
+
+  @override
+  String get careerOverview => 'Career Overview';
+
+  @override
+  String get roadmapPreview => 'Roadmap Preview';
+
+  @override
+  String get courses => 'Courses';
+
+  @override
+  String get books => 'Books';
+
+  @override
+  String get youtubeExplanations => 'YouTube Explanations';
+
+  @override
+  String resourceSubtitle(String language, String type) {
+    return 'Language: $language • $type';
+  }
+
+  @override
+  String get failedToOpenUrl => 'Failed to open URL';
+
+  @override
+  String get writeYourAnswerHere => 'Write your answer here';
+
+  @override
+  String get tokenExpiredTitle => 'Token Expired!';
+
+  @override
+  String get tokenExpiredContent => 'Please, re-login again';
+
+  @override
+  String get goToLogin => 'Go to Login';
+
+  @override
+  String get appTitle => 'TAMYEZ App, Our Graduation Project.';
+
+  @override
+  String get routingError =>
+      'Error! You Have Navigated To A Wrong Route. Or Navigated With Wrong Arguments';
 }
