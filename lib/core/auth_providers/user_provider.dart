@@ -17,6 +17,10 @@ class UserProvider {
     _token = token;
   }
 
+  void setUser({required UserEntity user}) {
+    _user = user;
+  }
+
   void clear() {
     _user = null;
     _token = null;

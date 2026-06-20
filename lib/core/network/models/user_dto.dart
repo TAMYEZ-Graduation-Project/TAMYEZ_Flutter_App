@@ -1,4 +1,19 @@
+import 'career_dto.dart';
+
 class UserDto {
+  final String? id;
+  final String? fullName;
+  final String? email;
+  final String? phoneNumber;
+  final String? gender;
+  final String? role;
+  final String? assessmentStatus;
+  final CareerDto? careerPath;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
+  final DateTime? confirmedAt;
+  final num? v;
+
   UserDto({
     this.id,
     this.fullName,
@@ -7,51 +22,52 @@ class UserDto {
     this.gender,
     this.role,
     this.assessmentStatus,
+    this.careerPath,
     this.createdAt,
     this.updatedAt,
     this.confirmedAt,
     this.v,
   });
 
-  UserDto.fromJson(Map<String, dynamic> json) {
-    id = json['id'] as String?;
-    fullName = json['fullName'] as String?;
-    email = json['email'] as String?;
-    phoneNumber = json['phoneNumber'] as String?;
-    gender = json['gender'] as String?;
-    role = json['role'] as String?;
-    assessmentStatus = json['assessmentStatus'] as String?;
-    createdAt = json['createdAt'] as String?;
-    updatedAt = json['updatedAt'] as String?;
-    confirmedAt = json['confirmedAt'] as String?;
-    v = json['v'] as num?;
+  factory UserDto.fromJson(Map<String, dynamic> json) {
+    return UserDto(
+      id: json['id']?.toString(),
+      fullName: json['fullName'] as String?,
+      email: json['email'] as String?,
+      phoneNumber: json['phoneNumber'] as String?,
+      gender: json['gender'] as String?,
+      role: json['role'] as String?,
+      assessmentStatus: json['assessmentStatus'] as String?,
+      careerPath: json['careerPath'] != null
+          ? CareerDto.fromJson(json['careerPath'] as Map<String, dynamic>)
+          : null,
+      createdAt: json['createdAt'] != null
+          ? DateTime.parse(json['createdAt'] as String)
+          : null,
+      updatedAt: json['updatedAt'] != null
+          ? DateTime.parse(json['updatedAt'] as String)
+          : null,
+      confirmedAt: json['confirmedAt'] != null
+          ? DateTime.parse(json['confirmedAt'] as String)
+          : null,
+      v: json['v'] as num?,
+    );
   }
 
-  String? id;
-  String? fullName;
-  String? email;
-  String? phoneNumber;
-  String? gender;
-  String? role;
-  String? assessmentStatus;
-  String? createdAt;
-  String? updatedAt;
-  String? confirmedAt;
-  num? v;
-
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['id'] = id;
-    map['fullName'] = fullName;
-    map['email'] = email;
-    map['phoneNumber'] = phoneNumber;
-    map['gender'] = gender;
-    map['role'] = role;
-    map['assessmentStatus'] = assessmentStatus;
-    map['createdAt'] = createdAt;
-    map['updatedAt'] = updatedAt;
-    map['confirmedAt'] = confirmedAt;
-    map['v'] = v;
-    return map;
+    return {
+      'id': id,
+      'fullName': fullName,
+      'email': email,
+      'phoneNumber': phoneNumber,
+      'gender': gender,
+      'role': role,
+      'assessmentStatus': assessmentStatus,
+      'careerPath': careerPath?.toJson(),
+      'createdAt': createdAt?.toIso8601String(),
+      'updatedAt': updatedAt?.toIso8601String(),
+      'confirmedAt': confirmedAt?.toIso8601String(),
+      'v': v,
+    };
   }
 }

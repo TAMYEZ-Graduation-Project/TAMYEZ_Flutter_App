@@ -73,8 +73,12 @@ import '../../modules/career_assessment/domain/use_cases/choose_suggested_career
     as _i80;
 import '../../modules/career_assessment/domain/use_cases/get_career_assessment_questions.dart'
     as _i508;
+import '../../modules/career_assessment/domain/use_cases/get_career_details_use_case.dart'
+    as _i206;
 import '../../modules/career_assessment/ui/screens/career_assessment/view_model/career_assessment_view_model.dart'
     as _i365;
+import '../../modules/career_assessment/ui/screens/career_details/view_model/career_details_screen_view_model.dart'
+    as _i582;
 import '../../modules/career_assessment/ui/screens/top_career_matches/view_model/top_career_matches_view_model.dart'
     as _i455;
 import '../auth_providers/auth_provider.dart' as _i842;
@@ -102,6 +106,8 @@ import '../presentation/utils/firebase/messaging/firebase_cloud_messaging_servic
     as _i510;
 import '../presentation/utils/firebase/messaging/firebase_messaging_module.dart'
     as _i829;
+import '../presentation/utils/url_opener/url_opener.dart' as _i352;
+import '../presentation/utils/url_opener/url_opener_imp.dart' as _i194;
 import '../utils/counter/count_down_utility.dart' as _i497;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -143,6 +149,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i622.SocialAuthService>(
       () => _i301.SocialAuthServiceImp(gh<_i116.GoogleSignIn>()),
     );
+    gh.lazySingleton<_i352.UrlOpener>(() => _i194.UrlOpenerImp());
     gh.lazySingleton<_i1003.StorageService>(
       () => _i856.SecureStorageServiceImp(gh<_i558.FlutterSecureStorage>()),
       instanceName: 'secureStorage',
@@ -211,6 +218,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i201.CareerAssessmentRepo>(
       () => _i456.CareerAssessmentRepoImp(
         gh<_i250.CareerAssessmentRemoteDataSource>(),
+        gh<_i1003.StorageService>(instanceName: 'secureStorage'),
       ),
     );
     gh.factory<_i347.ForgetPasswordUseCase>(
@@ -251,6 +259,13 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i510.FirebaseCloudMessagingService>(),
       ),
     );
+    gh.factory<_i1050.LoginViewModel>(
+      () => _i1050.LoginViewModel(
+        gh<_i46.LoginUseCase>(),
+        gh<_i280.GmailLoginUseCase>(),
+        gh<_i4.AppInitializer>(),
+      ),
+    );
     gh.factory<_i610.CheckCareerAssessmentAnswersUseCase>(
       () => _i610.CheckCareerAssessmentAnswersUseCase(
         gh<_i201.CareerAssessmentRepo>(),
@@ -264,6 +279,12 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i201.CareerAssessmentRepo>(),
       ),
     );
+    gh.factory<_i206.GetCareerDetailsUseCase>(
+      () => _i206.GetCareerDetailsUseCase(gh<_i201.CareerAssessmentRepo>()),
+    );
+    gh.factory<_i582.CareerDetailsViewModel>(
+      () => _i582.CareerDetailsViewModel(gh<_i206.GetCareerDetailsUseCase>()),
+    );
     gh.factory<_i202.ForgetPasswordViewModel>(
       () => _i202.ForgetPasswordViewModel(
         gh<_i347.ForgetPasswordUseCase>(),
@@ -272,21 +293,17 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i497.CountDownUtility>(),
       ),
     );
+    gh.factory<_i455.TopCareerMatchesViewModel>(
+      () => _i455.TopCareerMatchesViewModel(
+        gh<_i80.ChooseSuggestedCareerUseCase>(),
+        gh<_i9.UserProvider>(),
+      ),
+    );
     gh.factory<_i967.SignUpViewModel>(
       () => _i967.SignUpViewModel(
         gh<_i246.SignUpUseCase>(),
         gh<_i123.GmailSignUpUseCase>(),
-      ),
-    );
-    gh.factory<_i455.TopCareerMatchesViewModel>(
-      () => _i455.TopCareerMatchesViewModel(
-        gh<_i80.ChooseSuggestedCareerUseCase>(),
-      ),
-    );
-    gh.factory<_i1050.LoginViewModel>(
-      () => _i1050.LoginViewModel(
-        gh<_i46.LoginUseCase>(),
-        gh<_i280.GmailLoginUseCase>(),
+        gh<_i4.AppInitializer>(),
       ),
     );
     gh.factory<_i222.ResendVerificationEmailViewModel>(

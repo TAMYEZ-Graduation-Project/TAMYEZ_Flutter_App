@@ -739,6 +739,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Didn\'t receive the email? Check your spam folder '**
   String get didNotReceiveEmailCheckSpam;
+
+  /// No description provided for @careerOverview.
+  ///
+  /// In en, this message translates to:
+  /// **'Career Overview'**
+  String get careerOverview;
+
+  /// No description provided for @roadmapPreview.
+  ///
+  /// In en, this message translates to:
+  /// **'Roadmap Preview'**
+  String get roadmapPreview;
+
+  /// No description provided for @courses.
+  ///
+  /// In en, this message translates to:
+  /// **'Courses'**
+  String get courses;
+
+  /// No description provided for @books.
+  ///
+  /// In en, this message translates to:
+  /// **'Books'**
+  String get books;
+
+  /// No description provided for @youtubeExplanations.
+  ///
+  /// In en, this message translates to:
+  /// **'YouTube Explanations'**
+  String get youtubeExplanations;
+
+  /// No description provided for @resourceSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Language: {language} • {type}'**
+  String resourceSubtitle(String language, String type);
+
+  /// No description provided for @failedToOpenUrl.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to open URL'**
+  String get failedToOpenUrl;
+
+  /// No description provided for @writeYourAnswerHere.
+  ///
+  /// In en, this message translates to:
+  /// **'Write your answer here'**
+  String get writeYourAnswerHere;
+
+  /// No description provided for @tokenExpiredTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Token Expired!'**
+  String get tokenExpiredTitle;
+
+  /// No description provided for @tokenExpiredContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Please, re-login again'**
+  String get tokenExpiredContent;
+
+  /// No description provided for @goToLogin.
+  ///
+  /// In en, this message translates to:
+  /// **'Go to Login'**
+  String get goToLogin;
+
+  /// No description provided for @appTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'TAMYEZ App, Our Graduation Project.'**
+  String get appTitle;
+
+  /// No description provided for @routingError.
+  ///
+  /// In en, this message translates to:
+  /// **'Error! You Have Navigated To A Wrong Route. Or Navigated With Wrong Arguments'**
+  String get routingError;
 }
 
 class _AppLocalizationsDelegate

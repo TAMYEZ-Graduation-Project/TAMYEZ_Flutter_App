@@ -5,6 +5,7 @@ import '../entities/user_entity.dart' show UserEntity;
 import '../extensions/user_role_enum_value.dart' show UserRoleEnumValue;
 import '../network/models/login_session_dto.dart';
 import '../network/models/user_dto.dart' show UserDto;
+import 'base_career_mapper.dart';
 
 extension LoginSessionDtoMapper on LoginSessionDto {
   LoginSessionEntity toEntity() {
@@ -28,9 +29,10 @@ extension UserDtoMapper on UserDto {
       gender: gender,
       role: role,
       assessmentStatus: assessmentStatus,
-      createdAt: createdAt,
-      updatedAt: updatedAt,
-      confirmedAt: confirmedAt,
+      careerPath: careerPath?.toEntity(),
+      createdAt: createdAt?.toIso8601String(),
+      updatedAt: updatedAt?.toIso8601String(),
+      confirmedAt: confirmedAt?.toIso8601String(),
       v: v,
     );
   }

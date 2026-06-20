@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -355,4 +356,46 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get didNotReceiveEmailCheckSpam =>
       'Didn\'t receive the email? Check your spam folder ';
+
+  @override
+  String get careerOverview => 'Career Overview';
+
+  @override
+  String get roadmapPreview => 'Roadmap Preview';
+
+  @override
+  String get courses => 'Courses';
+
+  @override
+  String get books => 'Books';
+
+  @override
+  String get youtubeExplanations => 'YouTube Explanations';
+
+  @override
+  String resourceSubtitle(String language, String type) {
+    return 'Language: $language • $type';
+  }
+
+  @override
+  String get failedToOpenUrl => 'Failed to open URL';
+
+  @override
+  String get writeYourAnswerHere => 'Write your answer here';
+
+  @override
+  String get tokenExpiredTitle => 'Token Expired!';
+
+  @override
+  String get tokenExpiredContent => 'Please, re-login again';
+
+  @override
+  String get goToLogin => 'Go to Login';
+
+  @override
+  String get appTitle => 'TAMYEZ App, Our Graduation Project.';
+
+  @override
+  String get routingError =>
+      'Error! You Have Navigated To A Wrong Route. Or Navigated With Wrong Arguments';
 }

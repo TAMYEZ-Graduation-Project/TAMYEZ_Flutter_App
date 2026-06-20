@@ -80,13 +80,13 @@ class _CareerAssessmentApiClient implements CareerAssessmentApiClient {
   }
 
   @override
-  Future<SimpleApiResponse> chooseSuggestedCareer(
+  Future<ChooseSuggestedCareerResponse> chooseSuggestedCareer(
       String suggestedCareerId,) async {
     final _extra = <String, dynamic>{'requiresAuth': true};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<SimpleApiResponse>(
+    final _options = _setStreamType<ChooseSuggestedCareerResponse>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
         _dio.options,
@@ -97,9 +97,36 @@ class _CareerAssessmentApiClient implements CareerAssessmentApiClient {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late SimpleApiResponse _value;
+    late ChooseSuggestedCareerResponse _value;
     try {
-      _value = SimpleApiResponse.fromJson(_result.data!);
+      _value = ChooseSuggestedCareerResponse.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options, response: _result);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<CareerDetailsResponse> getCareerDetails(String careerId) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<CareerDetailsResponse>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+        _dio.options,
+        'career/${careerId}',
+        queryParameters: queryParameters,
+        data: _data,
+      )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<dynamic>(_options);
+    late CareerDetailsResponse _value;
+    try {
+      _value = CareerDetailsResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;

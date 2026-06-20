@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -351,4 +352,46 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get didNotReceiveEmailCheckSpam =>
       'لم تستلم البريد الإلكتروني؟ تحقق من مجلد الرسائل غير المرغوب فيها ';
+
+  @override
+  String get careerOverview => 'نظرة عامة على المهنة';
+
+  @override
+  String get roadmapPreview => 'معاينة خارطة الطريق';
+
+  @override
+  String get courses => 'الدورات';
+
+  @override
+  String get books => 'الكتب';
+
+  @override
+  String get youtubeExplanations => 'شروحات يوتيوب';
+
+  @override
+  String resourceSubtitle(String language, String type) {
+    return 'اللغة: $language • $type';
+  }
+
+  @override
+  String get failedToOpenUrl => 'فشل في فتح الرابط';
+
+  @override
+  String get writeYourAnswerHere => 'اكتب إجابتك هنا';
+
+  @override
+  String get tokenExpiredTitle => 'انتهت صلاحية الرمز!';
+
+  @override
+  String get tokenExpiredContent => 'يرجى تسجيل الدخول مرة أخرى';
+
+  @override
+  String get goToLogin => 'الذهاب لتسجيل الدخول';
+
+  @override
+  String get appTitle => 'تطبيق تميز، مشروع تخرجنا.';
+
+  @override
+  String get routingError =>
+      'Error! You Have Navigated To A Wrong Route. Or Navigated With Wrong Arguments';
 }

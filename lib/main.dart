@@ -87,13 +87,17 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _onAuthStateChanged() {
+    final context = globalNavigatorKey.currentContext;
+    if (context == null) return;
+    final l10n = AppLocalizations.of(context)!;
+
     switch (authProvider.authStatus) {
       case AuthStatus.tokenExpired:
         AppDialogs.defaultDialog(
           context,
-          title: 'Token Expired!',
-          content: 'Please, re-login again',
-          firstButtonText: 'Go to Login',
+          title: l10n.tokenExpiredTitle,
+          content: l10n.tokenExpiredContent,
+          firstButtonText: l10n.goToLogin,
           dismissible: false,
           firstButtonAction: () {
             Navigator.of(context).pushNamedAndRemoveUntil(
@@ -117,8 +121,9 @@ class _MyAppState extends State<MyApp> {
       ],
       child: Consumer2<LocalizationManager, ThemeManager>(
         builder: (context, l10nManager, themeManager, child) {
+          final l10n = AppLocalizations.of(context);
           return MaterialApp(
-            title: 'TAMYEZ App, Our Graduation Project.',
+            title: l10n?.appTitle ?? 'TAMYEZ App',
             debugShowCheckedModeBanner: false,
             navigatorKey: globalNavigatorKey,
             locale: Locale(l10nManager.currentLocale),

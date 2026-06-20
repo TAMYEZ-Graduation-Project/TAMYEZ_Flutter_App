@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 
+import '../../../../../../core/bootstrap/app_initializer.dart';
 import '../../../../../../core/execution/operation_result.dart';
 import '../../../../../../core/presentation/bases/base_cubit.dart';
 import '../../../../../../core/presentation/mixins/effects_handling_mixin.dart'
@@ -22,8 +23,10 @@ import 'login_state.dart';
 class LoginViewModel extends BaseCubit<LoginState, UiEffect> {
   final LoginUseCase _loginUseCase;
   final GmailLoginUseCase _gmailLoginUseCase;
+  final AppInitializer _appInitializer;
 
-  LoginViewModel(this._loginUseCase, this._gmailLoginUseCase)
+  LoginViewModel(this._loginUseCase, this._gmailLoginUseCase,
+      this._appInitializer)
     : super(const LoginState());
 
   Future<void> doIntent(LoginIntent intent) async {
@@ -48,6 +51,7 @@ class LoginViewModel extends BaseCubit<LoginState, UiEffect> {
 
     switch (result) {
       case OperationSuccess<LoginResponseEntity>():
+        _appInitializer.initAuthAndUserProvider(result.data.body);
         emit(state.copyWith(systemLoginResult: const Success(null)));
         emitEffect(const SuccessEffect(success: SuccessEnum.loginSuccess));
         emitEffect(
@@ -71,6 +75,7 @@ class LoginViewModel extends BaseCubit<LoginState, UiEffect> {
 
     switch (result) {
       case OperationSuccess<LoginResponseEntity>():
+        _appInitializer.initAuthAndUserProvider(result.data.body);
         emit(state.copyWith(googleLoginResult: const Success(null)));
         emitEffect(const SuccessEffect(success: SuccessEnum.loginSuccess));
         emitEffect(

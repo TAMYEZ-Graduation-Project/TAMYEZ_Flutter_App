@@ -116,5 +116,27 @@
   "tamyez": "تميز",
   "verifyYourEmail": "تأكيد بريدك الإلكتروني",
   "verifyEmailMessage": "يرجى تأكيد عنوان بريدك الإلكتروني للمتابعة.\nلقد أرسلنا رابط التحقق إلى بريدك الوارد.",
-  "didNotReceiveEmailCheckSpam": "لم تستلم البريد الإلكتروني؟ تحقق من مجلد الرسائل غير المرغوب فيها "
+  "didNotReceiveEmailCheckSpam": "لم تستلم البريد الإلكتروني؟ تحقق من مجلد الرسائل غير المرغوب فيها ",
+  "careerOverview": "نظرة عامة على المهنة",
+  "roadmapPreview": "معاينة خارطة الطريق",
+  "courses": "الدورات",
+  "books": "الكتب",
+  "youtubeExplanations": "شروحات يوتيوب",
+  "resourceSubtitle": "اللغة: {language} • {type}",
+  "@resourceSubtitle": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      },
+      "type": {
+        "type": "String"
+      }
+    }
+  },
+  "failedToOpenUrl": "فشل في فتح الرابط",
+  "writeYourAnswerHere": "اكتب إجابتك هنا",
+  "tokenExpiredTitle": "انتهت صلاحية الرمز!",
+  "tokenExpiredContent": "يرجى تسجيل الدخول مرة أخرى",
+  "goToLogin": "الذهاب لتسجيل الدخول",
+  "appTitle": "تطبيق تميز، مشروع تخرجنا."
 }

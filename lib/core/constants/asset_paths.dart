@@ -15,4 +15,10 @@ abstract final class AssetPaths {
 
   static const String robotAnimation =
       'assets/animations/cloud_robotics_abstract.json';
+
+  static const String defaultBookIcon = 'assets/icons/default_book_icon.png';
+  static const String defaultCourseIcon =
+      'assets/icons/default_course_icon.png';
+  static const String defaultYoutubePlaylistIcon =
+      'assets/icons/default_youtube_playlist_icon.png';
 }

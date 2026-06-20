@@ -1,5 +1,7 @@
 import 'package:injectable/injectable.dart';
 
+import '../../../../../../core/auth_providers/user_provider.dart';
+import '../../../../../../core/entities/user_entity.dart';
 import '../../../../../../core/execution/operation_result.dart';
 import '../../../../../../core/presentation/bases/base_cubit.dart';
 import '../../../../../../core/presentation/mixins/effects_handling_mixin.dart'
@@ -15,9 +17,12 @@ import 'top_career_matches_state.dart';
 class TopCareerMatchesViewModel
     extends BaseCubit<TopCareerMatchesState, UiEffect> {
   final ChooseSuggestedCareerUseCase _chooseSuggestedCareerUseCase;
+  final UserProvider _userProvider;
 
-  TopCareerMatchesViewModel(this._chooseSuggestedCareerUseCase)
-    : super(const TopCareerMatchesState());
+  TopCareerMatchesViewModel(
+    this._chooseSuggestedCareerUseCase,
+    this._userProvider,
+  ) : super(const TopCareerMatchesState());
 
   Future<void> doIntent(TopCareerMatchesIntent intent) async {
     switch (intent) {
@@ -33,14 +38,15 @@ class TopCareerMatchesViewModel
     );
 
     switch (result) {
-      case OperationSuccess<void>():
+      case OperationSuccess<UserEntity>():
+        _userProvider.setUser(user: result.data);
         emitEffect(
           const NavigateEffect(
             route: DefinedRoutes.homeRoute,
             navigationType: NavigationTypeEnum.pushNamedAndRemoveUntil,
           ),
         );
-      case OperationFailure<void>():
+      case OperationFailure<UserEntity>():
         emit(
           state.copyWith(chooseSuggestedCareerResult: Error(result.failure)),
         );

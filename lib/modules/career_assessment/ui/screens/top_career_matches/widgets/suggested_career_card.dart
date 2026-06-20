@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../core/constants/asset_paths.dart';
 import '../../../../../../core/layers/theme/colors/app_colors.dart';
 import '../../../../../../core/presentation/bases/base_stateless_widget.dart';
+import '../../../../../../core/presentation/widgets/network_image_caching_widget.dart';
 import '../../../../domain/entities/check_career_assessment_answers_response_entity.dart'
     show SuggestedCareerEntity;
 
 class SuggestedCareerCard extends BaseStatelessWidget {
+  final String careerImageHeroKey;
   final SuggestedCareerEntity career;
-  final void Function(String careerId)? onCareerViewTap;
+  final void Function()? onCareerViewTap;
   final void Function(String careerId)? onCareerSelectedTap;
 
   const SuggestedCareerCard({
     super.key,
+    required this.careerImageHeroKey,
     required this.career,
     this.onCareerViewTap,
     this.onCareerSelectedTap,
@@ -36,9 +38,11 @@ class SuggestedCareerCard extends BaseStatelessWidget {
           Flexible(
             flex: 3,
             child: GestureDetector(
-              onTap: () {
-                onCareerSelectedTap?.call(career.careerId);
-              },
+              onTap: career.confidence <= minConfidence
+                  ? null
+                  : () {
+                      onCareerSelectedTap?.call(career.careerId.id);
+                    },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 spacing: 4,
@@ -82,35 +86,46 @@ class SuggestedCareerCard extends BaseStatelessWidget {
           ),
           Flexible(
             flex: 2,
-            child: Stack(
-              alignment: AlignmentGeometry.center,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadiusGeometry.circular(8),
-                  child: DecoratedBox(
-                    position: DecorationPosition.foreground,
-                    decoration: BoxDecoration(
-                      color: Colors.black.withAlpha(60),
-                    ),
-                    child: Image.asset(AssetPaths.discoverCareerImage),
-                  ),
-                ),
-                OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsetsGeometry.symmetric(
-                      vertical: 12,
-                      horizontal: 24,
-                    ),
-                    shape: BeveledRectangleBorder(
-                      borderRadius: BorderRadiusGeometry.circular(4),
+            child: AspectRatio(
+              aspectRatio: 1.16,
+              child: Stack(
+                alignment: AlignmentGeometry.center,
+                fit: StackFit.expand,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadiusGeometry.circular(8),
+                    child: DecoratedBox(
+                      position: DecorationPosition.foreground,
+                      decoration: BoxDecoration(
+                        color: Colors.black.withAlpha(60),
+                      ),
+                      child: Hero(
+                        tag: careerImageHeroKey,
+                        child: NetworkImageCachingWidget(
+                          imageUrl: career.careerId.pictureUrl,
+                        ),
+                      ),
                     ),
                   ),
-                  onPressed: () {
-                    onCareerViewTap?.call(career.careerId);
-                  },
-                  child: Text(d.appLocalizations.view),
-                ),
-              ],
+                  Center(
+                    child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        padding: const EdgeInsetsGeometry.symmetric(
+                          vertical: 12,
+                          horizontal: 24,
+                        ),
+                        shape: BeveledRectangleBorder(
+                          borderRadius: BorderRadiusGeometry.circular(4),
+                        ),
+                      ),
+                      onPressed: () {
+                        onCareerViewTap?.call();
+                      },
+                      child: Text(d.appLocalizations.view),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],

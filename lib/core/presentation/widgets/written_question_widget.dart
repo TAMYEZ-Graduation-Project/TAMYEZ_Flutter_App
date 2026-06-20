@@ -49,7 +49,9 @@ class _WrittenQuestionWidgetState
             FocusManager.instance.primaryFocus?.unfocus();
           },
           onChanged: subject.add,
-          decoration: const InputDecoration(hintText: 'Write your answer here'),
+          decoration: InputDecoration(
+            hintText: appLocalizations.writeYourAnswerHere,
+          ),
         ),
       ],
     );

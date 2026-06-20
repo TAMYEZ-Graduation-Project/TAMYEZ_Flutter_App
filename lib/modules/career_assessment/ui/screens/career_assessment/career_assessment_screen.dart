@@ -17,7 +17,7 @@ import '../../../../../core/presentation/widgets/app_loading_widget.dart';
 import '../../../../../core/presentation/widgets/question_widget_factory.dart'
     show QuestionWidgetFactory;
 import '../../../domain/entities/check_career_assessment_answers_response_entity.dart';
-import 'sections/career_assessment_loading_widget.dart';
+import 'sections/career_assessment_loading_overlay.dart';
 import 'sections/next_and_back_row_widget.dart';
 import 'sections/questions_progress_bar_widget.dart'
     show QuestionsProgressBarWidget;

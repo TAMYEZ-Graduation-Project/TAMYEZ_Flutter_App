@@ -116,5 +116,28 @@
   "tamyez": "TAMYEZ",
   "verifyYourEmail": "Verify your email",
   "verifyEmailMessage": "Please verify your email address to continue.\nWe've sent a verification link to your inbox.",
-  "didNotReceiveEmailCheckSpam": "Didn't receive the email? Check your spam folder "
+  "didNotReceiveEmailCheckSpam": "Didn't receive the email? Check your spam folder ",
+  "careerOverview": "Career Overview",
+  "roadmapPreview": "Roadmap Preview",
+  "courses": "Courses",
+  "books": "Books",
+  "youtubeExplanations": "YouTube Explanations",
+  "resourceSubtitle": "Language: {language} • {type}",
+  "@resourceSubtitle": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      },
+      "type": {
+        "type": "String"
+      }
+    }
+  },
+  "failedToOpenUrl": "Failed to open URL",
+  "writeYourAnswerHere": "Write your answer here",
+  "tokenExpiredTitle": "Token Expired!",
+  "tokenExpiredContent": "Please, re-login again",
+  "goToLogin": "Go to Login",
+  "appTitle": "TAMYEZ App, Our Graduation Project.",
+  "routingError": "Error! You Have Navigated To A Wrong Route. Or Navigated With Wrong Arguments"
 }

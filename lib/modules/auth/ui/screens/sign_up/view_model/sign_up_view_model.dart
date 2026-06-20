@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 
+import '../../../../../../core/bootstrap/app_initializer.dart';
 import '../../../../../../core/execution/operation_result.dart';
 import '../../../../../../core/presentation/bases/base_cubit.dart';
 import '../../../../../../core/presentation/mixins/effects_handling_mixin.dart'
@@ -22,8 +23,10 @@ import 'sign_up_state.dart';
 class SignUpViewModel extends BaseCubit<SignUpState, UiEffect> {
   final SignUpUseCase _signUpUseCase;
   final GmailSignUpUseCase _gmailSignUpUseCase;
+  final AppInitializer _appInitializer;
 
-  SignUpViewModel(this._signUpUseCase, this._gmailSignUpUseCase)
+  SignUpViewModel(this._signUpUseCase, this._gmailSignUpUseCase,
+      this._appInitializer)
     : super(const SignUpState());
 
   Future<void> doIntent(SignUpIntent intent) async {
@@ -75,6 +78,7 @@ class SignUpViewModel extends BaseCubit<SignUpState, UiEffect> {
 
     switch (result) {
       case OperationSuccess<LoginResponseEntity>():
+        _appInitializer.initAuthAndUserProvider(result.data.body);
         emit(state.copyWith(googleSignUpResult: const Success(null)));
         emitEffect(const SuccessEffect(success: SuccessEnum.loginSuccess));
         emitEffect(

@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import 'career_entity.dart';
+
 class UserEntity extends Equatable {
   final String? id;
   final String? fullName;
@@ -8,6 +10,7 @@ class UserEntity extends Equatable {
   final String? gender;
   final String? role;
   final String? assessmentStatus;
+  final CareerEntity? careerPath;
   final String? createdAt;
   final String? updatedAt;
   final String? confirmedAt;
@@ -21,6 +24,7 @@ class UserEntity extends Equatable {
     this.gender,
     this.role,
     this.assessmentStatus,
+    this.careerPath,
     this.createdAt,
     this.updatedAt,
     this.confirmedAt,
@@ -36,6 +40,7 @@ class UserEntity extends Equatable {
     gender,
     role,
     assessmentStatus,
+    careerPath,
     createdAt,
     updatedAt,
     confirmedAt,

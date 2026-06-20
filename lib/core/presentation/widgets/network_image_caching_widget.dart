@@ -1,5 +1,6 @@
 import 'package:cached_network_image_ce/cached_network_image.dart'
     show CachedNetworkImage;
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart'
     show
         StatelessWidget,
@@ -11,15 +12,28 @@ import 'package:flutter/material.dart'
 
 class NetworkImageCachingWidget extends StatelessWidget {
   final String imageUrl;
+  final double? height, width;
+  final BoxFit fit;
 
-  const NetworkImageCachingWidget({super.key, required this.imageUrl});
+  const NetworkImageCachingWidget({
+    super.key,
+    required this.imageUrl,
+    this.fit = BoxFit.cover,
+    this.height,
+    this.width,
+  });
 
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
+      fit: fit,
       imageUrl: imageUrl,
-      placeholder: (context, url) => const CircularProgressIndicator(),
-      errorBuilder: (context, object, stackTrace) => const Icon(Icons.error),
+      height: height,
+      width: width,
+      placeholder: (context, url) =>
+          const Center(child: CircularProgressIndicator()),
+      errorBuilder: (context, object, stackTrace) =>
+          const Center(child: Icon(Icons.error)),
     );
   }
 }
