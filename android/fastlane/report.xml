@@ -3,18 +3,18 @@
     <testsuite name="fastlane.lanes">
 
 
-        <testcase name="0: default_platform" classname="fastlane.lanes" time="0.000413288">
+        <testcase name="0: default_platform" classname="fastlane.lanes" time="0.000297382">
 
         </testcase>
 
 
-        <testcase name="1: clean assembleRelease" classname="fastlane.lanes" time="375.819303136">
+        <testcase name="1: clean assembleRelease" classname="fastlane.lanes" time="365.146596909">
 
         </testcase>
 
 
         <testcase name="2: firebase_app_distribution" classname="fastlane.lanes"
-            time="121.639311985">
+            time="138.675852528">
 
         </testcase>
 
