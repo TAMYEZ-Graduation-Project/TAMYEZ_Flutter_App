@@ -38,7 +38,9 @@ platform :android do
 
     desc "Deploy a new version to Firebase App Distribution"
     lane :deploy_to_firebase_distribution do
-        gradle(task: "clean assembleRelease")
+        sh("fvm flutter clean")
+        sh("fvm flutter pub get")
+        sh("fvm flutter build apk --release")
         release = firebase_app_distribution(
             app: "1:364066125522:android:b58ddcf01e400daabc1f0b",
             groups:"tamyez-team",
