@@ -100,6 +100,8 @@ import '../network/api_config/main_api_config.dart' as _i732;
 import '../network/dio/dio_factory.dart' as _i638;
 import '../network/dio/network_module.dart' as _i426;
 import '../network/interceptors/auth_interceptor.dart' as _i745;
+import '../presentation/screens/home_screen/view_model/home_view_model.dart'
+    as _i346;
 import '../presentation/utils/awesome_notification/awesome_notification_service.dart'
     as _i230;
 import '../presentation/utils/firebase/messaging/firebase_cloud_messaging_service.dart'
@@ -133,6 +135,7 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i732.MainApiConfig>(() => _i732.MainApiConfig());
     gh.factory<_i638.DioFactory>(() => _i638.DioFactory());
+    gh.factory<_i346.HomeViewModel>(() => _i346.HomeViewModel());
     gh.factory<_i497.CountDownUtility>(() => _i497.CountDownUtility());
     gh.lazySingleton<_i842.AuthProvider>(() => _i842.AuthProvider());
     gh.lazySingleton<_i9.UserProvider>(() => _i9.UserProvider());

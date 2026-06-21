@@ -17,11 +17,11 @@ import '../../../../core/layers/theme/factory/app_theme_factory.dart'
     show AppThemeFactory;
 import '../../../../core/presentation/bases/base_stateful_widget_state.dart'
     show BaseStatefulWidgetState;
+import '../../../../core/presentation/break_points/custom_breakpoints.dart'
+    show CustomBreakpoints;
 import '../../../../core/presentation/routing/defined_routes.dart'
     show DefinedRoutes;
 import '../../../../core/presentation/routing/navigator_key.dart';
-import '../../../../core/presentation/screen/custom_breakpoints.dart'
-    show CustomBreakpoints;
 import '../../../../core/utils/functions/has_google_services.dart'
     show hasGoogleServices;
 import '../../../../core/utils/functions/user_completed_assessment.dart';

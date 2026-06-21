@@ -21,4 +21,12 @@ abstract final class AssetPaths {
       'assets/icons/default_course_icon.png';
   static const String defaultYoutubePlaylistIcon =
       'assets/icons/default_youtube_playlist_icon.png';
+  static const String homeIcon = 'assets/icons/home_icon.png';
+  static const String homeIconFilled = 'assets/icons/home_icon_filled.png';
+  static const String profileIcon = 'assets/icons/profile_icon.png';
+  static const String profileIconFilled =
+      'assets/icons/profile_icon_filled.png';
+  static const String takenQuizzesIcon = 'assets/icons/taken_quizzes_icon.png';
+  static const String takenQuizzesIconFilled =
+      'assets/icons/taken_quizzes_icon_filled.png';
 }

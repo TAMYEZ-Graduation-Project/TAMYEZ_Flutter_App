@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/presentation/bases/base_stateless_widget.dart'
     show BaseStatelessWidget;
-import '../../../../core/presentation/screen/custom_breakpoints.dart'
+import '../../../../core/presentation/break_points/custom_breakpoints.dart'
     show CustomBreakpoints;
 import 'views/mobile_view.dart';
 import 'views/tablet_or_desktop_view.dart';

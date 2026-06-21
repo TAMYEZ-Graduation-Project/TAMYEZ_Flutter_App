@@ -15,11 +15,11 @@ import '../../../modules/career_assessment/ui/screens/career_assessment/career_a
 import '../../../modules/career_assessment/ui/screens/career_details/career_details_screen.dart';
 import '../../../modules/career_assessment/ui/screens/discover_your_potential/discover_your_potential_screen.dart';
 import '../../../modules/career_assessment/ui/screens/top_career_matches/top_career_matches_screen.dart';
-import '../../../modules/home/home_screen.dart' show HomeScreen;
 import '../../../modules/startup/ui/onboarding/onboarding_screen.dart';
 import '../../../modules/startup/ui/splash/splash_screen.dart'
     show SplashScreen;
 import '../../layers/localization/l10n/generated/app_localizations.dart';
+import '../screens/home_screen/home_screen.dart';
 import 'defined_routes.dart';
 import 'page_transitions.dart';
 

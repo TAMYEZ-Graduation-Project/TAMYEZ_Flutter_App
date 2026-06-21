@@ -128,6 +128,10 @@ abstract class AppThemeFactory {
         borderRadius: BorderRadius.circular(4),
         color: AppColors.blue,
       ),
+      bottomNavigationBarTheme: _getBottomNavigationTheme(
+        typography,
+        brightness,
+      ),
     );
   }
 
@@ -194,6 +198,30 @@ abstract class AppThemeFactory {
             }
             return null;
           }),
+        );
+    }
+  }
+
+  static BottomNavigationBarThemeData _getBottomNavigationTheme(
+    AppTypography typography,
+    Brightness brightness,
+  ) {
+    switch (brightness) {
+      case Brightness.light:
+        return BottomNavigationBarThemeData(
+          backgroundColor: AppColors.lightBlue,
+          selectedItemColor: AppColors.dark,
+          unselectedItemColor: AppColors.blue,
+          type: BottomNavigationBarType.fixed,
+          selectedLabelStyle: typography.label.copyWith(height: 2.6),
+        );
+      case Brightness.dark:
+        return BottomNavigationBarThemeData(
+          backgroundColor: AppColors.dark,
+          selectedItemColor: AppColors.light,
+          unselectedItemColor: AppColors.gray,
+          type: BottomNavigationBarType.fixed,
+          selectedLabelStyle: typography.label.copyWith(height: 2.6),
         );
     }
   }
