@@ -51,11 +51,13 @@ void main() async {
   final appInitializer = getIt.get<AppInitializer>();
   await appInitializer.initializeEssential();
 
-  runApp(DevicePreview(
+  runApp(
+    DevicePreview(
       builder: (context) {
         return const MyApp();
-      }
-  ));
+      },
+    ),
+  );
 
   // Post-startup init
   Future.microtask(() async {
