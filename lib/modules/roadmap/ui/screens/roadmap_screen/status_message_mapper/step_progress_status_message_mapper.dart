@@ -5,7 +5,6 @@ abstract class StepProgressStatusMessageMapper {
   static String mapStatusToMessage({
     required AppLocalizations l10n,
     required RoadmapStepProgressStatusEnum status,
-    bool isNextStep = false,
   }) {
     switch (status) {
       case RoadmapStepProgressStatusEnum.completed:
@@ -15,9 +14,6 @@ abstract class StepProgressStatusMessageMapper {
       case RoadmapStepProgressStatusEnum.available:
         return l10n.available;
       case RoadmapStepProgressStatusEnum.lockedPrereq:
-        if (isNextStep) {
-          return l10n.next;
-        }
         return l10n.upcoming;
       case RoadmapStepProgressStatusEnum.disabledFrozen:
         return l10n.frozen;

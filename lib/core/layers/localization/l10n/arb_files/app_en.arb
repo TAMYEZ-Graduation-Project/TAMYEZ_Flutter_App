@@ -151,5 +151,6 @@
   "postCourseQuizDescription": "Test your knowledge with a quick quiz after completing this step.",
   "takeQuiz": "Take Quiz",
   "yourPathToSuccess": "Your Path to Success",
-  "lockedOrFrozenMessage": "This step is locked or frozen"
+  "lockedOrFrozenMessage": "This step is locked or frozen",
+  "noRoadmapStepsFound": "No roadmap steps found"
 }

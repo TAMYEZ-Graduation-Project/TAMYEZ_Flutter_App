@@ -13,12 +13,12 @@ class GetRoadmapStepsUseCase {
   Future<OperationResult<RoadmapStepsResponseBodyEntity>> call({
     required int page,
     int size = 10,
-    required String careerId,
+    required String userId,
   }) {
     return _repository.getRoadmapSteps(
       page: page,
       size: size,
-      careerId: careerId,
+      userId: userId,
     );
   }
 }

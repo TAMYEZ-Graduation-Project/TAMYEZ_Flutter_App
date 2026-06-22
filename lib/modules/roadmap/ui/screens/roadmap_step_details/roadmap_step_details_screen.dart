@@ -9,7 +9,6 @@ import '../../../../../core/presentation/result/ui_result.dart';
 import '../../../../../core/presentation/widgets/app_error_widget.dart';
 import '../../../../../core/presentation/widgets/app_loading_widget.dart';
 import '../../../../../core/presentation/widgets/resource_list_section.dart';
-import '../../../../../core/utils/functions/safe_print.dart';
 import 'sections/roadmap_step_details_description_section.dart';
 import 'view_model/roadmap_step_details_intent.dart';
 import 'view_model/roadmap_step_details_state.dart';
@@ -31,7 +30,6 @@ class _RoadmapStepDetailsScreenState extends State<RoadmapStepDetailsScreen> {
   @override
   void initState() {
     super.initState();
-    safePrint('Coming id: ${widget.roadmapStep.id}');
     _viewModel.doIntent(
       GetRoadmapStepDetailsIntent(roadmapStepId: widget.roadmapStep.id),
     );

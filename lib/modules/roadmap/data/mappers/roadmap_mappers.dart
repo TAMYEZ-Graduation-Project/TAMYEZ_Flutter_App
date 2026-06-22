@@ -48,16 +48,19 @@ extension RoadmapStepLocalMapperToEntity on RoadmapStepLocal {
       careerId: careerId,
       title: title,
       description: description,
-      createdAt: createdAt,
-      updatedAt: updatedAt,
       v: v,
     );
   }
 }
 
 extension CareerEntityMapperToLocal on CareerEntity {
-  CareerLocal toLocal({int lastPage = 1, int size = 10}) {
+  CareerLocal toLocal({
+    required String userId,
+    int lastPage = 1,
+    int size = 10,
+  }) {
     return CareerLocal()
+      ..userId = userId
       ..careerId = id
       ..title = title
       ..slug = slug
@@ -77,16 +80,15 @@ extension CareerEntityMapperToLocal on CareerEntity {
 }
 
 extension RoadmapStepEntityMapperToLocal on RoadmapStepEntity {
-  RoadmapStepLocal toLocal() {
+  RoadmapStepLocal toLocal({required String userId}) {
     return RoadmapStepLocal()
+      ..userId = userId
       ..stepId = id
       ..order = order.toInt()
       ..progressStatus = progressStatus
       ..careerId = careerId
       ..title = title
       ..description = description
-      ..createdAt = createdAt
-      ..updatedAt = updatedAt
       ..v = v.toInt();
   }
 }

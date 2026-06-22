@@ -22,31 +22,22 @@ const RoadmapStepLocalSchema = CollectionSchema(
       name: r'careerId',
       type: IsarType.string,
     ),
-    r'createdAt': PropertySchema(
-      id: 1,
-      name: r'createdAt',
-      type: IsarType.string,
-    ),
     r'description': PropertySchema(
-      id: 2,
+      id: 1,
       name: r'description',
       type: IsarType.string,
     ),
-    r'order': PropertySchema(id: 3, name: r'order', type: IsarType.long),
+    r'order': PropertySchema(id: 2, name: r'order', type: IsarType.long),
     r'progressStatus': PropertySchema(
-      id: 4,
+      id: 3,
       name: r'progressStatus',
       type: IsarType.byte,
       enumMap: _RoadmapStepLocalprogressStatusEnumValueMap,
     ),
-    r'stepId': PropertySchema(id: 5, name: r'stepId', type: IsarType.string),
-    r'title': PropertySchema(id: 6, name: r'title', type: IsarType.string),
-    r'updatedAt': PropertySchema(
-      id: 7,
-      name: r'updatedAt',
-      type: IsarType.string,
-    ),
-    r'v': PropertySchema(id: 8, name: r'v', type: IsarType.long),
+    r'stepId': PropertySchema(id: 4, name: r'stepId', type: IsarType.string),
+    r'title': PropertySchema(id: 5, name: r'title', type: IsarType.string),
+    r'userId': PropertySchema(id: 6, name: r'userId', type: IsarType.string),
+    r'v': PropertySchema(id: 7, name: r'v', type: IsarType.long),
   },
 
   estimateSize: _roadmapStepLocalEstimateSize,
@@ -58,13 +49,52 @@ const RoadmapStepLocalSchema = CollectionSchema(
     r'stepId': IndexSchema(
       id: 8514370192842249260,
       name: r'stepId',
-      unique: true,
-      replace: true,
+      unique: false,
+      replace: false,
       properties: [
         IndexPropertySchema(
           name: r'stepId',
           type: IndexType.hash,
           caseSensitive: true,
+        ),
+      ],
+    ),
+    r'userId': IndexSchema(
+      id: -2005826577402374815,
+      name: r'userId',
+      unique: false,
+      replace: false,
+      properties: [
+        IndexPropertySchema(
+          name: r'userId',
+          type: IndexType.hash,
+          caseSensitive: true,
+        ),
+      ],
+    ),
+    r'careerId': IndexSchema(
+      id: 8511896529238945231,
+      name: r'careerId',
+      unique: false,
+      replace: false,
+      properties: [
+        IndexPropertySchema(
+          name: r'careerId',
+          type: IndexType.hash,
+          caseSensitive: true,
+        ),
+      ],
+    ),
+    r'order': IndexSchema(
+      id: 5897270977454184057,
+      name: r'order',
+      unique: false,
+      replace: false,
+      properties: [
+        IndexPropertySchema(
+          name: r'order',
+          type: IndexType.value,
+          caseSensitive: false,
         ),
       ],
     ),
@@ -85,11 +115,10 @@ int _roadmapStepLocalEstimateSize(
 ) {
   var bytesCount = offsets.last;
   bytesCount += 3 + object.careerId.length * 3;
-  bytesCount += 3 + object.createdAt.length * 3;
   bytesCount += 3 + object.description.length * 3;
   bytesCount += 3 + object.stepId.length * 3;
   bytesCount += 3 + object.title.length * 3;
-  bytesCount += 3 + object.updatedAt.length * 3;
+  bytesCount += 3 + object.userId.length * 3;
   return bytesCount;
 }
 
@@ -100,14 +129,13 @@ void _roadmapStepLocalSerialize(
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeString(offsets[0], object.careerId);
-  writer.writeString(offsets[1], object.createdAt);
-  writer.writeString(offsets[2], object.description);
-  writer.writeLong(offsets[3], object.order);
-  writer.writeByte(offsets[4], object.progressStatus.index);
-  writer.writeString(offsets[5], object.stepId);
-  writer.writeString(offsets[6], object.title);
-  writer.writeString(offsets[7], object.updatedAt);
-  writer.writeLong(offsets[8], object.v);
+  writer.writeString(offsets[1], object.description);
+  writer.writeLong(offsets[2], object.order);
+  writer.writeByte(offsets[3], object.progressStatus.index);
+  writer.writeString(offsets[4], object.stepId);
+  writer.writeString(offsets[5], object.title);
+  writer.writeString(offsets[6], object.userId);
+  writer.writeLong(offsets[7], object.v);
 }
 
 RoadmapStepLocal _roadmapStepLocalDeserialize(
@@ -118,19 +146,18 @@ RoadmapStepLocal _roadmapStepLocalDeserialize(
 ) {
   final object = RoadmapStepLocal();
   object.careerId = reader.readString(offsets[0]);
-  object.createdAt = reader.readString(offsets[1]);
-  object.description = reader.readString(offsets[2]);
+  object.description = reader.readString(offsets[1]);
   object.id = id;
-  object.order = reader.readLong(offsets[3]);
+  object.order = reader.readLong(offsets[2]);
   object.progressStatus =
       _RoadmapStepLocalprogressStatusValueEnumMap[reader.readByteOrNull(
-        offsets[4],
+        offsets[3],
       )] ??
       RoadmapStepProgressStatusEnum.completed;
-  object.stepId = reader.readString(offsets[5]);
-  object.title = reader.readString(offsets[6]);
-  object.updatedAt = reader.readString(offsets[7]);
-  object.v = reader.readLong(offsets[8]);
+  object.stepId = reader.readString(offsets[4]);
+  object.title = reader.readString(offsets[5]);
+  object.userId = reader.readString(offsets[6]);
+  object.v = reader.readLong(offsets[7]);
   return object;
 }
 
@@ -146,22 +173,20 @@ P _roadmapStepLocalDeserializeProp<P>(
     case 1:
       return (reader.readString(offset)) as P;
     case 2:
-      return (reader.readString(offset)) as P;
-    case 3:
       return (reader.readLong(offset)) as P;
-    case 4:
+    case 3:
       return (_RoadmapStepLocalprogressStatusValueEnumMap[reader.readByteOrNull(
                 offset,
               )] ??
               RoadmapStepProgressStatusEnum.completed)
           as P;
+    case 4:
+      return (reader.readString(offset)) as P;
     case 5:
       return (reader.readString(offset)) as P;
     case 6:
       return (reader.readString(offset)) as P;
     case 7:
-      return (reader.readString(offset)) as P;
-    case 8:
       return (reader.readLong(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -199,68 +224,19 @@ void _roadmapStepLocalAttach(
   object.id = id;
 }
 
-extension RoadmapStepLocalByIndex on IsarCollection<RoadmapStepLocal> {
-  Future<RoadmapStepLocal?> getByStepId(String stepId) {
-    return getByIndex(r'stepId', [stepId]);
-  }
-
-  RoadmapStepLocal? getByStepIdSync(String stepId) {
-    return getByIndexSync(r'stepId', [stepId]);
-  }
-
-  Future<bool> deleteByStepId(String stepId) {
-    return deleteByIndex(r'stepId', [stepId]);
-  }
-
-  bool deleteByStepIdSync(String stepId) {
-    return deleteByIndexSync(r'stepId', [stepId]);
-  }
-
-  Future<List<RoadmapStepLocal?>> getAllByStepId(List<String> stepIdValues) {
-    final values = stepIdValues.map((e) => [e]).toList();
-    return getAllByIndex(r'stepId', values);
-  }
-
-  List<RoadmapStepLocal?> getAllByStepIdSync(List<String> stepIdValues) {
-    final values = stepIdValues.map((e) => [e]).toList();
-    return getAllByIndexSync(r'stepId', values);
-  }
-
-  Future<int> deleteAllByStepId(List<String> stepIdValues) {
-    final values = stepIdValues.map((e) => [e]).toList();
-    return deleteAllByIndex(r'stepId', values);
-  }
-
-  int deleteAllByStepIdSync(List<String> stepIdValues) {
-    final values = stepIdValues.map((e) => [e]).toList();
-    return deleteAllByIndexSync(r'stepId', values);
-  }
-
-  Future<Id> putByStepId(RoadmapStepLocal object) {
-    return putByIndex(r'stepId', object);
-  }
-
-  Id putByStepIdSync(RoadmapStepLocal object, {bool saveLinks = true}) {
-    return putByIndexSync(r'stepId', object, saveLinks: saveLinks);
-  }
-
-  Future<List<Id>> putAllByStepId(List<RoadmapStepLocal> objects) {
-    return putAllByIndex(r'stepId', objects);
-  }
-
-  List<Id> putAllByStepIdSync(
-    List<RoadmapStepLocal> objects, {
-    bool saveLinks = true,
-  }) {
-    return putAllByIndexSync(r'stepId', objects, saveLinks: saveLinks);
-  }
-}
-
 extension RoadmapStepLocalQueryWhereSort
     on QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QWhere> {
   QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QAfterWhere> anyId() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(const IdWhereClause.any());
+    });
+  }
+
+  QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QAfterWhere> anyOrder() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(
+        const IndexWhereClause.any(indexName: r'order'),
+      );
     });
   }
 }
@@ -383,6 +359,210 @@ extension RoadmapStepLocalQueryWhere
               ),
             );
       }
+    });
+  }
+
+  QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QAfterWhereClause>
+  userIdEqualTo(String userId) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(
+        IndexWhereClause.equalTo(indexName: r'userId', value: [userId]),
+      );
+    });
+  }
+
+  QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QAfterWhereClause>
+  userIdNotEqualTo(String userId) {
+    return QueryBuilder.apply(this, (query) {
+      if (query.whereSort == Sort.asc) {
+        return query
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'userId',
+                lower: [],
+                upper: [userId],
+                includeUpper: false,
+              ),
+            )
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'userId',
+                lower: [userId],
+                includeLower: false,
+                upper: [],
+              ),
+            );
+      } else {
+        return query
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'userId',
+                lower: [userId],
+                includeLower: false,
+                upper: [],
+              ),
+            )
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'userId',
+                lower: [],
+                upper: [userId],
+                includeUpper: false,
+              ),
+            );
+      }
+    });
+  }
+
+  QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QAfterWhereClause>
+  careerIdEqualTo(String careerId) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(
+        IndexWhereClause.equalTo(indexName: r'careerId', value: [careerId]),
+      );
+    });
+  }
+
+  QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QAfterWhereClause>
+  careerIdNotEqualTo(String careerId) {
+    return QueryBuilder.apply(this, (query) {
+      if (query.whereSort == Sort.asc) {
+        return query
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'careerId',
+                lower: [],
+                upper: [careerId],
+                includeUpper: false,
+              ),
+            )
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'careerId',
+                lower: [careerId],
+                includeLower: false,
+                upper: [],
+              ),
+            );
+      } else {
+        return query
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'careerId',
+                lower: [careerId],
+                includeLower: false,
+                upper: [],
+              ),
+            )
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'careerId',
+                lower: [],
+                upper: [careerId],
+                includeUpper: false,
+              ),
+            );
+      }
+    });
+  }
+
+  QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QAfterWhereClause>
+  orderEqualTo(int order) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(
+        IndexWhereClause.equalTo(indexName: r'order', value: [order]),
+      );
+    });
+  }
+
+  QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QAfterWhereClause>
+  orderNotEqualTo(int order) {
+    return QueryBuilder.apply(this, (query) {
+      if (query.whereSort == Sort.asc) {
+        return query
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'order',
+                lower: [],
+                upper: [order],
+                includeUpper: false,
+              ),
+            )
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'order',
+                lower: [order],
+                includeLower: false,
+                upper: [],
+              ),
+            );
+      } else {
+        return query
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'order',
+                lower: [order],
+                includeLower: false,
+                upper: [],
+              ),
+            )
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'order',
+                lower: [],
+                upper: [order],
+                includeUpper: false,
+              ),
+            );
+      }
+    });
+  }
+
+  QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QAfterWhereClause>
+  orderGreaterThan(int order, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(
+        IndexWhereClause.between(
+          indexName: r'order',
+          lower: [order],
+          includeLower: include,
+          upper: [],
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QAfterWhereClause>
+  orderLessThan(int order, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(
+        IndexWhereClause.between(
+          indexName: r'order',
+          lower: [],
+          upper: [order],
+          includeUpper: include,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QAfterWhereClause>
+  orderBetween(
+    int lowerOrder,
+    int upperOrder, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(
+        IndexWhereClause.between(
+          indexName: r'order',
+          lower: [lowerOrder],
+          includeLower: includeLower,
+          upper: [upperOrder],
+          includeUpper: includeUpper,
+        ),
+      );
     });
   }
 }
@@ -526,147 +706,6 @@ extension RoadmapStepLocalQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         FilterCondition.greaterThan(property: r'careerId', value: ''),
-      );
-    });
-  }
-
-  QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QAfterFilterCondition>
-  createdAtEqualTo(String value, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.equalTo(
-          property: r'createdAt',
-          value: value,
-          caseSensitive: caseSensitive,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QAfterFilterCondition>
-  createdAtGreaterThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.greaterThan(
-          include: include,
-          property: r'createdAt',
-          value: value,
-          caseSensitive: caseSensitive,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QAfterFilterCondition>
-  createdAtLessThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.lessThan(
-          include: include,
-          property: r'createdAt',
-          value: value,
-          caseSensitive: caseSensitive,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QAfterFilterCondition>
-  createdAtBetween(
-    String lower,
-    String upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.between(
-          property: r'createdAt',
-          lower: lower,
-          includeLower: includeLower,
-          upper: upper,
-          includeUpper: includeUpper,
-          caseSensitive: caseSensitive,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QAfterFilterCondition>
-  createdAtStartsWith(String value, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.startsWith(
-          property: r'createdAt',
-          value: value,
-          caseSensitive: caseSensitive,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QAfterFilterCondition>
-  createdAtEndsWith(String value, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.endsWith(
-          property: r'createdAt',
-          value: value,
-          caseSensitive: caseSensitive,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QAfterFilterCondition>
-  createdAtContains(String value, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.contains(
-          property: r'createdAt',
-          value: value,
-          caseSensitive: caseSensitive,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QAfterFilterCondition>
-  createdAtMatches(String pattern, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.matches(
-          property: r'createdAt',
-          wildcard: pattern,
-          caseSensitive: caseSensitive,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QAfterFilterCondition>
-  createdAtIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.equalTo(property: r'createdAt', value: ''),
-      );
-    });
-  }
-
-  QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QAfterFilterCondition>
-  createdAtIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.greaterThan(property: r'createdAt', value: ''),
       );
     });
   }
@@ -1266,11 +1305,11 @@ extension RoadmapStepLocalQueryFilter
   }
 
   QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QAfterFilterCondition>
-  updatedAtEqualTo(String value, {bool caseSensitive = true}) {
+  userIdEqualTo(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         FilterCondition.equalTo(
-          property: r'updatedAt',
+          property: r'userId',
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -1279,7 +1318,7 @@ extension RoadmapStepLocalQueryFilter
   }
 
   QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QAfterFilterCondition>
-  updatedAtGreaterThan(
+  userIdGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -1288,7 +1327,7 @@ extension RoadmapStepLocalQueryFilter
       return query.addFilterCondition(
         FilterCondition.greaterThan(
           include: include,
-          property: r'updatedAt',
+          property: r'userId',
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -1297,7 +1336,7 @@ extension RoadmapStepLocalQueryFilter
   }
 
   QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QAfterFilterCondition>
-  updatedAtLessThan(
+  userIdLessThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -1306,7 +1345,7 @@ extension RoadmapStepLocalQueryFilter
       return query.addFilterCondition(
         FilterCondition.lessThan(
           include: include,
-          property: r'updatedAt',
+          property: r'userId',
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -1315,7 +1354,7 @@ extension RoadmapStepLocalQueryFilter
   }
 
   QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QAfterFilterCondition>
-  updatedAtBetween(
+  userIdBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -1325,7 +1364,7 @@ extension RoadmapStepLocalQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         FilterCondition.between(
-          property: r'updatedAt',
+          property: r'userId',
           lower: lower,
           includeLower: includeLower,
           upper: upper,
@@ -1337,11 +1376,11 @@ extension RoadmapStepLocalQueryFilter
   }
 
   QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QAfterFilterCondition>
-  updatedAtStartsWith(String value, {bool caseSensitive = true}) {
+  userIdStartsWith(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         FilterCondition.startsWith(
-          property: r'updatedAt',
+          property: r'userId',
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -1350,11 +1389,11 @@ extension RoadmapStepLocalQueryFilter
   }
 
   QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QAfterFilterCondition>
-  updatedAtEndsWith(String value, {bool caseSensitive = true}) {
+  userIdEndsWith(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         FilterCondition.endsWith(
-          property: r'updatedAt',
+          property: r'userId',
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -1363,11 +1402,11 @@ extension RoadmapStepLocalQueryFilter
   }
 
   QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QAfterFilterCondition>
-  updatedAtContains(String value, {bool caseSensitive = true}) {
+  userIdContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         FilterCondition.contains(
-          property: r'updatedAt',
+          property: r'userId',
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -1376,11 +1415,11 @@ extension RoadmapStepLocalQueryFilter
   }
 
   QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QAfterFilterCondition>
-  updatedAtMatches(String pattern, {bool caseSensitive = true}) {
+  userIdMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         FilterCondition.matches(
-          property: r'updatedAt',
+          property: r'userId',
           wildcard: pattern,
           caseSensitive: caseSensitive,
         ),
@@ -1389,19 +1428,19 @@ extension RoadmapStepLocalQueryFilter
   }
 
   QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QAfterFilterCondition>
-  updatedAtIsEmpty() {
+  userIdIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        FilterCondition.equalTo(property: r'updatedAt', value: ''),
+        FilterCondition.equalTo(property: r'userId', value: ''),
       );
     });
   }
 
   QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QAfterFilterCondition>
-  updatedAtIsNotEmpty() {
+  userIdIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        FilterCondition.greaterThan(property: r'updatedAt', value: ''),
+        FilterCondition.greaterThan(property: r'userId', value: ''),
       );
     });
   }
@@ -1485,20 +1524,6 @@ extension RoadmapStepLocalQuerySortBy
   }
 
   QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QAfterSortBy>
-  sortByCreatedAt() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'createdAt', Sort.asc);
-    });
-  }
-
-  QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QAfterSortBy>
-  sortByCreatedAtDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'createdAt', Sort.desc);
-    });
-  }
-
-  QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QAfterSortBy>
   sortByDescription() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'description', Sort.asc);
@@ -1567,16 +1592,16 @@ extension RoadmapStepLocalQuerySortBy
   }
 
   QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QAfterSortBy>
-  sortByUpdatedAt() {
+  sortByUserId() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'updatedAt', Sort.asc);
+      return query.addSortBy(r'userId', Sort.asc);
     });
   }
 
   QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QAfterSortBy>
-  sortByUpdatedAtDesc() {
+  sortByUserIdDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'updatedAt', Sort.desc);
+      return query.addSortBy(r'userId', Sort.desc);
     });
   }
 
@@ -1606,20 +1631,6 @@ extension RoadmapStepLocalQuerySortThenBy
   thenByCareerIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'careerId', Sort.desc);
-    });
-  }
-
-  QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QAfterSortBy>
-  thenByCreatedAt() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'createdAt', Sort.asc);
-    });
-  }
-
-  QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QAfterSortBy>
-  thenByCreatedAtDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'createdAt', Sort.desc);
     });
   }
 
@@ -1705,16 +1716,16 @@ extension RoadmapStepLocalQuerySortThenBy
   }
 
   QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QAfterSortBy>
-  thenByUpdatedAt() {
+  thenByUserId() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'updatedAt', Sort.asc);
+      return query.addSortBy(r'userId', Sort.asc);
     });
   }
 
   QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QAfterSortBy>
-  thenByUpdatedAtDesc() {
+  thenByUserIdDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'updatedAt', Sort.desc);
+      return query.addSortBy(r'userId', Sort.desc);
     });
   }
 
@@ -1737,13 +1748,6 @@ extension RoadmapStepLocalQueryWhereDistinct
   distinctByCareerId({bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'careerId', caseSensitive: caseSensitive);
-    });
-  }
-
-  QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QDistinct>
-  distinctByCreatedAt({bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'createdAt', caseSensitive: caseSensitive);
     });
   }
 
@@ -1784,10 +1788,11 @@ extension RoadmapStepLocalQueryWhereDistinct
     });
   }
 
-  QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QDistinct>
-  distinctByUpdatedAt({bool caseSensitive = true}) {
+  QueryBuilder<RoadmapStepLocal, RoadmapStepLocal, QDistinct> distinctByUserId({
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'updatedAt', caseSensitive: caseSensitive);
+      return query.addDistinctBy(r'userId', caseSensitive: caseSensitive);
     });
   }
 
@@ -1809,12 +1814,6 @@ extension RoadmapStepLocalQueryProperty
   QueryBuilder<RoadmapStepLocal, String, QQueryOperations> careerIdProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'careerId');
-    });
-  }
-
-  QueryBuilder<RoadmapStepLocal, String, QQueryOperations> createdAtProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'createdAt');
     });
   }
 
@@ -1854,9 +1853,9 @@ extension RoadmapStepLocalQueryProperty
     });
   }
 
-  QueryBuilder<RoadmapStepLocal, String, QQueryOperations> updatedAtProperty() {
+  QueryBuilder<RoadmapStepLocal, String, QQueryOperations> userIdProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'updatedAt');
+      return query.addPropertyName(r'userId');
     });
   }
 

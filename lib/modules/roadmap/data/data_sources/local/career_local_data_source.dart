@@ -3,5 +3,11 @@ import '../../local_models/career_local.dart';
 
 abstract interface class CareerLocalDataSource
     implements DbBaseRepository<CareerLocal> {
-  Future<CareerLocal?> findByCareerId({required String careerId});
+  Future<int> careersCount();
+
+  Future<CareerLocal?> findByUserId({required String userId});
+
+  Future<void> upsertCareer({required CareerLocal career});
+
+  Future<String?> deletedOldestCareer();
 }

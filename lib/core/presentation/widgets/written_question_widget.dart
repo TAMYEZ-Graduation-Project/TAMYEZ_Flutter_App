@@ -3,6 +3,7 @@ import 'package:rxdart/rxdart.dart';
 
 import '../../constants/app_enums.dart';
 import '../../entities/get_quiz_questions_entity.dart';
+import '../../extensions/text_direction_detector_extension.dart';
 import '../bases/base_stateful_widget_state.dart';
 
 class WrittenQuestionWidget extends StatefulWidget {
@@ -25,6 +26,7 @@ class _WrittenQuestionWidgetState
   final List<QuestionOptionIdsEnum> options = QuestionOptionIdsEnum.values;
   final TextEditingController _controller = TextEditingController();
   final subject = PublishSubject<String>();
+  TextDirection textDirection = TextDirection.ltr;
 
   @override
   void initState() {
@@ -39,19 +41,34 @@ class _WrittenQuestionWidgetState
   Widget build(BuildContext context) {
     return Column(
       spacing: 12,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text(widget.question.text, style: typography.title),
-        TextFormField(
-          controller: _controller,
-          minLines: 5,
-          maxLines: 15,
-          onTapOutside: (event) {
-            FocusManager.instance.primaryFocus?.unfocus();
+        Text(
+          widget.question.text,
+          textDirection: widget.question.text.textDirection,
+          style: typography.title,
+        ),
+        StatefulBuilder(
+          builder: (context, setState) {
+            return TextFormField(
+              controller: _controller,
+              textDirection: textDirection,
+              minLines: 5,
+              maxLines: 15,
+              onTapOutside: (event) {
+                FocusManager.instance.primaryFocus?.unfocus();
+              },
+              onChanged: (value) {
+                subject.add(value);
+                setState(() {
+                  textDirection = value.textDirection;
+                });
+              },
+              decoration: InputDecoration(
+                hintText: appLocalizations.writeYourAnswerHere,
+              ),
+            );
           },
-          onChanged: subject.add,
-          decoration: InputDecoration(
-            hintText: appLocalizations.writeYourAnswerHere,
-          ),
         ),
       ],
     );

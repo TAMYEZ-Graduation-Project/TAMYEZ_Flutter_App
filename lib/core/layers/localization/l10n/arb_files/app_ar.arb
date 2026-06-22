@@ -151,5 +151,6 @@
   "postCourseQuizDescription": "اختبر معلوماتك باختبار قصير بعد إكمال هذه الخطوة.",
   "takeQuiz": "ابدأ الاختبار",
   "yourPathToSuccess": "طريقك للنجاح",
-  "lockedOrFrozenMessage": "هذه الخطوة مقفلة أو مجمدة"
+  "lockedOrFrozenMessage": "هذه الخطوة مقفلة أو مجمدة",
+  "noRoadmapStepsFound": "لا توجد خطوات متاحة في خارطة الطريق"
 }

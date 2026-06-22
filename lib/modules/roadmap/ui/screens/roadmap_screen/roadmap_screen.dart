@@ -116,6 +116,16 @@ class _RoadmapScreenLayout extends BaseStatelessWidget {
           BlocSelector<RoadmapViewModel, RoadmapState, bool>(
             selector: (state) => state.gettingMoreSteps,
             builder: (context, gettingMoreSteps) {
+              if (career.roadmap.isEmpty) {
+                return Expanded(
+                  child: Center(
+                    child: Text(
+                      d.appLocalizations.noRoadmapStepsFound,
+                      style: d.typography.subTitle,
+                    ),
+                  ),
+                );
+              }
               return Flexible(
                 child: SizedBox(
                   width: d.screenSize.width * 0.75,

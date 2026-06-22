@@ -6,17 +6,24 @@ part 'roadmap_step_local.g.dart';
 
 @collection
 class RoadmapStepLocal {
-  Id id = Isar.autoIncrement;
+  Id id = Isar.autoIncrement; // keep it ✅
 
-  @Index(unique: true, replace: true)
+  @Index()
   late String stepId;
+
+  @Index()
+  late String userId;
+
+  @Index()
+  late String careerId;
+
+  @Index()
   late int order;
+
   @enumerated
   late RoadmapStepProgressStatusEnum progressStatus;
-  late String careerId;
+
   late String title;
   late String description;
-  late String createdAt;
-  late String updatedAt;
   late int v;
 }

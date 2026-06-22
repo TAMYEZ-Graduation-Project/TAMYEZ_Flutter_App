@@ -889,6 +889,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This step is locked or frozen'**
   String get lockedOrFrozenMessage;
+
+  /// No description provided for @noRoadmapStepsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No roadmap steps found'**
+  String get noRoadmapStepsFound;
 }
 
 class _AppLocalizationsDelegate

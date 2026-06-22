@@ -10,7 +10,7 @@ class GetUserCareerUseCase {
 
   const GetUserCareerUseCase(this._repository);
 
-  Future<OperationResult<CareerEntity>> call({required String careerId}) {
-    return _repository.getUserCareer(careerId: careerId);
+  Future<OperationResult<CareerEntity>> call({required String userId}) {
+    return _repository.getUserCareer(userId: userId);
   }
 }

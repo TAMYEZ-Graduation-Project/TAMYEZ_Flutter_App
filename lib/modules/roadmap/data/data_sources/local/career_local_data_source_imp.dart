@@ -11,7 +11,36 @@ class CareerLocalDataSourceImp extends IsarBaseRepository<CareerLocal>
   CareerLocalDataSourceImp(super.isar, super.collection);
 
   @override
-  Future<CareerLocal?> findByCareerId({required String careerId}) {
-    return localCollection.filter().careerIdEqualTo(careerId).findFirst();
+  Future<CareerLocal?> findByUserId({required String userId}) {
+    return localCollection.filter().userIdEqualTo(userId).findFirst();
+  }
+
+  @override
+  Future<void> upsertCareer({required CareerLocal career}) async {
+    final existing = await localCollection
+        .filter()
+        .userIdEqualTo(career.userId)
+        .findFirst();
+    if (existing != null) {
+      career.id = existing.id;
+    }
+    await localCollection.put(career);
+  }
+
+  @override
+  Future<int> careersCount() {
+    return localCollection.where().count();
+  }
+
+  @override
+  Future<String?> deletedOldestCareer() {
+    return localCollection.where().sortBySavedAt().limit(1).findFirst().then((
+      value,
+    ) {
+      if (value != null) {
+        localCollection.delete(value.id);
+      }
+      return value?.userId;
+    });
   }
 }

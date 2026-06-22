@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../constants/app_enums.dart';
 import '../../entities/get_quiz_questions_entity.dart';
+import '../../extensions/text_direction_detector_extension.dart';
 import '../../layers/theme/colors/app_colors.dart';
 import '../bases/base_stateless_widget.dart';
 
@@ -22,9 +23,14 @@ class SingleChoiceQuestionWidget extends BaseStatelessWidget {
   @override
   Widget buildWith(BuildContext context, CommonDependency d) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       spacing: 12,
       children: [
-        Text(question.text, style: d.typography.title),
+        Text(
+          question.text,
+          textDirection: question.text.textDirection,
+          style: d.typography.title,
+        ),
         RadioGroup<QuestionOptionIdsEnum>(
           groupValue: selectedOptionId,
           onChanged: (value) {

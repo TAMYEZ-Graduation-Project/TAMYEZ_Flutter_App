@@ -31,7 +31,6 @@ class RoadmapStepTitleAndStatusWidget extends BaseStatelessWidget {
           StepProgressStatusMessageMapper.mapStatusToMessage(
             l10n: d.appLocalizations,
             status: roadmapStepStatus,
-            isNextStep: isNext,
           ),
           style: d.typography.body.copyWith(color: AppColors.blue),
         ),

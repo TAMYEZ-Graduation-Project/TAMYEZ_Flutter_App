@@ -36,9 +36,7 @@ class RoadmapViewModel extends BaseCubit<RoadmapState, UiEffect> {
 
   Future<void> _getUserCareer() async {
     emit(state.copyWith(careerDetails: const Loading()));
-    final result = await _getUserCareerUseCase(
-      careerId: _userProvider.user!.careerPath!.id,
-    );
+    final result = await _getUserCareerUseCase(userId: _userProvider.user!.id!);
 
     switch (result) {
       case OperationSuccess<CareerEntity>():
@@ -70,11 +68,14 @@ class RoadmapViewModel extends BaseCubit<RoadmapState, UiEffect> {
     emit(state.copyWith(gettingMoreSteps: true));
     final result = await _getRoadmapStepsUseCase(
       page: state.stepsPaginationData.currentPage.toInt() + 1,
-      careerId: _userProvider.user!.careerPath!.id,
+      userId: _userProvider.user!.id!,
     );
 
     switch (result) {
       case OperationSuccess<RoadmapStepsResponseBodyEntity>():
+        if (result.warning != null) {
+          emitEffect(DisplayWarningEffect(failure: result.warning!));
+        }
         final career = (state.careerDetails as Success<CareerEntity>).data;
         final newCareer = career.copyWith(
           roadmap: career.roadmap.map((e) => e.copyWith()).toList()

@@ -317,13 +317,6 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i510.FirebaseCloudMessagingService>(),
       ),
     );
-    gh.factory<_i504.RoadmapRepository>(
-      () => _i1027.RoadmapRepositoryImp(
-        gh<_i114.RoadmapRemoteDataSource>(),
-        gh<_i169.CareerLocalDataSource>(),
-        gh<_i908.RoadmapLocalDataSource>(),
-      ),
-    );
     gh.factory<_i1050.LoginViewModel>(
       () => _i1050.LoginViewModel(
         gh<_i46.LoginUseCase>(),
@@ -346,6 +339,14 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i206.GetCareerDetailsUseCase>(
       () => _i206.GetCareerDetailsUseCase(gh<_i201.CareerAssessmentRepo>()),
+    );
+    gh.factory<_i504.RoadmapRepository>(
+      () => _i1027.RoadmapRepositoryImp(
+        gh<_i214.Isar>(),
+        gh<_i114.RoadmapRemoteDataSource>(),
+        gh<_i169.CareerLocalDataSource>(),
+        gh<_i908.RoadmapLocalDataSource>(),
+      ),
     );
     gh.factory<_i582.CareerDetailsViewModel>(
       () => _i582.CareerDetailsViewModel(gh<_i206.GetCareerDetailsUseCase>()),

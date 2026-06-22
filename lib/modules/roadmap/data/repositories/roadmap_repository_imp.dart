@@ -1,13 +1,12 @@
 import 'package:injectable/injectable.dart';
+import 'package:isar_community/isar.dart';
 
 import '../../../../core/entities/career_entity.dart';
 import '../../../../core/entities/pagination_data_entity.dart';
 import '../../../../core/entities/roadmap_step_entity.dart';
 import '../../../../core/error/failures/app_failures.dart';
 import '../../../../core/execution/operation_result.dart';
-import '../../../../core/extensions/check_local_saved_model_has_expired.dart';
 import '../../../../core/utils/functions/repo_result_handler.dart';
-import '../../../../core/utils/functions/safe_print.dart';
 import '../../domain/entities/roadmap_steps_response_entity.dart';
 import '../../domain/repositories/roadmap_repository.dart';
 import '../data_sources/local/career_local_data_source.dart';
@@ -18,10 +17,11 @@ import '../mappers/roadmap_mappers.dart';
 @Injectable(as: RoadmapRepository)
 class RoadmapRepositoryImp implements RoadmapRepository {
   final RoadmapRemoteDataSource _roadmapRemoteDataSource;
+  final Isar _isar;
   final CareerLocalDataSource _careerLocalDataSource;
   final RoadmapLocalDataSource _roadmapLocalDataSource;
 
-  const RoadmapRepositoryImp(
+  const RoadmapRepositoryImp(this._isar,
     this._roadmapRemoteDataSource,
     this._careerLocalDataSource,
     this._roadmapLocalDataSource,
@@ -29,43 +29,52 @@ class RoadmapRepositoryImp implements RoadmapRepository {
 
   @override
   Future<OperationResult<CareerEntity>> getUserCareer({
-    required String careerId,
+    required String userId,
   }) async {
     final result = await repoResultHandler(() async {
       return (await _roadmapRemoteDataSource.getUserCareer()).toEntity().body;
     });
     switch (result) {
       case OperationSuccess<CareerEntity>():
-        final savedCareer = await _careerLocalDataSource.findByCareerId(
-          careerId: careerId,
+        final savedCareer = await _careerLocalDataSource.findByUserId(
+          userId: userId,
         );
-        if (savedCareer == null ||
-            savedCareer.savedAt.isExpired() ||
-            (savedCareer.v < result.data.v &&
-                savedCareer.orderEpoch < result.data.orderEpoch)) {
-          await _careerLocalDataSource.create([result.data.toLocal()]);
-          await _roadmapLocalDataSource.refreshSteps(
-            result.data.roadmap.map((e) => e.toLocal()).toList(),
-          );
-        } else {
-          if (savedCareer.orderEpoch == result.data.orderEpoch) {
-            await _careerLocalDataSource.create([
-              result.data.toLocal(
-                lastPage: savedCareer.lastPage,
-                size: savedCareer.size,
-              ),
-            ]);
+        await _isar.writeTxn(() async {
+          if (savedCareer == null &&
+              (await _careerLocalDataSource.careersCount() >= 2)) {
+            final userOfDeletedCareer = await _careerLocalDataSource
+                .deletedOldestCareer();
+            if (userOfDeletedCareer != null) {
+              await _roadmapLocalDataSource.deleteRoadmapStepsOfUser(
+                userId: userOfDeletedCareer,
+              );
+            }
           }
-        }
-
+          await _careerLocalDataSource.upsertCareer(
+            career: result.data.toLocal(
+              userId: userId,
+              lastPage: savedCareer?.lastPage ?? 1,
+              size: savedCareer?.size ?? 10,
+            ),
+          );
+          await _roadmapLocalDataSource.refreshSteps(
+            userId: userId,
+            incomingSteps: result.data.roadmap
+                .map(
+                  (e) => e.toLocal(userId: userId)..careerId = result.data.id,
+                )
+                .toList(),
+          );
+        });
         return result;
       case OperationFailure<CareerEntity>():
         if (result.failure is NoInternetFailure) {
-          final careerLocal = await _careerLocalDataSource.findByCareerId(
-            careerId: careerId,
+          final careerLocal = await _careerLocalDataSource.findByUserId(
+            userId: userId,
           );
           if (careerLocal != null) {
             final steps = await _roadmapLocalDataSource.paginateRoadmapSteps(
+              userId: userId,
               page: 1,
               size: 10,
             );
@@ -86,30 +95,11 @@ class RoadmapRepositoryImp implements RoadmapRepository {
   Future<OperationResult<RoadmapStepsResponseBodyEntity>> getRoadmapSteps({
     required int page,
     required int size,
-    required String careerId,
+    required String userId,
   }) async {
-    final savedCareer = (await _careerLocalDataSource.findByCareerId(
-      careerId: careerId,
+    final savedCareer = (await _careerLocalDataSource.findByUserId(
+      userId: userId,
     ))!;
-    if (savedCareer.lastPage >= page && savedCareer.size == size) {
-      final savedSteps = (await _roadmapLocalDataSource.paginateRoadmapSteps(
-        page: page,
-        size: size,
-      )).map((e) => e.toEntity()).toList();
-      return OperationSuccess(
-        RoadmapStepsResponseBodyEntity(
-          data: savedSteps,
-          paginationData: PaginationDataEntity(
-            size: size,
-            currentPage: page,
-            totalCount: savedCareer.stepsCount,
-            totalPages: (savedCareer.stepsCount / size).ceil(),
-          ),
-          percentageCompleted: savedCareer.percentageCompleted,
-        ),
-      );
-    }
-    safePrint('getting steps from API');
     final result = await repoResultHandler(() async {
       return (await _roadmapRemoteDataSource.getRoadmapSteps(
         page,
@@ -119,17 +109,45 @@ class RoadmapRepositoryImp implements RoadmapRepository {
 
     switch (result) {
       case OperationSuccess<RoadmapStepsResponseBodyEntity>():
-        await _roadmapLocalDataSource.create(
-          result.data.data.map((e) => e.toLocal()).toList(),
-        );
-        savedCareer.lastPage = page;
-        savedCareer.size = size;
-        savedCareer.stepsCount = result.data.paginationData.totalCount.toInt();
-        savedCareer.percentageCompleted = result.data.percentageCompleted
-            .toInt();
-        await _careerLocalDataSource.create([savedCareer]);
+        await _isar.writeTxn(() async {
+          await _roadmapLocalDataSource.refreshSteps(
+            userId: userId,
+            incomingSteps: result.data.data
+                .map((e) => e.toLocal(userId: userId))
+                .toList(),
+          );
+          savedCareer
+            ..lastPage = page
+            ..size = size
+            ..stepsCount = result.data.paginationData.totalCount.toInt()
+            ..percentageCompleted = result.data.percentageCompleted.toInt();
+          await _careerLocalDataSource.upsertCareer(career: savedCareer);
+        });
         return result;
       case OperationFailure<RoadmapStepsResponseBodyEntity>():
+        if (result.failure is NoInternetFailure) {
+          final steps = await _roadmapLocalDataSource.paginateRoadmapSteps(
+            userId: userId,
+            page: page,
+            size: size,
+          );
+          if (steps.isNotEmpty) {
+            final roadmapSteps = steps.map((e) => e.toEntity()).toList();
+            return OperationSuccess<RoadmapStepsResponseBodyEntity>(
+              RoadmapStepsResponseBodyEntity(
+                data: roadmapSteps,
+                paginationData: PaginationDataEntity(
+                  currentPage: page,
+                  size: size,
+                  totalCount: savedCareer.stepsCount,
+                  totalPages: (savedCareer.stepsCount / size).ceil(),
+                ),
+                percentageCompleted: savedCareer.percentageCompleted,
+              ),
+              warning: result.failure,
+            );
+          }
+        }
         return result;
     }
   }

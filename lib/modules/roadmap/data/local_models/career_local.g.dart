@@ -63,7 +63,8 @@ const CareerLocalSchema = CollectionSchema(
       name: r'updatedAt',
       type: IsarType.string,
     ),
-    r'v': PropertySchema(id: 14, name: r'v', type: IsarType.long),
+    r'userId': PropertySchema(id: 14, name: r'userId', type: IsarType.string),
+    r'v': PropertySchema(id: 15, name: r'v', type: IsarType.long),
   },
 
   estimateSize: _careerLocalEstimateSize,
@@ -72,27 +73,14 @@ const CareerLocalSchema = CollectionSchema(
   deserializeProp: _careerLocalDeserializeProp,
   idName: r'id',
   indexes: {
-    r'careerId': IndexSchema(
-      id: 8511896529238945231,
-      name: r'careerId',
+    r'userId': IndexSchema(
+      id: -2005826577402374815,
+      name: r'userId',
       unique: true,
-      replace: true,
+      replace: false,
       properties: [
         IndexPropertySchema(
-          name: r'careerId',
-          type: IndexType.value,
-          caseSensitive: true,
-        ),
-      ],
-    ),
-    r'title': IndexSchema(
-      id: -7636685945352118059,
-      name: r'title',
-      unique: true,
-      replace: true,
-      properties: [
-        IndexPropertySchema(
-          name: r'title',
+          name: r'userId',
           type: IndexType.value,
           caseSensitive: true,
         ),
@@ -121,6 +109,7 @@ int _careerLocalEstimateSize(
   bytesCount += 3 + object.slug.length * 3;
   bytesCount += 3 + object.title.length * 3;
   bytesCount += 3 + object.updatedAt.length * 3;
+  bytesCount += 3 + object.userId.length * 3;
   return bytesCount;
 }
 
@@ -144,7 +133,8 @@ void _careerLocalSerialize(
   writer.writeLong(offsets[11], object.stepsCount);
   writer.writeString(offsets[12], object.title);
   writer.writeString(offsets[13], object.updatedAt);
-  writer.writeLong(offsets[14], object.v);
+  writer.writeString(offsets[14], object.userId);
+  writer.writeLong(offsets[15], object.v);
 }
 
 CareerLocal _careerLocalDeserialize(
@@ -169,7 +159,8 @@ CareerLocal _careerLocalDeserialize(
   object.stepsCount = reader.readLong(offsets[11]);
   object.title = reader.readString(offsets[12]);
   object.updatedAt = reader.readString(offsets[13]);
-  object.v = reader.readLong(offsets[14]);
+  object.userId = reader.readString(offsets[14]);
+  object.v = reader.readLong(offsets[15]);
   return object;
 }
 
@@ -209,6 +200,8 @@ P _careerLocalDeserializeProp<P>(
     case 13:
       return (reader.readString(offset)) as P;
     case 14:
+      return (reader.readString(offset)) as P;
+    case 15:
       return (reader.readLong(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -232,114 +225,59 @@ void _careerLocalAttach(
 }
 
 extension CareerLocalByIndex on IsarCollection<CareerLocal> {
-  Future<CareerLocal?> getByCareerId(String careerId) {
-    return getByIndex(r'careerId', [careerId]);
+  Future<CareerLocal?> getByUserId(String userId) {
+    return getByIndex(r'userId', [userId]);
   }
 
-  CareerLocal? getByCareerIdSync(String careerId) {
-    return getByIndexSync(r'careerId', [careerId]);
+  CareerLocal? getByUserIdSync(String userId) {
+    return getByIndexSync(r'userId', [userId]);
   }
 
-  Future<bool> deleteByCareerId(String careerId) {
-    return deleteByIndex(r'careerId', [careerId]);
+  Future<bool> deleteByUserId(String userId) {
+    return deleteByIndex(r'userId', [userId]);
   }
 
-  bool deleteByCareerIdSync(String careerId) {
-    return deleteByIndexSync(r'careerId', [careerId]);
+  bool deleteByUserIdSync(String userId) {
+    return deleteByIndexSync(r'userId', [userId]);
   }
 
-  Future<List<CareerLocal?>> getAllByCareerId(List<String> careerIdValues) {
-    final values = careerIdValues.map((e) => [e]).toList();
-    return getAllByIndex(r'careerId', values);
+  Future<List<CareerLocal?>> getAllByUserId(List<String> userIdValues) {
+    final values = userIdValues.map((e) => [e]).toList();
+    return getAllByIndex(r'userId', values);
   }
 
-  List<CareerLocal?> getAllByCareerIdSync(List<String> careerIdValues) {
-    final values = careerIdValues.map((e) => [e]).toList();
-    return getAllByIndexSync(r'careerId', values);
+  List<CareerLocal?> getAllByUserIdSync(List<String> userIdValues) {
+    final values = userIdValues.map((e) => [e]).toList();
+    return getAllByIndexSync(r'userId', values);
   }
 
-  Future<int> deleteAllByCareerId(List<String> careerIdValues) {
-    final values = careerIdValues.map((e) => [e]).toList();
-    return deleteAllByIndex(r'careerId', values);
+  Future<int> deleteAllByUserId(List<String> userIdValues) {
+    final values = userIdValues.map((e) => [e]).toList();
+    return deleteAllByIndex(r'userId', values);
   }
 
-  int deleteAllByCareerIdSync(List<String> careerIdValues) {
-    final values = careerIdValues.map((e) => [e]).toList();
-    return deleteAllByIndexSync(r'careerId', values);
+  int deleteAllByUserIdSync(List<String> userIdValues) {
+    final values = userIdValues.map((e) => [e]).toList();
+    return deleteAllByIndexSync(r'userId', values);
   }
 
-  Future<Id> putByCareerId(CareerLocal object) {
-    return putByIndex(r'careerId', object);
+  Future<Id> putByUserId(CareerLocal object) {
+    return putByIndex(r'userId', object);
   }
 
-  Id putByCareerIdSync(CareerLocal object, {bool saveLinks = true}) {
-    return putByIndexSync(r'careerId', object, saveLinks: saveLinks);
+  Id putByUserIdSync(CareerLocal object, {bool saveLinks = true}) {
+    return putByIndexSync(r'userId', object, saveLinks: saveLinks);
   }
 
-  Future<List<Id>> putAllByCareerId(List<CareerLocal> objects) {
-    return putAllByIndex(r'careerId', objects);
+  Future<List<Id>> putAllByUserId(List<CareerLocal> objects) {
+    return putAllByIndex(r'userId', objects);
   }
 
-  List<Id> putAllByCareerIdSync(
+  List<Id> putAllByUserIdSync(
     List<CareerLocal> objects, {
     bool saveLinks = true,
   }) {
-    return putAllByIndexSync(r'careerId', objects, saveLinks: saveLinks);
-  }
-
-  Future<CareerLocal?> getByTitle(String title) {
-    return getByIndex(r'title', [title]);
-  }
-
-  CareerLocal? getByTitleSync(String title) {
-    return getByIndexSync(r'title', [title]);
-  }
-
-  Future<bool> deleteByTitle(String title) {
-    return deleteByIndex(r'title', [title]);
-  }
-
-  bool deleteByTitleSync(String title) {
-    return deleteByIndexSync(r'title', [title]);
-  }
-
-  Future<List<CareerLocal?>> getAllByTitle(List<String> titleValues) {
-    final values = titleValues.map((e) => [e]).toList();
-    return getAllByIndex(r'title', values);
-  }
-
-  List<CareerLocal?> getAllByTitleSync(List<String> titleValues) {
-    final values = titleValues.map((e) => [e]).toList();
-    return getAllByIndexSync(r'title', values);
-  }
-
-  Future<int> deleteAllByTitle(List<String> titleValues) {
-    final values = titleValues.map((e) => [e]).toList();
-    return deleteAllByIndex(r'title', values);
-  }
-
-  int deleteAllByTitleSync(List<String> titleValues) {
-    final values = titleValues.map((e) => [e]).toList();
-    return deleteAllByIndexSync(r'title', values);
-  }
-
-  Future<Id> putByTitle(CareerLocal object) {
-    return putByIndex(r'title', object);
-  }
-
-  Id putByTitleSync(CareerLocal object, {bool saveLinks = true}) {
-    return putByIndexSync(r'title', object, saveLinks: saveLinks);
-  }
-
-  Future<List<Id>> putAllByTitle(List<CareerLocal> objects) {
-    return putAllByIndex(r'title', objects);
-  }
-
-  List<Id> putAllByTitleSync(
-    List<CareerLocal> objects, {
-    bool saveLinks = true,
-  }) {
-    return putAllByIndexSync(r'title', objects, saveLinks: saveLinks);
+    return putAllByIndexSync(r'userId', objects, saveLinks: saveLinks);
   }
 }
 
@@ -351,18 +289,10 @@ extension CareerLocalQueryWhereSort
     });
   }
 
-  QueryBuilder<CareerLocal, CareerLocal, QAfterWhere> anyCareerId() {
+  QueryBuilder<CareerLocal, CareerLocal, QAfterWhere> anyUserId() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
-        const IndexWhereClause.any(indexName: r'careerId'),
-      );
-    });
-  }
-
-  QueryBuilder<CareerLocal, CareerLocal, QAfterWhere> anyTitle() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(
-        const IndexWhereClause.any(indexName: r'title'),
+        const IndexWhereClause.any(indexName: r'userId'),
       );
     });
   }
@@ -440,34 +370,34 @@ extension CareerLocalQueryWhere
     });
   }
 
-  QueryBuilder<CareerLocal, CareerLocal, QAfterWhereClause> careerIdEqualTo(
-    String careerId,
+  QueryBuilder<CareerLocal, CareerLocal, QAfterWhereClause> userIdEqualTo(
+    String userId,
   ) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
-        IndexWhereClause.equalTo(indexName: r'careerId', value: [careerId]),
+        IndexWhereClause.equalTo(indexName: r'userId', value: [userId]),
       );
     });
   }
 
-  QueryBuilder<CareerLocal, CareerLocal, QAfterWhereClause> careerIdNotEqualTo(
-    String careerId,
+  QueryBuilder<CareerLocal, CareerLocal, QAfterWhereClause> userIdNotEqualTo(
+    String userId,
   ) {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
         return query
             .addWhereClause(
               IndexWhereClause.between(
-                indexName: r'careerId',
+                indexName: r'userId',
                 lower: [],
-                upper: [careerId],
+                upper: [userId],
                 includeUpper: false,
               ),
             )
             .addWhereClause(
               IndexWhereClause.between(
-                indexName: r'careerId',
-                lower: [careerId],
+                indexName: r'userId',
+                lower: [userId],
                 includeLower: false,
                 upper: [],
               ),
@@ -476,17 +406,17 @@ extension CareerLocalQueryWhere
         return query
             .addWhereClause(
               IndexWhereClause.between(
-                indexName: r'careerId',
-                lower: [careerId],
+                indexName: r'userId',
+                lower: [userId],
                 includeLower: false,
                 upper: [],
               ),
             )
             .addWhereClause(
               IndexWhereClause.between(
-                indexName: r'careerId',
+                indexName: r'userId',
                 lower: [],
-                upper: [careerId],
+                upper: [userId],
                 includeUpper: false,
               ),
             );
@@ -494,15 +424,15 @@ extension CareerLocalQueryWhere
     });
   }
 
-  QueryBuilder<CareerLocal, CareerLocal, QAfterWhereClause> careerIdGreaterThan(
-    String careerId, {
+  QueryBuilder<CareerLocal, CareerLocal, QAfterWhereClause> userIdGreaterThan(
+    String userId, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
         IndexWhereClause.between(
-          indexName: r'careerId',
-          lower: [careerId],
+          indexName: r'userId',
+          lower: [userId],
           includeLower: include,
           upper: [],
         ),
@@ -510,230 +440,80 @@ extension CareerLocalQueryWhere
     });
   }
 
-  QueryBuilder<CareerLocal, CareerLocal, QAfterWhereClause> careerIdLessThan(
-    String careerId, {
+  QueryBuilder<CareerLocal, CareerLocal, QAfterWhereClause> userIdLessThan(
+    String userId, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
         IndexWhereClause.between(
-          indexName: r'careerId',
+          indexName: r'userId',
           lower: [],
-          upper: [careerId],
+          upper: [userId],
           includeUpper: include,
         ),
       );
     });
   }
 
-  QueryBuilder<CareerLocal, CareerLocal, QAfterWhereClause> careerIdBetween(
-    String lowerCareerId,
-    String upperCareerId, {
+  QueryBuilder<CareerLocal, CareerLocal, QAfterWhereClause> userIdBetween(
+    String lowerUserId,
+    String upperUserId, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
         IndexWhereClause.between(
-          indexName: r'careerId',
-          lower: [lowerCareerId],
+          indexName: r'userId',
+          lower: [lowerUserId],
           includeLower: includeLower,
-          upper: [upperCareerId],
+          upper: [upperUserId],
           includeUpper: includeUpper,
         ),
       );
     });
   }
 
-  QueryBuilder<CareerLocal, CareerLocal, QAfterWhereClause> careerIdStartsWith(
-    String CareerIdPrefix,
+  QueryBuilder<CareerLocal, CareerLocal, QAfterWhereClause> userIdStartsWith(
+    String UserIdPrefix,
   ) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
         IndexWhereClause.between(
-          indexName: r'careerId',
-          lower: [CareerIdPrefix],
-          upper: ['$CareerIdPrefix\u{FFFFF}'],
+          indexName: r'userId',
+          lower: [UserIdPrefix],
+          upper: ['$UserIdPrefix\u{FFFFF}'],
         ),
       );
     });
   }
 
-  QueryBuilder<CareerLocal, CareerLocal, QAfterWhereClause> careerIdIsEmpty() {
+  QueryBuilder<CareerLocal, CareerLocal, QAfterWhereClause> userIdIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
-        IndexWhereClause.equalTo(indexName: r'careerId', value: ['']),
+        IndexWhereClause.equalTo(indexName: r'userId', value: ['']),
       );
     });
   }
 
-  QueryBuilder<CareerLocal, CareerLocal, QAfterWhereClause>
-  careerIdIsNotEmpty() {
+  QueryBuilder<CareerLocal, CareerLocal, QAfterWhereClause> userIdIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
         return query
             .addWhereClause(
-              IndexWhereClause.lessThan(indexName: r'careerId', upper: ['']),
+              IndexWhereClause.lessThan(indexName: r'userId', upper: ['']),
             )
             .addWhereClause(
-              IndexWhereClause.greaterThan(indexName: r'careerId', lower: ['']),
+              IndexWhereClause.greaterThan(indexName: r'userId', lower: ['']),
             );
       } else {
         return query
             .addWhereClause(
-              IndexWhereClause.greaterThan(indexName: r'careerId', lower: ['']),
+              IndexWhereClause.greaterThan(indexName: r'userId', lower: ['']),
             )
             .addWhereClause(
-              IndexWhereClause.lessThan(indexName: r'careerId', upper: ['']),
-            );
-      }
-    });
-  }
-
-  QueryBuilder<CareerLocal, CareerLocal, QAfterWhereClause> titleEqualTo(
-    String title,
-  ) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(
-        IndexWhereClause.equalTo(indexName: r'title', value: [title]),
-      );
-    });
-  }
-
-  QueryBuilder<CareerLocal, CareerLocal, QAfterWhereClause> titleNotEqualTo(
-    String title,
-  ) {
-    return QueryBuilder.apply(this, (query) {
-      if (query.whereSort == Sort.asc) {
-        return query
-            .addWhereClause(
-              IndexWhereClause.between(
-                indexName: r'title',
-                lower: [],
-                upper: [title],
-                includeUpper: false,
-              ),
-            )
-            .addWhereClause(
-              IndexWhereClause.between(
-                indexName: r'title',
-                lower: [title],
-                includeLower: false,
-                upper: [],
-              ),
-            );
-      } else {
-        return query
-            .addWhereClause(
-              IndexWhereClause.between(
-                indexName: r'title',
-                lower: [title],
-                includeLower: false,
-                upper: [],
-              ),
-            )
-            .addWhereClause(
-              IndexWhereClause.between(
-                indexName: r'title',
-                lower: [],
-                upper: [title],
-                includeUpper: false,
-              ),
-            );
-      }
-    });
-  }
-
-  QueryBuilder<CareerLocal, CareerLocal, QAfterWhereClause> titleGreaterThan(
-    String title, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(
-        IndexWhereClause.between(
-          indexName: r'title',
-          lower: [title],
-          includeLower: include,
-          upper: [],
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<CareerLocal, CareerLocal, QAfterWhereClause> titleLessThan(
-    String title, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(
-        IndexWhereClause.between(
-          indexName: r'title',
-          lower: [],
-          upper: [title],
-          includeUpper: include,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<CareerLocal, CareerLocal, QAfterWhereClause> titleBetween(
-    String lowerTitle,
-    String upperTitle, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(
-        IndexWhereClause.between(
-          indexName: r'title',
-          lower: [lowerTitle],
-          includeLower: includeLower,
-          upper: [upperTitle],
-          includeUpper: includeUpper,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<CareerLocal, CareerLocal, QAfterWhereClause> titleStartsWith(
-    String TitlePrefix,
-  ) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(
-        IndexWhereClause.between(
-          indexName: r'title',
-          lower: [TitlePrefix],
-          upper: ['$TitlePrefix\u{FFFFF}'],
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<CareerLocal, CareerLocal, QAfterWhereClause> titleIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(
-        IndexWhereClause.equalTo(indexName: r'title', value: ['']),
-      );
-    });
-  }
-
-  QueryBuilder<CareerLocal, CareerLocal, QAfterWhereClause> titleIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      if (query.whereSort == Sort.asc) {
-        return query
-            .addWhereClause(
-              IndexWhereClause.lessThan(indexName: r'title', upper: ['']),
-            )
-            .addWhereClause(
-              IndexWhereClause.greaterThan(indexName: r'title', lower: ['']),
-            );
-      } else {
-        return query
-            .addWhereClause(
-              IndexWhereClause.greaterThan(indexName: r'title', lower: ['']),
-            )
-            .addWhereClause(
-              IndexWhereClause.lessThan(indexName: r'title', upper: ['']),
+              IndexWhereClause.lessThan(indexName: r'userId', upper: ['']),
             );
       }
     });
@@ -2150,6 +1930,153 @@ extension CareerLocalQueryFilter
     });
   }
 
+  QueryBuilder<CareerLocal, CareerLocal, QAfterFilterCondition> userIdEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'userId',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<CareerLocal, CareerLocal, QAfterFilterCondition>
+  userIdGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'userId',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<CareerLocal, CareerLocal, QAfterFilterCondition> userIdLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'userId',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<CareerLocal, CareerLocal, QAfterFilterCondition> userIdBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'userId',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<CareerLocal, CareerLocal, QAfterFilterCondition>
+  userIdStartsWith(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.startsWith(
+          property: r'userId',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<CareerLocal, CareerLocal, QAfterFilterCondition> userIdEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.endsWith(
+          property: r'userId',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<CareerLocal, CareerLocal, QAfterFilterCondition> userIdContains(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.contains(
+          property: r'userId',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<CareerLocal, CareerLocal, QAfterFilterCondition> userIdMatches(
+    String pattern, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.matches(
+          property: r'userId',
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<CareerLocal, CareerLocal, QAfterFilterCondition>
+  userIdIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'userId', value: ''),
+      );
+    });
+  }
+
+  QueryBuilder<CareerLocal, CareerLocal, QAfterFilterCondition>
+  userIdIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(property: r'userId', value: ''),
+      );
+    });
+  }
+
   QueryBuilder<CareerLocal, CareerLocal, QAfterFilterCondition> vEqualTo(
     int value,
   ) {
@@ -2388,6 +2315,18 @@ extension CareerLocalQuerySortBy
     });
   }
 
+  QueryBuilder<CareerLocal, CareerLocal, QAfterSortBy> sortByUserId() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'userId', Sort.asc);
+    });
+  }
+
+  QueryBuilder<CareerLocal, CareerLocal, QAfterSortBy> sortByUserIdDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'userId', Sort.desc);
+    });
+  }
+
   QueryBuilder<CareerLocal, CareerLocal, QAfterSortBy> sortByV() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'v', Sort.asc);
@@ -2585,6 +2524,18 @@ extension CareerLocalQuerySortThenBy
     });
   }
 
+  QueryBuilder<CareerLocal, CareerLocal, QAfterSortBy> thenByUserId() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'userId', Sort.asc);
+    });
+  }
+
+  QueryBuilder<CareerLocal, CareerLocal, QAfterSortBy> thenByUserIdDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'userId', Sort.desc);
+    });
+  }
+
   QueryBuilder<CareerLocal, CareerLocal, QAfterSortBy> thenByV() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'v', Sort.asc);
@@ -2699,6 +2650,14 @@ extension CareerLocalQueryWhereDistinct
     });
   }
 
+  QueryBuilder<CareerLocal, CareerLocal, QDistinct> distinctByUserId({
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'userId', caseSensitive: caseSensitive);
+    });
+  }
+
   QueryBuilder<CareerLocal, CareerLocal, QDistinct> distinctByV() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'v');
@@ -2796,6 +2755,12 @@ extension CareerLocalQueryProperty
   QueryBuilder<CareerLocal, String, QQueryOperations> updatedAtProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'updatedAt');
+    });
+  }
+
+  QueryBuilder<CareerLocal, String, QQueryOperations> userIdProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'userId');
     });
   }
 
