@@ -33,30 +33,37 @@ const CareerLocalSchema = CollectionSchema(
       type: IsarType.string,
     ),
     r'isActive': PropertySchema(id: 3, name: r'isActive', type: IsarType.bool),
+    r'lastPage': PropertySchema(id: 4, name: r'lastPage', type: IsarType.long),
+    r'orderEpoch': PropertySchema(
+      id: 5,
+      name: r'orderEpoch',
+      type: IsarType.long,
+    ),
     r'percentageCompleted': PropertySchema(
-      id: 4,
+      id: 6,
       name: r'percentageCompleted',
       type: IsarType.long,
     ),
     r'pictureUrl': PropertySchema(
-      id: 5,
+      id: 7,
       name: r'pictureUrl',
       type: IsarType.string,
     ),
-    r'savedAt': PropertySchema(id: 6, name: r'savedAt', type: IsarType.long),
-    r'slug': PropertySchema(id: 7, name: r'slug', type: IsarType.string),
+    r'savedAt': PropertySchema(id: 8, name: r'savedAt', type: IsarType.long),
+    r'size': PropertySchema(id: 9, name: r'size', type: IsarType.long),
+    r'slug': PropertySchema(id: 10, name: r'slug', type: IsarType.string),
     r'stepsCount': PropertySchema(
-      id: 8,
+      id: 11,
       name: r'stepsCount',
       type: IsarType.long,
     ),
-    r'title': PropertySchema(id: 9, name: r'title', type: IsarType.string),
+    r'title': PropertySchema(id: 12, name: r'title', type: IsarType.string),
     r'updatedAt': PropertySchema(
-      id: 10,
+      id: 13,
       name: r'updatedAt',
       type: IsarType.string,
     ),
-    r'v': PropertySchema(id: 11, name: r'v', type: IsarType.long),
+    r'v': PropertySchema(id: 14, name: r'v', type: IsarType.long),
   },
 
   estimateSize: _careerLocalEstimateSize,
@@ -69,7 +76,7 @@ const CareerLocalSchema = CollectionSchema(
       id: 8511896529238945231,
       name: r'careerId',
       unique: true,
-      replace: false,
+      replace: true,
       properties: [
         IndexPropertySchema(
           name: r'careerId',
@@ -82,7 +89,7 @@ const CareerLocalSchema = CollectionSchema(
       id: -7636685945352118059,
       name: r'title',
       unique: true,
-      replace: false,
+      replace: true,
       properties: [
         IndexPropertySchema(
           name: r'title',
@@ -127,14 +134,17 @@ void _careerLocalSerialize(
   writer.writeString(offsets[1], object.createdAt);
   writer.writeString(offsets[2], object.description);
   writer.writeBool(offsets[3], object.isActive);
-  writer.writeLong(offsets[4], object.percentageCompleted);
-  writer.writeString(offsets[5], object.pictureUrl);
-  writer.writeLong(offsets[6], object.savedAt);
-  writer.writeString(offsets[7], object.slug);
-  writer.writeLong(offsets[8], object.stepsCount);
-  writer.writeString(offsets[9], object.title);
-  writer.writeString(offsets[10], object.updatedAt);
-  writer.writeLong(offsets[11], object.v);
+  writer.writeLong(offsets[4], object.lastPage);
+  writer.writeLong(offsets[5], object.orderEpoch);
+  writer.writeLong(offsets[6], object.percentageCompleted);
+  writer.writeString(offsets[7], object.pictureUrl);
+  writer.writeLong(offsets[8], object.savedAt);
+  writer.writeLong(offsets[9], object.size);
+  writer.writeString(offsets[10], object.slug);
+  writer.writeLong(offsets[11], object.stepsCount);
+  writer.writeString(offsets[12], object.title);
+  writer.writeString(offsets[13], object.updatedAt);
+  writer.writeLong(offsets[14], object.v);
 }
 
 CareerLocal _careerLocalDeserialize(
@@ -149,14 +159,17 @@ CareerLocal _careerLocalDeserialize(
   object.description = reader.readString(offsets[2]);
   object.id = id;
   object.isActive = reader.readBool(offsets[3]);
-  object.percentageCompleted = reader.readLong(offsets[4]);
-  object.pictureUrl = reader.readString(offsets[5]);
-  object.savedAt = reader.readLong(offsets[6]);
-  object.slug = reader.readString(offsets[7]);
-  object.stepsCount = reader.readLong(offsets[8]);
-  object.title = reader.readString(offsets[9]);
-  object.updatedAt = reader.readString(offsets[10]);
-  object.v = reader.readLong(offsets[11]);
+  object.lastPage = reader.readLong(offsets[4]);
+  object.orderEpoch = reader.readLong(offsets[5]);
+  object.percentageCompleted = reader.readLong(offsets[6]);
+  object.pictureUrl = reader.readString(offsets[7]);
+  object.savedAt = reader.readLong(offsets[8]);
+  object.size = reader.readLong(offsets[9]);
+  object.slug = reader.readString(offsets[10]);
+  object.stepsCount = reader.readLong(offsets[11]);
+  object.title = reader.readString(offsets[12]);
+  object.updatedAt = reader.readString(offsets[13]);
+  object.v = reader.readLong(offsets[14]);
   return object;
 }
 
@@ -178,7 +191,7 @@ P _careerLocalDeserializeProp<P>(
     case 4:
       return (reader.readLong(offset)) as P;
     case 5:
-      return (reader.readString(offset)) as P;
+      return (reader.readLong(offset)) as P;
     case 6:
       return (reader.readLong(offset)) as P;
     case 7:
@@ -186,10 +199,16 @@ P _careerLocalDeserializeProp<P>(
     case 8:
       return (reader.readLong(offset)) as P;
     case 9:
-      return (reader.readString(offset)) as P;
+      return (reader.readLong(offset)) as P;
     case 10:
       return (reader.readString(offset)) as P;
     case 11:
+      return (reader.readLong(offset)) as P;
+    case 12:
+      return (reader.readString(offset)) as P;
+    case 13:
+      return (reader.readString(offset)) as P;
+    case 14:
       return (reader.readLong(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -1218,6 +1237,116 @@ extension CareerLocalQueryFilter
     });
   }
 
+  QueryBuilder<CareerLocal, CareerLocal, QAfterFilterCondition> lastPageEqualTo(
+    int value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'lastPage', value: value),
+      );
+    });
+  }
+
+  QueryBuilder<CareerLocal, CareerLocal, QAfterFilterCondition>
+  lastPageGreaterThan(int value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'lastPage',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<CareerLocal, CareerLocal, QAfterFilterCondition>
+  lastPageLessThan(int value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'lastPage',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<CareerLocal, CareerLocal, QAfterFilterCondition> lastPageBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'lastPage',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<CareerLocal, CareerLocal, QAfterFilterCondition>
+  orderEpochEqualTo(int value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'orderEpoch', value: value),
+      );
+    });
+  }
+
+  QueryBuilder<CareerLocal, CareerLocal, QAfterFilterCondition>
+  orderEpochGreaterThan(int value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'orderEpoch',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<CareerLocal, CareerLocal, QAfterFilterCondition>
+  orderEpochLessThan(int value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'orderEpoch',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<CareerLocal, CareerLocal, QAfterFilterCondition>
+  orderEpochBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'orderEpoch',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
+    });
+  }
+
   QueryBuilder<CareerLocal, CareerLocal, QAfterFilterCondition>
   percentageCompletedEqualTo(int value) {
     return QueryBuilder.apply(this, (query) {
@@ -1462,6 +1591,65 @@ extension CareerLocalQueryFilter
       return query.addFilterCondition(
         FilterCondition.between(
           property: r'savedAt',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<CareerLocal, CareerLocal, QAfterFilterCondition> sizeEqualTo(
+    int value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'size', value: value),
+      );
+    });
+  }
+
+  QueryBuilder<CareerLocal, CareerLocal, QAfterFilterCondition> sizeGreaterThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'size',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<CareerLocal, CareerLocal, QAfterFilterCondition> sizeLessThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'size',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<CareerLocal, CareerLocal, QAfterFilterCondition> sizeBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'size',
           lower: lower,
           includeLower: includeLower,
           upper: upper,
@@ -2078,6 +2266,30 @@ extension CareerLocalQuerySortBy
     });
   }
 
+  QueryBuilder<CareerLocal, CareerLocal, QAfterSortBy> sortByLastPage() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'lastPage', Sort.asc);
+    });
+  }
+
+  QueryBuilder<CareerLocal, CareerLocal, QAfterSortBy> sortByLastPageDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'lastPage', Sort.desc);
+    });
+  }
+
+  QueryBuilder<CareerLocal, CareerLocal, QAfterSortBy> sortByOrderEpoch() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'orderEpoch', Sort.asc);
+    });
+  }
+
+  QueryBuilder<CareerLocal, CareerLocal, QAfterSortBy> sortByOrderEpochDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'orderEpoch', Sort.desc);
+    });
+  }
+
   QueryBuilder<CareerLocal, CareerLocal, QAfterSortBy>
   sortByPercentageCompleted() {
     return QueryBuilder.apply(this, (query) {
@@ -2113,6 +2325,18 @@ extension CareerLocalQuerySortBy
   QueryBuilder<CareerLocal, CareerLocal, QAfterSortBy> sortBySavedAtDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'savedAt', Sort.desc);
+    });
+  }
+
+  QueryBuilder<CareerLocal, CareerLocal, QAfterSortBy> sortBySize() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'size', Sort.asc);
+    });
+  }
+
+  QueryBuilder<CareerLocal, CareerLocal, QAfterSortBy> sortBySizeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'size', Sort.desc);
     });
   }
 
@@ -2239,6 +2463,30 @@ extension CareerLocalQuerySortThenBy
     });
   }
 
+  QueryBuilder<CareerLocal, CareerLocal, QAfterSortBy> thenByLastPage() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'lastPage', Sort.asc);
+    });
+  }
+
+  QueryBuilder<CareerLocal, CareerLocal, QAfterSortBy> thenByLastPageDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'lastPage', Sort.desc);
+    });
+  }
+
+  QueryBuilder<CareerLocal, CareerLocal, QAfterSortBy> thenByOrderEpoch() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'orderEpoch', Sort.asc);
+    });
+  }
+
+  QueryBuilder<CareerLocal, CareerLocal, QAfterSortBy> thenByOrderEpochDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'orderEpoch', Sort.desc);
+    });
+  }
+
   QueryBuilder<CareerLocal, CareerLocal, QAfterSortBy>
   thenByPercentageCompleted() {
     return QueryBuilder.apply(this, (query) {
@@ -2274,6 +2522,18 @@ extension CareerLocalQuerySortThenBy
   QueryBuilder<CareerLocal, CareerLocal, QAfterSortBy> thenBySavedAtDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'savedAt', Sort.desc);
+    });
+  }
+
+  QueryBuilder<CareerLocal, CareerLocal, QAfterSortBy> thenBySize() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'size', Sort.asc);
+    });
+  }
+
+  QueryBuilder<CareerLocal, CareerLocal, QAfterSortBy> thenBySizeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'size', Sort.desc);
     });
   }
 
@@ -2370,6 +2630,18 @@ extension CareerLocalQueryWhereDistinct
     });
   }
 
+  QueryBuilder<CareerLocal, CareerLocal, QDistinct> distinctByLastPage() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'lastPage');
+    });
+  }
+
+  QueryBuilder<CareerLocal, CareerLocal, QDistinct> distinctByOrderEpoch() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'orderEpoch');
+    });
+  }
+
   QueryBuilder<CareerLocal, CareerLocal, QDistinct>
   distinctByPercentageCompleted() {
     return QueryBuilder.apply(this, (query) {
@@ -2388,6 +2660,12 @@ extension CareerLocalQueryWhereDistinct
   QueryBuilder<CareerLocal, CareerLocal, QDistinct> distinctBySavedAt() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'savedAt');
+    });
+  }
+
+  QueryBuilder<CareerLocal, CareerLocal, QDistinct> distinctBySize() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'size');
     });
   }
 
@@ -2460,6 +2738,18 @@ extension CareerLocalQueryProperty
     });
   }
 
+  QueryBuilder<CareerLocal, int, QQueryOperations> lastPageProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'lastPage');
+    });
+  }
+
+  QueryBuilder<CareerLocal, int, QQueryOperations> orderEpochProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'orderEpoch');
+    });
+  }
+
   QueryBuilder<CareerLocal, int, QQueryOperations>
   percentageCompletedProperty() {
     return QueryBuilder.apply(this, (query) {
@@ -2476,6 +2766,12 @@ extension CareerLocalQueryProperty
   QueryBuilder<CareerLocal, int, QQueryOperations> savedAtProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'savedAt');
+    });
+  }
+
+  QueryBuilder<CareerLocal, int, QQueryOperations> sizeProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'size');
     });
   }
 

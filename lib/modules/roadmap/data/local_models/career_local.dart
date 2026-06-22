@@ -5,9 +5,9 @@ part 'career_local.g.dart';
 @collection
 class CareerLocal {
   Id id = Isar.autoIncrement;
-  @Index(type: IndexType.value, unique: true)
+  @Index(type: IndexType.value, replace: true, unique: true)
   late String careerId;
-  @Index(type: IndexType.value, unique: true)
+  @Index(type: IndexType.value, replace: true, unique: true)
   late String title;
   late String slug;
   late String pictureUrl;
@@ -17,6 +17,9 @@ class CareerLocal {
   late int percentageCompleted;
   late String createdAt;
   late String updatedAt;
+  late int orderEpoch;
   late int v;
   late int savedAt;
+  late int lastPage;
+  late int size;
 }

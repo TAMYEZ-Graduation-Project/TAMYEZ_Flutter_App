@@ -213,29 +213,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i935.RoadmapApiClient>(
       () => _i935.RoadmapApiClient(gh<_i361.Dio>(instanceName: 'mainDio')),
     );
-    gh.factory<_i908.RoadmapLocalDataSource>(
-      () => _i513.RoadmapLocalDataSourceImp(
-        gh<_i214.Isar>(),
-        gh<_i214.IsarCollection<_i835.RoadmapStepLocal>>(),
-      ),
-    );
     gh.factory<_i911.AuthRemoteDataSource>(
       () => _i5.AuthRemoteDataSourceImp(gh<_i362.AuthApiClient>()),
-    );
-    gh.factory<_i169.CareerLocalDataSource>(
-      () => _i196.CareerLocalDataSourceImp(
-        gh<_i214.Isar>(),
-        gh<_i214.IsarCollection<_i1005.CareerLocal>>(),
-      ),
     );
     gh.factory<_i150.EmailRepository>(
       () => _i948.EmailRepositoryImp(gh<_i214.Isar>()),
     );
     gh.factory<_i114.RoadmapRemoteDataSource>(
       () => _i430.RoadmapRemoteDataSourceImp(gh<_i935.RoadmapApiClient>()),
-    );
-    gh.factory<_i504.RoadmapRepository>(
-      () => _i1027.RoadmapRepositoryImp(gh<_i114.RoadmapRemoteDataSource>()),
     );
     gh.factory<_i376.AuthLocalDataSource>(
       () => _i405.AuthLocalDataSourceImp(
@@ -252,6 +237,12 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i1003.StorageService>(instanceName: 'secureStorage'),
       ),
     );
+    gh.lazySingleton<_i214.IsarCollection<_i1005.CareerLocal>>(
+      () => dbInitializer.careerCollection(gh<_i214.Isar>()),
+    );
+    gh.lazySingleton<_i214.IsarCollection<_i835.RoadmapStepLocal>>(
+      () => dbInitializer.roadmapCollection(gh<_i214.Isar>()),
+    );
     gh.factory<_i250.CareerAssessmentRemoteDataSource>(
       () => _i787.CareerAssessmentRemoteDataSourceImp(
         gh<_i787.CareerAssessmentApiClient>(),
@@ -261,6 +252,12 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i510.FirebaseCloudMessagingService(
         gh<_i230.AwesomeNotificationService>(),
         gh<_i892.FirebaseMessaging>(),
+      ),
+    );
+    gh.factory<_i908.RoadmapLocalDataSource>(
+      () => _i513.RoadmapLocalDataSourceImp(
+        gh<_i214.Isar>(),
+        gh<_i214.IsarCollection<_i835.RoadmapStepLocal>>(),
       ),
     );
     gh.factory<_i779.AuthRepository>(
@@ -276,14 +273,11 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i1003.StorageService>(instanceName: 'secureStorage'),
       ),
     );
-    gh.factory<_i318.GetUserCareerUseCase>(
-      () => _i318.GetUserCareerUseCase(gh<_i504.RoadmapRepository>()),
-    );
-    gh.factory<_i580.GetRoadmapStepDetailsUseCase>(
-      () => _i580.GetRoadmapStepDetailsUseCase(gh<_i504.RoadmapRepository>()),
-    );
-    gh.factory<_i1009.GetRoadmapStepsUseCase>(
-      () => _i1009.GetRoadmapStepsUseCase(gh<_i504.RoadmapRepository>()),
+    gh.factory<_i169.CareerLocalDataSource>(
+      () => _i196.CareerLocalDataSourceImp(
+        gh<_i214.Isar>(),
+        gh<_i214.IsarCollection<_i1005.CareerLocal>>(),
+      ),
     );
     gh.factory<_i347.ForgetPasswordUseCase>(
       () => _i347.ForgetPasswordUseCase(gh<_i779.AuthRepository>()),
@@ -323,9 +317,11 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i510.FirebaseCloudMessagingService>(),
       ),
     );
-    gh.factory<_i368.RoadmapStepDetailsViewModel>(
-      () => _i368.RoadmapStepDetailsViewModel(
-        gh<_i580.GetRoadmapStepDetailsUseCase>(),
+    gh.factory<_i504.RoadmapRepository>(
+      () => _i1027.RoadmapRepositoryImp(
+        gh<_i114.RoadmapRemoteDataSource>(),
+        gh<_i169.CareerLocalDataSource>(),
+        gh<_i908.RoadmapLocalDataSource>(),
       ),
     );
     gh.factory<_i1050.LoginViewModel>(
@@ -333,12 +329,6 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i46.LoginUseCase>(),
         gh<_i280.GmailLoginUseCase>(),
         gh<_i4.AppInitializer>(),
-      ),
-    );
-    gh.factory<_i612.RoadmapViewModel>(
-      () => _i612.RoadmapViewModel(
-        gh<_i318.GetUserCareerUseCase>(),
-        gh<_i1009.GetRoadmapStepsUseCase>(),
       ),
     );
     gh.factory<_i610.CheckCareerAssessmentAnswersUseCase>(
@@ -386,10 +376,31 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i439.ResendEmailVerificationUseCase>(),
       ),
     );
+    gh.factory<_i318.GetUserCareerUseCase>(
+      () => _i318.GetUserCareerUseCase(gh<_i504.RoadmapRepository>()),
+    );
+    gh.factory<_i580.GetRoadmapStepDetailsUseCase>(
+      () => _i580.GetRoadmapStepDetailsUseCase(gh<_i504.RoadmapRepository>()),
+    );
+    gh.factory<_i1009.GetRoadmapStepsUseCase>(
+      () => _i1009.GetRoadmapStepsUseCase(gh<_i504.RoadmapRepository>()),
+    );
     gh.factory<_i365.CareerAssessmentViewModel>(
       () => _i365.CareerAssessmentViewModel(
         gh<_i508.GetCareerAssessmentQuestionsUseCase>(),
         gh<_i610.CheckCareerAssessmentAnswersUseCase>(),
+      ),
+    );
+    gh.factory<_i368.RoadmapStepDetailsViewModel>(
+      () => _i368.RoadmapStepDetailsViewModel(
+        gh<_i580.GetRoadmapStepDetailsUseCase>(),
+      ),
+    );
+    gh.factory<_i612.RoadmapViewModel>(
+      () => _i612.RoadmapViewModel(
+        gh<_i318.GetUserCareerUseCase>(),
+        gh<_i1009.GetRoadmapStepsUseCase>(),
+        gh<_i9.UserProvider>(),
       ),
     );
     return this;

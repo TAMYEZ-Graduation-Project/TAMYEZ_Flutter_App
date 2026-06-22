@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 
+import '../../../../../../core/auth_providers/user_provider.dart';
 import '../../../../../../core/entities/career_entity.dart';
 import '../../../../../../core/entities/pagination_data_entity.dart';
 import '../../../../../../core/execution/operation_result.dart';
@@ -16,9 +17,13 @@ import 'roadmap_state.dart';
 class RoadmapViewModel extends BaseCubit<RoadmapState, UiEffect> {
   final GetUserCareerUseCase _getUserCareerUseCase;
   final GetRoadmapStepsUseCase _getRoadmapStepsUseCase;
+  final UserProvider _userProvider;
 
-  RoadmapViewModel(this._getUserCareerUseCase, this._getRoadmapStepsUseCase)
-    : super(const RoadmapState());
+  RoadmapViewModel(
+    this._getUserCareerUseCase,
+    this._getRoadmapStepsUseCase,
+    this._userProvider,
+  ) : super(const RoadmapState());
 
   Future<void> doIntent(RoadmapIntent intent) async {
     switch (intent) {
@@ -31,10 +36,15 @@ class RoadmapViewModel extends BaseCubit<RoadmapState, UiEffect> {
 
   Future<void> _getUserCareer() async {
     emit(state.copyWith(careerDetails: const Loading()));
-    final result = await _getUserCareerUseCase();
+    final result = await _getUserCareerUseCase(
+      careerId: _userProvider.user!.careerPath!.id,
+    );
 
     switch (result) {
       case OperationSuccess<CareerEntity>():
+        if (result.warning != null) {
+          emitEffect(DisplayWarningEffect(failure: result.warning!));
+        }
         emit(
           state.copyWith(
             careerDetails: Success(result.data),
@@ -60,6 +70,7 @@ class RoadmapViewModel extends BaseCubit<RoadmapState, UiEffect> {
     emit(state.copyWith(gettingMoreSteps: true));
     final result = await _getRoadmapStepsUseCase(
       page: state.stepsPaginationData.currentPage.toInt() + 1,
+      careerId: _userProvider.user!.careerPath!.id,
     );
 
     switch (result) {

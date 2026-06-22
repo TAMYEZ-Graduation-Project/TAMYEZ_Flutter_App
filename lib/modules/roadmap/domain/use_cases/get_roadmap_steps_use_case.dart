@@ -11,9 +11,14 @@ class GetRoadmapStepsUseCase {
   const GetRoadmapStepsUseCase(this._repository);
 
   Future<OperationResult<RoadmapStepsResponseBodyEntity>> call({
-    int page = 0,
+    required int page,
     int size = 10,
+    required String careerId,
   }) {
-    return _repository.getRoadmapSteps(page, size);
+    return _repository.getRoadmapSteps(
+      page: page,
+      size: size,
+      careerId: careerId,
+    );
   }
 }

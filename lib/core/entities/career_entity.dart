@@ -18,6 +18,7 @@ class CareerEntity extends Equatable {
   final List<RoadmapStepEntity> roadmap;
   final String createdAt;
   final String updatedAt;
+  final num orderEpoch;
   final num v;
 
   const CareerEntity({
@@ -35,6 +36,7 @@ class CareerEntity extends Equatable {
     this.roadmap = const [],
     this.createdAt = '',
     this.updatedAt = '',
+    this.orderEpoch = 0,
     this.v = 0,
   });
 
@@ -54,6 +56,7 @@ class CareerEntity extends Equatable {
     roadmap,
     createdAt,
     updatedAt,
+    orderEpoch,
     v,
   ];
 
@@ -72,6 +75,7 @@ class CareerEntity extends Equatable {
     List<RoadmapStepEntity>? roadmap,
     String? createdAt,
     String? updatedAt,
+    num? orderEpoch,
     num? v,
   }) {
     return CareerEntity(
@@ -89,6 +93,7 @@ class CareerEntity extends Equatable {
       roadmap: roadmap ?? this.roadmap,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
+      orderEpoch: orderEpoch ?? this.orderEpoch,
       v: v ?? this.v,
     );
   }

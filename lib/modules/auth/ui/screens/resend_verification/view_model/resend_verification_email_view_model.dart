@@ -38,7 +38,8 @@ class ResendVerificationEmailViewModel
         emit(
           state.copyWith(resendVerificationEmailResult: const Success(null)),
         );
-        emitEffect(const SuccessEffect(success: SuccessEnum.otpResentSuccess));
+        emitEffect(
+            const DisplaySuccessEffect(success: SuccessEnum.otpResentSuccess));
         emitEffect(
           const NavigateEffect(
             route: DefinedRoutes.previousRoute,

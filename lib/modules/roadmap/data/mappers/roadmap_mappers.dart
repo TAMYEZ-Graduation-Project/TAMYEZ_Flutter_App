@@ -56,7 +56,7 @@ extension RoadmapStepLocalMapperToEntity on RoadmapStepLocal {
 }
 
 extension CareerEntityMapperToLocal on CareerEntity {
-  CareerLocal toLocal() {
+  CareerLocal toLocal({int lastPage = 1, int size = 10}) {
     return CareerLocal()
       ..careerId = id
       ..title = title
@@ -68,7 +68,11 @@ extension CareerEntityMapperToLocal on CareerEntity {
       ..percentageCompleted = percentageCompleted.toInt()
       ..createdAt = createdAt
       ..updatedAt = updatedAt
-      ..v = v.toInt();
+      ..orderEpoch = orderEpoch.toInt()
+      ..v = v.toInt()
+      ..savedAt = DateTime.now().millisecondsSinceEpoch
+      ..lastPage = lastPage
+      ..size = size;
   }
 }
 

@@ -27,6 +27,7 @@ extension CareerDtoMapper on CareerDto {
       roadmap: roadmap?.map((e) => e.toEntity()).toList() ?? [],
       createdAt: createdAt ?? '',
       updatedAt: updatedAt ?? '',
+      orderEpoch: orderEpoch ?? 0,
       v: v ?? 0,
     );
   }

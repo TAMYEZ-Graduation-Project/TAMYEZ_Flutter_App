@@ -16,6 +16,7 @@ class CareerDto {
     this.roadmap,
     this.createdAt,
     this.updatedAt,
+    this.orderEpoch,
     this.v,
   });
 
@@ -49,6 +50,7 @@ class CareerDto {
     }
     createdAt = json['createdAt'] as String?;
     updatedAt = json['updatedAt'] as String?;
+    orderEpoch = json['orderEpoch'] as num?;
     v = json['v'] as num?;
   }
 
@@ -66,6 +68,7 @@ class CareerDto {
   List<RoadmapStepDto>? roadmap;
   String? createdAt;
   String? updatedAt;
+  num? orderEpoch;
   num? v;
 
   Map<String, dynamic> toJson() {
@@ -94,6 +97,7 @@ class CareerDto {
     }
     map['createdAt'] = createdAt;
     map['updatedAt'] = updatedAt;
+    map['orderEpoch'] = orderEpoch;
     map['v'] = v;
     return map;
   }
