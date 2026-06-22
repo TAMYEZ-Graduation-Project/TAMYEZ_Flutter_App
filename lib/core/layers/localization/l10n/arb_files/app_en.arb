@@ -139,5 +139,18 @@
   "tokenExpiredContent": "Please, re-login again",
   "goToLogin": "Go to Login",
   "appTitle": "TAMYEZ App, Our Graduation Project.",
-  "routingError": "Error! You Have Navigated To A Wrong Route. Or Navigated With Wrong Arguments"
+  "routingError": "Error! You Have Navigated To A Wrong Route. Or Navigated With Wrong Arguments",
+  "complete": "Complete",
+  "available": "Available",
+  "inProgress": "In Progress",
+  "frozen": "Frozen",
+  "upcoming": "Upcoming",
+  "careerRoadmap": "Career Roadmap",
+  "overallProgress": "Overall Progress",
+  "postCourseQuiz": "Post-Course Quiz",
+  "postCourseQuizDescription": "Test your knowledge with a quick quiz after completing this step.",
+  "takeQuiz": "Take Quiz",
+  "yourPathToSuccess": "Your Path to Success",
+  "lockedOrFrozenMessage": "This step is locked or frozen",
+  "noRoadmapStepsFound": "No roadmap steps found"
 }

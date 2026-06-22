@@ -16,6 +16,7 @@ class CareerDto {
     this.roadmap,
     this.createdAt,
     this.updatedAt,
+    this.orderEpoch,
     this.v,
   });
 
@@ -40,6 +41,7 @@ class CareerDto {
       books = (json['books'] as List).map(ResourceItemDto.fromJson).toList();
     }
     stepsCount = json['stepsCount'] as num?;
+    percentageCompleted = json['percentageCompleted'] as num?;
     if (json['roadmap'] != null) {
       roadmap = (json['roadmap'] as List)
           .map((e) => RoadmapStepDto.fromJson(e as Map<String, dynamic>))
@@ -48,6 +50,7 @@ class CareerDto {
     }
     createdAt = json['createdAt'] as String?;
     updatedAt = json['updatedAt'] as String?;
+    orderEpoch = json['orderEpoch'] as num?;
     v = json['v'] as num?;
   }
 
@@ -61,9 +64,11 @@ class CareerDto {
   List<ResourceItemDto>? youtubePlaylists;
   List<ResourceItemDto>? books;
   num? stepsCount;
+  num? percentageCompleted;
   List<RoadmapStepDto>? roadmap;
   String? createdAt;
   String? updatedAt;
+  num? orderEpoch;
   num? v;
 
   Map<String, dynamic> toJson() {
@@ -86,11 +91,13 @@ class CareerDto {
       map['books'] = books?.map((v) => v.toJson()).toList();
     }
     map['stepsCount'] = stepsCount;
+    map['percentageCompleted'] = percentageCompleted;
     if (roadmap != null) {
       map['roadmap'] = roadmap?.map((v) => v.toJson()).toList();
     }
     map['createdAt'] = createdAt;
     map['updatedAt'] = updatedAt;
+    map['orderEpoch'] = orderEpoch;
     map['v'] = v;
     return map;
   }

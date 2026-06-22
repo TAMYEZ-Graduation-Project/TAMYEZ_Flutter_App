@@ -1,7 +1,9 @@
+import '../constants/app_enums.dart' show RoadmapStepProgressStatusEnum;
 import '../entities/career_entity.dart';
 import '../entities/quiz_entity.dart';
 import '../entities/resource_entity.dart';
 import '../entities/roadmap_step_entity.dart';
+import '../extensions/roadmap_step_progress_enum_value.dart';
 import '../network/models/career_dto.dart';
 import '../network/models/quiz_dto.dart';
 import '../network/models/resource_dto.dart';
@@ -21,9 +23,11 @@ extension CareerDtoMapper on CareerDto {
           youtubePlaylists?.map((e) => e.toEntity()).toList() ?? [],
       books: books?.map((e) => e.toEntity()).toList() ?? [],
       stepsCount: stepsCount ?? 0,
+      percentageCompleted: percentageCompleted ?? 0,
       roadmap: roadmap?.map((e) => e.toEntity()).toList() ?? [],
       createdAt: createdAt ?? '',
       updatedAt: updatedAt ?? '',
+      orderEpoch: orderEpoch ?? 0,
       v: v ?? 0,
     );
   }
@@ -34,6 +38,9 @@ extension RoadmapStepDtoMapper on RoadmapStepDto {
     return RoadmapStepEntity(
       id: id ?? '',
       order: order ?? 0,
+      progressStatus:
+          progressStatus?.toRoadmapStepProgressEnumValue ??
+          RoadmapStepProgressStatusEnum.lockedPrereq,
       careerId: careerId ?? '',
       title: title ?? '',
       description: description ?? '',
@@ -41,7 +48,8 @@ extension RoadmapStepDtoMapper on RoadmapStepDto {
       youtubePlaylists:
           youtubePlaylists?.map((e) => e.toEntity()).toList() ?? [],
       books: books?.map((e) => e.toEntity()).toList() ?? [],
-      quizzes: quizzesIds?.map((e) => e.toEntity()).toList() ?? [],
+      quizzes: quizzes?.map((e) => e.toEntity()).toList() ?? [],
+      quizzesIds: quizzesIds ?? [],
       createdAt: createdAt?.toIso8601String() ?? '',
       updatedAt: updatedAt?.toIso8601String() ?? '',
       v: v ?? 0,
@@ -69,7 +77,6 @@ extension QuizDtoMapper on QuizDto {
       id: id ?? '',
       title: title ?? '',
       description: description ?? '',
-      aiPrompt: aiPrompt ?? '',
       uniqueKey: uniqueKey ?? '',
       type: type ?? '',
       duration: duration ?? 0,

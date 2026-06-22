@@ -59,7 +59,9 @@ class SignUpViewModel extends BaseCubit<SignUpState, UiEffect> {
     switch (result) {
       case OperationSuccess<SignUpResponseEntity>():
         emit(state.copyWith(systemSignUpResult: const Success(null)));
-        emitEffect(const SuccessEffect(success: SuccessEnum.signUpSuccess));
+        emitEffect(
+          const DisplaySuccessEffect(success: SuccessEnum.signUpSuccess),
+        );
         emitEffect(
           const NavigateEffect(
             route: DefinedRoutes.loginRoute,
@@ -82,7 +84,9 @@ class SignUpViewModel extends BaseCubit<SignUpState, UiEffect> {
       case OperationSuccess<LoginResponseEntity>():
         _appInitializer.initAuthAndUserProvider(result.data.body);
         emit(state.copyWith(googleSignUpResult: const Success(null)));
-        emitEffect(const SuccessEffect(success: SuccessEnum.loginSuccess));
+        emitEffect(
+          const DisplaySuccessEffect(success: SuccessEnum.loginSuccess),
+        );
         emitEffect(
           const NavigateEffect(
             route: DefinedRoutes.homeRoute,

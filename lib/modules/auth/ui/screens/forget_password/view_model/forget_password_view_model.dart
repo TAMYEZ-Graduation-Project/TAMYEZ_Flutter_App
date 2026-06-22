@@ -69,7 +69,9 @@ class ForgetPasswordViewModel extends BaseCubit<ForgetPasswordState, UiEffect> {
           ),
         );
         emitEffect(
-          const SuccessEffect(success: SuccessEnum.forgetPasswordEmailSent),
+          const DisplaySuccessEffect(
+            success: SuccessEnum.forgetPasswordEmailSent,
+          ),
         );
         emitEffect(const PageNavigationEffect(page: 1));
       case OperationFailure<void>():
@@ -87,7 +89,9 @@ class ForgetPasswordViewModel extends BaseCubit<ForgetPasswordState, UiEffect> {
 
     switch (result) {
       case OperationSuccess<void>():
-        emitEffect(const SuccessEffect(success: SuccessEnum.otpResentSuccess));
+        emitEffect(
+          const DisplaySuccessEffect(success: SuccessEnum.otpResentSuccess),
+        );
         _countDownUtility.startCountdown(
           seconds: 40,
           onTick: (remaining) {
@@ -118,7 +122,7 @@ class ForgetPasswordViewModel extends BaseCubit<ForgetPasswordState, UiEffect> {
       case OperationSuccess<void>():
         emit(state.copyWith(verifyCodeResult: const Success(null)));
         emitEffect(
-          const SuccessEffect(success: SuccessEnum.otpVerifiedSuccess),
+          const DisplaySuccessEffect(success: SuccessEnum.otpVerifiedSuccess),
         );
         emitEffect(const PageNavigationEffect(page: 2));
       case OperationFailure<void>():
@@ -141,7 +145,7 @@ class ForgetPasswordViewModel extends BaseCubit<ForgetPasswordState, UiEffect> {
       case OperationSuccess<void>():
         emit(state.copyWith(resetPasswordResult: const Success(null)));
         emitEffect(
-          const SuccessEffect(success: SuccessEnum.resetPasswordSuccess),
+          const DisplaySuccessEffect(success: SuccessEnum.resetPasswordSuccess),
         );
         emitEffect(
           const NavigateEffect(

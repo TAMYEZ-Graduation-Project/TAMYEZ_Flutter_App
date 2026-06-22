@@ -1,10 +1,10 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../../core/di/di.dart';
-import '../../../../../../core/entities/resource_entity.dart';
-import '../../../../../../core/presentation/bases/base_stateless_widget.dart';
-import '../../../../../../core/presentation/utils/url_opener/url_opener.dart';
+import '../../di/di.dart';
+import '../../entities/resource_entity.dart';
+import '../bases/base_stateless_widget.dart';
+import '../utils/url_opener/url_opener.dart';
 
 class ResourceListItem extends BaseStatelessWidget {
   final ResourceItemEntity resourceItem;

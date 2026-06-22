@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart' show Firebase;
 import 'package:firebase_crashlytics/firebase_crashlytics.dart'
     show FirebaseCrashlytics;
@@ -20,11 +21,11 @@ import 'core/layers/localization/l10n/manager/localization_manager.dart'
     show LocalizationManager;
 import 'core/layers/theme/factory/app_theme_factory.dart';
 import 'core/layers/theme/manager/theme_manager.dart' show ThemeManager;
+import 'core/presentation/break_points/custom_breakpoints.dart'
+    show CustomBreakpoints;
 import 'core/presentation/routing/defined_routes.dart' show DefinedRoutes;
 import 'core/presentation/routing/navigator_key.dart' show globalNavigatorKey;
 import 'core/presentation/routing/routing_provider.dart' show RoutingProvider;
-import 'core/presentation/screen/custom_breakpoints.dart'
-    show CustomBreakpoints;
 import 'core/presentation/utils/dialogs/app_dialogs.dart' show AppDialogs;
 import 'firebase_options.dart' show DefaultFirebaseOptions;
 import 'modules/startup/ui/splash/splash_screen.dart';
@@ -50,7 +51,13 @@ void main() async {
   final appInitializer = getIt.get<AppInitializer>();
   await appInitializer.initializeEssential();
 
-  runApp(const MyApp());
+  runApp(
+    DevicePreview(
+      builder: (context) {
+        return const MyApp();
+      },
+    ),
+  );
 
   // Post-startup init
   Future.microtask(() async {

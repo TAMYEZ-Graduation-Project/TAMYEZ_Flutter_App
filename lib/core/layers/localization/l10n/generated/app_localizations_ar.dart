@@ -393,4 +393,44 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get routingError =>
       'حدث خطأ أثناء التنقل داخل التطبيق. قد يكون المسار غير صحيح أو البيانات المرسلة غير صالحة.';
+
+  @override
+  String get complete => 'مكتمل';
+
+  @override
+  String get available => 'متاح';
+
+  @override
+  String get inProgress => 'قيد التنفيذ';
+
+  @override
+  String get frozen => 'مجمد';
+
+  @override
+  String get upcoming => 'قادم';
+
+  @override
+  String get careerRoadmap => 'خارطة الطريق المهنية';
+
+  @override
+  String get overallProgress => 'التقدم الإجمالي';
+
+  @override
+  String get postCourseQuiz => 'اختبار ما بعد الدورة';
+
+  @override
+  String get postCourseQuizDescription =>
+      'اختبر معلوماتك باختبار قصير بعد إكمال هذه الخطوة.';
+
+  @override
+  String get takeQuiz => 'ابدأ الاختبار';
+
+  @override
+  String get yourPathToSuccess => 'طريقك للنجاح';
+
+  @override
+  String get lockedOrFrozenMessage => 'هذه الخطوة مقفلة أو مجمدة';
+
+  @override
+  String get noRoadmapStepsFound => 'لا توجد خطوات متاحة في خارطة الطريق';
 }

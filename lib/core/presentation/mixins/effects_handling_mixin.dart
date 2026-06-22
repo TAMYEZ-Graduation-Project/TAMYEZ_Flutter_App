@@ -22,13 +22,23 @@ mixin EffectsHandlingMixin<T extends StatefulWidget>
         displaySnackBar(
           contentType: ContentType.failure,
           title: appLocalizations.error,
-          durationInSeconds: 6,
+          durationInSeconds: 4,
           message: FailureHandling.mapFailureToMessage(
             appLocalizations,
             effect.failure,
           ),
         );
-      case SuccessEffect():
+      case DisplayWarningEffect():
+        displaySnackBar(
+          contentType: ContentType.warning,
+          title: appLocalizations.warning,
+          durationInSeconds: 4,
+          message: FailureHandling.mapFailureToMessage(
+            appLocalizations,
+            effect.failure,
+          ),
+        );
+      case DisplaySuccessEffect():
         displaySnackBar(
           contentType: ContentType.success,
           title: SuccessHandling.mapSuccessToMessage(

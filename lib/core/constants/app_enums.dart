@@ -51,3 +51,15 @@ enum QuizQuestionTypesEnum {
 
   const QuizQuestionTypesEnum(this.strValue);
 }
+
+enum RoadmapStepProgressStatusEnum {
+  completed('Completed'),
+  inProgress('InProgress'),
+  available('Available'),
+  lockedPrereq('LockedPrereq'),
+  disabledFrozen('DisabledFrozen');
+
+  final String strValue;
+
+  const RoadmapStepProgressStatusEnum(this.strValue);
+}

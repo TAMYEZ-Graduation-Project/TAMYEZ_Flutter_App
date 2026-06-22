@@ -139,5 +139,18 @@
   "tokenExpiredContent": "يرجى تسجيل الدخول مرة أخرى",
   "goToLogin": "الذهاب لتسجيل الدخول",
   "appTitle": "تطبيق تميز، مشروع تخرجنا.",
-  "routingError": "حدث خطأ أثناء التنقل داخل التطبيق. قد يكون المسار غير صحيح أو البيانات المرسلة غير صالحة."
+  "routingError": "حدث خطأ أثناء التنقل داخل التطبيق. قد يكون المسار غير صحيح أو البيانات المرسلة غير صالحة.",
+  "complete": "مكتمل",
+  "available": "متاح",
+  "inProgress": "قيد التنفيذ",
+  "frozen": "مجمد",
+  "upcoming": "قادم",
+  "careerRoadmap": "خارطة الطريق المهنية",
+  "overallProgress": "التقدم الإجمالي",
+  "postCourseQuiz": "اختبار ما بعد الدورة",
+  "postCourseQuizDescription": "اختبر معلوماتك باختبار قصير بعد إكمال هذه الخطوة.",
+  "takeQuiz": "ابدأ الاختبار",
+  "yourPathToSuccess": "طريقك للنجاح",
+  "lockedOrFrozenMessage": "هذه الخطوة مقفلة أو مجمدة",
+  "noRoadmapStepsFound": "لا توجد خطوات متاحة في خارطة الطريق"
 }

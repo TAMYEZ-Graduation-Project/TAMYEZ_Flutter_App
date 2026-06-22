@@ -12,10 +12,16 @@ class DisplayErrorEffect extends UiEffect {
   const DisplayErrorEffect({required this.failure});
 }
 
-class SuccessEffect extends UiEffect {
+class DisplaySuccessEffect extends UiEffect {
   final SuccessEnum success;
 
-  const SuccessEffect({required this.success});
+  const DisplaySuccessEffect({required this.success});
+}
+
+class DisplayWarningEffect extends UiEffect {
+  final Failure failure;
+
+  const DisplayWarningEffect({required this.failure});
 }
 
 class NavigateEffect extends UiEffect {

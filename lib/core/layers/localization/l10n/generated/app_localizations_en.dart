@@ -397,4 +397,44 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get routingError =>
       'Error! You Have Navigated To A Wrong Route. Or Navigated With Wrong Arguments';
+
+  @override
+  String get complete => 'Complete';
+
+  @override
+  String get available => 'Available';
+
+  @override
+  String get inProgress => 'In Progress';
+
+  @override
+  String get frozen => 'Frozen';
+
+  @override
+  String get upcoming => 'Upcoming';
+
+  @override
+  String get careerRoadmap => 'Career Roadmap';
+
+  @override
+  String get overallProgress => 'Overall Progress';
+
+  @override
+  String get postCourseQuiz => 'Post-Course Quiz';
+
+  @override
+  String get postCourseQuizDescription =>
+      'Test your knowledge with a quick quiz after completing this step.';
+
+  @override
+  String get takeQuiz => 'Take Quiz';
+
+  @override
+  String get yourPathToSuccess => 'Your Path to Success';
+
+  @override
+  String get lockedOrFrozenMessage => 'This step is locked or frozen';
+
+  @override
+  String get noRoadmapStepsFound => 'No roadmap steps found';
 }

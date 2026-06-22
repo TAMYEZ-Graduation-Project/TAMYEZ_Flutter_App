@@ -14,9 +14,11 @@ class CareerEntity extends Equatable {
   final List<ResourceItemEntity> youtubePlaylists;
   final List<ResourceItemEntity> books;
   final num stepsCount;
+  final num percentageCompleted;
   final List<RoadmapStepEntity> roadmap;
   final String createdAt;
   final String updatedAt;
+  final num orderEpoch;
   final num v;
 
   const CareerEntity({
@@ -30,9 +32,11 @@ class CareerEntity extends Equatable {
     this.youtubePlaylists = const [],
     this.books = const [],
     this.stepsCount = 0,
+    this.percentageCompleted = 0,
     this.roadmap = const [],
     this.createdAt = '',
     this.updatedAt = '',
+    this.orderEpoch = 0,
     this.v = 0,
   });
 
@@ -48,9 +52,49 @@ class CareerEntity extends Equatable {
     youtubePlaylists,
     books,
     stepsCount,
+    percentageCompleted,
     roadmap,
     createdAt,
     updatedAt,
+    orderEpoch,
     v,
   ];
+
+  CareerEntity copyWith({
+    String? id,
+    String? title,
+    String? slug,
+    String? pictureUrl,
+    String? description,
+    bool? isActive,
+    List<ResourceItemEntity>? courses,
+    List<ResourceItemEntity>? youtubePlaylists,
+    List<ResourceItemEntity>? books,
+    num? stepsCount,
+    num? percentageCompleted,
+    List<RoadmapStepEntity>? roadmap,
+    String? createdAt,
+    String? updatedAt,
+    num? orderEpoch,
+    num? v,
+  }) {
+    return CareerEntity(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      slug: slug ?? this.slug,
+      pictureUrl: pictureUrl ?? this.pictureUrl,
+      description: description ?? this.description,
+      isActive: isActive ?? this.isActive,
+      courses: courses ?? this.courses,
+      youtubePlaylists: youtubePlaylists ?? this.youtubePlaylists,
+      books: books ?? this.books,
+      stepsCount: stepsCount ?? this.stepsCount,
+      percentageCompleted: percentageCompleted ?? this.percentageCompleted,
+      roadmap: roadmap ?? this.roadmap,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      orderEpoch: orderEpoch ?? this.orderEpoch,
+      v: v ?? this.v,
+    );
+  }
 }

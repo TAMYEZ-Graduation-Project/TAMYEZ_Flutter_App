@@ -817,6 +817,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Error! You Have Navigated To A Wrong Route. Or Navigated With Wrong Arguments'**
   String get routingError;
+
+  /// No description provided for @complete.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete'**
+  String get complete;
+
+  /// No description provided for @available.
+  ///
+  /// In en, this message translates to:
+  /// **'Available'**
+  String get available;
+
+  /// No description provided for @inProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'In Progress'**
+  String get inProgress;
+
+  /// No description provided for @frozen.
+  ///
+  /// In en, this message translates to:
+  /// **'Frozen'**
+  String get frozen;
+
+  /// No description provided for @upcoming.
+  ///
+  /// In en, this message translates to:
+  /// **'Upcoming'**
+  String get upcoming;
+
+  /// No description provided for @careerRoadmap.
+  ///
+  /// In en, this message translates to:
+  /// **'Career Roadmap'**
+  String get careerRoadmap;
+
+  /// No description provided for @overallProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Overall Progress'**
+  String get overallProgress;
+
+  /// No description provided for @postCourseQuiz.
+  ///
+  /// In en, this message translates to:
+  /// **'Post-Course Quiz'**
+  String get postCourseQuiz;
+
+  /// No description provided for @postCourseQuizDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Test your knowledge with a quick quiz after completing this step.'**
+  String get postCourseQuizDescription;
+
+  /// No description provided for @takeQuiz.
+  ///
+  /// In en, this message translates to:
+  /// **'Take Quiz'**
+  String get takeQuiz;
+
+  /// No description provided for @yourPathToSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Path to Success'**
+  String get yourPathToSuccess;
+
+  /// No description provided for @lockedOrFrozenMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This step is locked or frozen'**
+  String get lockedOrFrozenMessage;
+
+  /// No description provided for @noRoadmapStepsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No roadmap steps found'**
+  String get noRoadmapStepsFound;
 }
 
 class _AppLocalizationsDelegate
