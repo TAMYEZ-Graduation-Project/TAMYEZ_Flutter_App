@@ -21,7 +21,8 @@ class RoadmapRepositoryImp implements RoadmapRepository {
   final CareerLocalDataSource _careerLocalDataSource;
   final RoadmapLocalDataSource _roadmapLocalDataSource;
 
-  const RoadmapRepositoryImp(this._isar,
+  const RoadmapRepositoryImp(
+    this._isar,
     this._roadmapRemoteDataSource,
     this._careerLocalDataSource,
     this._roadmapLocalDataSource,

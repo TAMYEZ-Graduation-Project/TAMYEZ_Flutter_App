@@ -15,10 +15,6 @@ class GetRoadmapStepsUseCase {
     int size = 10,
     required String userId,
   }) {
-    return _repository.getRoadmapSteps(
-      page: page,
-      size: size,
-      userId: userId,
-    );
+    return _repository.getRoadmapSteps(page: page, size: size, userId: userId);
   }
 }
