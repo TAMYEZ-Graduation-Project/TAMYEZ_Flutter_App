@@ -4,8 +4,9 @@ import '../../../../core/execution/operation_result.dart';
 import '../entities/roadmap_steps_response_entity.dart';
 
 abstract interface class RoadmapRepository {
-  Future<OperationResult<CareerEntity>> getUserCareer(
-      {required String careerId});
+  Future<OperationResult<CareerEntity>> getUserCareer({
+    required String careerId,
+  });
 
   Future<OperationResult<RoadmapStepsResponseBodyEntity>> getRoadmapSteps({
     required int page,
@@ -14,5 +15,6 @@ abstract interface class RoadmapRepository {
   });
 
   Future<OperationResult<RoadmapStepEntity>> getRoadmapStepDetails(
-      String roadmapStepId,);
+    String roadmapStepId,
+  );
 }

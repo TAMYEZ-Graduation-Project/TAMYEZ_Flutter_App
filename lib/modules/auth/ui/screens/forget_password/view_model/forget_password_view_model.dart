@@ -70,7 +70,8 @@ class ForgetPasswordViewModel extends BaseCubit<ForgetPasswordState, UiEffect> {
         );
         emitEffect(
           const DisplaySuccessEffect(
-              success: SuccessEnum.forgetPasswordEmailSent),
+            success: SuccessEnum.forgetPasswordEmailSent,
+          ),
         );
         emitEffect(const PageNavigationEffect(page: 1));
       case OperationFailure<void>():
@@ -89,7 +90,8 @@ class ForgetPasswordViewModel extends BaseCubit<ForgetPasswordState, UiEffect> {
     switch (result) {
       case OperationSuccess<void>():
         emitEffect(
-            const DisplaySuccessEffect(success: SuccessEnum.otpResentSuccess));
+          const DisplaySuccessEffect(success: SuccessEnum.otpResentSuccess),
+        );
         _countDownUtility.startCountdown(
           seconds: 40,
           onTick: (remaining) {
