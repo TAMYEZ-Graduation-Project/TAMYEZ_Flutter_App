@@ -1,3 +1,4 @@
+import 'quiz_dto.dart';
 import 'resource_dto.dart';
 
 class RoadmapStepDto {
@@ -11,6 +12,7 @@ class RoadmapStepDto {
   final List<ResourceItemDto>? youtubePlaylists;
   final List<ResourceItemDto>? books;
   final List<String>? quizzesIds;
+  final List<QuizDto>? quizzes;
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final num? v;
@@ -26,6 +28,7 @@ class RoadmapStepDto {
     this.youtubePlaylists,
     this.books,
     this.quizzesIds,
+    this.quizzes,
     this.createdAt,
     this.updatedAt,
     this.v,
@@ -52,11 +55,11 @@ class RoadmapStepDto {
           ?.map((e) => ResourceItemDto.fromJson(e as Map<String, dynamic>))
           .toList(),
 
-      quizzesIds: (json['quizzesIds'] as List?)
-          ?.map((e) => e as String)
-          .whereType<String>()
+      quizzesIds: (json['quizzesIds'] as List?)?.whereType<String>().toList(),
+      quizzes: (json['quizzesIds'] as List?)
+          ?.whereType<Map<String, dynamic>>()
+          .map(QuizDto.fromJson)
           .toList(),
-
       createdAt: json['createdAt'] != null
           ? DateTime.parse(json['createdAt'] as String)
           : null,

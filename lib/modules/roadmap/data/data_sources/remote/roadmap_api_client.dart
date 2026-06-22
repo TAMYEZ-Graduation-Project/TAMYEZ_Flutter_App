@@ -6,6 +6,7 @@ import 'package:retrofit/http.dart';
 
 import '../../../../../core/network/dio/dio_constants.dart';
 import '../../../../career_assessment/data/models/career_details_response.dart';
+import '../../models/roadmap_step_details_response.dart';
 import '../../models/roadmap_steps_response.dart';
 import 'roadmap_endpoints.dart';
 
@@ -27,5 +28,11 @@ abstract class RoadmapApiClient {
   Future<RoadmapStepsResponse> getRoadmapSteps(
     @Query(RoadmapApiKeys.page) int page,
     @Query(RoadmapApiKeys.size) int size,
+  );
+
+  @GET(RoadmapEndpoints.getRoadmapStepDetails)
+  @Extra({DioKeys.requiresAuth: true})
+  Future<RoadmapStepDetailsResponse> getRoadmapStepDetails(
+    @Path(RoadmapApiKeys.roadmapStepId) String roadmapStepId,
   );
 }

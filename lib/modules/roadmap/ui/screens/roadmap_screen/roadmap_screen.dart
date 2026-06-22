@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-import '../../../../../core/constants/app_enums.dart';
 import '../../../../../core/di/di.dart';
 import '../../../../../core/entities/career_entity.dart';
-import '../../../../../core/entities/roadmap_step_entity.dart';
 import '../../../../../core/presentation/bases/base_stateful_widget_state.dart';
 import '../../../../../core/presentation/bases/base_stateless_widget.dart';
 import '../../../../../core/presentation/mixins/effects_handling_mixin.dart';
 import '../../../../../core/presentation/result/ui_result.dart';
 import '../../../../../core/presentation/widgets/app_error_widget.dart';
+import 'skeletonizer/roadmap_screen_skeletonizer_fake_data.dart';
 import 'view_model/roadmap_intent.dart';
 import 'view_model/roadmap_state.dart';
 import 'view_model/roadmap_view_model.dart';
@@ -30,6 +29,8 @@ class RoadmapPage extends StatefulWidget {
 class _RoadmapPageState extends BaseStatefulWidgetState<RoadmapPage>
     with EffectsHandlingMixin {
   final RoadmapViewModel _viewModel = getIt.get();
+  final RoadmapScreenSkeletonizerFakeData _screenSkeletonizerFakeData =
+  RoadmapScreenSkeletonizerFakeData();
   final ScrollController _scrollController = ScrollController();
 
   @override
@@ -50,7 +51,8 @@ class _RoadmapPageState extends BaseStatefulWidgetState<RoadmapPage>
     return BlocProvider(
       create: (context) => _viewModel,
       child: Scaffold(
-        appBar: AppBar(title: const Text('Career Roadmap'), centerTitle: true),
+        appBar: AppBar(
+            title: Text(appLocalizations.careerRoadmap), centerTitle: true),
         body: BlocBuilder<RoadmapViewModel, RoadmapState>(
           buildWhen: (previous, current) {
             return previous.careerDetails != current.careerDetails;
@@ -63,7 +65,7 @@ class _RoadmapPageState extends BaseStatefulWidgetState<RoadmapPage>
                 return Skeletonizer(
                   child: _RoadmapScreenLayout(
                     isLastPage: true,
-                    career: fakeCareer,
+                    career: _screenSkeletonizerFakeData.fakeCareer,
                   ),
                 );
               case Success<CareerEntity>():
@@ -84,30 +86,6 @@ class _RoadmapPageState extends BaseStatefulWidgetState<RoadmapPage>
       ),
     );
   }
-
-  final CareerEntity fakeCareer = const CareerEntity(
-    id: '1',
-    title: 'Software Engineer',
-    pictureUrl: 'https://picsum.photos/200/300',
-    roadmap: [
-      RoadmapStepEntity(
-        id: '1',
-        title: 'Introduction to Programming',
-        progressStatus: RoadmapStepProgressStatusEnum.completed,
-      ),
-      RoadmapStepEntity(
-        id: '2',
-        title: 'Data Structures and Algorithms',
-        progressStatus: RoadmapStepProgressStatusEnum.inProgress,
-      ),
-      RoadmapStepEntity(
-        id: '3',
-        title: 'Web Development',
-        progressStatus: RoadmapStepProgressStatusEnum.available,
-      ),
-      RoadmapStepEntity(id: '4', title: 'Database Management'),
-    ],
-  );
 }
 
 class _RoadmapScreenLayout extends BaseStatelessWidget {

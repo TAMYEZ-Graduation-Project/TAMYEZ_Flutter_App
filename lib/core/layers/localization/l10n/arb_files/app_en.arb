@@ -144,5 +144,12 @@
   "available": "Available",
   "inProgress": "In Progress",
   "frozen": "Frozen",
-  "upcoming": "Upcoming"
+  "upcoming": "Upcoming",
+  "careerRoadmap": "Career Roadmap",
+  "overallProgress": "Overall Progress",
+  "postCourseQuiz": "Post-Course Quiz",
+  "postCourseQuizDescription": "Test your knowledge with a quick quiz after completing this step.",
+  "takeQuiz": "Take Quiz",
+  "yourPathToSuccess": "Your Path to Success",
+  "lockedOrFrozenMessage": "This step is locked or frozen"
 }

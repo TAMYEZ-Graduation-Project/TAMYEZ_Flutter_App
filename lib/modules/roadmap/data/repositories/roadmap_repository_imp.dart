@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/entities/career_entity.dart';
+import '../../../../core/entities/roadmap_step_entity.dart';
 import '../../../../core/execution/operation_result.dart';
 import '../../../../core/utils/functions/repo_result_handler.dart';
 import '../../domain/entities/roadmap_steps_response_entity.dart';
@@ -30,6 +31,17 @@ class RoadmapRepositoryImp implements RoadmapRepository {
       return (await _roadmapRemoteDataSource.getRoadmapSteps(
         page,
         size,
+      )).toEntity().body;
+    });
+  }
+
+  @override
+  Future<OperationResult<RoadmapStepEntity>> getRoadmapStepDetails(
+    String roadmapStepId,
+  ) {
+    return repoResultHandler(() async {
+      return (await _roadmapRemoteDataSource.getRoadmapStepDetails(
+        roadmapStepId,
       )).toEntity().body;
     });
   }

@@ -4,9 +4,11 @@ import '../../../../core/entities/roadmap_step_entity.dart';
 import '../../../../core/mappers/base_career_mapper.dart';
 import '../../../career_assessment/data/models/career_details_response.dart';
 import '../../../career_assessment/domain/entities/career_details_entity.dart';
+import '../../domain/entities/roadmap_step_details_response_entity.dart';
 import '../../domain/entities/roadmap_steps_response_entity.dart';
 import '../local_models/career_local.dart';
 import '../local_models/roadmap_step_local.dart';
+import '../models/roadmap_step_details_response.dart';
 import '../models/roadmap_steps_response.dart';
 
 extension CareerDetailsResponseMapper on CareerDetailsResponse {
@@ -106,6 +108,16 @@ extension RoadmapStepsResponseBodyMapper on RoadmapStepsResponseBody {
       ),
       percentageCompleted: percentageCompleted ?? 0,
       data: data?.map((e) => e.toEntity()).toList() ?? [],
+    );
+  }
+}
+
+extension RoadmapStepDetailsResponseMapper on RoadmapStepDetailsResponse {
+  RoadmapStepDetailsResponseEntity toEntity() {
+    return RoadmapStepDetailsResponseEntity(
+      success: success ?? false,
+      message: message ?? '',
+      body: body?.toEntity() ?? const RoadmapStepEntity(),
     );
   }
 }

@@ -847,6 +847,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Upcoming'**
   String get upcoming;
+
+  /// No description provided for @careerRoadmap.
+  ///
+  /// In en, this message translates to:
+  /// **'Career Roadmap'**
+  String get careerRoadmap;
+
+  /// No description provided for @overallProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Overall Progress'**
+  String get overallProgress;
+
+  /// No description provided for @postCourseQuiz.
+  ///
+  /// In en, this message translates to:
+  /// **'Post-Course Quiz'**
+  String get postCourseQuiz;
+
+  /// No description provided for @postCourseQuizDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Test your knowledge with a quick quiz after completing this step.'**
+  String get postCourseQuizDescription;
+
+  /// No description provided for @takeQuiz.
+  ///
+  /// In en, this message translates to:
+  /// **'Take Quiz'**
+  String get takeQuiz;
+
+  /// No description provided for @yourPathToSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Path to Success'**
+  String get yourPathToSuccess;
+
+  /// No description provided for @lockedOrFrozenMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This step is locked or frozen'**
+  String get lockedOrFrozenMessage;
 }
 
 class _AppLocalizationsDelegate

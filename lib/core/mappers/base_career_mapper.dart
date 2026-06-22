@@ -47,7 +47,8 @@ extension RoadmapStepDtoMapper on RoadmapStepDto {
       youtubePlaylists:
           youtubePlaylists?.map((e) => e.toEntity()).toList() ?? [],
       books: books?.map((e) => e.toEntity()).toList() ?? [],
-      quizzes: quizzesIds ?? [],
+      quizzes: quizzes?.map((e) => e.toEntity()).toList() ?? [],
+      quizzesIds: quizzesIds ?? [],
       createdAt: createdAt?.toIso8601String() ?? '',
       updatedAt: updatedAt?.toIso8601String() ?? '',
       v: v ?? 0,
@@ -75,7 +76,6 @@ extension QuizDtoMapper on QuizDto {
       id: id ?? '',
       title: title ?? '',
       description: description ?? '',
-      aiPrompt: aiPrompt ?? '',
       uniqueKey: uniqueKey ?? '',
       type: type ?? '',
       duration: duration ?? 0,

@@ -104,10 +104,14 @@ import '../../modules/roadmap/domain/repositories/roadmap_repository.dart'
     as _i504;
 import '../../modules/roadmap/domain/use_cases/get_career_details_use_case.dart'
     as _i318;
+import '../../modules/roadmap/domain/use_cases/get_roadmap_step_details_use_case.dart'
+    as _i580;
 import '../../modules/roadmap/domain/use_cases/get_roadmap_steps_use_case.dart'
     as _i1009;
 import '../../modules/roadmap/ui/screens/roadmap_screen/view_model/roadmap_view_model.dart'
     as _i612;
+import '../../modules/roadmap/ui/screens/roadmap_step_details/view_model/roadmap_step_details_view_model.dart'
+    as _i368;
 import '../auth_providers/auth_provider.dart' as _i842;
 import '../auth_providers/user_provider.dart' as _i9;
 import '../bootstrap/app_initializer.dart' as _i4;
@@ -275,6 +279,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i318.GetUserCareerUseCase>(
       () => _i318.GetUserCareerUseCase(gh<_i504.RoadmapRepository>()),
     );
+    gh.factory<_i580.GetRoadmapStepDetailsUseCase>(
+      () => _i580.GetRoadmapStepDetailsUseCase(gh<_i504.RoadmapRepository>()),
+    );
     gh.factory<_i1009.GetRoadmapStepsUseCase>(
       () => _i1009.GetRoadmapStepsUseCase(gh<_i504.RoadmapRepository>()),
     );
@@ -314,6 +321,11 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i842.AuthProvider>(),
         gh<_i230.AwesomeNotificationService>(),
         gh<_i510.FirebaseCloudMessagingService>(),
+      ),
+    );
+    gh.factory<_i368.RoadmapStepDetailsViewModel>(
+      () => _i368.RoadmapStepDetailsViewModel(
+        gh<_i580.GetRoadmapStepDetailsUseCase>(),
       ),
     );
     gh.factory<_i1050.LoginViewModel>(

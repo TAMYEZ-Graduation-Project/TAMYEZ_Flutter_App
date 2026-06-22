@@ -1,8 +1,11 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../../core/constants/app_enums.dart';
 import '../../../../../../core/entities/roadmap_step_entity.dart';
 import '../../../../../../core/layers/theme/colors/app_colors.dart';
 import '../../../../../../core/presentation/bases/base_stateless_widget.dart';
+import '../../../../../../core/presentation/routing/defined_routes.dart';
 import 'roadmap_step_title_and_status_widget.dart';
 import 'step_status_widget.dart';
 
@@ -33,32 +36,52 @@ class InnerRoadmapStep extends BaseStatelessWidget {
         ),
         Directionality(
           textDirection: textDirection,
-          child: Row(
-            children: [
-              Column(
-                children: [
-                  Container(
-                    width: 2,
-                    height: 25,
-                    decoration: BoxDecoration(color: AppColors.dark),
-                  ),
-                  StepStatusWidget(status: roadmapStepEntity.progressStatus),
-                  Container(
-                    width: 2,
-                    height: 25,
-                    decoration: BoxDecoration(color: AppColors.dark),
-                  ),
-                ],
-              ),
-              const SizedBox(width: 10),
-              Flexible(
-                child: RoadmapStepTitleAndStatusWidget(
-                  roadmapStepTitle: roadmapStepEntity.title,
-                  roadmapStepStatus: roadmapStepEntity.progressStatus,
-                  isNext: isNext,
+          child: GestureDetector(
+            onTap: () {
+              if (roadmapStepEntity.progressStatus ==
+                      RoadmapStepProgressStatusEnum.lockedPrereq ||
+                  roadmapStepEntity.progressStatus ==
+                      RoadmapStepProgressStatusEnum.disabledFrozen) {
+                d.displaySnackBar(
+                  contentType: ContentType.warning,
+                  title: d.appLocalizations.warning,
+                  message: d.appLocalizations.lockedOrFrozenMessage,
+                );
+                return;
+              }
+              Navigator.pushNamed(
+                context,
+                DefinedRoutes.roadmapDetailsRoute,
+                arguments: roadmapStepEntity,
+              );
+            },
+            child: Row(
+              children: [
+                Column(
+                  children: [
+                    Container(
+                      width: 2,
+                      height: 25,
+                      decoration: BoxDecoration(color: AppColors.dark),
+                    ),
+                    StepStatusWidget(status: roadmapStepEntity.progressStatus),
+                    Container(
+                      width: 2,
+                      height: 25,
+                      decoration: BoxDecoration(color: AppColors.dark),
+                    ),
+                  ],
                 ),
-              ),
-            ],
+                const SizedBox(width: 10),
+                Flexible(
+                  child: RoadmapStepTitleAndStatusWidget(
+                    roadmapStepTitle: roadmapStepEntity.title,
+                    roadmapStepStatus: roadmapStepEntity.progressStatus,
+                    isNext: isNext,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ],

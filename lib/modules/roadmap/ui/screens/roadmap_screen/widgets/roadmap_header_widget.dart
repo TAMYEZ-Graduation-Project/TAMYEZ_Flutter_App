@@ -34,7 +34,7 @@ class RoadmapHeaderWidget extends BaseStatelessWidget {
           children: [
             Text(title, style: d.typography.subTitle),
             Text(
-              'Your Path to Success',
+              d.appLocalizations.yourPathToSuccess,
               style: d.typography.subTitle.copyWith(color: AppColors.blue),
             ),
           ],

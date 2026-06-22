@@ -413,4 +413,26 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get upcoming => 'Upcoming';
+
+  @override
+  String get careerRoadmap => 'Career Roadmap';
+
+  @override
+  String get overallProgress => 'Overall Progress';
+
+  @override
+  String get postCourseQuiz => 'Post-Course Quiz';
+
+  @override
+  String get postCourseQuizDescription =>
+      'Test your knowledge with a quick quiz after completing this step.';
+
+  @override
+  String get takeQuiz => 'Take Quiz';
+
+  @override
+  String get yourPathToSuccess => 'Your Path to Success';
+
+  @override
+  String get lockedOrFrozenMessage => 'This step is locked or frozen';
 }
