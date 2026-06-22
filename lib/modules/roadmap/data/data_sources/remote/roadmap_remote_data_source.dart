@@ -8,5 +8,6 @@ abstract interface class RoadmapRemoteDataSource {
   Future<RoadmapStepsResponse> getRoadmapSteps(int page, int size);
 
   Future<RoadmapStepDetailsResponse> getRoadmapStepDetails(
-      String roadmapStepId);
+    String roadmapStepId,
+  );
 }

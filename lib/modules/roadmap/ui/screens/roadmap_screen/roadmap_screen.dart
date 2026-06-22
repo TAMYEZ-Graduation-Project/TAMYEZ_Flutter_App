@@ -30,7 +30,7 @@ class _RoadmapPageState extends BaseStatefulWidgetState<RoadmapPage>
     with EffectsHandlingMixin {
   final RoadmapViewModel _viewModel = getIt.get();
   final RoadmapScreenSkeletonizerFakeData _screenSkeletonizerFakeData =
-  RoadmapScreenSkeletonizerFakeData();
+      RoadmapScreenSkeletonizerFakeData();
   final ScrollController _scrollController = ScrollController();
 
   @override
@@ -52,7 +52,9 @@ class _RoadmapPageState extends BaseStatefulWidgetState<RoadmapPage>
       create: (context) => _viewModel,
       child: Scaffold(
         appBar: AppBar(
-            title: Text(appLocalizations.careerRoadmap), centerTitle: true),
+          title: Text(appLocalizations.careerRoadmap),
+          centerTitle: true,
+        ),
         body: BlocBuilder<RoadmapViewModel, RoadmapState>(
           buildWhen: (previous, current) {
             return previous.careerDetails != current.careerDetails;

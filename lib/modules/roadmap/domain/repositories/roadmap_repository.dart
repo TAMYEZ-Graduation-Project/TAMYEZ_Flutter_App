@@ -12,5 +12,6 @@ abstract interface class RoadmapRepository {
   );
 
   Future<OperationResult<RoadmapStepEntity>> getRoadmapStepDetails(
-      String roadmapStepId);
+    String roadmapStepId,
+  );
 }

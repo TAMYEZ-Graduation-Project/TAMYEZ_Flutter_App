@@ -17,8 +17,10 @@ class RoadmapProgressBar extends BaseStatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(d.appLocalizations.overallProgress,
-                style: d.typography.subTitle),
+            Text(
+              d.appLocalizations.overallProgress,
+              style: d.typography.subTitle,
+            ),
             const SizedBox(height: 12),
             Stack(
               clipBehavior: Clip.none,
