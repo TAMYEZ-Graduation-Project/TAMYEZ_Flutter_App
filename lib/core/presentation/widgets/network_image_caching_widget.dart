@@ -13,11 +13,14 @@ import 'package:flutter/material.dart'
 class NetworkImageCachingWidget extends StatelessWidget {
   final String imageUrl;
   final double? height, width;
+
+  final Widget Function(BuildContext, ImageProvider)? imageBuilder;
   final BoxFit fit;
 
   const NetworkImageCachingWidget({
     super.key,
     required this.imageUrl,
+    this.imageBuilder,
     this.fit = BoxFit.cover,
     this.height,
     this.width,
@@ -30,6 +33,7 @@ class NetworkImageCachingWidget extends StatelessWidget {
       imageUrl: imageUrl,
       height: height,
       width: width,
+      imageBuilder: imageBuilder,
       placeholder: (context, url) =>
           const Center(child: CircularProgressIndicator()),
       errorBuilder: (context, object, stackTrace) =>

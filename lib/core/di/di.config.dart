@@ -81,6 +81,33 @@ import '../../modules/career_assessment/ui/screens/career_details/view_model/car
     as _i582;
 import '../../modules/career_assessment/ui/screens/top_career_matches/view_model/top_career_matches_view_model.dart'
     as _i455;
+import '../../modules/roadmap/data/data_sources/local/career_local_data_source.dart'
+    as _i169;
+import '../../modules/roadmap/data/data_sources/local/career_local_data_source_imp.dart'
+    as _i196;
+import '../../modules/roadmap/data/data_sources/local/roadmap_local_data_source.dart'
+    as _i908;
+import '../../modules/roadmap/data/data_sources/local/roadmap_local_data_source_imp.dart'
+    as _i513;
+import '../../modules/roadmap/data/data_sources/remote/roadmap_api_client.dart'
+    as _i935;
+import '../../modules/roadmap/data/data_sources/remote/roadmap_remote_data_source.dart'
+    as _i114;
+import '../../modules/roadmap/data/data_sources/remote/roadmap_remote_data_source_imp.dart'
+    as _i430;
+import '../../modules/roadmap/data/local_models/career_local.dart' as _i1005;
+import '../../modules/roadmap/data/local_models/roadmap_step_local.dart'
+    as _i835;
+import '../../modules/roadmap/data/repositories/roadmap_repository_imp.dart'
+    as _i1027;
+import '../../modules/roadmap/domain/repositories/roadmap_repository.dart'
+    as _i504;
+import '../../modules/roadmap/domain/use_cases/get_career_details_use_case.dart'
+    as _i318;
+import '../../modules/roadmap/domain/use_cases/get_roadmap_steps_use_case.dart'
+    as _i1009;
+import '../../modules/roadmap/ui/screens/roadmap_screen/view_model/roadmap_view_model.dart'
+    as _i612;
 import '../auth_providers/auth_provider.dart' as _i842;
 import '../auth_providers/user_provider.dart' as _i9;
 import '../bootstrap/app_initializer.dart' as _i4;
@@ -179,11 +206,32 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i361.Dio>(instanceName: 'mainDio'),
       ),
     );
+    gh.lazySingleton<_i935.RoadmapApiClient>(
+      () => _i935.RoadmapApiClient(gh<_i361.Dio>(instanceName: 'mainDio')),
+    );
+    gh.factory<_i908.RoadmapLocalDataSource>(
+      () => _i513.RoadmapLocalDataSourceImp(
+        gh<_i214.Isar>(),
+        gh<_i214.IsarCollection<_i835.RoadmapStepLocal>>(),
+      ),
+    );
     gh.factory<_i911.AuthRemoteDataSource>(
       () => _i5.AuthRemoteDataSourceImp(gh<_i362.AuthApiClient>()),
     );
+    gh.factory<_i169.CareerLocalDataSource>(
+      () => _i196.CareerLocalDataSourceImp(
+        gh<_i214.Isar>(),
+        gh<_i214.IsarCollection<_i1005.CareerLocal>>(),
+      ),
+    );
     gh.factory<_i150.EmailRepository>(
       () => _i948.EmailRepositoryImp(gh<_i214.Isar>()),
+    );
+    gh.factory<_i114.RoadmapRemoteDataSource>(
+      () => _i430.RoadmapRemoteDataSourceImp(gh<_i935.RoadmapApiClient>()),
+    );
+    gh.factory<_i504.RoadmapRepository>(
+      () => _i1027.RoadmapRepositoryImp(gh<_i114.RoadmapRemoteDataSource>()),
     );
     gh.factory<_i376.AuthLocalDataSource>(
       () => _i405.AuthLocalDataSourceImp(
@@ -223,6 +271,12 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i250.CareerAssessmentRemoteDataSource>(),
         gh<_i1003.StorageService>(instanceName: 'secureStorage'),
       ),
+    );
+    gh.factory<_i318.GetUserCareerUseCase>(
+      () => _i318.GetUserCareerUseCase(gh<_i504.RoadmapRepository>()),
+    );
+    gh.factory<_i1009.GetRoadmapStepsUseCase>(
+      () => _i1009.GetRoadmapStepsUseCase(gh<_i504.RoadmapRepository>()),
     );
     gh.factory<_i347.ForgetPasswordUseCase>(
       () => _i347.ForgetPasswordUseCase(gh<_i779.AuthRepository>()),
@@ -267,6 +321,12 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i46.LoginUseCase>(),
         gh<_i280.GmailLoginUseCase>(),
         gh<_i4.AppInitializer>(),
+      ),
+    );
+    gh.factory<_i612.RoadmapViewModel>(
+      () => _i612.RoadmapViewModel(
+        gh<_i318.GetUserCareerUseCase>(),
+        gh<_i1009.GetRoadmapStepsUseCase>(),
       ),
     );
     gh.factory<_i610.CheckCareerAssessmentAnswersUseCase>(

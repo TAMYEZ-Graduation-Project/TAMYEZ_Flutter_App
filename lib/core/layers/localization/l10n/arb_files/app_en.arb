@@ -139,5 +139,10 @@
   "tokenExpiredContent": "Please, re-login again",
   "goToLogin": "Go to Login",
   "appTitle": "TAMYEZ App, Our Graduation Project.",
-  "routingError": "Error! You Have Navigated To A Wrong Route. Or Navigated With Wrong Arguments"
+  "routingError": "Error! You Have Navigated To A Wrong Route. Or Navigated With Wrong Arguments",
+  "complete": "Complete",
+  "available": "Available",
+  "inProgress": "In Progress",
+  "frozen": "Frozen",
+  "upcoming": "Upcoming"
 }

@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -397,4 +398,19 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get routingError =>
       'Error! You Have Navigated To A Wrong Route. Or Navigated With Wrong Arguments';
+
+  @override
+  String get complete => 'Complete';
+
+  @override
+  String get available => 'Available';
+
+  @override
+  String get inProgress => 'In Progress';
+
+  @override
+  String get frozen => 'Frozen';
+
+  @override
+  String get upcoming => 'Upcoming';
 }

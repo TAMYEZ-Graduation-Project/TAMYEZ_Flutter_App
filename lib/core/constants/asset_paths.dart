@@ -29,4 +29,15 @@ abstract final class AssetPaths {
   static const String takenQuizzesIcon = 'assets/icons/taken_quizzes_icon.png';
   static const String takenQuizzesIconFilled =
       'assets/icons/taken_quizzes_icon_filled.png';
+
+  static const String availableStepStatusIcon =
+      'assets/icons/available_step_icon.png';
+  static const String completedStepStatusIcon =
+      'assets/icons/completed_step_icon.png';
+  static const String inProgressStepStatusIcon =
+      'assets/icons/in_progress_step_icon.png';
+  static const String lockedPrereqStepStatusIcon =
+      'assets/icons/locked_step_icon.png';
+  static const String disabledFrozenStepStatusIcon =
+      'assets/icons/frozen_step_icon.png';
 }

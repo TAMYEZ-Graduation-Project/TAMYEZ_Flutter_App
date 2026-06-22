@@ -817,6 +817,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Error! You Have Navigated To A Wrong Route. Or Navigated With Wrong Arguments'**
   String get routingError;
+
+  /// No description provided for @complete.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete'**
+  String get complete;
+
+  /// No description provided for @available.
+  ///
+  /// In en, this message translates to:
+  /// **'Available'**
+  String get available;
+
+  /// No description provided for @inProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'In Progress'**
+  String get inProgress;
+
+  /// No description provided for @frozen.
+  ///
+  /// In en, this message translates to:
+  /// **'Frozen'**
+  String get frozen;
+
+  /// No description provided for @upcoming.
+  ///
+  /// In en, this message translates to:
+  /// **'Upcoming'**
+  String get upcoming;
 }
 
 class _AppLocalizationsDelegate

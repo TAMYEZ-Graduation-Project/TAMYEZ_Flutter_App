@@ -40,6 +40,7 @@ class CareerDto {
       books = (json['books'] as List).map(ResourceItemDto.fromJson).toList();
     }
     stepsCount = json['stepsCount'] as num?;
+    percentageCompleted = json['percentageCompleted'] as num?;
     if (json['roadmap'] != null) {
       roadmap = (json['roadmap'] as List)
           .map((e) => RoadmapStepDto.fromJson(e as Map<String, dynamic>))
@@ -61,6 +62,7 @@ class CareerDto {
   List<ResourceItemDto>? youtubePlaylists;
   List<ResourceItemDto>? books;
   num? stepsCount;
+  num? percentageCompleted;
   List<RoadmapStepDto>? roadmap;
   String? createdAt;
   String? updatedAt;
@@ -86,6 +88,7 @@ class CareerDto {
       map['books'] = books?.map((v) => v.toJson()).toList();
     }
     map['stepsCount'] = stepsCount;
+    map['percentageCompleted'] = percentageCompleted;
     if (roadmap != null) {
       map['roadmap'] = roadmap?.map((v) => v.toJson()).toList();
     }

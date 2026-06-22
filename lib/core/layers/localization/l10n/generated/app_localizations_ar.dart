@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -393,4 +394,19 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get routingError =>
       'حدث خطأ أثناء التنقل داخل التطبيق. قد يكون المسار غير صحيح أو البيانات المرسلة غير صالحة.';
+
+  @override
+  String get complete => 'Complete';
+
+  @override
+  String get available => 'Available';
+
+  @override
+  String get inProgress => 'In Progress';
+
+  @override
+  String get frozen => 'Frozen';
+
+  @override
+  String get upcoming => 'Upcoming';
 }
