@@ -158,4 +158,10 @@ class ForgetPasswordViewModel extends BaseCubit<ForgetPasswordState, UiEffect> {
         emitEffect(DisplayErrorEffect(failure: result.failure));
     }
   }
+
+  @override
+  Future<void> close() {
+    _countDownUtility.cancelCountdown();
+    return super.close();
+  }
 }

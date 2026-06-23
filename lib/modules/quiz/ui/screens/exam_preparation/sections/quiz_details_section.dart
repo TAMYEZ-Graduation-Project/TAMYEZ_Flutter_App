@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/extensions/quiz_duration_formatter.dart';
-import '../../../../../core/layers/theme/colors/app_colors.dart';
-import '../../../../../core/presentation/bases/base_stateless_widget.dart';
-import '../../../domain/entities/exam_preparation_screen_params.dart';
+import '../../../../../../core/extensions/quiz_duration_formatter.dart';
+import '../../../../../../core/layers/theme/colors/app_colors.dart';
+import '../../../../../../core/presentation/bases/base_stateless_widget.dart';
+import '../../../../domain/entities/exam_preparation_screen_params.dart';
 
 class QuizDetailsSection extends BaseStatelessWidget {
   final ExamPreparationScreenParams params;
@@ -20,7 +20,7 @@ class QuizDetailsSection extends BaseStatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Quiz Details', style: d.typography.title),
+            Text(d.appLocalizations.quizDetails, style: d.typography.title),
             Container(
               width: d.screenSize.width / 6,
               margin: const EdgeInsets.only(top: 8, right: 22),
@@ -29,13 +29,16 @@ class QuizDetailsSection extends BaseStatelessWidget {
             ),
           ],
         ),
-        _DetailItemWidget(itemTitle: 'Topic', itemValue: params.stepTitle),
         _DetailItemWidget(
-          itemTitle: 'Number of Questions',
+          itemTitle: d.appLocalizations.topic,
+          itemValue: params.stepTitle,
+        ),
+        _DetailItemWidget(
+          itemTitle: d.appLocalizations.numberOfQuestions,
           itemValue: params.quiz.questionsNumber.toInt().toString(),
         ),
         _DetailItemWidget(
-          itemTitle: 'Time Limit',
+          itemTitle: d.appLocalizations.timeLimit,
           itemValue: params.quiz.duration.toInt().toHoursMinutes(),
         ),
       ],

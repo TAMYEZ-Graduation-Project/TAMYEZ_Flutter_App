@@ -81,6 +81,20 @@ import '../../modules/career_assessment/ui/screens/career_details/view_model/car
     as _i582;
 import '../../modules/career_assessment/ui/screens/top_career_matches/view_model/top_career_matches_view_model.dart'
     as _i455;
+import '../../modules/quiz/data/data_sources/remote/quiz_api_client.dart'
+    as _i692;
+import '../../modules/quiz/data/data_sources/remote/quiz_remote_data_source.dart'
+    as _i249;
+import '../../modules/quiz/data/data_sources/remote/quiz_remote_data_source_imp.dart'
+    as _i365;
+import '../../modules/quiz/data/repositories/quiz_repository_imp.dart' as _i882;
+import '../../modules/quiz/domain/repositories/quiz_repository.dart' as _i139;
+import '../../modules/quiz/domain/use_cases/check_quiz_answers_use_case.dart'
+    as _i419;
+import '../../modules/quiz/domain/use_cases/get_quiz_questions_use_case.dart'
+    as _i383;
+import '../../modules/quiz/ui/screens/quiz/view_model/quiz_view_model.dart'
+    as _i426;
 import '../../modules/roadmap/data/data_sources/local/career_local_data_source.dart'
     as _i169;
 import '../../modules/roadmap/data/data_sources/local/career_local_data_source_imp.dart'
@@ -210,6 +224,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i361.Dio>(instanceName: 'mainDio'),
       ),
     );
+    gh.lazySingleton<_i692.QuizApiClient>(
+      () => _i692.QuizApiClient(gh<_i361.Dio>(instanceName: 'mainDio')),
+    );
     gh.lazySingleton<_i935.RoadmapApiClient>(
       () => _i935.RoadmapApiClient(gh<_i361.Dio>(instanceName: 'mainDio')),
     );
@@ -253,6 +270,18 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i230.AwesomeNotificationService>(),
         gh<_i892.FirebaseMessaging>(),
       ),
+    );
+    gh.factory<_i249.QuizRemoteDataSource>(
+      () => _i365.QuizRemoteDataSourceImp(gh<_i692.QuizApiClient>()),
+    );
+    gh.factory<_i139.QuizRepository>(
+      () => _i882.QuizRepositoryImp(gh<_i249.QuizRemoteDataSource>()),
+    );
+    gh.factory<_i419.CheckQuizAnswersUseCase>(
+      () => _i419.CheckQuizAnswersUseCase(gh<_i139.QuizRepository>()),
+    );
+    gh.factory<_i383.GetQuizQuestionsUseCase>(
+      () => _i383.GetQuizQuestionsUseCase(gh<_i139.QuizRepository>()),
     );
     gh.factory<_i908.RoadmapLocalDataSource>(
       () => _i513.RoadmapLocalDataSourceImp(
@@ -315,6 +344,13 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i842.AuthProvider>(),
         gh<_i230.AwesomeNotificationService>(),
         gh<_i510.FirebaseCloudMessagingService>(),
+      ),
+    );
+    gh.factory<_i426.QuizViewModel>(
+      () => _i426.QuizViewModel(
+        gh<_i383.GetQuizQuestionsUseCase>(),
+        gh<_i419.CheckQuizAnswersUseCase>(),
+        gh<_i497.CountDownUtility>(),
       ),
     );
     gh.factory<_i1050.LoginViewModel>(

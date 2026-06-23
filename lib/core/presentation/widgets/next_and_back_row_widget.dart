@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../core/presentation/bases/base_stateless_widget.dart';
+import '../bases/base_stateless_widget.dart';
 
 class NextAndBackRowWidget extends BaseStatelessWidget {
   final bool isFirstQuestion;

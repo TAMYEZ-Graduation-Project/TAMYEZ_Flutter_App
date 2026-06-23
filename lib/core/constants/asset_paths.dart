@@ -40,4 +40,6 @@ abstract final class AssetPaths {
       'assets/icons/locked_step_icon.png';
   static const String disabledFrozenStepStatusIcon =
       'assets/icons/frozen_step_icon.png';
+  static const String greenClock = 'assets/icons/green_clock.png';
+  static const String redClock = 'assets/icons/red_clock.png';
 }

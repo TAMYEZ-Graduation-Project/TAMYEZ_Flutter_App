@@ -152,5 +152,34 @@
   "takeQuiz": "Take Quiz",
   "yourPathToSuccess": "Your Path to Success",
   "lockedOrFrozenMessage": "This step is locked or frozen",
-  "noRoadmapStepsFound": "No roadmap steps found"
+  "noRoadmapStepsFound": "No roadmap steps found",
+  "notAllQuizQuestionsAnswered": "Not all quiz questions answered. Please answer all questions before submitting.",
+  "examPreparation": "Exam Preparation",
+  "startQuiz": "Start Quiz",
+  "leave": "Leave",
+  "quiz": "Quiz",
+  "exitQuizConfirmation": "Are you sure you want to exit?",
+  "no": "No",
+  "yes": "Yes",
+  "timeOut": "Time Out!!",
+  "viewResult": "View Result",
+  "quizDetails": "Quiz Details",
+  "topic": "Topic",
+  "numberOfQuestions": "Number of Questions",
+  "timeLimit": "Time Limit",
+  "quizResults": "Quiz Results",
+  "reviewAnswers": "Review Answers",
+  "lowScoreReviewWarning": "Oh! you can’t review answers because you got less than 50%, please study well and retake the exam.",
+  "performanceSummary": "Performance Summary",
+  "correctAnswers": "Correct\nAnswers",
+  "wrongAnswers": "Wrong\nAnswers",
+  "greatJob": "Great Job, {name}",
+  "@greatJob": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "quizCompletionSummary": "You've successfully completed the course quiz. Here's a summary of your performance."
 }

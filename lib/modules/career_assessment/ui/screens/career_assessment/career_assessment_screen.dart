@@ -14,13 +14,13 @@ import '../../../../../core/presentation/result/ui_result.dart';
 import '../../../../../core/presentation/utils/dialogs/app_dialogs.dart';
 import '../../../../../core/presentation/widgets/app_error_widget.dart';
 import '../../../../../core/presentation/widgets/app_loading_widget.dart';
+import '../../../../../core/presentation/widgets/career_assessment_loading_overlay.dart';
+import '../../../../../core/presentation/widgets/next_and_back_row_widget.dart';
 import '../../../../../core/presentation/widgets/question_widget_factory.dart'
     show QuestionWidgetFactory;
-import '../../../domain/entities/check_career_assessment_answers_response_entity.dart';
-import 'sections/career_assessment_loading_overlay.dart';
-import 'sections/next_and_back_row_widget.dart';
-import 'sections/questions_progress_bar_widget.dart'
+import '../../../../../core/presentation/widgets/questions_progress_bar_widget.dart'
     show QuestionsProgressBarWidget;
+import '../../../domain/entities/check_career_assessment_answers_response_entity.dart';
 import 'view_model/career_assessment_intent.dart';
 import 'view_model/career_assessment_state.dart';
 import 'view_model/career_assessment_view_model.dart';

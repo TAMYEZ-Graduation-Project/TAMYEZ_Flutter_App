@@ -895,6 +895,138 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No roadmap steps found'**
   String get noRoadmapStepsFound;
+
+  /// No description provided for @notAllQuizQuestionsAnswered.
+  ///
+  /// In en, this message translates to:
+  /// **'Not all quiz questions answered. Please answer all questions before submitting.'**
+  String get notAllQuizQuestionsAnswered;
+
+  /// No description provided for @examPreparation.
+  ///
+  /// In en, this message translates to:
+  /// **'Exam Preparation'**
+  String get examPreparation;
+
+  /// No description provided for @startQuiz.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Quiz'**
+  String get startQuiz;
+
+  /// No description provided for @leave.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave'**
+  String get leave;
+
+  /// No description provided for @quiz.
+  ///
+  /// In en, this message translates to:
+  /// **'Quiz'**
+  String get quiz;
+
+  /// No description provided for @exitQuizConfirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to exit?'**
+  String get exitQuizConfirmation;
+
+  /// No description provided for @no.
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get no;
+
+  /// No description provided for @yes.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get yes;
+
+  /// No description provided for @timeOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Time Out!!'**
+  String get timeOut;
+
+  /// No description provided for @viewResult.
+  ///
+  /// In en, this message translates to:
+  /// **'View Result'**
+  String get viewResult;
+
+  /// No description provided for @quizDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Quiz Details'**
+  String get quizDetails;
+
+  /// No description provided for @topic.
+  ///
+  /// In en, this message translates to:
+  /// **'Topic'**
+  String get topic;
+
+  /// No description provided for @numberOfQuestions.
+  ///
+  /// In en, this message translates to:
+  /// **'Number of Questions'**
+  String get numberOfQuestions;
+
+  /// No description provided for @timeLimit.
+  ///
+  /// In en, this message translates to:
+  /// **'Time Limit'**
+  String get timeLimit;
+
+  /// No description provided for @quizResults.
+  ///
+  /// In en, this message translates to:
+  /// **'Quiz Results'**
+  String get quizResults;
+
+  /// No description provided for @reviewAnswers.
+  ///
+  /// In en, this message translates to:
+  /// **'Review Answers'**
+  String get reviewAnswers;
+
+  /// No description provided for @lowScoreReviewWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Oh! you can’t review answers because you got less than 50%, please study well and retake the exam.'**
+  String get lowScoreReviewWarning;
+
+  /// No description provided for @performanceSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Performance Summary'**
+  String get performanceSummary;
+
+  /// No description provided for @correctAnswers.
+  ///
+  /// In en, this message translates to:
+  /// **'Correct\nAnswers'**
+  String get correctAnswers;
+
+  /// No description provided for @wrongAnswers.
+  ///
+  /// In en, this message translates to:
+  /// **'Wrong\nAnswers'**
+  String get wrongAnswers;
+
+  /// No description provided for @greatJob.
+  ///
+  /// In en, this message translates to:
+  /// **'Great Job, {name}'**
+  String greatJob(String name);
+
+  /// No description provided for @quizCompletionSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve successfully completed the course quiz. Here\'s a summary of your performance.'**
+  String get quizCompletionSummary;
 }
 
 class _AppLocalizationsDelegate

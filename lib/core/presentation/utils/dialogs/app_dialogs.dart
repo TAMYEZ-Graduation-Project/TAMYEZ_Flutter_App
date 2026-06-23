@@ -6,6 +6,8 @@ abstract class AppDialogs {
     bool dismissible = true,
     String? title,
     String? content,
+    TextStyle? contentStyle,
+    TextAlign? contentTextAlign,
     String? firstButtonText,
     String? secondButtonText,
     void Function()? firstButtonAction,
@@ -17,7 +19,9 @@ abstract class AppDialogs {
       builder: (context) {
         return AlertDialog(
           title: title != null ? Text(title) : null,
-          content: content != null ? Text(content) : null,
+          content: content != null
+              ? Text(content, textAlign: contentTextAlign, style: contentStyle)
+              : null,
           actions: [
             if (firstButtonText != null)
               FilledButton(

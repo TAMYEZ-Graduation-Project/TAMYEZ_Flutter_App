@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -433,4 +434,75 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get noRoadmapStepsFound => 'لا توجد خطوات متاحة في خارطة الطريق';
+
+  @override
+  String get notAllQuizQuestionsAnswered =>
+      'لم يتم الإجابة على جميع أسئلة الاختبار. يرجى الإجابة على جميع الأسئلة قبل الإرسال.';
+
+  @override
+  String get examPreparation => 'التحضير للاختبار';
+
+  @override
+  String get startQuiz => 'ابدأ الاختبار';
+
+  @override
+  String get leave => 'مغادرة';
+
+  @override
+  String get quiz => 'الاختبار';
+
+  @override
+  String get exitQuizConfirmation => 'هل أنت متأكد أنك تريد الخروج؟';
+
+  @override
+  String get no => 'لا';
+
+  @override
+  String get yes => 'نعم';
+
+  @override
+  String get timeOut => 'انتهى الوقت!!';
+
+  @override
+  String get viewResult => 'عرض النتيجة';
+
+  @override
+  String get quizDetails => 'تفاصيل الاختبار';
+
+  @override
+  String get topic => 'الموضوع';
+
+  @override
+  String get numberOfQuestions => 'عدد الأسئلة';
+
+  @override
+  String get timeLimit => 'الوقت المحدد';
+
+  @override
+  String get quizResults => 'نتائج الاختبار';
+
+  @override
+  String get reviewAnswers => 'مراجعة الإجابات';
+
+  @override
+  String get lowScoreReviewWarning =>
+      'عذراً! لا يمكنك مراجعة الإجابات لأنك حصلت على أقل من 50%، يرجى الدراسة جيداً وإعادة الاختبار.';
+
+  @override
+  String get performanceSummary => 'ملخص الأداء';
+
+  @override
+  String get correctAnswers => 'الإجابات\nالصحيحة';
+
+  @override
+  String get wrongAnswers => 'الإجابات\nالخاطئة';
+
+  @override
+  String greatJob(String name) {
+    return 'عمل رائع، $name';
+  }
+
+  @override
+  String get quizCompletionSummary =>
+      'لقد أكملت اختبار الدورة بنجاح. إليك ملخص لأدائك.';
 }

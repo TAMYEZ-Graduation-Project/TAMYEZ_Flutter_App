@@ -3,9 +3,9 @@ import 'dart:ui' show ImageFilter;
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../../../../../core/constants/asset_paths.dart' show AssetPaths;
-import '../../../../../../core/layers/theme/colors/app_colors.dart';
-import '../../../../../../core/presentation/bases/base_stateless_widget.dart';
+import '../../constants/asset_paths.dart' show AssetPaths;
+import '../../layers/theme/colors/app_colors.dart';
+import '../bases/base_stateless_widget.dart';
 
 class CareerAssessmentLoadingOverlay extends BaseStatelessWidget {
   const CareerAssessmentLoadingOverlay({super.key});

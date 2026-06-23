@@ -1,4 +1,4 @@
-abstract class CareerAssessmentEndpoints {
+abstract class CareerAssessmentApiEndpoints {
   static const String getCareerAssessmentQuestions =
       'quiz/questions/CareerAssessment';
 

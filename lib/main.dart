@@ -12,6 +12,7 @@ import 'package:provider/provider.dart'
     show MultiProvider, ChangeNotifierProvider, Consumer2;
 
 import 'core/auth_providers/auth_provider.dart' show AuthProvider;
+import 'core/auth_providers/user_provider.dart';
 import 'core/bootstrap/app_initializer.dart';
 import 'core/di/di.dart';
 import 'core/entities/auth_status.dart';
@@ -118,6 +119,7 @@ class _MyAppState extends State<MyApp> {
       providers: [
         ChangeNotifierProvider(create: (_) => getIt<LocalizationManager>()),
         ChangeNotifierProvider(create: (_) => getIt<ThemeManager>()),
+        ChangeNotifierProvider(create: (_) => getIt<UserProvider>()),
       ],
       child: Consumer2<LocalizationManager, ThemeManager>(
         builder: (context, l10nManager, themeManager, child) {

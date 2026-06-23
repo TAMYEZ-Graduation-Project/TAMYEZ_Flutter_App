@@ -10,13 +10,17 @@ import '../../../modules/career_assessment/domain/entities/career_details_screen
     show CareerDetailsScreenParams;
 import '../../../modules/career_assessment/domain/entities/check_career_assessment_answers_response_entity.dart'
     show SuggestedCareerEntity;
+import '../../../modules/career_assessment/domain/quiz_screen_params.dart';
 import '../../../modules/career_assessment/ui/screens/career_assessment/career_assessment_screen.dart'
     show CareerAssessmentScreen;
 import '../../../modules/career_assessment/ui/screens/career_details/career_details_screen.dart';
 import '../../../modules/career_assessment/ui/screens/discover_your_potential/discover_your_potential_screen.dart';
 import '../../../modules/career_assessment/ui/screens/top_career_matches/top_career_matches_screen.dart';
 import '../../../modules/quiz/domain/entities/exam_preparation_screen_params.dart';
-import '../../../modules/quiz/ui/screens/exam_preparation_screen.dart';
+import '../../../modules/quiz/domain/entities/quiz_result_response_entity.dart';
+import '../../../modules/quiz/ui/screens/exam_preparation/exam_preparation_screen.dart';
+import '../../../modules/quiz/ui/screens/quiz/quiz_screen.dart';
+import '../../../modules/quiz/ui/screens/quiz_result/quiz_result_screen.dart';
 import '../../../modules/roadmap/ui/screens/roadmap_step_details/roadmap_step_details_screen.dart';
 import '../../../modules/startup/ui/onboarding/onboarding_screen.dart';
 import '../../../modules/startup/ui/splash/splash_screen.dart'
@@ -145,6 +149,24 @@ abstract class RoutingProvider {
                 ExamPreparationScreen(
                   params: args as ExamPreparationScreenParams,
                 ),
+            transitionsBuilder: PageTransitions.slideAndFade,
+            settings: const RouteSettings(
+              name: DefinedRoutes.examPreparationRoute,
+            ),
+          );
+        case DefinedRoutes.quizRoute:
+          return PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                QuizScreen(params: args as QuizScreenParams),
+            transitionsBuilder: PageTransitions.slideAndFade,
+            settings: const RouteSettings(
+              name: DefinedRoutes.examPreparationRoute,
+            ),
+          );
+        case DefinedRoutes.quizResultRoute:
+          return PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                QuizResultScreen(quizResult: args as QuizResultEntity),
             transitionsBuilder: PageTransitions.slideAndFade,
             settings: const RouteSettings(
               name: DefinedRoutes.examPreparationRoute,
