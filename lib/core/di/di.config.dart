@@ -93,8 +93,12 @@ import '../../modules/quiz/domain/use_cases/check_quiz_answers_use_case.dart'
     as _i419;
 import '../../modules/quiz/domain/use_cases/get_quiz_questions_use_case.dart'
     as _i383;
+import '../../modules/quiz/domain/use_cases/get_saved_quizzes_use_case.dart'
+    as _i638;
 import '../../modules/quiz/ui/screens/quiz/view_model/quiz_view_model.dart'
     as _i426;
+import '../../modules/quiz/ui/screens/saved_quizzes/view_model/saved_quizzes_view_model.dart'
+    as _i95;
 import '../../modules/roadmap/data/data_sources/local/career_local_data_source.dart'
     as _i169;
 import '../../modules/roadmap/data/data_sources/local/career_local_data_source_imp.dart'
@@ -283,6 +287,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i383.GetQuizQuestionsUseCase>(
       () => _i383.GetQuizQuestionsUseCase(gh<_i139.QuizRepository>()),
     );
+    gh.factory<_i638.GetSavedQuizzesUseCase>(
+      () => _i638.GetSavedQuizzesUseCase(gh<_i139.QuizRepository>()),
+    );
     gh.factory<_i908.RoadmapLocalDataSource>(
       () => _i513.RoadmapLocalDataSourceImp(
         gh<_i214.Isar>(),
@@ -345,6 +352,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i230.AwesomeNotificationService>(),
         gh<_i510.FirebaseCloudMessagingService>(),
       ),
+    );
+    gh.factory<_i95.SavedQuizzesViewModel>(
+      () => _i95.SavedQuizzesViewModel(gh<_i638.GetSavedQuizzesUseCase>()),
     );
     gh.factory<_i426.QuizViewModel>(
       () => _i426.QuizViewModel(

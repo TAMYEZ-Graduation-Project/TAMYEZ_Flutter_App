@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import '../../../../core/entities/pagination_data_entity.dart';
+
 class SavedQuizzesResponseEntity extends Equatable {
   final bool success;
   final String message;
@@ -27,22 +29,17 @@ class SavedQuizzesBodyEntity extends Equatable {
 }
 
 class SavedQuizzesPaginationEntity extends Equatable {
-  final int totalCount;
-  final int totalPages;
-  final int currentPage;
-  final int size;
+  final PaginationDataEntity paginationData;
+
   final List<SavedQuizEntity> data;
 
   const SavedQuizzesPaginationEntity({
-    this.totalCount = 0,
-    this.totalPages = 0,
-    this.currentPage = 0,
-    this.size = 0,
+    this.paginationData = const PaginationDataEntity(),
     this.data = const [],
   });
 
   @override
-  List<Object?> get props => [totalCount, totalPages, currentPage, size, data];
+  List<Object?> get props => [paginationData, data];
 }
 
 class SavedQuizEntity extends Equatable {

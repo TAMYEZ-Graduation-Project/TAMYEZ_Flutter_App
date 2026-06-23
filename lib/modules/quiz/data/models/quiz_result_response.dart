@@ -21,12 +21,14 @@ class QuizResultResponseDto {
 }
 
 class QuizResultDto {
+  final String? savedQuizId;
   final num? totalQuestions;
   final num? wrongAnswersCount;
   final num? correctAnswersCount;
   final String? score;
 
   QuizResultDto({
+    this.savedQuizId,
     this.totalQuestions,
     this.wrongAnswersCount,
     this.correctAnswersCount,
@@ -35,6 +37,7 @@ class QuizResultDto {
 
   factory QuizResultDto.fromJson(Map<String, dynamic> json) {
     return QuizResultDto(
+      savedQuizId: json['savedQuizId'] as String?,
       totalQuestions: json['totalQuestions'] as num?,
       wrongAnswersCount: json['wrongAnswersCount'] as num?,
       correctAnswersCount: json['correctAnswersCount'] as num?,
@@ -44,6 +47,7 @@ class QuizResultDto {
 
   Map<String, dynamic> toJson() {
     return {
+      'savedQuizId': savedQuizId,
       'totalQuestions': totalQuestions,
       'wrongAnswersCount': wrongAnswersCount,
       'correctAnswersCount': correctAnswersCount,

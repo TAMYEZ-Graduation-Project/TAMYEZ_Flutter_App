@@ -16,12 +16,14 @@ class QuizResultResponseEntity extends Equatable {
 }
 
 class QuizResultEntity extends Equatable {
+  final String savedQuizId;
   final num totalQuestions;
   final num wrongAnswersCount;
   final num correctAnswersCount;
   final String score;
 
   const QuizResultEntity({
+    this.savedQuizId = '',
     this.totalQuestions = 0,
     this.wrongAnswersCount = 0,
     this.correctAnswersCount = 0,
@@ -30,6 +32,7 @@ class QuizResultEntity extends Equatable {
 
   @override
   List<Object> get props => [
+    savedQuizId,
     totalQuestions,
     wrongAnswersCount,
     correctAnswersCount,

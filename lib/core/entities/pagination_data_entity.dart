@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 
 class PaginationDataEntity extends Equatable {
-  final num totalCount;
-  final num totalPages;
-  final num currentPage;
-  final num size;
+  final int totalCount;
+  final int totalPages;
+  final int currentPage;
+  final int size;
 
   const PaginationDataEntity({
     this.totalCount = 0,

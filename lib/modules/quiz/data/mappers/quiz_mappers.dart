@@ -1,3 +1,4 @@
+import '../../../../core/entities/pagination_data_entity.dart';
 import '../../domain/entities/quiz_result_response_entity.dart';
 import '../../domain/entities/saved_quizzes_entity.dart';
 import '../models/quiz_result_response.dart';
@@ -16,6 +17,7 @@ extension QuizResultResponseMapper on QuizResultResponseDto {
 extension QuizResultDtoMapper on QuizResultDto {
   QuizResultEntity toEntity() {
     return QuizResultEntity(
+      savedQuizId: savedQuizId ?? '',
       totalQuestions: totalQuestions ?? 0,
       wrongAnswersCount: wrongAnswersCount ?? 0,
       correctAnswersCount: correctAnswersCount ?? 0,
@@ -46,10 +48,12 @@ extension SavedQuizzesBodyDtoMapper on SavedQuizzesBodyDto {
 extension SavedQuizzesPaginationDtoMapper on SavedQuizzesPaginationDto {
   SavedQuizzesPaginationEntity toEntity() {
     return SavedQuizzesPaginationEntity(
-      totalCount: totalCount ?? 0,
-      totalPages: totalPages ?? 0,
-      currentPage: currentPage ?? 0,
-      size: size ?? 0,
+      paginationData: PaginationDataEntity(
+        totalCount: totalCount ?? 0,
+        totalPages: totalPages ?? 0,
+        currentPage: currentPage ?? 0,
+        size: size ?? 0,
+      ),
       data: data?.map((e) => e.toEntity()).toList() ?? const [],
     );
   }

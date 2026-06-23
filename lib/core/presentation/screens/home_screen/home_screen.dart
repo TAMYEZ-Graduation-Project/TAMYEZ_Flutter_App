@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../modules/quiz/ui/screens/saved_quizzes/saved_quizzes_screen.dart';
 import '../../../../modules/roadmap/ui/screens/roadmap_screen/roadmap_screen.dart';
 import '../../../constants/asset_paths.dart';
 import '../../../di/di.dart';
@@ -36,7 +37,7 @@ class _HomeScreenState extends BaseStatefulWidgetState<HomeScreen> {
           onPageChanged: _viewModel.jumpToPage,
           children: const [
             RoadmapPage(),
-            Center(child: Text('Taken Quizzes Page')),
+            SavedQuizzesScreen(),
             Center(child: Text('Profile Page')),
           ],
         ),
