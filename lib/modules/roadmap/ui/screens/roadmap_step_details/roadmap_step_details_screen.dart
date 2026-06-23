@@ -6,9 +6,11 @@ import '../../../../../core/di/di.dart';
 import '../../../../../core/entities/roadmap_step_entity.dart';
 import '../../../../../core/presentation/bases/base_stateless_widget.dart';
 import '../../../../../core/presentation/result/ui_result.dart';
+import '../../../../../core/presentation/routing/defined_routes.dart';
 import '../../../../../core/presentation/widgets/app_error_widget.dart';
 import '../../../../../core/presentation/widgets/app_loading_widget.dart';
 import '../../../../../core/presentation/widgets/resource_list_section.dart';
+import '../../../../quiz/domain/entities/exam_preparation_screen_params.dart';
 import 'sections/roadmap_step_details_description_section.dart';
 import 'view_model/roadmap_step_details_intent.dart';
 import 'view_model/roadmap_step_details_state.dart';
@@ -133,7 +135,17 @@ class _RoadmapStepDetailLayout extends BaseStatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: FilledButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(
+                  context,
+                  DefinedRoutes.examPreparationRoute,
+                  arguments: ExamPreparationScreenParams(
+                    quiz: roadmapStep.quizzes[0],
+                    stepTitle: roadmapStep.title,
+                    stepId: roadmapStep.id,
+                  ),
+                );
+              },
               child: Text(d.appLocalizations.takeQuiz),
             ),
           ),

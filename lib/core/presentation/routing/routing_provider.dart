@@ -15,6 +15,8 @@ import '../../../modules/career_assessment/ui/screens/career_assessment/career_a
 import '../../../modules/career_assessment/ui/screens/career_details/career_details_screen.dart';
 import '../../../modules/career_assessment/ui/screens/discover_your_potential/discover_your_potential_screen.dart';
 import '../../../modules/career_assessment/ui/screens/top_career_matches/top_career_matches_screen.dart';
+import '../../../modules/quiz/domain/entities/exam_preparation_screen_params.dart';
+import '../../../modules/quiz/ui/screens/exam_preparation_screen.dart';
 import '../../../modules/roadmap/ui/screens/roadmap_step_details/roadmap_step_details_screen.dart';
 import '../../../modules/startup/ui/onboarding/onboarding_screen.dart';
 import '../../../modules/startup/ui/splash/splash_screen.dart'
@@ -135,6 +137,17 @@ abstract class RoutingProvider {
             transitionsBuilder: PageTransitions.slideAndFade,
             settings: const RouteSettings(
               name: DefinedRoutes.roadmapDetailsRoute,
+            ),
+          );
+        case DefinedRoutes.examPreparationRoute:
+          return PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                ExamPreparationScreen(
+                  params: args as ExamPreparationScreenParams,
+                ),
+            transitionsBuilder: PageTransitions.slideAndFade,
+            settings: const RouteSettings(
+              name: DefinedRoutes.examPreparationRoute,
             ),
           );
         default:

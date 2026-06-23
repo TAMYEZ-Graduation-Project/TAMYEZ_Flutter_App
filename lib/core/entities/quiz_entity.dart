@@ -4,7 +4,7 @@ class QuizEntity extends Equatable {
   final String id;
   final String title;
   final String description;
-  final String aiPrompt;
+  final num questionsNumber;
   final String uniqueKey;
   final String type;
   final num duration;
@@ -18,7 +18,7 @@ class QuizEntity extends Equatable {
     this.id = '',
     this.title = '',
     this.description = '',
-    this.aiPrompt = '',
+    this.questionsNumber = 0,
     this.uniqueKey = '',
     this.type = '',
     this.duration = 0,
@@ -34,7 +34,7 @@ class QuizEntity extends Equatable {
     id,
     title,
     description,
-    aiPrompt,
+    questionsNumber,
     uniqueKey,
     type,
     duration,

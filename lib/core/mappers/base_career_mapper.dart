@@ -77,6 +77,7 @@ extension QuizDtoMapper on QuizDto {
       id: id ?? '',
       title: title ?? '',
       description: description ?? '',
+      questionsNumber: questionsNumber ?? 0,
       uniqueKey: uniqueKey ?? '',
       type: type ?? '',
       duration: duration ?? 0,
