@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import '../../../../../core/network/models/check_question_answers_request.dart';
 import '../../../../../core/network/models/get_quiz_questions_response.dart';
 import '../../models/quiz_result_response.dart';
+import '../../models/saved_quizzes_response.dart';
 import 'quiz_api_client.dart';
 import 'quiz_remote_data_source.dart';
 
@@ -26,5 +27,13 @@ class QuizRemoteDataSourceImp implements QuizRemoteDataSource {
     required CheckQuestionAnswersRequest request,
   }) {
     return _apiClient.checkQuizAnswers(quizAttemptId, request);
+  }
+
+  @override
+  Future<SavedQuizzesResponseDto> getSavedQuizzes({
+    required int page,
+    required int size,
+  }) {
+    return _apiClient.getSavedQuizzes(page, size);
   }
 }

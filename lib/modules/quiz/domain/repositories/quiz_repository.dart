@@ -2,6 +2,7 @@ import '../../../../core/entities/check_question_answers_param.dart';
 import '../../../../core/entities/get_quiz_questions_entity.dart';
 import '../../../../core/execution/operation_result.dart';
 import '../entities/quiz_result_response_entity.dart';
+import '../entities/saved_quizzes_entity.dart';
 
 abstract interface class QuizRepository {
   Future<OperationResult<QuizAttemptEntity>> getQuizQuestions({
@@ -12,5 +13,10 @@ abstract interface class QuizRepository {
   Future<OperationResult<QuizResultEntity>> checkQuizAnswers({
     required String quizAttemptId,
     required CheckQuestionAnswersParams params,
+  });
+
+  Future<OperationResult<SavedQuizzesPaginationEntity>> getSavedQuizzes({
+    required int page,
+    required int size,
   });
 }

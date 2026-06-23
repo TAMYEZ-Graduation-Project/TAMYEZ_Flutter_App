@@ -8,6 +8,7 @@ import '../../../../../core/network/dio/dio_constants.dart';
 import '../../../../../core/network/models/check_question_answers_request.dart';
 import '../../../../../core/network/models/get_quiz_questions_response.dart';
 import '../../models/quiz_result_response.dart';
+import '../../models/saved_quizzes_response.dart';
 import 'quiz_api_endpoints.dart';
 
 part 'quiz_api_client.g.dart';
@@ -31,5 +32,12 @@ abstract class QuizApiClient {
   Future<QuizResultResponseDto> checkQuizAnswers(
     @Path(QuizApiParams.quizAttemptId) String quizAttemptId,
     @Body() CheckQuestionAnswersRequest request,
+  );
+
+  @GET(QuizApiEndpoints.getSavedQuizzes)
+  @Extra({DioKeys.requiresAuth: true})
+  Future<SavedQuizzesResponseDto> getSavedQuizzes(
+    @Query(QuizApiParams.page) int page,
+    @Query(QuizApiParams.size) int size,
   );
 }
