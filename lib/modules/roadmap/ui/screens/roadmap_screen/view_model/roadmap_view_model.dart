@@ -97,18 +97,17 @@ class RoadmapViewModel extends BaseCubit<RoadmapState, UiEffect> {
     }
   }
 
-  Future<void> _convertAvailableStepToInProgress(String stepId,) async {
+  Future<void> _convertAvailableStepToInProgress(String stepId) async {
     final career = (state.careerDetails as Success<CareerEntity>).data;
 
     final newRoadmap = career.roadmap
         .map(
-          (e) =>
-      e.id == stepId
-          ? e.copyWith(
-        progressStatus: RoadmapStepProgressStatusEnum.inProgress,
-      )
-          : e.copyWith(),
-    )
+          (e) => e.id == stepId
+              ? e.copyWith(
+                  progressStatus: RoadmapStepProgressStatusEnum.inProgress,
+                )
+              : e.copyWith(),
+        )
         .toList();
     emit(
       state.copyWith(

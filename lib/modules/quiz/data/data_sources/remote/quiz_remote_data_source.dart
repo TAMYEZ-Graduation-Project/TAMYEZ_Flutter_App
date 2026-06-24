@@ -20,7 +20,5 @@ abstract interface class QuizRemoteDataSource {
     required int size,
   });
 
-  Future<GetSavedQuizResponseDto> getSavedQuiz({
-    required String savedQuizId,
-  });
+  Future<GetSavedQuizResponseDto> getSavedQuiz({required String savedQuizId});
 }

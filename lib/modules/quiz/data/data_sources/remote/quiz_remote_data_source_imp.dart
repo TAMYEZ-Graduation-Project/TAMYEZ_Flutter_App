@@ -39,9 +39,7 @@ class QuizRemoteDataSourceImp implements QuizRemoteDataSource {
   }
 
   @override
-  Future<GetSavedQuizResponseDto> getSavedQuiz({
-    required String savedQuizId,
-  }) {
+  Future<GetSavedQuizResponseDto> getSavedQuiz({required String savedQuizId}) {
     return _apiClient.getSavedQuiz(savedQuizId);
   }
 }
