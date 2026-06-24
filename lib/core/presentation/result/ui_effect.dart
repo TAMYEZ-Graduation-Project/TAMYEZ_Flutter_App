@@ -41,3 +41,7 @@ class PageNavigationEffect extends UiEffect {
 
   const PageNavigationEffect({required this.page});
 }
+
+class DisplayTimeOutEffect extends UiEffect {
+  const DisplayTimeOutEffect();
+}

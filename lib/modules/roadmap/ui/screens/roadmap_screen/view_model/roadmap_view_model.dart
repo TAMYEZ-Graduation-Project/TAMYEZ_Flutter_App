@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 
 import '../../../../../../core/auth_providers/user_provider.dart';
+import '../../../../../../core/constants/app_enums.dart';
 import '../../../../../../core/entities/career_entity.dart';
 import '../../../../../../core/entities/pagination_data_entity.dart';
 import '../../../../../../core/execution/operation_result.dart';
@@ -31,6 +32,8 @@ class RoadmapViewModel extends BaseCubit<RoadmapState, UiEffect> {
         await _getUserCareer();
       case GetRoadmapStepsIntent():
         await _getRoadmapSteps();
+      case ConvertAvailableStepToInProgressIntent():
+        await _convertAvailableStepToInProgress(intent.stepId);
     }
   }
 
@@ -92,5 +95,24 @@ class RoadmapViewModel extends BaseCubit<RoadmapState, UiEffect> {
         emit(state.copyWith(gettingMoreSteps: false));
         emitEffect(DisplayErrorEffect(failure: result.failure));
     }
+  }
+
+  Future<void> _convertAvailableStepToInProgress(String stepId) async {
+    final career = (state.careerDetails as Success<CareerEntity>).data;
+
+    final newRoadmap = career.roadmap
+        .map(
+          (e) => e.id == stepId
+              ? e.copyWith(
+                  progressStatus: RoadmapStepProgressStatusEnum.inProgress,
+                )
+              : e.copyWith(),
+        )
+        .toList();
+    emit(
+      state.copyWith(
+        careerDetails: Success(career.copyWith(roadmap: newRoadmap)),
+      ),
+    );
   }
 }

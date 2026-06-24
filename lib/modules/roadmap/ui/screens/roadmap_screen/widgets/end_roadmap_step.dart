@@ -1,11 +1,14 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../core/constants/app_enums.dart';
 import '../../../../../../core/entities/roadmap_step_entity.dart';
 import '../../../../../../core/layers/theme/colors/app_colors.dart';
 import '../../../../../../core/presentation/bases/base_stateless_widget.dart';
 import '../../../../../../core/presentation/routing/defined_routes.dart';
+import '../view_model/roadmap_intent.dart';
+import '../view_model/roadmap_view_model.dart';
 import 'roadmap_step_title_and_status_widget.dart';
 import 'step_status_widget.dart';
 
@@ -64,11 +67,23 @@ class EndRoadmapStep extends BaseStatelessWidget {
                         );
                         return;
                       }
-                      Navigator.pushNamed(
+                      Navigator.pushNamed<RoadmapStepProgressStatusEnum?>(
                         context,
                         DefinedRoutes.roadmapDetailsRoute,
                         arguments: roadmapStepEntity,
-                      );
+                      ).then((value) {
+                        if (value != null &&
+                            roadmapStepEntity.progressStatus ==
+                                RoadmapStepProgressStatusEnum.available &&
+                            value == RoadmapStepProgressStatusEnum.inProgress) {
+                          if (!context.mounted) return;
+                          context.read<RoadmapViewModel>().doIntent(
+                            ConvertAvailableStepToInProgressIntent(
+                              stepId: roadmapStepEntity.id,
+                            ),
+                          );
+                        }
+                      });
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,

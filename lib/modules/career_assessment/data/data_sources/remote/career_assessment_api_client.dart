@@ -12,7 +12,7 @@ import '../../../../../core/network/models/get_quiz_questions_response.dart';
 import '../../models/career_details_response.dart';
 import '../../models/check_career_assessment_answers_response.dart';
 import '../../models/choose_suggested_career_response.dart';
-import 'career_assessment_endpoints.dart';
+import 'career_assessment_api_endpoints.dart';
 
 part 'career_assessment_api_client.g.dart';
 
@@ -23,27 +23,27 @@ abstract class CareerAssessmentApiClient {
   factory CareerAssessmentApiClient(@Named(DioNames.mainDio) Dio dio) =
       _CareerAssessmentApiClient;
 
-  @GET(CareerAssessmentEndpoints.getCareerAssessmentQuestions)
+  @GET(CareerAssessmentApiEndpoints.getCareerAssessmentQuestions)
   @Extra({DioKeys.requiresAuth: true})
   Future<GetQuizQuestionsResponseDto> getCareerAssessmentQuestions(
     @Query(CareerAssessmentApiParams.discardActiveAttempt)
     bool discardActiveAttempt,
   );
 
-  @POST(CareerAssessmentEndpoints.checkCareerAssessmentAnswers)
+  @POST(CareerAssessmentApiEndpoints.checkCareerAssessmentAnswers)
   @Extra({DioKeys.requiresAuth: true})
   Future<CheckCareerAssessmentAnswersResponse> checkCareerAssessmentAnswers(
     @Path(CareerAssessmentApiParams.quizAttemptId) String quizAttemptId,
     @Body() CheckQuestionAnswersRequest request,
   );
 
-  @GET(CareerAssessmentEndpoints.chooseSuggestedCareer)
+  @GET(CareerAssessmentApiEndpoints.chooseSuggestedCareer)
   @Extra({DioKeys.requiresAuth: true})
   Future<ChooseSuggestedCareerResponse> chooseSuggestedCareer(
     @Path(CareerAssessmentApiParams.suggestedCareerId) String suggestedCareerId,
   );
 
-  @GET(CareerAssessmentEndpoints.getCareerDetails)
+  @GET(CareerAssessmentApiEndpoints.getCareerDetails)
   Future<CareerDetailsResponse> getCareerDetails(
     @Path(CareerAssessmentApiParams.careerId) String careerId,
   );

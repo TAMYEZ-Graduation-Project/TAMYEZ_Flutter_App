@@ -6,7 +6,7 @@ import 'multi_choice_questions_widget.dart';
 import 'single_choice_questions_widget.dart';
 import 'written_question_widget.dart';
 
-class QuestionWidgetFactory {
+abstract class QuestionWidgetFactory {
   static Widget create({
     required QuizQuestionTypesEnum type,
     required QuestionEntity question,

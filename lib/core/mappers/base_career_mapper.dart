@@ -22,13 +22,13 @@ extension CareerDtoMapper on CareerDto {
       youtubePlaylists:
           youtubePlaylists?.map((e) => e.toEntity()).toList() ?? [],
       books: books?.map((e) => e.toEntity()).toList() ?? [],
-      stepsCount: stepsCount ?? 0,
-      percentageCompleted: percentageCompleted ?? 0,
+      stepsCount: stepsCount?.toInt() ?? 0,
+      percentageCompleted: percentageCompleted?.toInt() ?? 0,
       roadmap: roadmap?.map((e) => e.toEntity()).toList() ?? [],
       createdAt: createdAt ?? '',
       updatedAt: updatedAt ?? '',
-      orderEpoch: orderEpoch ?? 0,
-      v: v ?? 0,
+      orderEpoch: orderEpoch?.toInt() ?? 0,
+      v: v?.toInt() ?? 0,
     );
   }
 }
@@ -77,6 +77,7 @@ extension QuizDtoMapper on QuizDto {
       id: id ?? '',
       title: title ?? '',
       description: description ?? '',
+      questionsNumber: questionsNumber ?? 0,
       uniqueKey: uniqueKey ?? '',
       type: type ?? '',
       duration: duration ?? 0,

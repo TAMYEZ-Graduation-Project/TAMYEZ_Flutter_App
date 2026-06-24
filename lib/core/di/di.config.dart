@@ -81,6 +81,39 @@ import '../../modules/career_assessment/ui/screens/career_details/view_model/car
     as _i582;
 import '../../modules/career_assessment/ui/screens/top_career_matches/view_model/top_career_matches_view_model.dart'
     as _i455;
+import '../../modules/quiz/data/data_sources/local/saved_quiz_local_data_source.dart'
+    as _i190;
+import '../../modules/quiz/data/data_sources/local/saved_quiz_local_data_source_imp.dart'
+    as _i936;
+import '../../modules/quiz/data/data_sources/local/saved_quizzes_pagination_local_data_source.dart'
+    as _i929;
+import '../../modules/quiz/data/data_sources/local/saved_quizzes_pagination_local_data_source_imp.dart'
+    as _i269;
+import '../../modules/quiz/data/data_sources/remote/quiz_api_client.dart'
+    as _i692;
+import '../../modules/quiz/data/data_sources/remote/quiz_remote_data_source.dart'
+    as _i249;
+import '../../modules/quiz/data/data_sources/remote/quiz_remote_data_source_imp.dart'
+    as _i365;
+import '../../modules/quiz/data/local_models/saved_quiz_local.dart' as _i242;
+import '../../modules/quiz/data/local_models/saved_quizzes_pagination_local.dart'
+    as _i568;
+import '../../modules/quiz/data/repositories/quiz_repository_imp.dart' as _i882;
+import '../../modules/quiz/domain/repositories/quiz_repository.dart' as _i139;
+import '../../modules/quiz/domain/use_cases/check_quiz_answers_use_case.dart'
+    as _i419;
+import '../../modules/quiz/domain/use_cases/get_quiz_questions_use_case.dart'
+    as _i383;
+import '../../modules/quiz/domain/use_cases/get_saved_quiz_use_case.dart'
+    as _i502;
+import '../../modules/quiz/domain/use_cases/get_saved_quizzes_use_case.dart'
+    as _i638;
+import '../../modules/quiz/ui/screens/quiz/view_model/quiz_view_model.dart'
+    as _i426;
+import '../../modules/quiz/ui/screens/saved_quiz/view_model/saved_quiz_view_model.dart'
+    as _i1056;
+import '../../modules/quiz/ui/screens/saved_quizzes/view_model/saved_quizzes_view_model.dart'
+    as _i95;
 import '../../modules/roadmap/data/data_sources/local/career_local_data_source.dart'
     as _i169;
 import '../../modules/roadmap/data/data_sources/local/career_local_data_source_imp.dart'
@@ -115,8 +148,6 @@ import '../../modules/roadmap/ui/screens/roadmap_step_details/view_model/roadmap
 import '../auth_providers/auth_provider.dart' as _i842;
 import '../auth_providers/user_provider.dart' as _i9;
 import '../bootstrap/app_initializer.dart' as _i4;
-import '../layers/db/contracts/email_repository.dart' as _i150;
-import '../layers/db/implementation/email_repository_imp.dart' as _i948;
 import '../layers/db/initializer/db_initializer.dart' as _i1006;
 import '../layers/localization/l10n/generated/app_localizations.dart' as _i58;
 import '../layers/localization/l10n/manager/localization_manager.dart' as _i362;
@@ -210,14 +241,14 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i361.Dio>(instanceName: 'mainDio'),
       ),
     );
+    gh.lazySingleton<_i692.QuizApiClient>(
+      () => _i692.QuizApiClient(gh<_i361.Dio>(instanceName: 'mainDio')),
+    );
     gh.lazySingleton<_i935.RoadmapApiClient>(
       () => _i935.RoadmapApiClient(gh<_i361.Dio>(instanceName: 'mainDio')),
     );
     gh.factory<_i911.AuthRemoteDataSource>(
       () => _i5.AuthRemoteDataSourceImp(gh<_i362.AuthApiClient>()),
-    );
-    gh.factory<_i150.EmailRepository>(
-      () => _i948.EmailRepositoryImp(gh<_i214.Isar>()),
     );
     gh.factory<_i114.RoadmapRemoteDataSource>(
       () => _i430.RoadmapRemoteDataSourceImp(gh<_i935.RoadmapApiClient>()),
@@ -243,15 +274,36 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i214.IsarCollection<_i835.RoadmapStepLocal>>(
       () => dbInitializer.roadmapCollection(gh<_i214.Isar>()),
     );
+    gh.lazySingleton<_i214.IsarCollection<_i568.SavedQuizzesPaginationLocal>>(
+      () => dbInitializer.savedQuizzesPaginationCollection(gh<_i214.Isar>()),
+    );
+    gh.lazySingleton<_i214.IsarCollection<_i242.SavedQuizLocal>>(
+      () => dbInitializer.savedQuizCollection(gh<_i214.Isar>()),
+    );
     gh.factory<_i250.CareerAssessmentRemoteDataSource>(
       () => _i787.CareerAssessmentRemoteDataSourceImp(
         gh<_i787.CareerAssessmentApiClient>(),
+      ),
+    );
+    gh.factory<_i190.SavedQuizLocalDataSource>(
+      () => _i936.SavedQuizLocalDataSourceImp(
+        gh<_i214.Isar>(),
+        gh<_i214.IsarCollection<_i242.SavedQuizLocal>>(),
       ),
     );
     gh.lazySingleton<_i510.FirebaseCloudMessagingService>(
       () => _i510.FirebaseCloudMessagingService(
         gh<_i230.AwesomeNotificationService>(),
         gh<_i892.FirebaseMessaging>(),
+      ),
+    );
+    gh.factory<_i249.QuizRemoteDataSource>(
+      () => _i365.QuizRemoteDataSourceImp(gh<_i692.QuizApiClient>()),
+    );
+    gh.factory<_i929.SavedQuizzesPaginationLocalDataSource>(
+      () => _i269.SavedQuizzesPaginationLocalDataSourceImp(
+        gh<_i214.Isar>(),
+        gh<_i214.IsarCollection<_i568.SavedQuizzesPaginationLocal>>(),
       ),
     );
     gh.factory<_i908.RoadmapLocalDataSource>(
@@ -317,6 +369,14 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i510.FirebaseCloudMessagingService>(),
       ),
     );
+    gh.factory<_i139.QuizRepository>(
+      () => _i882.QuizRepositoryImp(
+        gh<_i249.QuizRemoteDataSource>(),
+        gh<_i214.Isar>(),
+        gh<_i929.SavedQuizzesPaginationLocalDataSource>(),
+        gh<_i190.SavedQuizLocalDataSource>(),
+      ),
+    );
     gh.factory<_i1050.LoginViewModel>(
       () => _i1050.LoginViewModel(
         gh<_i46.LoginUseCase>(),
@@ -365,6 +425,18 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i9.UserProvider>(),
       ),
     );
+    gh.factory<_i419.CheckQuizAnswersUseCase>(
+      () => _i419.CheckQuizAnswersUseCase(gh<_i139.QuizRepository>()),
+    );
+    gh.factory<_i383.GetQuizQuestionsUseCase>(
+      () => _i383.GetQuizQuestionsUseCase(gh<_i139.QuizRepository>()),
+    );
+    gh.factory<_i502.GetSavedQuizUseCase>(
+      () => _i502.GetSavedQuizUseCase(gh<_i139.QuizRepository>()),
+    );
+    gh.factory<_i638.GetSavedQuizzesUseCase>(
+      () => _i638.GetSavedQuizzesUseCase(gh<_i139.QuizRepository>()),
+    );
     gh.factory<_i967.SignUpViewModel>(
       () => _i967.SignUpViewModel(
         gh<_i246.SignUpUseCase>(),
@@ -386,15 +458,31 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i1009.GetRoadmapStepsUseCase>(
       () => _i1009.GetRoadmapStepsUseCase(gh<_i504.RoadmapRepository>()),
     );
+    gh.factory<_i95.SavedQuizzesViewModel>(
+      () => _i95.SavedQuizzesViewModel(
+        gh<_i638.GetSavedQuizzesUseCase>(),
+        gh<_i9.UserProvider>(),
+      ),
+    );
     gh.factory<_i365.CareerAssessmentViewModel>(
       () => _i365.CareerAssessmentViewModel(
         gh<_i508.GetCareerAssessmentQuestionsUseCase>(),
         gh<_i610.CheckCareerAssessmentAnswersUseCase>(),
       ),
     );
+    gh.factory<_i1056.SavedQuizViewModel>(
+      () => _i1056.SavedQuizViewModel(gh<_i502.GetSavedQuizUseCase>()),
+    );
     gh.factory<_i368.RoadmapStepDetailsViewModel>(
       () => _i368.RoadmapStepDetailsViewModel(
         gh<_i580.GetRoadmapStepDetailsUseCase>(),
+      ),
+    );
+    gh.factory<_i426.QuizViewModel>(
+      () => _i426.QuizViewModel(
+        gh<_i383.GetQuizQuestionsUseCase>(),
+        gh<_i419.CheckQuizAnswersUseCase>(),
+        gh<_i497.CountDownUtility>(),
       ),
     );
     gh.factory<_i612.RoadmapViewModel>(

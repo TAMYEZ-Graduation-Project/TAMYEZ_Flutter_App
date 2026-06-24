@@ -13,13 +13,13 @@ class CareerEntity extends Equatable {
   final List<ResourceItemEntity> courses;
   final List<ResourceItemEntity> youtubePlaylists;
   final List<ResourceItemEntity> books;
-  final num stepsCount;
-  final num percentageCompleted;
+  final int stepsCount;
+  final int percentageCompleted;
   final List<RoadmapStepEntity> roadmap;
   final String createdAt;
   final String updatedAt;
-  final num orderEpoch;
-  final num v;
+  final int orderEpoch;
+  final int v;
 
   const CareerEntity({
     this.id = '',
@@ -70,13 +70,13 @@ class CareerEntity extends Equatable {
     List<ResourceItemEntity>? courses,
     List<ResourceItemEntity>? youtubePlaylists,
     List<ResourceItemEntity>? books,
-    num? stepsCount,
-    num? percentageCompleted,
+    int? stepsCount,
+    int? percentageCompleted,
     List<RoadmapStepEntity>? roadmap,
     String? createdAt,
     String? updatedAt,
-    num? orderEpoch,
-    num? v,
+    int? orderEpoch,
+    int? v,
   }) {
     return CareerEntity(
       id: id ?? this.id,

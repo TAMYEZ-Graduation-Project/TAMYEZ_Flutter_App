@@ -107,10 +107,10 @@ extension RoadmapStepsResponseBodyMapper on RoadmapStepsResponseBody {
   RoadmapStepsResponseBodyEntity toEntity() {
     return RoadmapStepsResponseBodyEntity(
       paginationData: PaginationDataEntity(
-        totalCount: totalCount ?? 0,
-        totalPages: totalPages ?? 0,
-        currentPage: currentPage ?? 0,
-        size: size ?? 0,
+        totalCount: totalCount?.toInt() ?? 0,
+        totalPages: totalPages?.toInt() ?? 0,
+        currentPage: currentPage?.toInt() ?? 0,
+        size: size?.toInt() ?? 0,
       ),
       percentageCompleted: percentageCompleted ?? 0,
       data: data?.map((e) => e.toEntity()).toList() ?? [],

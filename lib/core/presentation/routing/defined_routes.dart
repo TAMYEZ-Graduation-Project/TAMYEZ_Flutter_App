@@ -13,4 +13,8 @@ abstract class DefinedRoutes {
   static const String careerDetailsRoute = 'career_details';
   static const String homeRoute = 'home';
   static const String roadmapDetailsRoute = 'roadmap_details';
+  static const String examPreparationRoute = 'exam_preparation';
+  static const String quizRoute = 'quiz';
+  static const String quizResultRoute = 'quiz_result';
+  static const String savedQuizRoute = 'saved_quiz';
 }

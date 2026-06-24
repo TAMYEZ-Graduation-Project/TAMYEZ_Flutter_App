@@ -152,5 +152,47 @@
   "takeQuiz": "ابدأ الاختبار",
   "yourPathToSuccess": "طريقك للنجاح",
   "lockedOrFrozenMessage": "هذه الخطوة مقفلة أو مجمدة",
-  "noRoadmapStepsFound": "لا توجد خطوات متاحة في خارطة الطريق"
+  "noRoadmapStepsFound": "لا توجد خطوات متاحة في خارطة الطريق",
+  "notAllQuizQuestionsAnswered": "لم يتم الإجابة على جميع أسئلة الاختبار. يرجى الإجابة على جميع الأسئلة قبل الإرسال.",
+  "examPreparation": "التحضير للاختبار",
+  "startQuiz": "ابدأ الاختبار",
+  "leave": "مغادرة",
+  "quiz": "الاختبار",
+  "exitQuizConfirmation": "هل أنت متأكد أنك تريد الخروج؟",
+  "no": "لا",
+  "yes": "نعم",
+  "timeOut": "انتهى الوقت!!",
+  "viewResult": "عرض النتيجة",
+  "quizDetails": "تفاصيل الاختبار",
+  "topic": "الموضوع",
+  "numberOfQuestions": "عدد الأسئلة",
+  "timeLimit": "الوقت المحدد",
+  "quizResults": "نتائج الاختبار",
+  "reviewAnswers": "مراجعة الإجابات",
+  "lowScoreReviewWarning": "عذراً! لا يمكنك مراجعة الإجابات لأنك حصلت على أقل من 50%، يرجى الدراسة جيداً وإعادة الاختبار.",
+  "performanceSummary": "ملخص الأداء",
+  "correctAnswers": "الإجابات\nالصحيحة",
+  "wrongAnswers": "الإجابات\nالخاطئة",
+  "greatJob": "عمل رائع، {name}",
+  "@greatJob": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "quizCompletionSummary": "لقد أكملت اختبار الدورة بنجاح. إليك ملخص لأدائك.",
+  "yourAnswers": "إجاباتك",
+  "savedQuizzes": "الاختبارات المحفوظة",
+  "noSavedQuizzesFound": "لا توجد اختبارات محفوظة",
+  "explanation": "الشرح",
+  "completedOn": "اكتمل في: {date}",
+  "@completedOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "review": "مراجعة"
 }

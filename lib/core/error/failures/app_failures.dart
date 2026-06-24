@@ -19,6 +19,10 @@ class CheckCareerAssessmentAnswersBadResponseFailure extends Failure {
   const CheckCareerAssessmentAnswersBadResponseFailure();
 }
 
+class NotAllQuizQuestionsAnsweredFailure extends Failure {
+  const NotAllQuizQuestionsAnsweredFailure();
+}
+
 // =================================
 sealed class NetworkFailure extends Failure {
   const NetworkFailure();

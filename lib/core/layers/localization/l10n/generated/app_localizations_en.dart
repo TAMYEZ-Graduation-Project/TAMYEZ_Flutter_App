@@ -437,4 +437,95 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noRoadmapStepsFound => 'No roadmap steps found';
+
+  @override
+  String get notAllQuizQuestionsAnswered =>
+      'Not all quiz questions answered. Please answer all questions before submitting.';
+
+  @override
+  String get examPreparation => 'Exam Preparation';
+
+  @override
+  String get startQuiz => 'Start Quiz';
+
+  @override
+  String get leave => 'Leave';
+
+  @override
+  String get quiz => 'Quiz';
+
+  @override
+  String get exitQuizConfirmation => 'Are you sure you want to exit?';
+
+  @override
+  String get no => 'No';
+
+  @override
+  String get yes => 'Yes';
+
+  @override
+  String get timeOut => 'Time Out!!';
+
+  @override
+  String get viewResult => 'View Result';
+
+  @override
+  String get quizDetails => 'Quiz Details';
+
+  @override
+  String get topic => 'Topic';
+
+  @override
+  String get numberOfQuestions => 'Number of Questions';
+
+  @override
+  String get timeLimit => 'Time Limit';
+
+  @override
+  String get quizResults => 'Quiz Results';
+
+  @override
+  String get reviewAnswers => 'Review Answers';
+
+  @override
+  String get lowScoreReviewWarning =>
+      'Oh! you can’t review answers because you got less than 50%, please study well and retake the exam.';
+
+  @override
+  String get performanceSummary => 'Performance Summary';
+
+  @override
+  String get correctAnswers => 'Correct\nAnswers';
+
+  @override
+  String get wrongAnswers => 'Wrong\nAnswers';
+
+  @override
+  String greatJob(String name) {
+    return 'Great Job, $name';
+  }
+
+  @override
+  String get quizCompletionSummary =>
+      'You\'ve successfully completed the course quiz. Here\'s a summary of your performance.';
+
+  @override
+  String get yourAnswers => 'Your Answers';
+
+  @override
+  String get savedQuizzes => 'Saved Quizzes';
+
+  @override
+  String get noSavedQuizzesFound => 'No saved quizzes found';
+
+  @override
+  String get explanation => 'Explanation';
+
+  @override
+  String completedOn(String date) {
+    return 'Completed on: $date';
+  }
+
+  @override
+  String get review => 'Review';
 }

@@ -2,6 +2,7 @@ class QuizDto {
   final String? id;
   final String? title;
   final String? description;
+  final num? questionsNumber;
   final String? uniqueKey;
   final String? type;
   final num? duration;
@@ -15,6 +16,7 @@ class QuizDto {
     this.id,
     this.title,
     this.description,
+    this.questionsNumber,
     this.uniqueKey,
     this.type,
     this.duration,
@@ -30,6 +32,7 @@ class QuizDto {
       id: json['id']?.toString(),
       title: json['title'] as String?,
       description: json['description'] as String?,
+      questionsNumber: json['questionsNumber'] as num?,
       uniqueKey: json['uniqueKey'] as String?,
       type: json['type'] as String?,
       duration: json['duration'] as num?,
@@ -50,6 +53,7 @@ class QuizDto {
       'id': id,
       'title': title,
       'description': description,
+      'questionsNumber': questionsNumber,
       'uniqueKey': uniqueKey,
       'type': type,
       'duration': duration,

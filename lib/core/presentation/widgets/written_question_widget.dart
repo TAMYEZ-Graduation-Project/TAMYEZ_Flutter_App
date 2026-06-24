@@ -59,7 +59,7 @@ class _WrittenQuestionWidgetState
                 FocusManager.instance.primaryFocus?.unfocus();
               },
               onChanged: (value) {
-                subject.add(value);
+                subject.add(value.trim().isEmpty ? ' ' : value);
                 setState(() {
                   textDirection = value.textDirection;
                 });
@@ -77,6 +77,7 @@ class _WrittenQuestionWidgetState
   @override
   void dispose() {
     super.dispose();
+    _controller.dispose();
     subject.close();
   }
 }
