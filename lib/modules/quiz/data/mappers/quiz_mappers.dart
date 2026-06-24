@@ -7,6 +7,10 @@ import '../../../../core/mappers/base_career_mapper.dart';
 import '../../domain/entities/get_saved_quiz_entity.dart';
 import '../../domain/entities/quiz_result_response_entity.dart';
 import '../../domain/entities/saved_quizzes_entity.dart';
+import '../local_models/pagination_data_local.dart';
+import '../local_models/quiz_local.dart';
+import '../local_models/saved_quiz_local.dart';
+import '../local_models/saved_quizzes_pagination_local.dart';
 import '../models/get_saved_quiz_response.dart';
 import '../models/quiz_result_response.dart';
 import '../models/saved_quizzes_response.dart';
@@ -137,5 +141,78 @@ extension SavedQuizOptionDtoMapper on SavedQuizOptionDto {
       id: id?.toQuestionOptionIdEnumValue ?? QuestionOptionIdsEnum.empty,
       text: text ?? '',
     );
+  }
+}
+
+extension SavedQuizzesPaginationLocalMapper on SavedQuizzesPaginationLocal {
+  SavedQuizzesPaginationEntity toEntity({required List<SavedQuizLocal> data}) {
+    return SavedQuizzesPaginationEntity(
+      paginationData: PaginationDataEntity(
+        totalCount: paginationData.totalCount,
+        totalPages: paginationData.totalPages,
+        currentPage: paginationData.currentPage,
+        size: paginationData.size,
+      ),
+      data: data.map((e) => e.toEntity()).toList(),
+    );
+  }
+}
+
+extension SavedQuizLocalMapper on SavedQuizLocal {
+  SavedQuizEntity toEntity() {
+    return SavedQuizEntity(
+      id: savedQuizId,
+      quizId: quizId.toEntity(),
+      score: score,
+      takenAt: takenAt,
+    );
+  }
+}
+
+extension QuizLocalMapper on QuizLocal {
+  QuizEntity toEntity() {
+    return QuizEntity(id: id, title: title, type: type);
+  }
+}
+
+extension SavedQuizzesPaginationEntityMapper on SavedQuizzesPaginationEntity {
+  SavedQuizzesPaginationLocal toLocal({
+    required String userId,
+    required int currentPage,
+  }) {
+    return SavedQuizzesPaginationLocal()
+      ..paginationData = paginationData.toLocal(currentPage: currentPage)
+      ..userId = userId
+      ..savedAt = DateTime.now().millisecondsSinceEpoch;
+  }
+}
+
+extension PaginationDataEntityMapper on PaginationDataEntity {
+  PaginationDataLocal toLocal({required int currentPage}) {
+    return PaginationDataLocal()
+      ..totalCount = totalCount
+      ..totalPages = totalPages
+      ..currentPage = currentPage
+      ..size = size;
+  }
+}
+
+extension SavedQuizEntityMapper on SavedQuizEntity {
+  SavedQuizLocal toLocal({required String userId}) {
+    return SavedQuizLocal()
+      ..savedQuizId = id
+      ..userId = userId
+      ..quizId = quizId.toLocal()
+      ..score = score
+      ..takenAt = takenAt;
+  }
+}
+
+extension QuizEntityMapper on QuizEntity {
+  QuizLocal toLocal() {
+    return QuizLocal()
+      ..id = id
+      ..title = title
+      ..type = type;
   }
 }

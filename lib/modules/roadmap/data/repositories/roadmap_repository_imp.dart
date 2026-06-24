@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:injectable/injectable.dart';
 import 'package:isar_community/isar.dart';
 
@@ -118,7 +120,7 @@ class RoadmapRepositoryImp implements RoadmapRepository {
                 .toList(),
           );
           savedCareer
-            ..lastPage = page
+            ..lastPage = max(savedCareer.lastPage, page)
             ..size = size
             ..stepsCount = result.data.paginationData.totalCount.toInt()
             ..percentageCompleted = result.data.percentageCompleted.toInt();

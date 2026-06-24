@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 
+import '../../../../../../core/auth_providers/user_provider.dart';
 import '../../../../../../core/execution/operation_result.dart';
 import '../../../../../../core/presentation/bases/base_cubit.dart';
 import '../../../../../../core/presentation/result/ui_effect.dart';
@@ -12,8 +13,9 @@ import 'saved_quizzes_state.dart';
 @injectable
 class SavedQuizzesViewModel extends BaseCubit<SavedQuizzesState, UiEffect> {
   final GetSavedQuizzesUseCase _getSavedQuizzesUseCase;
+  final UserProvider _userProvider;
 
-  SavedQuizzesViewModel(this._getSavedQuizzesUseCase)
+  SavedQuizzesViewModel(this._getSavedQuizzesUseCase, this._userProvider)
     : super(const SavedQuizzesState());
 
   Future<void> doIntent(SavedQuizzesIntent intent) async {
@@ -27,7 +29,11 @@ class SavedQuizzesViewModel extends BaseCubit<SavedQuizzesState, UiEffect> {
 
   Future<void> _getSavedQuizzes() async {
     emit(state.copyWith(getSavedQuizzesResult: const Loading()));
-    final result = await _getSavedQuizzesUseCase(size: 10, page: 1);
+    final result = await _getSavedQuizzesUseCase(
+      userId: _userProvider.user!.id!,
+      size: 10,
+      page: 1,
+    );
 
     switch (result) {
       case OperationSuccess<SavedQuizzesPaginationEntity>():
@@ -37,6 +43,9 @@ class SavedQuizzesViewModel extends BaseCubit<SavedQuizzesState, UiEffect> {
             paginationData: result.data.paginationData,
           ),
         );
+        if (result.warning != null) {
+          emitEffect(DisplayWarningEffect(failure: result.warning!));
+        }
       case OperationFailure<SavedQuizzesPaginationEntity>():
         emit(state.copyWith(getSavedQuizzesResult: Error(result.failure)));
     }
@@ -45,6 +54,7 @@ class SavedQuizzesViewModel extends BaseCubit<SavedQuizzesState, UiEffect> {
   Future<void> _getMoreSavedQuizzes() async {
     emit(state.copyWith(isLoadingMore: true));
     final result = await _getSavedQuizzesUseCase(
+      userId: _userProvider.user!.id!,
       size: state.paginationData.size,
       page: state.paginationData.currentPage + 1,
     );
@@ -62,6 +72,9 @@ class SavedQuizzesViewModel extends BaseCubit<SavedQuizzesState, UiEffect> {
             paginationData: result.data.paginationData,
           ),
         );
+        if (result.warning != null) {
+          emitEffect(DisplayWarningEffect(failure: result.warning!));
+        }
       case OperationFailure<SavedQuizzesPaginationEntity>():
         emit(state.copyWith(getSavedQuizzesResult: Error(result.failure)));
     }

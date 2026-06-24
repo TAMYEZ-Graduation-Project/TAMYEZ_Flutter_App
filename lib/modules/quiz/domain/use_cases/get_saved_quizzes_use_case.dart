@@ -11,9 +11,10 @@ class GetSavedQuizzesUseCase {
   const GetSavedQuizzesUseCase(this._repository);
 
   Future<OperationResult<SavedQuizzesPaginationEntity>> call({
+    required String userId,
     required int page,
     required int size,
   }) {
-    return _repository.getSavedQuizzes(page: page, size: size);
+    return _repository.getSavedQuizzes(userId: userId, page: page, size: size);
   }
 }

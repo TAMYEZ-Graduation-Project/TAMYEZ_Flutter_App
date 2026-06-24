@@ -17,6 +17,7 @@ abstract interface class QuizRepository {
   });
 
   Future<OperationResult<SavedQuizzesPaginationEntity>> getSavedQuizzes({
+    required String userId,
     required int page,
     required int size,
   });
