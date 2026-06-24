@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -504,4 +505,24 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get quizCompletionSummary =>
       'لقد أكملت اختبار الدورة بنجاح. إليك ملخص لأدائك.';
+
+  @override
+  String get yourAnswers => 'إجاباتك';
+
+  @override
+  String get savedQuizzes => 'الاختبارات المحفوظة';
+
+  @override
+  String get noSavedQuizzesFound => 'لا توجد اختبارات محفوظة';
+
+  @override
+  String get explanation => 'الشرح';
+
+  @override
+  String completedOn(String date) {
+    return 'اكتمل في: $date';
+  }
+
+  @override
+  String get review => 'مراجعة';
 }

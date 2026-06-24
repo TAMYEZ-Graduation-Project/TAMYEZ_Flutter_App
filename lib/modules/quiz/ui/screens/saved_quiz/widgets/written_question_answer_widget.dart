@@ -60,7 +60,7 @@ class _WrittenQuestionAnswerWidgetState
         if (!widget.question.isCorrect &&
             widget.question.explanation.isNotEmpty)
           Text(
-            'Explanation:\n${widget.question.explanation}',
+            '${appLocalizations.explanation}:\n${widget.question.explanation}',
             style: typography.body,
           ),
       ],

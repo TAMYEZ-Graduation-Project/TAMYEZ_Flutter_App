@@ -181,5 +181,18 @@
       }
     }
   },
-  "quizCompletionSummary": "You've successfully completed the course quiz. Here's a summary of your performance."
+  "quizCompletionSummary": "You've successfully completed the course quiz. Here's a summary of your performance.",
+  "yourAnswers": "Your Answers",
+  "savedQuizzes": "Saved Quizzes",
+  "noSavedQuizzesFound": "No saved quizzes found",
+  "explanation": "Explanation",
+  "completedOn": "Completed on: {date}",
+  "@completedOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "review": "Review"
 }

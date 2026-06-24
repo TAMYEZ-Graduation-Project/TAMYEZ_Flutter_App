@@ -50,7 +50,8 @@ class _SavedQuizzesScreenState
     return BlocProvider(
       create: (context) => _viewModel,
       child: Scaffold(
-        appBar: AppBar(title: const Text('Saved Quizzes'), centerTitle: true),
+        appBar: AppBar(
+            title: Text(appLocalizations.savedQuizzes), centerTitle: true),
         body:
             BlocSelector<
               SavedQuizzesViewModel,
@@ -105,12 +106,10 @@ class SavedQuizzesScreenLayout extends BaseStatelessWidget {
       selector: (state) => state.isLoadingMore,
       builder: (context, isLoadingMore) {
         if (savedQuizzesLength == 0) {
-          return const Expanded(
-            child: Center(child: Text('No saved quizzes found')),
-          );
+          return Center(child: Text(d.appLocalizations.noSavedQuizzesFound));
         }
         return Padding(
-          padding: const EdgeInsetsGeometry.all(16),
+          padding: const EdgeInsets.all(16),
           child: ListView.separated(
             controller: scrollController,
             itemCount: isLoadingMore

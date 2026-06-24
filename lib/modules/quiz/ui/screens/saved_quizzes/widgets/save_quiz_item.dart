@@ -21,7 +21,7 @@ class SavedQuizItem extends BaseStatelessWidget {
           children: [
             Text(savedQuiz.quizId.title, style: d.typography.subTitle),
             Text(
-              'Completed on: ${savedQuiz.takenAt.toYMD()}',
+              d.appLocalizations.completedOn(savedQuiz.takenAt.toYMD()),
               style: d.typography.body.copyWith(color: AppColors.blue),
             ),
           ],
@@ -34,7 +34,7 @@ class SavedQuizItem extends BaseStatelessWidget {
               arguments: savedQuiz.id,
             );
           },
-          child: const Text('Review'),
+          child: Text(d.appLocalizations.review),
         ),
       ],
     );

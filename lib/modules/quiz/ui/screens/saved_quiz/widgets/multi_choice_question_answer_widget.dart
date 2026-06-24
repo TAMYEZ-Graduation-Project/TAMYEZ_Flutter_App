@@ -54,7 +54,7 @@ class MultiChoiceQuestionAnswerWidget extends BaseStatelessWidget {
         ),
         if (!question.isCorrect && question.explanation.isNotEmpty)
           Text(
-            'Explanation:\n${question.explanation}',
+            '${d.appLocalizations.explanation}:\n${question.explanation}',
             style: d.typography.body,
           ),
       ],

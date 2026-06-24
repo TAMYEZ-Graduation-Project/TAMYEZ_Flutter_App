@@ -174,5 +174,25 @@
   "correctAnswers": "الإجابات\nالصحيحة",
   "wrongAnswers": "الإجابات\nالخاطئة",
   "greatJob": "عمل رائع، {name}",
-  "quizCompletionSummary": "لقد أكملت اختبار الدورة بنجاح. إليك ملخص لأدائك."
+  "@greatJob": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "quizCompletionSummary": "لقد أكملت اختبار الدورة بنجاح. إليك ملخص لأدائك.",
+  "yourAnswers": "إجاباتك",
+  "savedQuizzes": "الاختبارات المحفوظة",
+  "noSavedQuizzesFound": "لا توجد اختبارات محفوظة",
+  "explanation": "الشرح",
+  "completedOn": "اكتمل في: {date}",
+  "@completedOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "review": "مراجعة"
 }

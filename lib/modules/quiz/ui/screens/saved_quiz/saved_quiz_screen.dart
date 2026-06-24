@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/di/di.dart';
+import '../../../../../core/layers/localization/l10n/generated/app_localizations.dart';
 import '../../../../../core/presentation/bases/base_stateless_widget.dart';
 import '../../../../../core/presentation/result/ui_result.dart';
 import '../../../../../core/presentation/widgets/app_error_widget.dart';
@@ -32,10 +33,12 @@ class _SavedQuizScreenState extends State<SavedQuizScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
     return BlocProvider(
       create: (context) => _viewModel,
       child: Scaffold(
-        appBar: AppBar(title: const Text('Your Answers'), centerTitle: true),
+        appBar: AppBar(
+            title: Text(appLocalizations.yourAnswers), centerTitle: true),
         body:
             BlocSelector<
               SavedQuizViewModel,

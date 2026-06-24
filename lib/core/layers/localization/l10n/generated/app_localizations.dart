@@ -1027,6 +1027,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You\'ve successfully completed the course quiz. Here\'s a summary of your performance.'**
   String get quizCompletionSummary;
+
+  /// No description provided for @yourAnswers.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Answers'**
+  String get yourAnswers;
+
+  /// No description provided for @savedQuizzes.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved Quizzes'**
+  String get savedQuizzes;
+
+  /// No description provided for @noSavedQuizzesFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No saved quizzes found'**
+  String get noSavedQuizzesFound;
+
+  /// No description provided for @explanation.
+  ///
+  /// In en, this message translates to:
+  /// **'Explanation'**
+  String get explanation;
+
+  /// No description provided for @completedOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed on: {date}'**
+  String completedOn(String date);
+
+  /// No description provided for @review.
+  ///
+  /// In en, this message translates to:
+  /// **'Review'**
+  String get review;
 }
 
 class _AppLocalizationsDelegate
