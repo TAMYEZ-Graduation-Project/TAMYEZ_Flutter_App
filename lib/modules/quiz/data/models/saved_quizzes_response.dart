@@ -1,3 +1,5 @@
+import '../../../../core/network/models/quiz_dto.dart';
+
 class SavedQuizzesResponseDto {
   final bool? success;
   final String? message;
@@ -62,7 +64,7 @@ class SavedQuizzesPaginationDto {
 
 class SavedQuizDto {
   final String? id;
-  final QuizShortInfoDto? quizId;
+  final QuizDto? quizId;
   final String? score;
   final String? takenAt;
 
@@ -72,28 +74,10 @@ class SavedQuizDto {
     return SavedQuizDto(
       id: json['id'] as String?,
       quizId: json['quizId'] != null
-          ? QuizShortInfoDto.fromJson(json['quizId'] as Map<String, dynamic>)
+          ? QuizDto.fromJson(json['quizId'] as Map<String, dynamic>)
           : null,
       score: json['score'] as String?,
       takenAt: json['takenAt'] as String?,
-    );
-  }
-}
-
-class QuizShortInfoDto {
-  final String? id;
-  final String? title;
-  final String? type;
-  final int? duration;
-
-  QuizShortInfoDto({this.id, this.title, this.type, this.duration});
-
-  factory QuizShortInfoDto.fromJson(Map<String, dynamic> json) {
-    return QuizShortInfoDto(
-      id: json['id'] as String?,
-      title: json['title'] as String?,
-      type: json['type'] as String?,
-      duration: json['duration'] as int?,
     );
   }
 }

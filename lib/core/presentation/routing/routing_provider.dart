@@ -21,10 +21,12 @@ import '../../../modules/quiz/domain/entities/quiz_result_response_entity.dart';
 import '../../../modules/quiz/ui/screens/exam_preparation/exam_preparation_screen.dart';
 import '../../../modules/quiz/ui/screens/quiz/quiz_screen.dart';
 import '../../../modules/quiz/ui/screens/quiz_result/quiz_result_screen.dart';
+import '../../../modules/quiz/ui/screens/saved_quiz/saved_quiz_screen.dart';
 import '../../../modules/roadmap/ui/screens/roadmap_step_details/roadmap_step_details_screen.dart';
 import '../../../modules/startup/ui/onboarding/onboarding_screen.dart';
 import '../../../modules/startup/ui/splash/splash_screen.dart'
     show SplashScreen;
+import '../../constants/app_enums.dart';
 import '../../entities/roadmap_step_entity.dart';
 import '../../layers/localization/l10n/generated/app_localizations.dart';
 import '../screens/home_screen/home_screen.dart';
@@ -133,7 +135,7 @@ abstract class RoutingProvider {
             settings: const RouteSettings(name: DefinedRoutes.homeRoute),
           );
         case DefinedRoutes.roadmapDetailsRoute:
-          return PageRouteBuilder(
+          return PageRouteBuilder<RoadmapStepProgressStatusEnum?>(
             pageBuilder: (context, animation, secondaryAnimation) =>
                 RoadmapStepDetailsScreen(
                   roadmapStep: args as RoadmapStepEntity,
@@ -167,6 +169,15 @@ abstract class RoutingProvider {
           return PageRouteBuilder(
             pageBuilder: (context, animation, secondaryAnimation) =>
                 QuizResultScreen(quizResult: args as QuizResultEntity),
+            transitionsBuilder: PageTransitions.slideAndFade,
+            settings: const RouteSettings(
+              name: DefinedRoutes.examPreparationRoute,
+            ),
+          );
+        case DefinedRoutes.savedQuizRoute:
+          return PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                SavedQuizScreen(savedQuizId: args as String),
             transitionsBuilder: PageTransitions.slideAndFade,
             settings: const RouteSettings(
               name: DefinedRoutes.examPreparationRoute,

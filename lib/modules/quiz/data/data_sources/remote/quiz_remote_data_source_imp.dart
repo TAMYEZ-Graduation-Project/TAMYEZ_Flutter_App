@@ -2,6 +2,7 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../../core/network/models/check_question_answers_request.dart';
 import '../../../../../core/network/models/get_quiz_questions_response.dart';
+import '../../models/get_saved_quiz_response.dart';
 import '../../models/quiz_result_response.dart';
 import '../../models/saved_quizzes_response.dart';
 import 'quiz_api_client.dart';
@@ -35,5 +36,12 @@ class QuizRemoteDataSourceImp implements QuizRemoteDataSource {
     required int size,
   }) {
     return _apiClient.getSavedQuizzes(page, size);
+  }
+
+  @override
+  Future<GetSavedQuizResponseDto> getSavedQuiz({
+    required String savedQuizId,
+  }) {
+    return _apiClient.getSavedQuiz(savedQuizId);
   }
 }

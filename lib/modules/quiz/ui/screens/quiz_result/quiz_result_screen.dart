@@ -61,6 +61,11 @@ class QuizResultScreen extends BaseStatelessWidget {
                     );
                     return;
                   }
+                  Navigator.pushNamed(
+                    context,
+                    DefinedRoutes.savedQuizRoute,
+                    arguments: quizResult.savedQuizId,
+                  );
                 },
                 child: Text(d.appLocalizations.reviewAnswers),
               ),

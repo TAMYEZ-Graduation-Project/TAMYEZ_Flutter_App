@@ -5,6 +5,7 @@ import '../../../../core/entities/get_quiz_questions_entity.dart';
 import '../../../../core/execution/operation_result.dart';
 import '../../../../core/mappers/base_quiz_mapper.dart';
 import '../../../../core/utils/functions/repo_result_handler.dart';
+import '../../domain/entities/get_saved_quiz_entity.dart';
 import '../../domain/entities/quiz_result_response_entity.dart';
 import '../../domain/entities/saved_quizzes_entity.dart';
 import '../../domain/repositories/quiz_repository.dart';
@@ -53,6 +54,17 @@ class QuizRepositoryImp implements QuizRepository {
         page: page,
         size: size,
       )).toEntity().body.savedQuizzes;
+    });
+  }
+
+  @override
+  Future<OperationResult<SavedQuizDetailsEntity>> getSavedQuiz({
+    required String savedQuizId,
+  }) {
+    return repoResultHandler(() async {
+      return (await _remoteDataSource.getSavedQuiz(
+        savedQuizId: savedQuizId,
+      )).toEntity().body.savedQuiz;
     });
   }
 }

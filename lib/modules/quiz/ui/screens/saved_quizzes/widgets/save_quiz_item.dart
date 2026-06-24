@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../../../core/extensions/date_parsing_extension.dart';
 import '../../../../../../core/layers/theme/colors/app_colors.dart';
 import '../../../../../../core/presentation/bases/base_stateless_widget.dart';
+import '../../../../../../core/presentation/routing/defined_routes.dart';
 import '../../../../domain/entities/saved_quizzes_entity.dart';
 
 class SavedQuizItem extends BaseStatelessWidget {
@@ -25,7 +26,16 @@ class SavedQuizItem extends BaseStatelessWidget {
             ),
           ],
         ),
-        OutlinedButton(onPressed: () {}, child: const Text('Review')),
+        OutlinedButton(
+          onPressed: () {
+            Navigator.pushNamed(
+              context,
+              DefinedRoutes.savedQuizRoute,
+              arguments: savedQuiz.id,
+            );
+          },
+          child: const Text('Review'),
+        ),
       ],
     );
   }

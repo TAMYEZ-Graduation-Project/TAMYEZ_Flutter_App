@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../core/constants/app_enums.dart';
 import '../../../../../core/constants/asset_paths.dart';
 import '../../../../../core/di/di.dart';
 import '../../../../../core/entities/roadmap_step_entity.dart';
@@ -44,6 +45,19 @@ class _RoadmapStepDetailsScreenState extends State<RoadmapStepDetailsScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(widget.roadmapStep.title),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop<RoadmapStepProgressStatusEnum?>(
+                context,
+                switch (_viewModel.state.roadmapStepDetailsResult) {
+                  Success<RoadmapStepEntity>() =>
+                    RoadmapStepProgressStatusEnum.inProgress,
+                  _ => null,
+                },
+              );
+            },
+            icon: const Icon(Icons.arrow_back_ios),
+          ),
           centerTitle: true,
         ),
         body: SafeArea(

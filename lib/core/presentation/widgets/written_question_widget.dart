@@ -77,6 +77,7 @@ class _WrittenQuestionWidgetState
   @override
   void dispose() {
     super.dispose();
+    _controller.dispose();
     subject.close();
   }
 }

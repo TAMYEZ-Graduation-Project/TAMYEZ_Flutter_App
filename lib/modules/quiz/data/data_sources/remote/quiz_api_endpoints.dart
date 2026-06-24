@@ -6,6 +6,9 @@ abstract class QuizApiEndpoints {
       'quiz/{${QuizApiParams.quizAttemptId}}';
 
   static const String getSavedQuizzes = 'quiz/saved';
+
+  static const String getSavedQuiz =
+      'quiz/saved/{${QuizApiParams.savedQuizId}}';
 }
 
 abstract class QuizApiParams {
@@ -15,4 +18,5 @@ abstract class QuizApiParams {
   static const String quizAttemptId = 'quizAttemptId';
   static const String page = 'page';
   static const String size = 'size';
+  static const String savedQuizId = 'savedQuizId';
 }

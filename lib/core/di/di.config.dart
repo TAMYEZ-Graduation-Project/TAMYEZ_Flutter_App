@@ -93,10 +93,14 @@ import '../../modules/quiz/domain/use_cases/check_quiz_answers_use_case.dart'
     as _i419;
 import '../../modules/quiz/domain/use_cases/get_quiz_questions_use_case.dart'
     as _i383;
+import '../../modules/quiz/domain/use_cases/get_saved_quiz_use_case.dart'
+    as _i502;
 import '../../modules/quiz/domain/use_cases/get_saved_quizzes_use_case.dart'
     as _i638;
 import '../../modules/quiz/ui/screens/quiz/view_model/quiz_view_model.dart'
     as _i426;
+import '../../modules/quiz/ui/screens/saved_quiz/view_model/saved_quiz_view_model.dart'
+    as _i1056;
 import '../../modules/quiz/ui/screens/saved_quizzes/view_model/saved_quizzes_view_model.dart'
     as _i95;
 import '../../modules/roadmap/data/data_sources/local/career_local_data_source.dart'
@@ -287,6 +291,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i383.GetQuizQuestionsUseCase>(
       () => _i383.GetQuizQuestionsUseCase(gh<_i139.QuizRepository>()),
     );
+    gh.factory<_i502.GetSavedQuizUseCase>(
+      () => _i502.GetSavedQuizUseCase(gh<_i139.QuizRepository>()),
+    );
     gh.factory<_i638.GetSavedQuizzesUseCase>(
       () => _i638.GetSavedQuizzesUseCase(gh<_i139.QuizRepository>()),
     );
@@ -355,6 +362,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i95.SavedQuizzesViewModel>(
       () => _i95.SavedQuizzesViewModel(gh<_i638.GetSavedQuizzesUseCase>()),
+    );
+    gh.factory<_i1056.SavedQuizViewModel>(
+      () => _i1056.SavedQuizViewModel(gh<_i502.GetSavedQuizUseCase>()),
     );
     gh.factory<_i426.QuizViewModel>(
       () => _i426.QuizViewModel(

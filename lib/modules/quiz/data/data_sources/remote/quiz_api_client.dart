@@ -7,6 +7,7 @@ import 'package:retrofit/http.dart';
 import '../../../../../core/network/dio/dio_constants.dart';
 import '../../../../../core/network/models/check_question_answers_request.dart';
 import '../../../../../core/network/models/get_quiz_questions_response.dart';
+import '../../models/get_saved_quiz_response.dart';
 import '../../models/quiz_result_response.dart';
 import '../../models/saved_quizzes_response.dart';
 import 'quiz_api_endpoints.dart';
@@ -39,5 +40,11 @@ abstract class QuizApiClient {
   Future<SavedQuizzesResponseDto> getSavedQuizzes(
     @Query(QuizApiParams.page) int page,
     @Query(QuizApiParams.size) int size,
+  );
+
+  @GET(QuizApiEndpoints.getSavedQuiz)
+  @Extra({DioKeys.requiresAuth: true})
+  Future<GetSavedQuizResponseDto> getSavedQuiz(
+    @Path(QuizApiParams.savedQuizId) String savedQuizId,
   );
 }

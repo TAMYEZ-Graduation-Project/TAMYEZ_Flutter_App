@@ -133,11 +133,15 @@ class QuizViewModel extends BaseCubit<QuizState, UiEffect> {
       newOptions = [intent.optionId];
     }
 
-    answers[intent.questionId] = QuestionAnswerEntity(
-      questionId: intent.questionId,
-      type: QuizQuestionTypesEnum.mcqMulti,
-      answer: newOptions,
-    );
+    if (newOptions.isEmpty) {
+      answers.remove(intent.questionId);
+    } else {
+      answers[intent.questionId] = QuestionAnswerEntity(
+        questionId: intent.questionId,
+        type: QuizQuestionTypesEnum.mcqMulti,
+        answer: newOptions,
+      );
+    }
     emit(state.copyWith(questionAnswers: answers));
   }
 
@@ -146,10 +150,15 @@ class QuizViewModel extends BaseCubit<QuizState, UiEffect> {
       state.questionAnswers,
     );
 
-    answers[intent.questionId] = QuestionAnswerEntity(
-      questionId: intent.questionId,
-      writtenAnswer: intent.answer,
-    );
+    if (intent.answer.trim().isEmpty) {
+      answers.remove(intent.questionId);
+    } else {
+      answers[intent.questionId] = QuestionAnswerEntity(
+        questionId: intent.questionId,
+        writtenAnswer: intent.answer,
+      );
+    }
+
     emit(state.copyWith(questionAnswers: answers));
   }
 

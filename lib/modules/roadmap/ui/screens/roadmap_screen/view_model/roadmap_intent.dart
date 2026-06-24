@@ -9,3 +9,9 @@ class GetUserCareerIntent extends RoadmapIntent {
 class GetRoadmapStepsIntent extends RoadmapIntent {
   const GetRoadmapStepsIntent();
 }
+
+class ConvertAvailableStepToInProgressIntent extends RoadmapIntent {
+  final String stepId;
+
+  const ConvertAvailableStepToInProgressIntent({required this.stepId});
+}

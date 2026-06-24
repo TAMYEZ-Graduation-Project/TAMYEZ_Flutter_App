@@ -16,4 +16,5 @@ abstract class DefinedRoutes {
   static const String examPreparationRoute = 'exam_preparation';
   static const String quizRoute = 'quiz';
   static const String quizResultRoute = 'quiz_result';
+  static const String savedQuizRoute = 'saved_quiz';
 }
