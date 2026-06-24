@@ -51,9 +51,7 @@ void main() async {
   final appInitializer = getIt.get<AppInitializer>();
   await appInitializer.initializeEssential();
 
-  runApp(
-    const MyApp(),
-  );
+  runApp(const MyApp());
 
   // Post-startup init
   Future.microtask(() async {
