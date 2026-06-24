@@ -32,8 +32,8 @@ abstract class DbInitializer {
 
   @lazySingleton
   IsarCollection<SavedQuizzesPaginationLocal> savedQuizzesPaginationCollection(
-      Isar isar) =>
-      isar.collection<SavedQuizzesPaginationLocal>();
+    Isar isar,
+  ) => isar.collection<SavedQuizzesPaginationLocal>();
 
   @lazySingleton
   IsarCollection<SavedQuizLocal> savedQuizCollection(Isar isar) =>
