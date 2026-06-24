@@ -38,7 +38,9 @@ class _SavedQuizScreenState extends State<SavedQuizScreen> {
       create: (context) => _viewModel,
       child: Scaffold(
         appBar: AppBar(
-            title: Text(appLocalizations.yourAnswers), centerTitle: true),
+          title: Text(appLocalizations.yourAnswers),
+          centerTitle: true,
+        ),
         body:
             BlocSelector<
               SavedQuizViewModel,

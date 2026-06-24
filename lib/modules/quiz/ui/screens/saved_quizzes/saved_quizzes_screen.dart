@@ -51,7 +51,9 @@ class _SavedQuizzesScreenState
       create: (context) => _viewModel,
       child: Scaffold(
         appBar: AppBar(
-            title: Text(appLocalizations.savedQuizzes), centerTitle: true),
+          title: Text(appLocalizations.savedQuizzes),
+          centerTitle: true,
+        ),
         body:
             BlocSelector<
               SavedQuizzesViewModel,
