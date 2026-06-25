@@ -36,11 +36,7 @@ class _HomeScreenState extends BaseStatefulWidgetState<HomeScreen> {
         body: PageView(
           controller: _pageController,
           onPageChanged: _viewModel.jumpToPage,
-          children: const [
-            RoadmapPage(),
-            SavedQuizzesScreen(),
-            ProfilePage(),
-          ],
+          children: const [RoadmapPage(), SavedQuizzesScreen(), ProfilePage()],
         ),
 
         bottomNavigationBar: Consumer<HomeViewModel>(

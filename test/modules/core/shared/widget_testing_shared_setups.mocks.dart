@@ -197,8 +197,9 @@ class MockNavigatorObserver extends _i1.Mock implements _i7.NavigatorObserver {
       );
 
   @override
-  void didRemove(_i7.Route<dynamic>? route,
-      _i7.Route<dynamic>? previousRoute,
+  void didRemove(
+    _i7.Route<dynamic>? route,
+    _i7.Route<dynamic>? previousRoute,
   ) => super.noSuchMethod(
     Invocation.method(#didRemove, [route, previousRoute]),
     returnValueForMissingStub: null,
@@ -217,16 +218,18 @@ class MockNavigatorObserver extends _i1.Mock implements _i7.NavigatorObserver {
   );
 
   @override
-  void didChangeTop(_i7.Route<dynamic>? topRoute,
-      _i7.Route<dynamic>? previousTopRoute,
+  void didChangeTop(
+    _i7.Route<dynamic>? topRoute,
+    _i7.Route<dynamic>? previousTopRoute,
   ) => super.noSuchMethod(
     Invocation.method(#didChangeTop, [topRoute, previousTopRoute]),
     returnValueForMissingStub: null,
   );
 
   @override
-  void didStartUserGesture(_i7.Route<dynamic>? route,
-      _i7.Route<dynamic>? previousRoute,
+  void didStartUserGesture(
+    _i7.Route<dynamic>? route,
+    _i7.Route<dynamic>? previousRoute,
   ) => super.noSuchMethod(
     Invocation.method(#didStartUserGesture, [route, previousRoute]),
     returnValueForMissingStub: null,
