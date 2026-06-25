@@ -49,10 +49,9 @@ abstract class ProfileApiClient {
 
   @POST(ProfileApiEndpoints.logout)
   @Extra({DioKeys.requiresAuth: true})
-  Future<SimpleApiResponse> logout(@Body() LogoutRequest request,);
+  Future<SimpleApiResponse> logout(@Body() LogoutRequest request);
 
   @DELETE(ProfileApiEndpoints.deleteAccount)
   @Extra({DioKeys.requiresAuth: true})
-  Future<SimpleApiResponse> deleteAccount(
-      @Body() DeleteAccountRequest request,);
+  Future<SimpleApiResponse> deleteAccount(@Body() DeleteAccountRequest request);
 }

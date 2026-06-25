@@ -82,21 +82,22 @@ class EditProfileFormSection extends BaseStatelessWidget {
             },
           ),
           BlocBuilder<EditProfileViewModel, EditProfileState>(
-              buildWhen: (previous, current) {
-                return previous.originUser.gender != current.originUser.gender;
-              },
-              builder: (context, state) {
-                return AppGenderFieldWidget(
-                  genderController: controllers.genderController,
-                  readOnly: controllers.genderController.text.isNotEmpty,
-                  onChanged: (value) {
-                    viewModel.doIntent(
-                      OnFieldsChangeIntent(
-                          gender: controllers.genderController.text),
-                    );
-                  },
-                );
-              }
+            buildWhen: (previous, current) {
+              return previous.originUser.gender != current.originUser.gender;
+            },
+            builder: (context, state) {
+              return AppGenderFieldWidget(
+                genderController: controllers.genderController,
+                readOnly: controllers.genderController.text.isNotEmpty,
+                onChanged: (value) {
+                  viewModel.doIntent(
+                    OnFieldsChangeIntent(
+                      gender: controllers.genderController.text,
+                    ),
+                  );
+                },
+              );
+            },
           ),
         ],
       ),
