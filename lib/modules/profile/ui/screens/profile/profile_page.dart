@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-import '../../../../../core/constants/app_enums.dart';
 import '../../../../../core/di/di.dart';
 import '../../../../../core/entities/user_entity.dart';
 import '../../../../../core/layers/localization/enums/languages_enum.dart';
@@ -12,8 +11,12 @@ import '../../../../../core/presentation/bases/base_stateless_widget.dart';
 import '../../../../../core/presentation/mixins/effects_handling_mixin.dart';
 import '../../../../../core/presentation/result/ui_result.dart';
 import '../../../../../core/presentation/routing/defined_routes.dart';
+import '../../../../../core/presentation/utils/dialogs/app_dialogs.dart';
 import '../../../../../core/presentation/widgets/app_error_widget.dart';
+import '../../../../../core/presentation/widgets/app_loading_overlay_widget.dart';
 import 'sections/profile_header_section.dart';
+import 'skeletonizer/profile_page_skeletonizer_fake_dat.dart';
+import 'view_model/profile_intent.dart';
 import 'view_model/profile_state.dart';
 import 'view_model/profile_view_model.dart';
 import 'widgets/arrowed_profile_item_widget.dart';
@@ -29,6 +32,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends BaseStatefulWidgetState<ProfilePage>
     with EffectsHandlingMixin {
   final ProfileViewModel _viewModel = getIt.get();
+  final fakeUser = ProfilePageSkeletonizerFakeDat().fakeUser;
 
   @override
   void initState() {
@@ -56,7 +60,37 @@ class _ProfilePageState extends BaseStatefulWidgetState<ProfilePage>
                       child: _ProfilePageLayout(user: fakeUser),
                     );
                   case Success<UserEntity>():
-                    return _ProfilePageLayout(user: result.data);
+                    return Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        RefreshIndicator(
+                          onRefresh: () async {
+                            _viewModel.doIntent(const GetUserProfileIntent());
+                            return Future.delayed(const Duration(seconds: 1));
+                          },
+                          child: _ProfilePageLayout(user: result.data),
+                        ),
+
+                        BlocBuilder<ProfileViewModel, ProfileState>(
+                          buildWhen: (previous, current) {
+                            return previous.logoutResult !=
+                                    current.logoutResult ||
+                                previous.deleteAccountResult !=
+                                    current.deleteAccountResult;
+                          },
+                          builder: (context, state) {
+                            return AnimatedSwitcher(
+                              duration: const Duration(milliseconds: 300),
+                              child:
+                                  state.logoutResult is Loading ||
+                                      state.deleteAccountResult is Loading
+                                  ? const AppLoadingOverlayWidget()
+                                  : const SizedBox.shrink(),
+                            );
+                          },
+                        ),
+                      ],
+                    );
                   case Error<UserEntity>():
                     return AppErrorWidget(failure: result.failure);
                 }
@@ -65,20 +99,6 @@ class _ProfilePageState extends BaseStatefulWidgetState<ProfilePage>
       ),
     );
   }
-
-  final fakeUser = UserEntity(
-    id: '1',
-    email: 'use1@gmail.com',
-    fullName: 'User One',
-    assessmentStatus: CareerAssessmentStatusEnum.completed,
-    careerPath: CareerPathEntity(
-      id: '1',
-      selectedAt: DateTime.now().toString(),
-    ),
-    createdAt: DateTime.now().toString(),
-    updatedAt: DateTime.now().toString(),
-    confirmedAt: DateTime.now().toString(),
-  );
 }
 
 class _ProfilePageLayout extends BaseStatelessWidget {
@@ -88,6 +108,7 @@ class _ProfilePageLayout extends BaseStatelessWidget {
 
   @override
   Widget buildWith(BuildContext context, CommonDependency d) {
+    final viewModel = context.read<ProfileViewModel>();
     return ListView(
       children: [
         ProfileHeaderSection(
@@ -118,12 +139,28 @@ class _ProfilePageLayout extends BaseStatelessWidget {
         ),
         ArrowedProfileItemWidget(
           title: d.appLocalizations.logout,
-          onTap: () {},
+          onTap: () {
+            AppDialogs.areYouSureDialog(
+              context,
+              content: 'Are you sure you want to logout?',
+              yesButtonAction: () {
+                viewModel.doIntent(const LogoutIntent());
+              },
+            );
+          },
         ),
         ArrowedProfileItemWidget(
           title: d.appLocalizations.deleteAccount,
           titleColor: AppColors.red,
-          onTap: () {},
+          onTap: () {
+            AppDialogs.areYouSureDialog(
+              context,
+              content: 'Are you sure you want to delete your account?',
+              yesButtonAction: () {
+                viewModel.doIntent(const DeleteAccountIntent());
+              },
+            );
+          },
         ),
         const SizedBox(height: 8),
         Padding(

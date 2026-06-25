@@ -26,4 +26,8 @@ abstract interface class ProfileRepository {
     required ChangePasswordParams params,
     required bool userRemembered,
   });
+
+  Future<OperationResult<void>> logout({String? deviceId});
+
+  Future<OperationResult<void>> deleteAccount({required int version});
 }

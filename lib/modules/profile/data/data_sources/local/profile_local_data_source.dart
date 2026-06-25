@@ -4,4 +4,6 @@ abstract interface class ProfileLocalDataSource {
   Future<UserDto?> getSavedUserProfile();
 
   Future<void> saveUserProfile({required UserDto newUser});
+
+  Future<void> clear();
 }

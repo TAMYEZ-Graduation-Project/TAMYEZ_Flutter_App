@@ -9,11 +9,13 @@ import '../validation/form_validator.dart';
 
 class AppGenderFieldWidget extends StatefulWidget {
   final TextEditingController genderController;
+  final void Function(GenderEnum?)? onChanged;
   final bool readOnly;
 
   const AppGenderFieldWidget({
     super.key,
     required this.genderController,
+    this.onChanged,
     this.readOnly = false,
   });
 
@@ -28,9 +30,19 @@ class _AppGenderFieldWidgetState
   @override
   void initState() {
     super.initState();
-    if (widget.genderController.text.isNotEmpty) {
-      selectedGender = widget.genderController.text.toGenderEnumValue;
-    }
+    _refreshSelectedGender();
+  }
+
+  @override
+  void didUpdateWidget(covariant AppGenderFieldWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _refreshSelectedGender();
+  }
+
+  void _refreshSelectedGender() {
+    selectedGender = widget.genderController.text.isNotEmpty
+        ? widget.genderController.text.toGenderEnumValue
+        : null;
   }
 
   @override
@@ -60,6 +72,7 @@ class _AppGenderFieldWidgetState
                             state.didChange(value?.value);
                             selectedGender = value;
                             widget.genderController.text = value?.value ?? '';
+                            widget.onChanged?.call(value);
                           });
                         },
                   child: Row(

@@ -8,7 +8,7 @@ import '../../../../../core/presentation/mixins/effects_handling_mixin.dart';
 import '../../../../../core/presentation/result/ui_result.dart';
 import '../../../../../core/presentation/routing/defined_routes.dart'
     show DefinedRoutes;
-import '../../../../../core/presentation/widgets/app_loading_widget.dart';
+import '../../../../../core/presentation/widgets/app_loading_overlay_widget.dart';
 import '../../../domain/entities/career_details_screen_params.dart';
 import '../../../domain/entities/check_career_assessment_answers_response_entity.dart'
     show SuggestedCareerEntity;
@@ -109,13 +109,10 @@ class _TopCareerMatchesScreenState
             builder: (context, state) {
               return AnimatedSwitcher(
                 duration: const Duration(milliseconds: 300),
-                child: DecoratedBox(
-                  decoration: BoxDecoration(color: Colors.black.withAlpha(100)),
-                  child: switch (state) {
-                    Loading() => const AppLoadingWidget(),
-                    _ => const SizedBox.shrink(),
-                  },
-                ),
+                child: switch (state) {
+                  Loading() => const AppLoadingOverlayWidget(),
+                  _ => const SizedBox.shrink(),
+                },
               );
             },
           ),

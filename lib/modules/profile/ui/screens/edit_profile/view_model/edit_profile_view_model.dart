@@ -6,6 +6,7 @@ import 'package:rxdart/rxdart.dart';
 
 import '../../../../../../core/auth_providers/auth_provider.dart';
 import '../../../../../../core/auth_providers/user_provider.dart';
+import '../../../../../../core/entities/user_entity.dart';
 import '../../../../../../core/execution/operation_result.dart';
 import '../../../../../../core/presentation/bases/base_cubit.dart';
 import '../../../../../../core/presentation/result/ui_effect.dart';
@@ -15,6 +16,7 @@ import '../../../../../../core/success/success_enum.dart';
 import '../../../../domain/entities/edit_profile_params.dart';
 import '../../../../domain/entities/upload_profile_picture_response_entity.dart';
 import '../../../../domain/use_cases/edit_user_profile_use_case.dart';
+import '../../../../domain/use_cases/get_user_profile_use_case.dart';
 import '../../../../domain/use_cases/upload_profile_picture_use_case.dart';
 import 'edit_profile_intent.dart';
 import 'edit_profile_state.dart';
@@ -23,6 +25,7 @@ import 'edit_profile_state.dart';
 class EditProfileViewModel extends BaseCubit<EditProfileState, UiEffect> {
   final EditUserProfileUseCase _editProfileUseCase;
   final UploadProfilePictureUseCase _uploadProfilePictureUseCase;
+  final GetUserProfileUseCase _getUserProfileUseCase;
   final AuthProvider _authProvider;
   final UserProvider _userProvider;
   final ImagePickerService _imagePickerService;
@@ -31,6 +34,7 @@ class EditProfileViewModel extends BaseCubit<EditProfileState, UiEffect> {
     this._imagePickerService,
     this._editProfileUseCase,
     this._uploadProfilePictureUseCase,
+    this._getUserProfileUseCase,
     this._authProvider,
     this._userProvider,
   ) : super(const EditProfileState()) {
@@ -47,6 +51,8 @@ class EditProfileViewModel extends BaseCubit<EditProfileState, UiEffect> {
       case OnFieldsChangeIntent():
         _onFieldsChangeSubject.add(intent);
         break;
+      case GetUserProfileIntent():
+        await _getUserProfile();
     }
   }
 
@@ -179,6 +185,27 @@ class EditProfileViewModel extends BaseCubit<EditProfileState, UiEffect> {
           state.copyWith(uploadProfilePictureResult: Error(fileResult.failure)),
         );
         emitEffect(DisplayErrorEffect(failure: fileResult.failure));
+    }
+  }
+
+  Future<void> _getUserProfile() async {
+    emit(state.copyWith(userProfileResult: const Loading()));
+    final result = await _getUserProfileUseCase.call();
+
+    switch (result) {
+      case OperationSuccess<UserEntity>():
+        _userProvider.setUser(user: result.data);
+        emit(
+          state.copyWith(
+            userProfileResult: Success(result.data),
+            userInfoChanged: false,
+            originUser: result.data,
+            editedUser: result.data,
+          ),
+        );
+        emitEffect(const ReinitDataEffect());
+      case OperationFailure<UserEntity>():
+        emit(state.copyWith(userProfileResult: Error(result.failure)));
     }
   }
 

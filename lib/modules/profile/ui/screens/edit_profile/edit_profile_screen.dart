@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/auth_providers/user_provider.dart';
 import '../../../../../core/di/di.dart';
+import '../../../../../core/entities/user_entity.dart';
 import '../../../../../core/presentation/bases/base_stateful_widget_state.dart';
 import '../../../../../core/presentation/mixins/effects_handling_mixin.dart';
+import '../../../../../core/presentation/result/ui_effect.dart';
 import '../../../../../core/presentation/result/ui_result.dart';
+import '../../../../../core/presentation/widgets/app_loading_overlay_widget.dart';
 import '../../../../../core/presentation/widgets/app_loading_widget.dart';
 import 'sections/edit_profile_form_section.dart';
 import 'sections/edit_profile_header.dart';
@@ -29,7 +31,14 @@ class _EditProfileScreenState extends BaseStatefulWidgetState<EditProfileScreen>
   @override
   void initState() {
     super.initState();
-    _viewModel.effectStream.listen(handleEffects);
+    _viewModel.effectStream.listen((event) {
+      switch (event) {
+        case ReinitDataEffect():
+          initControllers();
+        default:
+          handleEffects(event);
+      }
+    });
     formKey = GlobalKey<FormState>();
     controllers = EditProfileControllers(
       firstNameController: TextEditingController(),
@@ -42,7 +51,7 @@ class _EditProfileScreenState extends BaseStatefulWidgetState<EditProfileScreen>
   }
 
   void initControllers() {
-    final user = getIt.get<UserProvider>().user!;
+    final user = _viewModel.state.originUser;
     controllers.firstNameController.text = user.fullName.split(' ').first;
     controllers.lastNameController.text = user.fullName.split(' ').last;
     controllers.phoneNumberController.text = user.phoneNumber;
@@ -55,48 +64,78 @@ class _EditProfileScreenState extends BaseStatefulWidgetState<EditProfileScreen>
     return BlocProvider(
       create: (context) => _viewModel,
       child: Scaffold(
-        appBar: AppBar(title: Text(appLocalizations.editProfile)),
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const SizedBox(height: 10),
-                const EditProfileHeader(),
-                const SizedBox(height: 16),
-                EditProfileFormSection(
-                  formKey: formKey,
-                  controllers: controllers,
-                ),
-                const Spacer(),
-                BlocBuilder<EditProfileViewModel, EditProfileState>(
-                  buildWhen: (previous, current) {
-                    return previous.userInfoChanged !=
-                            current.userInfoChanged ||
-                        previous.editUserProfileResult !=
-                            current.editUserProfileResult;
+        appBar: AppBar(
+          title: Text(appLocalizations.editProfile),
+          centerTitle: true,
+        ),
+        body: Stack(
+          children: [
+            SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: RefreshIndicator(
+                  onRefresh: () {
+                    _viewModel.doIntent(const GetUserProfileIntent());
+                    return Future.delayed(const Duration(seconds: 1));
                   },
-                  builder: (BuildContext context, state) {
-                    return FilledButton(
-                      onPressed:
-                          !state.userInfoChanged ||
-                              state.editUserProfileResult is Loading
-                          ? null
-                          : () {
-                              if (formKey.currentState!.validate()) {
-                                _viewModel.doIntent(const EditUserInfoIntent());
-                              }
-                            },
-                      child: state.editUserProfileResult is Loading
-                          ? const AppLoadingWidget(dimension: 20)
-                          : Text(appLocalizations.update),
-                    );
-                  },
+                  child: ListView(
+                    children: [
+                      const SizedBox(height: 10),
+                      const EditProfileHeader(),
+                      const SizedBox(height: 16),
+                      EditProfileFormSection(
+                        formKey: formKey,
+                        controllers: controllers,
+                      ),
+                      const SizedBox(height: 22),
+                      BlocBuilder<EditProfileViewModel, EditProfileState>(
+                        buildWhen: (previous, current) {
+                          return previous.userInfoChanged !=
+                                  current.userInfoChanged ||
+                              previous.editUserProfileResult !=
+                                  current.editUserProfileResult;
+                        },
+                        builder: (BuildContext context, state) {
+                          return FilledButton(
+                            onPressed:
+                                !state.userInfoChanged ||
+                                    state.editUserProfileResult is Loading
+                                ? null
+                                : () {
+                                    if (formKey.currentState!.validate()) {
+                                      _viewModel.doIntent(
+                                        const EditUserInfoIntent(),
+                                      );
+                                    }
+                                  },
+                            child: state.editUserProfileResult is Loading
+                                ? const AppLoadingWidget(dimension: 20)
+                                : Text(appLocalizations.update),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
                 ),
-              ],
+              ),
             ),
-          ),
+            BlocSelector<
+              EditProfileViewModel,
+              EditProfileState,
+              UiResult<UserEntity>
+            >(
+              selector: (state) => state.userProfileResult,
+              builder: (context, state) {
+                return AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 300),
+                  child: switch (state) {
+                    Loading() => const AppLoadingOverlayWidget(),
+                    _ => const SizedBox.shrink(),
+                  },
+                );
+              },
+            ),
+          ],
         ),
       ),
     );

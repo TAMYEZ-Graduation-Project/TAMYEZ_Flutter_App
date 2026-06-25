@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../../layers/localization/l10n/generated/app_localizations.dart';
+import '../../../layers/theme/extensions/app_typography.dart';
+
 abstract class AppDialogs {
   static Future<void> defaultDialog(
     BuildContext context, {
@@ -39,6 +42,49 @@ abstract class AppDialogs {
                 },
                 child: Text(secondButtonText),
               ),
+          ],
+        );
+      },
+    );
+  }
+
+  static Future<void> areYouSureDialog(
+    BuildContext context, {
+    bool dismissible = true,
+    required String content,
+    void Function()? yesButtonAction,
+    void Function()? noButtonAction,
+  }) {
+    return showDialog(
+      context: context,
+      barrierDismissible: dismissible,
+      builder: (context) {
+        return AlertDialog(
+          content: Text(
+            content,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).extension<AppTypography>()!.title,
+          ),
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                FilledButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    noButtonAction?.call();
+                  },
+                  child: Text(AppLocalizations.of(context)!.no),
+                ),
+                FilledButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    yesButtonAction?.call();
+                  },
+                  child: Text(AppLocalizations.of(context)!.yes),
+                ),
+              ],
+            ),
           ],
         );
       },

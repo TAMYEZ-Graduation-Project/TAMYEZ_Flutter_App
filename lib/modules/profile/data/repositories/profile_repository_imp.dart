@@ -15,6 +15,8 @@ import '../../domain/repositories/profile_repository.dart';
 import '../data_sources/local/profile_local_data_source.dart';
 import '../data_sources/remote/profile_remote_data_source.dart';
 import '../mapper/profile_mappers.dart';
+import '../models/delete_account_request.dart';
+import '../models/logout_request.dart';
 
 @Injectable(as: ProfileRepository)
 class ProfileRepositoryImp implements ProfileRepository {
@@ -133,6 +135,24 @@ class ProfileRepositoryImp implements ProfileRepository {
           );
         }
       }
+    });
+  }
+
+  @override
+  Future<OperationResult<void>> logout({String? deviceId}) {
+    return repoResultHandler(() async {
+      await _profileRemoteDataSource.logout(LogoutRequest(deviceId: deviceId));
+      await _profileLocalDataSource.clear();
+    });
+  }
+
+  @override
+  Future<OperationResult<void>> deleteAccount({required int version}) {
+    return repoResultHandler(() async {
+      await _profileRemoteDataSource.deleteAccount(
+        DeleteAccountRequest(version: version),
+      );
+      await _profileLocalDataSource.clear();
     });
   }
 }

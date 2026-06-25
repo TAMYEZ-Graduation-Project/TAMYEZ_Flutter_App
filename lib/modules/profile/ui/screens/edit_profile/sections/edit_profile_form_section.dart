@@ -7,6 +7,7 @@ import '../../../../../../core/presentation/widgets/custom_text_field.dart';
 import '../../../../../../core/validation/validators.dart';
 import '../edit_profile_screen.dart';
 import '../view_model/edit_profile_intent.dart';
+import '../view_model/edit_profile_state.dart';
 import '../view_model/edit_profile_view_model.dart';
 
 class EditProfileFormSection extends BaseStatelessWidget {
@@ -75,14 +76,27 @@ class EditProfileFormSection extends BaseStatelessWidget {
             onChanged: (value) {
               viewModel.doIntent(
                 OnFieldsChangeIntent(
-                  firstName: controllers.phoneNumberController.text,
+                  phoneNumber: controllers.phoneNumberController.text,
                 ),
               );
             },
           ),
-          AppGenderFieldWidget(
-            genderController: controllers.genderController,
-            readOnly: true,
+          BlocBuilder<EditProfileViewModel, EditProfileState>(
+              buildWhen: (previous, current) {
+                return previous.originUser.gender != current.originUser.gender;
+              },
+              builder: (context, state) {
+                return AppGenderFieldWidget(
+                  genderController: controllers.genderController,
+                  readOnly: controllers.genderController.text.isNotEmpty,
+                  onChanged: (value) {
+                    viewModel.doIntent(
+                      OnFieldsChangeIntent(
+                          gender: controllers.genderController.text),
+                    );
+                  },
+                );
+              }
           ),
         ],
       ),

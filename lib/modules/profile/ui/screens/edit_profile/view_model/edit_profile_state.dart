@@ -12,10 +12,12 @@ class EditProfileState with EquatableMixin {
   final UiResult<void> editUserProfileResult;
   final UiResult<void> uploadProfilePictureResult;
   final File? tempImage;
+  final UiResult<UserEntity> userProfileResult;
 
   const EditProfileState({
     this.editUserProfileResult = const Initial(),
     this.uploadProfilePictureResult = const Initial(),
+    this.userProfileResult = const Initial(),
     this.originUser = const UserEntity(),
     this.editedUser = const UserEntity(),
     this.userInfoChanged = false,
@@ -26,6 +28,7 @@ class EditProfileState with EquatableMixin {
   List<Object?> get props => [
     editUserProfileResult,
     uploadProfilePictureResult,
+    userProfileResult,
     originUser,
     editedUser,
     userInfoChanged,
@@ -35,6 +38,7 @@ class EditProfileState with EquatableMixin {
   EditProfileState copyWith({
     UiResult<void>? editUserProfileResult,
     UiResult<void>? uploadProfilePictureResult,
+    UiResult<UserEntity>? userProfileResult,
     UserEntity? originUser,
     UserEntity? editedUser,
     bool? userInfoChanged,
@@ -46,6 +50,7 @@ class EditProfileState with EquatableMixin {
           editUserProfileResult ?? this.editUserProfileResult,
       uploadProfilePictureResult:
           uploadProfilePictureResult ?? this.uploadProfilePictureResult,
+      userProfileResult: userProfileResult ?? this.userProfileResult,
       originUser: originUser ?? this.originUser,
       editedUser: editedUser ?? this.editedUser,
       userInfoChanged: userInfoChanged ?? this.userInfoChanged,

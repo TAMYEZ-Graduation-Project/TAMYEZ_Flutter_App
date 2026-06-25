@@ -7,8 +7,10 @@ import 'package:retrofit/http.dart';
 import '../../../../../core/network/dio/dio_constants.dart';
 import '../../../../../core/network/models/simple_api_response.dart';
 import '../../models/change_password_request.dart';
+import '../../models/delete_account_request.dart';
 import '../../models/edit_user_profile_request.dart';
 import '../../models/get_user_profile_response.dart';
+import '../../models/logout_request.dart';
 import '../../models/upload_profile_picture_response.dart';
 import 'profile_api_endpoints.dart';
 
@@ -44,4 +46,13 @@ abstract class ProfileApiClient {
   Future<SimpleApiResponse> changePassword(
     @Body() ChangePasswordRequest request,
   );
+
+  @POST(ProfileApiEndpoints.logout)
+  @Extra({DioKeys.requiresAuth: true})
+  Future<SimpleApiResponse> logout(@Body() LogoutRequest request,);
+
+  @DELETE(ProfileApiEndpoints.deleteAccount)
+  @Extra({DioKeys.requiresAuth: true})
+  Future<SimpleApiResponse> deleteAccount(
+      @Body() DeleteAccountRequest request,);
 }

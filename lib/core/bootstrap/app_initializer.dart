@@ -71,19 +71,19 @@ class AppInitializer {
   }
 
   void initAuthAndUserProvider({
-    LoginSessionEntity? session,
+    required LoginSessionEntity session,
     bool remembered = true,
   }) {
-    if (session != null) {
-      _userProvider.setSession(user: session.user, token: session.token);
-      _authProvider.setAuthStatus(
-        remembered
-            ? AuthStatus.rememberedAuthenticated
-            : AuthStatus.unrememberedAuthenticated,
-      );
-    } else {
-      _userProvider.clear();
-      _authProvider.setAuthStatus(AuthStatus.unauthenticated);
-    }
+    _userProvider.setSession(user: session.user, token: session.token);
+    _authProvider.setAuthStatus(
+      remembered
+          ? AuthStatus.rememberedAuthenticated
+          : AuthStatus.unrememberedAuthenticated,
+    );
+  }
+
+  void clearAuthAndUserProvider() {
+    _userProvider.clear();
+    _authProvider.setAuthStatus(AuthStatus.unauthenticated);
   }
 }

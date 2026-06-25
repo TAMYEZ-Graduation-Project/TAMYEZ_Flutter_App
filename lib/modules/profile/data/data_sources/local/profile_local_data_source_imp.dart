@@ -33,4 +33,9 @@ class ProfileLocalDataSourceImp implements ProfileLocalDataSource {
       jsonEncode(newUser.toJson()),
     );
   }
+
+  @override
+  Future<void> clear() {
+    return _storageService.deleteAll();
+  }
 }

@@ -98,8 +98,13 @@ import '../../modules/profile/domain/repositories/profile_repository.dart'
     as _i496;
 import '../../modules/profile/domain/use_cases/change_password_use_case.dart'
     as _i516;
+import '../../modules/profile/domain/use_cases/delete_account_use_case.dart'
+    as _i648;
 import '../../modules/profile/domain/use_cases/edit_user_profile_use_case.dart'
     as _i570;
+import '../../modules/profile/domain/use_cases/get_user_profile_use_case.dart'
+    as _i18;
+import '../../modules/profile/domain/use_cases/logout_use_case.dart' as _i128;
 import '../../modules/profile/domain/use_cases/sync_profile_use_case.dart'
     as _i117;
 import '../../modules/profile/domain/use_cases/upload_profile_picture_use_case.dart'
@@ -392,8 +397,17 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i516.ChangePasswordUseCase>(
       () => _i516.ChangePasswordUseCase(gh<_i496.ProfileRepository>()),
     );
+    gh.factory<_i648.DeleteAccountUseCase>(
+      () => _i648.DeleteAccountUseCase(gh<_i496.ProfileRepository>()),
+    );
     gh.factory<_i570.EditUserProfileUseCase>(
       () => _i570.EditUserProfileUseCase(gh<_i496.ProfileRepository>()),
+    );
+    gh.factory<_i18.GetUserProfileUseCase>(
+      () => _i18.GetUserProfileUseCase(gh<_i496.ProfileRepository>()),
+    );
+    gh.factory<_i128.LogoutUseCase>(
+      () => _i128.LogoutUseCase(gh<_i496.ProfileRepository>()),
     );
     gh.factory<_i117.SyncProfileUseCase>(
       () => _i117.SyncProfileUseCase(gh<_i496.ProfileRepository>()),
@@ -447,6 +461,13 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i190.SavedQuizLocalDataSource>(),
       ),
     );
+    gh.factory<_i88.ProfileViewModel>(
+      () => _i88.ProfileViewModel(
+        gh<_i117.SyncProfileUseCase>(),
+        gh<_i9.UserProvider>(),
+        gh<_i4.AppInitializer>(),
+      ),
+    );
     gh.factory<_i1050.LoginViewModel>(
       () => _i1050.LoginViewModel(
         gh<_i46.LoginUseCase>(),
@@ -489,12 +510,6 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i497.CountDownUtility>(),
       ),
     );
-    gh.factory<_i88.ProfileViewModel>(
-      () => _i88.ProfileViewModel(
-        gh<_i117.SyncProfileUseCase>(),
-        gh<_i9.UserProvider>(),
-      ),
-    );
     gh.factory<_i455.TopCareerMatchesViewModel>(
       () => _i455.TopCareerMatchesViewModel(
         gh<_i80.ChooseSuggestedCareerUseCase>(),
@@ -506,6 +521,7 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i683.ImagePickerService>(),
         gh<_i570.EditUserProfileUseCase>(),
         gh<_i404.UploadProfilePictureUseCase>(),
+        gh<_i18.GetUserProfileUseCase>(),
         gh<_i842.AuthProvider>(),
         gh<_i9.UserProvider>(),
       ),

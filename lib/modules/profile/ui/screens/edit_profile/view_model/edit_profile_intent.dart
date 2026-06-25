@@ -28,3 +28,7 @@ class EditUserInfoIntent extends EditProfileIntent {
 class UploadProfilePictureIntent extends EditProfileIntent {
   const UploadProfilePictureIntent();
 }
+
+class GetUserProfileIntent extends EditProfileIntent {
+  const GetUserProfileIntent();
+}
