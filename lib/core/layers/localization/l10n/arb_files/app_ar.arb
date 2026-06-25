@@ -9,7 +9,7 @@
   "localSaveFailed": "فشل حفظ البيانات محلياً 💾",
   "connectionError": "لا يوجد اتصال بالإنترنت 😑",
   "unknownError": "حدث خطأ ما 🤔",
-  "badCertificate": "الشهادة المقدمة من الخادم غير صالحة 📑",
+  "badCertificate": "الشهادة المقدمة من الخادم غير صالح 📑",
   "somethingWentWrong": "حدث خطأ ما 🤔",
   "badRequest": "تنسيق طلب غير صالح 👎",
   "couldNotFindSource": "تعذر العثور على المصدر 😲",
@@ -194,5 +194,38 @@
       }
     }
   },
-  "review": "مراجعة"
+  "review": "مراجعة",
+  "userProfileBadResponse": "أرسل الخادم استجابة غير صالحة لملف المستخدم",
+  "versionConflict": "يرجى تحديث الصفحة والمحاولة مرة أخرى",
+  "editProfileSuccess": "تم تحديث الملف الشخصي بنجاح",
+  "imagePickerFailure": "فشل فتح المعرض",
+  "newPassEqualOldPass": "لا يمكن أن تكون كلمة المرور الجديدة هي نفسها كلمة المرور القديمة",
+  "changePasswordSuccess": "تم تغيير كلمة المرور بنجاح",
+  "profilePictureUploadedSuccess": "تم رفع الصورة الشخصية بنجاح",
+  "profile": "الملف الشخصي",
+  "account": "الحساب",
+  "logout": "تسجيل الخروج",
+  "deleteAccount": "حذف الحساب",
+  "settings": "الإعدادات",
+  "language": "اللغة",
+  "notifications": "الإشعارات",
+  "darkMode": "الوضع الداكن",
+  "privacy": "الخصوصية",
+  "about": "حول التطبيق",
+  "joined": "انضم في: {date}",
+  "@joined": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "editProfile": "تعديل الملف الشخصي",
+  "update": "تحديث",
+  "firstName": "الاسم الأول",
+  "lastName": "اسم العائلة",
+  "changePassword": "تغيير كلمة المرور",
+  "currentPassword": "كلمة المرور الحالية",
+  "newPassword": "كلمة المرور الجديدة",
+  "change": "تغيير"
 }

@@ -22,6 +22,7 @@ enum ValidationError {
 
   // Confirm password
   passwordMismatch,
+  newPassEqualOldPass,
 
   // Gender
   invalidGender,

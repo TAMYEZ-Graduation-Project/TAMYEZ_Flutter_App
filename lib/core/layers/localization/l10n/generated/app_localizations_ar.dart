@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -37,7 +38,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get unknownError => 'حدث خطأ ما 🤔';
 
   @override
-  String get badCertificate => 'الشهادة المقدمة من الخادم غير صالحة 📑';
+  String get badCertificate => 'الشهادة المقدمة من الخادم غير صالح 📑';
 
   @override
   String get somethingWentWrong => 'حدث خطأ ما 🤔';
@@ -524,4 +525,86 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get review => 'مراجعة';
+
+  @override
+  String get userProfileBadResponse =>
+      'أرسل الخادم استجابة غير صالحة لملف المستخدم';
+
+  @override
+  String get versionConflict => 'يرجى تحديث الصفحة والمحاولة مرة أخرى';
+
+  @override
+  String get editProfileSuccess => 'تم تحديث الملف الشخصي بنجاح';
+
+  @override
+  String get imagePickerFailure => 'فشل فتح المعرض';
+
+  @override
+  String get newPassEqualOldPass =>
+      'لا يمكن أن تكون كلمة المرور الجديدة هي نفسها كلمة المرور القديمة';
+
+  @override
+  String get changePasswordSuccess => 'تم تغيير كلمة المرور بنجاح';
+
+  @override
+  String get profilePictureUploadedSuccess => 'تم رفع الصورة الشخصية بنجاح';
+
+  @override
+  String get profile => 'الملف الشخصي';
+
+  @override
+  String get account => 'الحساب';
+
+  @override
+  String get logout => 'تسجيل الخروج';
+
+  @override
+  String get deleteAccount => 'حذف الحساب';
+
+  @override
+  String get settings => 'الإعدادات';
+
+  @override
+  String get language => 'اللغة';
+
+  @override
+  String get notifications => 'الإشعارات';
+
+  @override
+  String get darkMode => 'الوضع الداكن';
+
+  @override
+  String get privacy => 'الخصوصية';
+
+  @override
+  String get about => 'حول التطبيق';
+
+  @override
+  String joined(String date) {
+    return 'انضم في: $date';
+  }
+
+  @override
+  String get editProfile => 'تعديل الملف الشخصي';
+
+  @override
+  String get update => 'تحديث';
+
+  @override
+  String get firstName => 'الاسم الأول';
+
+  @override
+  String get lastName => 'اسم العائلة';
+
+  @override
+  String get changePassword => 'تغيير كلمة المرور';
+
+  @override
+  String get currentPassword => 'كلمة المرور الحالية';
+
+  @override
+  String get newPassword => 'كلمة المرور الجديدة';
+
+  @override
+  String get change => 'تغيير';
 }

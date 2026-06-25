@@ -9,6 +9,8 @@ class AuthProvider extends ChangeNotifier {
 
   AuthStatus get authStatus => _authStatus;
 
+  bool get isUserRemembered => authStatus == AuthStatus.rememberedAuthenticated;
+
   void setAuthStatus(AuthStatus status, {bool notify = false}) {
     if (authStatus == status) return;
     _authStatus = status;

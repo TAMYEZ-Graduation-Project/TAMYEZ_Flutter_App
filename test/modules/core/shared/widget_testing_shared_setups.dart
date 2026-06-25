@@ -40,7 +40,7 @@ class WidgetTestingSharedSetups {
     }
     when(
       mockLocalizationManager.currentLocale,
-    ).thenReturn(LanguagesEnum.en.getLanguageCode());
+    ).thenReturn(LanguagesEnum.en);
     getIt.registerSingleton<LocalizationManager>(mockLocalizationManager);
 
     mockThemeManager = MockThemeManager();

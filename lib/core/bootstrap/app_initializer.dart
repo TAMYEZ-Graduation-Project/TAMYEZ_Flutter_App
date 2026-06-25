@@ -8,8 +8,8 @@ import '../auth_providers/auth_provider.dart' show AuthProvider;
 import '../auth_providers/user_provider.dart' show UserProvider;
 import '../entities/auth_status.dart' show AuthStatus;
 import '../entities/login_session_entity.dart';
-import '../layers/localization/enums/languages_enum.dart'
-    show LanguagesEnum, LanguagesEnumExtension;
+import '../extensions/languages_enum_value.dart';
+import '../layers/localization/enums/languages_enum.dart' show LanguagesEnum;
 import '../layers/localization/l10n/manager/localization_manager.dart';
 import '../layers/storage/constants/storage_constants.dart';
 import '../layers/storage/contracts/storage_service_contract.dart';
@@ -58,7 +58,7 @@ class AppInitializer {
           : Brightness.light,
     );
     _localizationManager.setInitLocal(
-      savedLocale ?? LanguagesEnum.en.getLanguageCode(),
+      savedLocale?.toLanguagesEnum ?? LanguagesEnum.en,
     );
   }
 
@@ -70,10 +70,17 @@ class AppInitializer {
     }
   }
 
-  void initAuthAndUserProvider(LoginSessionEntity? session) {
+  void initAuthAndUserProvider({
+    LoginSessionEntity? session,
+    bool remembered = true,
+  }) {
     if (session != null) {
       _userProvider.setSession(user: session.user, token: session.token);
-      _authProvider.setAuthStatus(AuthStatus.authenticated);
+      _authProvider.setAuthStatus(
+        remembered
+            ? AuthStatus.rememberedAuthenticated
+            : AuthStatus.unrememberedAuthenticated,
+      );
     } else {
       _userProvider.clear();
       _authProvider.setAuthStatus(AuthStatus.unauthenticated);

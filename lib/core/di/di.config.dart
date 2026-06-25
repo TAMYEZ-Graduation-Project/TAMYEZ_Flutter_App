@@ -14,6 +14,7 @@ import 'package:firebase_messaging/firebase_messaging.dart' as _i892;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i558;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:google_sign_in/google_sign_in.dart' as _i116;
+import 'package:image_picker/image_picker.dart' as _i183;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:isar_community/isar.dart' as _i214;
 
@@ -81,6 +82,34 @@ import '../../modules/career_assessment/ui/screens/career_details/view_model/car
     as _i582;
 import '../../modules/career_assessment/ui/screens/top_career_matches/view_model/top_career_matches_view_model.dart'
     as _i455;
+import '../../modules/profile/data/data_sources/local/profile_local_data_source.dart'
+    as _i72;
+import '../../modules/profile/data/data_sources/local/profile_local_data_source_imp.dart'
+    as _i844;
+import '../../modules/profile/data/data_sources/remote/profile_api_client.dart'
+    as _i872;
+import '../../modules/profile/data/data_sources/remote/profile_remote_data_source.dart'
+    as _i929;
+import '../../modules/profile/data/data_sources/remote/profile_remote_data_source_imp.dart'
+    as _i442;
+import '../../modules/profile/data/repositories/profile_repository_imp.dart'
+    as _i795;
+import '../../modules/profile/domain/repositories/profile_repository.dart'
+    as _i496;
+import '../../modules/profile/domain/use_cases/change_password_use_case.dart'
+    as _i516;
+import '../../modules/profile/domain/use_cases/edit_user_profile_use_case.dart'
+    as _i570;
+import '../../modules/profile/domain/use_cases/sync_profile_use_case.dart'
+    as _i117;
+import '../../modules/profile/domain/use_cases/upload_profile_picture_use_case.dart'
+    as _i404;
+import '../../modules/profile/ui/screens/change_password/change_password_view_model/change_password_view_model.dart'
+    as _i916;
+import '../../modules/profile/ui/screens/edit_profile/view_model/edit_profile_view_model.dart'
+    as _i219;
+import '../../modules/profile/ui/screens/profile/view_model/profile_view_model.dart'
+    as _i88;
 import '../../modules/quiz/data/data_sources/local/saved_quiz_local_data_source.dart'
     as _i190;
 import '../../modules/quiz/data/data_sources/local/saved_quiz_local_data_source_imp.dart'
@@ -170,6 +199,11 @@ import '../presentation/utils/firebase/messaging/firebase_cloud_messaging_servic
     as _i510;
 import '../presentation/utils/firebase/messaging/firebase_messaging_module.dart'
     as _i829;
+import '../presentation/utils/image_picker/image_picker_di_module.dart'
+    as _i252;
+import '../presentation/utils/image_picker/image_picker_service.dart' as _i683;
+import '../presentation/utils/image_picker/image_picker_service_imp.dart'
+    as _i141;
 import '../presentation/utils/url_opener/url_opener.dart' as _i352;
 import '../presentation/utils/url_opener/url_opener_imp.dart' as _i194;
 import '../utils/counter/count_down_utility.dart' as _i497;
@@ -185,6 +219,7 @@ extension GetItInjectableX on _i174.GetIt {
     final appLocalizationRegister = _$AppLocalizationRegister();
     final storagesInitializer = _$StoragesInitializer();
     final firebaseMessagingModule = _$FirebaseMessagingModule();
+    final imagePickerDiModule = _$ImagePickerDiModule();
     final authDiModule = _$AuthDiModule();
     final networkModule = _$NetworkModule();
     await gh.factoryAsync<_i214.Isar>(
@@ -209,6 +244,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i892.FirebaseMessaging>(
       () => firebaseMessagingModule.create(),
+    );
+    gh.lazySingleton<_i183.ImagePicker>(
+      () => imagePickerDiModule.providerImagePicker(),
     );
     gh.lazySingleton<_i116.GoogleSignIn>(() => authDiModule.googleSignIn());
     gh.factory<_i622.SocialAuthService>(
@@ -241,6 +279,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i361.Dio>(instanceName: 'mainDio'),
       ),
     );
+    gh.lazySingleton<_i872.ProfileApiClient>(
+      () => _i872.ProfileApiClient(gh<_i361.Dio>(instanceName: 'mainDio')),
+    );
     gh.lazySingleton<_i692.QuizApiClient>(
       () => _i692.QuizApiClient(gh<_i361.Dio>(instanceName: 'mainDio')),
     );
@@ -252,6 +293,14 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i114.RoadmapRemoteDataSource>(
       () => _i430.RoadmapRemoteDataSourceImp(gh<_i935.RoadmapApiClient>()),
+    );
+    gh.factory<_i683.ImagePickerService>(
+      () => _i141.ImagePickerServiceImpl(gh<_i183.ImagePicker>()),
+    );
+    gh.factory<_i72.ProfileLocalDataSource>(
+      () => _i844.ProfileLocalDataSourceImp(
+        gh<_i1003.StorageService>(instanceName: 'secureStorage'),
+      ),
     );
     gh.factory<_i376.AuthLocalDataSource>(
       () => _i405.AuthLocalDataSourceImp(
@@ -306,6 +355,15 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i214.IsarCollection<_i568.SavedQuizzesPaginationLocal>>(),
       ),
     );
+    gh.factory<_i929.ProfileRemoteDataSource>(
+      () => _i442.ProfileRemoteDataSourceImp(gh<_i872.ProfileApiClient>()),
+    );
+    gh.factory<_i496.ProfileRepository>(
+      () => _i795.ProfileRepositoryImp(
+        gh<_i929.ProfileRemoteDataSource>(),
+        gh<_i72.ProfileLocalDataSource>(),
+      ),
+    );
     gh.factory<_i908.RoadmapLocalDataSource>(
       () => _i513.RoadmapLocalDataSourceImp(
         gh<_i214.Isar>(),
@@ -330,6 +388,18 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i214.Isar>(),
         gh<_i214.IsarCollection<_i1005.CareerLocal>>(),
       ),
+    );
+    gh.factory<_i516.ChangePasswordUseCase>(
+      () => _i516.ChangePasswordUseCase(gh<_i496.ProfileRepository>()),
+    );
+    gh.factory<_i570.EditUserProfileUseCase>(
+      () => _i570.EditUserProfileUseCase(gh<_i496.ProfileRepository>()),
+    );
+    gh.factory<_i117.SyncProfileUseCase>(
+      () => _i117.SyncProfileUseCase(gh<_i496.ProfileRepository>()),
+    );
+    gh.factory<_i404.UploadProfilePictureUseCase>(
+      () => _i404.UploadProfilePictureUseCase(gh<_i496.ProfileRepository>()),
     );
     gh.factory<_i347.ForgetPasswordUseCase>(
       () => _i347.ForgetPasswordUseCase(gh<_i779.AuthRepository>()),
@@ -419,9 +489,24 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i497.CountDownUtility>(),
       ),
     );
+    gh.factory<_i88.ProfileViewModel>(
+      () => _i88.ProfileViewModel(
+        gh<_i117.SyncProfileUseCase>(),
+        gh<_i9.UserProvider>(),
+      ),
+    );
     gh.factory<_i455.TopCareerMatchesViewModel>(
       () => _i455.TopCareerMatchesViewModel(
         gh<_i80.ChooseSuggestedCareerUseCase>(),
+        gh<_i9.UserProvider>(),
+      ),
+    );
+    gh.factory<_i219.EditProfileViewModel>(
+      () => _i219.EditProfileViewModel(
+        gh<_i683.ImagePickerService>(),
+        gh<_i570.EditUserProfileUseCase>(),
+        gh<_i404.UploadProfilePictureUseCase>(),
+        gh<_i842.AuthProvider>(),
         gh<_i9.UserProvider>(),
       ),
     );
@@ -436,6 +521,13 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i638.GetSavedQuizzesUseCase>(
       () => _i638.GetSavedQuizzesUseCase(gh<_i139.QuizRepository>()),
+    );
+    gh.factory<_i916.ChangePasswordViewModel>(
+      () => _i916.ChangePasswordViewModel(
+        gh<_i516.ChangePasswordUseCase>(),
+        gh<_i9.UserProvider>(),
+        gh<_i842.AuthProvider>(),
+      ),
     );
     gh.factory<_i967.SignUpViewModel>(
       () => _i967.SignUpViewModel(
@@ -503,6 +595,8 @@ class _$AppLocalizationRegister extends _i555.AppLocalizationRegister {}
 class _$StoragesInitializer extends _i272.StoragesInitializer {}
 
 class _$FirebaseMessagingModule extends _i829.FirebaseMessagingModule {}
+
+class _$ImagePickerDiModule extends _i252.ImagePickerDiModule {}
 
 class _$AuthDiModule extends _i301.AuthDiModule {}
 

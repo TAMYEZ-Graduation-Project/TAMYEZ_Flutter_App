@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -528,4 +529,87 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get review => 'Review';
+
+  @override
+  String get userProfileBadResponse =>
+      'The server returned an invalid user profile response';
+
+  @override
+  String get versionConflict => 'Please refresh your page and try again';
+
+  @override
+  String get editProfileSuccess => 'Profile has been updated successfully';
+
+  @override
+  String get imagePickerFailure => 'Failed to open gallery';
+
+  @override
+  String get newPassEqualOldPass =>
+      'New password can\'t be the same as the old password';
+
+  @override
+  String get changePasswordSuccess => 'Password has been changed successfully';
+
+  @override
+  String get profilePictureUploadedSuccess =>
+      'Profile picture has been uploaded successfully';
+
+  @override
+  String get profile => 'Profile';
+
+  @override
+  String get account => 'Account';
+
+  @override
+  String get logout => 'Logout';
+
+  @override
+  String get deleteAccount => 'Delete Account';
+
+  @override
+  String get settings => 'Settings';
+
+  @override
+  String get language => 'Language';
+
+  @override
+  String get notifications => 'Notifications';
+
+  @override
+  String get darkMode => 'Dark Mode';
+
+  @override
+  String get privacy => 'Privacy';
+
+  @override
+  String get about => 'About';
+
+  @override
+  String joined(String date) {
+    return 'Joined: $date';
+  }
+
+  @override
+  String get editProfile => 'Edit Profile';
+
+  @override
+  String get update => 'Update';
+
+  @override
+  String get firstName => 'First name';
+
+  @override
+  String get lastName => 'Last name';
+
+  @override
+  String get changePassword => 'Change Password';
+
+  @override
+  String get currentPassword => 'Current Password';
+
+  @override
+  String get newPassword => 'New Password';
+
+  @override
+  String get change => 'Change';
 }

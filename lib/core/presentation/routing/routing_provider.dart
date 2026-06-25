@@ -16,6 +16,8 @@ import '../../../modules/career_assessment/ui/screens/career_assessment/career_a
 import '../../../modules/career_assessment/ui/screens/career_details/career_details_screen.dart';
 import '../../../modules/career_assessment/ui/screens/discover_your_potential/discover_your_potential_screen.dart';
 import '../../../modules/career_assessment/ui/screens/top_career_matches/top_career_matches_screen.dart';
+import '../../../modules/profile/ui/screens/change_password/change_password_screen.dart';
+import '../../../modules/profile/ui/screens/edit_profile/edit_profile_screen.dart';
 import '../../../modules/quiz/domain/entities/exam_preparation_screen_params.dart';
 import '../../../modules/quiz/domain/entities/quiz_result_response_entity.dart';
 import '../../../modules/quiz/ui/screens/exam_preparation/exam_preparation_screen.dart';
@@ -181,6 +183,22 @@ abstract class RoutingProvider {
             transitionsBuilder: PageTransitions.slideAndFade,
             settings: const RouteSettings(
               name: DefinedRoutes.examPreparationRoute,
+            ),
+          );
+        case DefinedRoutes.editProfileRoute:
+          return PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                const EditProfileScreen(),
+            transitionsBuilder: PageTransitions.slideAndFade,
+            settings: const RouteSettings(name: DefinedRoutes.editProfileRoute),
+          );
+        case DefinedRoutes.changePasswordRoute:
+          return PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                const ChangePasswordScreen(),
+            transitionsBuilder: PageTransitions.slideAndFade,
+            settings: const RouteSettings(
+              name: DefinedRoutes.changePasswordRoute,
             ),
           );
         default:

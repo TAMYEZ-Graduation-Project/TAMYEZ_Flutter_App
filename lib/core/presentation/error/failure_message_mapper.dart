@@ -57,6 +57,12 @@ abstract class FailureHandling {
         return l10n.checkCareerAssessmentAnswersBadResponse;
       case NotAllQuizQuestionsAnsweredFailure():
         return l10n.notAllQuizQuestionsAnswered;
+      case UserProfileBadResponseFailure():
+        return l10n.userProfileBadResponse;
+      case VersionConflictFailure():
+        return l10n.versionConflict;
+      case ImagePickerFailure():
+        return l10n.imagePickerFailure;
     }
   }
 

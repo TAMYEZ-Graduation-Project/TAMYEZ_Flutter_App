@@ -53,7 +53,10 @@ class LoginViewModel extends BaseCubit<LoginState, UiEffect> {
 
     switch (result) {
       case OperationSuccess<LoginResponseEntity>():
-        _appInitializer.initAuthAndUserProvider(result.data.body);
+        _appInitializer.initAuthAndUserProvider(
+          session: result.data.body,
+          remembered: intent.rememberMe,
+        );
         emit(state.copyWith(systemLoginResult: const Success(null)));
         emitEffect(
           const DisplaySuccessEffect(success: SuccessEnum.loginSuccess),
@@ -79,7 +82,10 @@ class LoginViewModel extends BaseCubit<LoginState, UiEffect> {
 
     switch (result) {
       case OperationSuccess<LoginResponseEntity>():
-        _appInitializer.initAuthAndUserProvider(result.data.body);
+        _appInitializer.initAuthAndUserProvider(
+          session: result.data.body,
+          remembered: intent.rememberMe,
+        );
         emit(state.copyWith(googleLoginResult: const Success(null)));
         emitEffect(
           const DisplaySuccessEffect(success: SuccessEnum.loginSuccess),

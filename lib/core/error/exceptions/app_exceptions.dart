@@ -34,6 +34,10 @@ class CheckCareerAssessmentAnswersBadResponseException extends AppException {
   const CheckCareerAssessmentAnswersBadResponseException({super.message});
 }
 
+class UserProfileBadResponseException extends AppException {
+  const UserProfileBadResponseException({super.message});
+}
+
 class GoogleLoginException extends AppException {
   const GoogleLoginException({super.message});
 }

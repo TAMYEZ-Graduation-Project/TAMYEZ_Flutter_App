@@ -132,6 +132,13 @@ abstract class AppThemeFactory {
         typography,
         brightness,
       ),
+      switchTheme: SwitchThemeData(
+        padding: EdgeInsets.zero,
+        trackColor: WidgetStatePropertyAll(AppColors.gray),
+        thumbColor: const WidgetStatePropertyAll(Colors.white),
+        thumbIcon: const WidgetStatePropertyAll(Icon(Icons.circle)),
+        trackOutlineColor: const WidgetStatePropertyAll(Colors.transparent),
+      ),
     );
   }
 

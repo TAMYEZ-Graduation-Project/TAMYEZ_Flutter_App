@@ -12,19 +12,19 @@ class LocalizationManager extends ChangeNotifier {
     @Named(StorageConstants.secureStorage) this._storageService,
   );
 
-  String _currentLocale = LanguagesEnum.en.getLanguageCode();
+  LanguagesEnum _currentLocale = LanguagesEnum.en;
 
-  String get currentLocale {
+  LanguagesEnum get currentLocale {
     return _currentLocale;
   }
 
-  void setInitLocal(String initLocal) {
+  void setInitLocal(LanguagesEnum initLocal) {
     _currentLocale = initLocal;
     notifyListeners();
   }
 
   Future<void> changeLocal(LanguagesEnum languageEnum) async {
-    _currentLocale = languageEnum.getLanguageCode();
+    _currentLocale = languageEnum;
     _saveLocal(languageEnum.getLanguageCode());
     notifyListeners();
   }
@@ -40,5 +40,5 @@ class LocalizationManager extends ChangeNotifier {
     return savedLocale;
   }
 
-  bool get isEnglish => currentLocale == LanguagesEnum.en.getLanguageCode();
+  bool get isEnglish => currentLocale == LanguagesEnum.en;
 }

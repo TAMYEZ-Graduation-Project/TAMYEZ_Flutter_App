@@ -82,7 +82,7 @@ class SignUpViewModel extends BaseCubit<SignUpState, UiEffect> {
 
     switch (result) {
       case OperationSuccess<LoginResponseEntity>():
-        _appInitializer.initAuthAndUserProvider(result.data.body);
+        _appInitializer.initAuthAndUserProvider(session: result.data.body);
         emit(state.copyWith(googleSignUpResult: const Success(null)));
         emitEffect(
           const DisplaySuccessEffect(success: SuccessEnum.loginSuccess),

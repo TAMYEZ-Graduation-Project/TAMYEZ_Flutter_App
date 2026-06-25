@@ -30,11 +30,12 @@ class SavedQuizzesViewModel extends BaseCubit<SavedQuizzesState, UiEffect> {
   Future<void> _getSavedQuizzes() async {
     emit(state.copyWith(getSavedQuizzesResult: const Loading()));
     final result = await _getSavedQuizzesUseCase(
-      userId: _userProvider.user!.id!,
+      userId: _userProvider.user!.id,
       size: 10,
       page: 1,
     );
 
+    if (isClosed) return;
     switch (result) {
       case OperationSuccess<SavedQuizzesPaginationEntity>():
         emit(
@@ -54,11 +55,12 @@ class SavedQuizzesViewModel extends BaseCubit<SavedQuizzesState, UiEffect> {
   Future<void> _getMoreSavedQuizzes() async {
     emit(state.copyWith(isLoadingMore: true));
     final result = await _getSavedQuizzesUseCase(
-      userId: _userProvider.user!.id!,
+      userId: _userProvider.user!.id,
       size: state.paginationData.size,
       page: state.paginationData.currentPage + 1,
     );
 
+    if (isClosed) return;
     switch (result) {
       case OperationSuccess<SavedQuizzesPaginationEntity>():
         final savedQuizzes =

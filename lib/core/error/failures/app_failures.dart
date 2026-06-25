@@ -23,6 +23,18 @@ class NotAllQuizQuestionsAnsweredFailure extends Failure {
   const NotAllQuizQuestionsAnsweredFailure();
 }
 
+class UserProfileBadResponseFailure extends Failure {
+  const UserProfileBadResponseFailure();
+}
+
+class ImagePickerFailure extends Failure {
+  const ImagePickerFailure();
+}
+
+class VersionConflictFailure extends Failure {
+  const VersionConflictFailure();
+}
+
 // =================================
 sealed class NetworkFailure extends Failure {
   const NetworkFailure();

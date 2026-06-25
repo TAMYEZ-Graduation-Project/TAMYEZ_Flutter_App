@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 
 import '../../utils/functions/safe_print.dart';
+import '../constants/backend_error_codes.dart';
 import '../exceptions/app_exceptions.dart';
 import '../failures/app_failures.dart';
 import '../models/api_error_model.dart';
@@ -69,11 +70,16 @@ abstract class ExceptionHandling {
         if (error.response?.statusCode == 401) {
           return const UnauthorizedFailure();
         }
+        final errorModel = ApiErrorModel.fromJson(
+          error.response?.data as Map<String, dynamic>,
+        ).error;
+        if (error.response?.statusCode == 409 &&
+            errorModel?.code == BackendErrorCodes.versionConflict) {
+          return const VersionConflictFailure();
+        }
         return ServerFailure(
           statusCode: error.response?.statusCode,
-          serverMessage: ApiErrorModel.fromJson(
-            error.response?.data as Map<String, dynamic>,
-          ).error?.message,
+          serverMessage: errorModel?.message,
         );
 
       case DioExceptionType.unknown:

@@ -4,16 +4,15 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
-import 'dart:ui' as _i6;
+import 'dart:ui' as _i5;
 
-import 'package:flutter/material.dart' as _i8;
+import 'package:flutter/material.dart' as _i7;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i3;
 import 'package:tamyez_app/core/layers/localization/enums/languages_enum.dart'
-    as _i5;
+    as _i3;
 import 'package:tamyez_app/core/layers/localization/l10n/manager/localization_manager.dart'
     as _i2;
-import 'package:tamyez_app/core/layers/theme/manager/theme_manager.dart' as _i7;
+import 'package:tamyez_app/core/layers/theme/manager/theme_manager.dart' as _i6;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -36,19 +35,13 @@ import 'package:tamyez_app/core/layers/theme/manager/theme_manager.dart' as _i7;
 class MockLocalizationManager extends _i1.Mock
     implements _i2.LocalizationManager {
   @override
-  String get currentLocale =>
+  _i3.LanguagesEnum get currentLocale =>
       (super.noSuchMethod(
             Invocation.getter(#currentLocale),
-            returnValue: _i3.dummyValue<String>(
-              this,
-              Invocation.getter(#currentLocale),
-            ),
-            returnValueForMissingStub: _i3.dummyValue<String>(
-              this,
-              Invocation.getter(#currentLocale),
-            ),
+            returnValue: _i3.LanguagesEnum.en,
+            returnValueForMissingStub: _i3.LanguagesEnum.en,
           )
-          as String);
+          as _i3.LanguagesEnum);
 
   @override
   bool get isEnglish =>
@@ -69,13 +62,13 @@ class MockLocalizationManager extends _i1.Mock
           as bool);
 
   @override
-  void setInitLocal(String? initLocal) => super.noSuchMethod(
+  void setInitLocal(_i3.LanguagesEnum? initLocal) => super.noSuchMethod(
     Invocation.method(#setInitLocal, [initLocal]),
     returnValueForMissingStub: null,
   );
 
   @override
-  _i4.Future<void> changeLocal(_i5.LanguagesEnum? languageEnum) =>
+  _i4.Future<void> changeLocal(_i3.LanguagesEnum? languageEnum) =>
       (super.noSuchMethod(
             Invocation.method(#changeLocal, [languageEnum]),
             returnValue: _i4.Future<void>.value(),
@@ -93,13 +86,13 @@ class MockLocalizationManager extends _i1.Mock
           as _i4.Future<String?>);
 
   @override
-  void addListener(_i6.VoidCallback? listener) => super.noSuchMethod(
+  void addListener(_i5.VoidCallback? listener) => super.noSuchMethod(
     Invocation.method(#addListener, [listener]),
     returnValueForMissingStub: null,
   );
 
   @override
-  void removeListener(_i6.VoidCallback? listener) => super.noSuchMethod(
+  void removeListener(_i5.VoidCallback? listener) => super.noSuchMethod(
     Invocation.method(#removeListener, [listener]),
     returnValueForMissingStub: null,
   );
@@ -120,15 +113,24 @@ class MockLocalizationManager extends _i1.Mock
 /// A class which mocks [ThemeManager].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockThemeManager extends _i1.Mock implements _i7.ThemeManager {
+class MockThemeManager extends _i1.Mock implements _i6.ThemeManager {
   @override
-  _i6.Brightness get currentTheme =>
+  _i5.Brightness get currentTheme =>
       (super.noSuchMethod(
             Invocation.getter(#currentTheme),
-            returnValue: _i6.Brightness.dark,
-            returnValueForMissingStub: _i6.Brightness.dark,
+            returnValue: _i5.Brightness.dark,
+            returnValueForMissingStub: _i5.Brightness.dark,
           )
-          as _i6.Brightness);
+          as _i5.Brightness);
+
+  @override
+  bool get isDarkTheme =>
+      (super.noSuchMethod(
+            Invocation.getter(#isDarkTheme),
+            returnValue: false,
+            returnValueForMissingStub: false,
+          )
+          as bool);
 
   @override
   bool get hasListeners =>
@@ -140,25 +142,25 @@ class MockThemeManager extends _i1.Mock implements _i7.ThemeManager {
           as bool);
 
   @override
-  void setInitTheme(_i6.Brightness? initTheme) => super.noSuchMethod(
+  void setInitTheme(_i5.Brightness? initTheme) => super.noSuchMethod(
     Invocation.method(#setInitTheme, [initTheme]),
     returnValueForMissingStub: null,
   );
 
   @override
-  void changeTheme(_i6.Brightness? newTheme) => super.noSuchMethod(
+  void changeTheme(_i5.Brightness? newTheme) => super.noSuchMethod(
     Invocation.method(#changeTheme, [newTheme]),
     returnValueForMissingStub: null,
   );
 
   @override
-  void addListener(_i6.VoidCallback? listener) => super.noSuchMethod(
+  void addListener(_i5.VoidCallback? listener) => super.noSuchMethod(
     Invocation.method(#addListener, [listener]),
     returnValueForMissingStub: null,
   );
 
   @override
-  void removeListener(_i6.VoidCallback? listener) => super.noSuchMethod(
+  void removeListener(_i5.VoidCallback? listener) => super.noSuchMethod(
     Invocation.method(#removeListener, [listener]),
     returnValueForMissingStub: null,
   );
@@ -179,25 +181,24 @@ class MockThemeManager extends _i1.Mock implements _i7.ThemeManager {
 /// A class which mocks [NavigatorObserver].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockNavigatorObserver extends _i1.Mock implements _i8.NavigatorObserver {
+class MockNavigatorObserver extends _i1.Mock implements _i7.NavigatorObserver {
   @override
-  void didPush(_i8.Route<dynamic>? route, _i8.Route<dynamic>? previousRoute) =>
+  void didPush(_i7.Route<dynamic>? route, _i7.Route<dynamic>? previousRoute) =>
       super.noSuchMethod(
         Invocation.method(#didPush, [route, previousRoute]),
         returnValueForMissingStub: null,
       );
 
   @override
-  void didPop(_i8.Route<dynamic>? route, _i8.Route<dynamic>? previousRoute) =>
+  void didPop(_i7.Route<dynamic>? route, _i7.Route<dynamic>? previousRoute) =>
       super.noSuchMethod(
         Invocation.method(#didPop, [route, previousRoute]),
         returnValueForMissingStub: null,
       );
 
   @override
-  void didRemove(
-    _i8.Route<dynamic>? route,
-    _i8.Route<dynamic>? previousRoute,
+  void didRemove(_i7.Route<dynamic>? route,
+      _i7.Route<dynamic>? previousRoute,
   ) => super.noSuchMethod(
     Invocation.method(#didRemove, [route, previousRoute]),
     returnValueForMissingStub: null,
@@ -205,8 +206,8 @@ class MockNavigatorObserver extends _i1.Mock implements _i8.NavigatorObserver {
 
   @override
   void didReplace({
-    _i8.Route<dynamic>? newRoute,
-    _i8.Route<dynamic>? oldRoute,
+    _i7.Route<dynamic>? newRoute,
+    _i7.Route<dynamic>? oldRoute,
   }) => super.noSuchMethod(
     Invocation.method(#didReplace, [], {
       #newRoute: newRoute,
@@ -216,18 +217,16 @@ class MockNavigatorObserver extends _i1.Mock implements _i8.NavigatorObserver {
   );
 
   @override
-  void didChangeTop(
-    _i8.Route<dynamic>? topRoute,
-    _i8.Route<dynamic>? previousTopRoute,
+  void didChangeTop(_i7.Route<dynamic>? topRoute,
+      _i7.Route<dynamic>? previousTopRoute,
   ) => super.noSuchMethod(
     Invocation.method(#didChangeTop, [topRoute, previousTopRoute]),
     returnValueForMissingStub: null,
   );
 
   @override
-  void didStartUserGesture(
-    _i8.Route<dynamic>? route,
-    _i8.Route<dynamic>? previousRoute,
+  void didStartUserGesture(_i7.Route<dynamic>? route,
+      _i7.Route<dynamic>? previousRoute,
   ) => super.noSuchMethod(
     Invocation.method(#didStartUserGesture, [route, previousRoute]),
     returnValueForMissingStub: null,

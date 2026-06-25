@@ -5,4 +5,7 @@ enum SuccessEnum {
   resetPasswordSuccess,
   forgetPasswordEmailSent,
   otpVerifiedSuccess,
+  editProfileSuccess,
+  changePasswordSuccess,
+  profilePictureUploadedSuccess,
 }

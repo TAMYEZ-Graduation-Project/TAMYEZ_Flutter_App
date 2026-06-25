@@ -194,5 +194,38 @@
       }
     }
   },
-  "review": "Review"
+  "review": "Review",
+  "userProfileBadResponse": "The server returned an invalid user profile response",
+  "versionConflict": "Please refresh your page and try again",
+  "editProfileSuccess": "Profile has been updated successfully",
+  "imagePickerFailure": "Failed to open gallery",
+  "newPassEqualOldPass": "New password can't be the same as the old password",
+  "changePasswordSuccess": "Password has been changed successfully",
+  "profilePictureUploadedSuccess": "Profile picture has been uploaded successfully",
+  "profile": "Profile",
+  "account": "Account",
+  "logout": "Logout",
+  "deleteAccount": "Delete Account",
+  "settings": "Settings",
+  "language": "Language",
+  "notifications": "Notifications",
+  "darkMode": "Dark Mode",
+  "privacy": "Privacy",
+  "about": "About",
+  "joined": "Joined: {date}",
+  "@joined": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "editProfile": "Edit Profile",
+  "update": "Update",
+  "firstName": "First name",
+  "lastName": "Last name",
+  "changePassword": "Change Password",
+  "currentPassword": "Current Password",
+  "newPassword": "New Password",
+  "change": "Change"
 }
