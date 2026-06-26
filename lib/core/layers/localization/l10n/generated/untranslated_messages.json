@@ -1,9 +1,1 @@
-{
-  "ar": [
-    "notificationsEnabledSuccess",
-    "notificationsDisabledSuccess",
-    "accountDeletedSuccess",
-    "unableToGetFcmToken",
-    "exceededTwoEnabledNotificationDevices"
-  ]
-}
+{}

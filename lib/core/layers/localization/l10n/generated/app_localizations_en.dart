@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -629,4 +630,18 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get exceededTwoEnabledNotificationDevices =>
       'You have exceeded the two enabled notification devices limit.';
+
+  @override
+  String get logoutConfirmation => 'Are you sure you want to logout?';
+
+  @override
+  String get deleteAccountConfirmation =>
+      'Are you sure you want to delete your account?';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get exceededMaxDevicesReplacementMessage =>
+      'You exceeded the maximum number of notification devices, please choose a device to replace:';
 }

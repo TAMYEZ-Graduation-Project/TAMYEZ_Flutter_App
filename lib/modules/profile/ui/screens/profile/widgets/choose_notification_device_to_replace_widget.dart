@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../../core/entities/notification_device_entity.dart';
+import '../../../../../../core/presentation/bases/base_stateless_widget.dart';
 
-class ChooseNotificationDeviceToReplaceWidget extends StatelessWidget {
+class ChooseNotificationDeviceToReplaceWidget extends BaseStatelessWidget {
   final List<NotificationDeviceEntity> devices;
   final void Function(NotificationDeviceEntity) onDeviceSelected;
 
@@ -13,10 +14,10 @@ class ChooseNotificationDeviceToReplaceWidget extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildWith(BuildContext context, CommonDependency d) {
     return AlertDialog(
-      title: const Text(
-        'You exceeded the maximum number of notification devices, please choose a device to replace:',
+      title: Text(
+        d.appLocalizations.exceededMaxDevicesReplacementMessage,
       ),
       content: SizedBox(
         width: double.maxFinite,
@@ -40,7 +41,7 @@ class ChooseNotificationDeviceToReplaceWidget extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text('Cancel'),
+          child: Text(d.appLocalizations.cancel),
         ),
       ],
     );

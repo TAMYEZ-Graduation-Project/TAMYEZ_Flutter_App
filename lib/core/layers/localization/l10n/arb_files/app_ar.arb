@@ -227,5 +227,14 @@
   "changePassword": "تغيير كلمة المرور",
   "currentPassword": "كلمة المرور الحالية",
   "newPassword": "كلمة المرور الجديدة",
-  "change": "تغيير"
+  "change": "تغيير",
+  "notificationsEnabledSuccess": "تم تفعيل الإشعارات بنجاح",
+  "notificationsDisabledSuccess": "تم تعطيل الإشعارات بنجاح",
+  "accountDeletedSuccess": "تم حذف الحساب بنجاح",
+  "unableToGetFcmToken": "تعذر الحصول على رمز FCM",
+  "exceededTwoEnabledNotificationDevices": "لقد تجاوزت الحد المسموح به للأجهزة المفعلة للإشعارات (جهازين).",
+  "logoutConfirmation": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
+  "deleteAccountConfirmation": "هل أنت متأكد أنك تريد حذف حسابك؟",
+  "cancel": "إلغاء",
+  "exceededMaxDevicesReplacementMessage": "لقد تجاوزت الحد الأقصى لعدد أجهزة الإشعارات، يرجى اختيار جهاز لاستبداله:"
 }

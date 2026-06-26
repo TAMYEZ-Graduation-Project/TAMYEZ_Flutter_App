@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -608,20 +609,31 @@ class AppLocalizationsAr extends AppLocalizations {
   String get change => 'تغيير';
 
   @override
-  String get notificationsEnabledSuccess =>
-      'Notifications enabled successfully';
+  String get notificationsEnabledSuccess => 'تم تفعيل الإشعارات بنجاح';
 
   @override
-  String get notificationsDisabledSuccess =>
-      'Notifications disabled successfully';
+  String get notificationsDisabledSuccess => 'تم تعطيل الإشعارات بنجاح';
 
   @override
-  String get accountDeletedSuccess => 'Account deleted successfully';
+  String get accountDeletedSuccess => 'تم حذف الحساب بنجاح';
 
   @override
-  String get unableToGetFcmToken => 'Unable to get FCM token';
+  String get unableToGetFcmToken => 'تعذر الحصول على رمز FCM';
 
   @override
   String get exceededTwoEnabledNotificationDevices =>
-      'You have exceeded the two enabled notification devices limit.';
+      'لقد تجاوزت الحد المسموح به للأجهزة المفعلة للإشعارات (جهازين).';
+
+  @override
+  String get logoutConfirmation => 'هل أنت متأكد أنك تريد تسجيل الخروج؟';
+
+  @override
+  String get deleteAccountConfirmation => 'هل أنت متأكد أنك تريد حذف حسابك؟';
+
+  @override
+  String get cancel => 'إلغاء';
+
+  @override
+  String get exceededMaxDevicesReplacementMessage =>
+      'لقد تجاوزت الحد الأقصى لعدد أجهزة الإشعارات، يرجى اختيار جهاز لاستبداله:';
 }

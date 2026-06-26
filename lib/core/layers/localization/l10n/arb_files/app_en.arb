@@ -232,5 +232,9 @@
   "notificationsDisabledSuccess": "Notifications disabled successfully",
   "accountDeletedSuccess": "Account deleted successfully",
   "unableToGetFcmToken": "Unable to get FCM token",
-  "exceededTwoEnabledNotificationDevices": "You have exceeded the two enabled notification devices limit."
+  "exceededTwoEnabledNotificationDevices": "You have exceeded the two enabled notification devices limit.",
+  "logoutConfirmation": "Are you sure you want to logout?",
+  "deleteAccountConfirmation": "Are you sure you want to delete your account?",
+  "cancel": "Cancel",
+  "exceededMaxDevicesReplacementMessage": "You exceeded the maximum number of notification devices, please choose a device to replace:"
 }

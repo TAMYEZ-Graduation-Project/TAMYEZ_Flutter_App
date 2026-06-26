@@ -1249,6 +1249,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You have exceeded the two enabled notification devices limit.'**
   String get exceededTwoEnabledNotificationDevices;
+
+  /// No description provided for @logoutConfirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to logout?'**
+  String get logoutConfirmation;
+
+  /// No description provided for @deleteAccountConfirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete your account?'**
+  String get deleteAccountConfirmation;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @exceededMaxDevicesReplacementMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'You exceeded the maximum number of notification devices, please choose a device to replace:'**
+  String get exceededMaxDevicesReplacementMessage;
 }
 
 class _AppLocalizationsDelegate

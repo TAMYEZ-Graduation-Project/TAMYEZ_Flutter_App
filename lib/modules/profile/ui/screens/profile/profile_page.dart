@@ -183,7 +183,7 @@ class _ProfilePageLayout extends BaseStatelessWidget {
           onTap: () {
             AppDialogs.areYouSureDialog(
               context,
-              content: 'Are you sure you want to logout?',
+              content: d.appLocalizations.logoutConfirmation,
               yesButtonAction: () {
                 viewModel.doIntent(const LogoutIntent());
               },
@@ -196,7 +196,7 @@ class _ProfilePageLayout extends BaseStatelessWidget {
           onTap: () {
             AppDialogs.areYouSureDialog(
               context,
-              content: 'Are you sure you want to delete your account?',
+              content: d.appLocalizations.deleteAccountConfirmation,
               yesButtonAction: () {
                 viewModel.doIntent(const DeleteAccountIntent());
               },
