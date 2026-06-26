@@ -16,9 +16,7 @@ class ChooseNotificationDeviceToReplaceWidget extends BaseStatelessWidget {
   @override
   Widget buildWith(BuildContext context, CommonDependency d) {
     return AlertDialog(
-      title: Text(
-        d.appLocalizations.exceededMaxDevicesReplacementMessage,
-      ),
+      title: Text(d.appLocalizations.exceededMaxDevicesReplacementMessage),
       content: SizedBox(
         width: double.maxFinite,
         child: ListView.builder(
