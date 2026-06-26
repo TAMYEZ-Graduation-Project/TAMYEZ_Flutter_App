@@ -61,15 +61,18 @@ abstract class ProfileApiClient {
   @POST(ProfileApiEndpoints.enableNotifications)
   @Extra({DioKeys.requiresAuth: true})
   Future<SimpleApiResponse> enableNotifications(
-      @Body() EnableNotificationsRequest request,);
+    @Body() EnableNotificationsRequest request,
+  );
 
   @POST(ProfileApiEndpoints.refreshFcmToken)
   @Extra({DioKeys.requiresAuth: true})
   Future<SimpleApiResponse> refreshFcmToken(
-      @Body() RefreshFcmTokenRequest request,);
+    @Body() RefreshFcmTokenRequest request,
+  );
 
   @POST(ProfileApiEndpoints.disableNotifications)
   @Extra({DioKeys.requiresAuth: true})
   Future<SimpleApiResponse> disableNotifications(
-      @Body() DisableNotificationsRequest request,);
+    @Body() DisableNotificationsRequest request,
+  );
 }
