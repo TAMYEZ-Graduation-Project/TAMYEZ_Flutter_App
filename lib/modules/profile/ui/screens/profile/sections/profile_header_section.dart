@@ -48,6 +48,13 @@ class ProfileHeaderSection extends BaseStatelessWidget {
                     child: const Center(child: Icon(Icons.person, size: 70)),
                   );
                 },
+                placeholder: (context, url) {
+                  return CircleAvatar(
+                    radius: 70,
+                    backgroundColor: AppColors.darkGray,
+                    child: const Center(child: CircularProgressIndicator()),
+                  );
+                },
               ),
             ),
           ),

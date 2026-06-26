@@ -46,9 +46,15 @@ class AuthLocalDataSourceImp implements AuthLocalDataSource {
       _storageService.getString(StorageConstants.accessToken),
       _storageService.getString(StorageConstants.userKey),
     ]);
+    final bool notificationsEnabled =
+        (await _storageService.getBool(
+          StorageConstants.notificationsEnabledKey,
+        )) ??
+        false;
 
     return LoginSessionDto(
       accessToken: savedValues[0],
+      notificationsEnabled: notificationsEnabled,
       user: savedValues[1] == null
           ? null
           : UserDto.fromJson(

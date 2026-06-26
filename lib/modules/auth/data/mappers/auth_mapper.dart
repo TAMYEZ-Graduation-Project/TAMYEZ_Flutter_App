@@ -18,12 +18,12 @@ import '../models/user_email_request.dart' show UserEmailRequest;
 import '../models/verify_code_request.dart' show VerifyCodeRequest;
 
 extension LoginRequestMapper on LoginParams {
-  LoginRequest toModel() {
+  LoginRequest toModel({String? deviceId, String? fcmToken}) {
     return LoginRequest(
       email: email,
       password: password,
-      deviceId: deviceId,
-      fcmToken: fcmToken,
+      deviceId: deviceId ?? this.deviceId,
+      fcmToken: fcmToken ?? this.fcmToken,
     );
   }
 }

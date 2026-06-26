@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
+import '../../../../../core/auth_providers/user_provider.dart';
 import '../../../../../core/di/di.dart';
 import '../../../../../core/entities/user_entity.dart';
+import '../../../../../core/error/failures/app_failures.dart';
 import '../../../../../core/layers/localization/enums/languages_enum.dart';
 import '../../../../../core/layers/theme/colors/app_colors.dart';
 import '../../../../../core/presentation/bases/base_stateful_widget_state.dart';
 import '../../../../../core/presentation/bases/base_stateless_widget.dart';
 import '../../../../../core/presentation/mixins/effects_handling_mixin.dart';
+import '../../../../../core/presentation/result/ui_effect.dart';
 import '../../../../../core/presentation/result/ui_result.dart';
 import '../../../../../core/presentation/routing/defined_routes.dart';
 import '../../../../../core/presentation/utils/dialogs/app_dialogs.dart';
@@ -20,6 +23,7 @@ import 'view_model/profile_intent.dart';
 import 'view_model/profile_state.dart';
 import 'view_model/profile_view_model.dart';
 import 'widgets/arrowed_profile_item_widget.dart';
+import 'widgets/choose_notification_device_to_replace_widget.dart';
 import 'widgets/toggled_profile_item_widget.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -37,7 +41,36 @@ class _ProfilePageState extends BaseStatefulWidgetState<ProfilePage>
   @override
   void initState() {
     super.initState();
-    _viewModel.effectStream.listen(handleEffects);
+    _viewModel.effectStream.listen((event) {
+      switch (event) {
+        case DisplayErrorEffect():
+          if (event.failure is ExceededTwoEnabledNotificationDevicesFailure) {
+            if (!mounted) return;
+            showDialog<void>(
+              context: context,
+              builder: (context) {
+                return ChooseNotificationDeviceToReplaceWidget(
+                  devices:
+                      (event.failure
+                              as ExceededTwoEnabledNotificationDevicesFailure)
+                          .notificationDevices,
+                  onDeviceSelected: (device) {
+                    _viewModel.doIntent(
+                      EnableNotificationsIntent(
+                        replaceDeviceId: device.deviceId,
+                      ),
+                    );
+                  },
+                );
+              },
+            );
+          } else {
+            handleEffects(event);
+          }
+        default:
+          handleEffects(event);
+      }
+    });
   }
 
   @override
@@ -76,14 +109,22 @@ class _ProfilePageState extends BaseStatefulWidgetState<ProfilePage>
                             return previous.logoutResult !=
                                     current.logoutResult ||
                                 previous.deleteAccountResult !=
-                                    current.deleteAccountResult;
+                                    current.deleteAccountResult ||
+                                previous.enableNotificationsResult !=
+                                    current.enableNotificationsResult ||
+                                previous.disableNotificationsResult !=
+                                    current.disableNotificationsResult;
                           },
                           builder: (context, state) {
                             return AnimatedSwitcher(
                               duration: const Duration(milliseconds: 300),
                               child:
                                   state.logoutResult is Loading ||
-                                      state.deleteAccountResult is Loading
+                                      state.deleteAccountResult is Loading ||
+                                      state.enableNotificationsResult
+                                          is Loading ||
+                                      state.disableNotificationsResult
+                                          is Loading
                                   ? const AppLoadingOverlayWidget()
                                   : const SizedBox.shrink(),
                             );
@@ -176,11 +217,31 @@ class _ProfilePageLayout extends BaseStatelessWidget {
           toggleOn: d.localizationManager.isEnglish,
           onTap: (value) {
             d.localizationManager.changeLocal(
-              value ? LanguagesEnum.ar : LanguagesEnum.en,
+              value ? LanguagesEnum.en : LanguagesEnum.ar,
             );
           },
         ),
-        ToggledProfileItemWidget(title: d.appLocalizations.notifications),
+        BlocBuilder<ProfileViewModel, ProfileState>(
+          buildWhen: (previous, current) {
+            return previous.enableNotificationsResult !=
+                    current.enableNotificationsResult ||
+                previous.disableNotificationsResult !=
+                    current.disableNotificationsResult;
+          },
+          builder: (context, state) {
+            return ToggledProfileItemWidget(
+              title: d.appLocalizations.notifications,
+              toggleOn: getIt.get<UserProvider>().notificationsEnabled,
+              onTap: (value) {
+                if (value) {
+                  viewModel.doIntent(const EnableNotificationsIntent());
+                } else {
+                  viewModel.doIntent(const DisableNotificationsIntent());
+                }
+              },
+            );
+          },
+        ),
         ToggledProfileItemWidget(
           title: d.appLocalizations.darkMode,
           toggleOn: d.themeManager.isDarkTheme,

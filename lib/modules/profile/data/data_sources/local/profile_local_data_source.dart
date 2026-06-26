@@ -5,5 +5,7 @@ abstract interface class ProfileLocalDataSource {
 
   Future<void> saveUserProfile({required UserDto newUser});
 
+  Future<void> saveNotificationsEnabled({required bool notificationsEnabled});
+
   Future<void> clear();
 }

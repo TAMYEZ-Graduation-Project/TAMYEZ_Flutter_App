@@ -8,4 +8,7 @@ enum SuccessEnum {
   editProfileSuccess,
   changePasswordSuccess,
   profilePictureUploadedSuccess,
+  notificationsEnabledSuccess,
+  notificationsDisabledSuccess,
+  accountDeletedSuccess,
 }

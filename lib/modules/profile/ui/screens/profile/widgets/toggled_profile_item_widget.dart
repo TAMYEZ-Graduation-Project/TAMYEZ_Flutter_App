@@ -35,6 +35,12 @@ class _ToggledProfileItemWidgetState
   }
 
   @override
+  void didUpdateWidget(covariant ToggledProfileItemWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _toggleOn = widget.toggleOn;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {

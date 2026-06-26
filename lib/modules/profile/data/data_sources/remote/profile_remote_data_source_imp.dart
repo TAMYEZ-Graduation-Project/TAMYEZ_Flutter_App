@@ -4,9 +4,12 @@ import 'package:injectable/injectable.dart';
 import '../../../../../core/network/models/simple_api_response.dart';
 import '../../models/change_password_request.dart';
 import '../../models/delete_account_request.dart';
+import '../../models/disable_notifications_request.dart';
 import '../../models/edit_user_profile_request.dart';
+import '../../models/enable_notifications_request.dart';
 import '../../models/get_user_profile_response.dart';
 import '../../models/logout_request.dart';
+import '../../models/refresh_fcm_token_request.dart';
 import '../../models/upload_profile_picture_response.dart';
 import 'profile_api_client.dart';
 import 'profile_remote_data_source.dart';
@@ -50,5 +53,24 @@ class ProfileRemoteDataSourceImp implements ProfileRemoteDataSource {
   @override
   Future<SimpleApiResponse> deleteAccount(DeleteAccountRequest request) {
     return _profileApiClient.deleteAccount(request);
+  }
+
+  @override
+  Future<SimpleApiResponse> enableNotifications(
+    EnableNotificationsRequest request,
+  ) {
+    return _profileApiClient.enableNotifications(request);
+  }
+
+  @override
+  Future<SimpleApiResponse> refreshFcmToken(RefreshFcmTokenRequest request) {
+    return _profileApiClient.refreshFcmToken(request);
+  }
+
+  @override
+  Future<SimpleApiResponse> disableNotifications(
+    DisableNotificationsRequest request,
+  ) {
+    return _profileApiClient.disableNotifications(request);
   }
 }

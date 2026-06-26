@@ -63,6 +63,10 @@ abstract class FailureHandling {
         return l10n.versionConflict;
       case ImagePickerFailure():
         return l10n.imagePickerFailure;
+      case UnableToGetFcmTokenFailure():
+        return l10n.unableToGetFcmToken;
+      case ExceededTwoEnabledNotificationDevicesFailure():
+        return l10n.exceededTwoEnabledNotificationDevices;
     }
   }
 

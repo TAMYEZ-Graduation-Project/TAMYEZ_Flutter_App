@@ -7,14 +7,22 @@ import '../entities/user_entity.dart';
 @lazySingleton
 class UserProvider extends ChangeNotifier {
   UserEntity? _user;
+  bool _notificationsEnabled = false;
   AuthToken? _token;
 
   UserEntity? get user => _user;
 
   AuthToken? get token => _token;
 
-  void setSession({required UserEntity user, required AuthToken token}) {
+  bool get notificationsEnabled => _notificationsEnabled;
+
+  void setSession({
+    required UserEntity user,
+    required bool notificationsEnabled,
+    required AuthToken token,
+  }) {
     _user = user;
+    _notificationsEnabled = notificationsEnabled;
     _token = token;
     notifyListeners();
   }
@@ -24,8 +32,14 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setNotificationsEnabled({required bool notificationsEnabled}) {
+    _notificationsEnabled = notificationsEnabled;
+    notifyListeners();
+  }
+
   void clear() {
     _user = null;
+    _notificationsEnabled = true;
     _token = null;
     notifyListeners();
   }

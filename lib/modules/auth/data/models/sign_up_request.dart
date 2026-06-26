@@ -14,7 +14,6 @@ class SignUpRequest {
   String confirmPassword;
   String gender;
   String phoneNumber;
-
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['fullName'] = fullName;

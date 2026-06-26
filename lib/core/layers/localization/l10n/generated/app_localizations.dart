@@ -1219,6 +1219,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Change'**
   String get change;
+
+  /// No description provided for @notificationsEnabledSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications enabled successfully'**
+  String get notificationsEnabledSuccess;
+
+  /// No description provided for @notificationsDisabledSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications disabled successfully'**
+  String get notificationsDisabledSuccess;
+
+  /// No description provided for @accountDeletedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Account deleted successfully'**
+  String get accountDeletedSuccess;
+
+  /// No description provided for @unableToGetFcmToken.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to get FCM token'**
+  String get unableToGetFcmToken;
+
+  /// No description provided for @exceededTwoEnabledNotificationDevices.
+  ///
+  /// In en, this message translates to:
+  /// **'You have exceeded the two enabled notification devices limit.'**
+  String get exceededTwoEnabledNotificationDevices;
 }
 
 class _AppLocalizationsDelegate

@@ -25,6 +25,12 @@ abstract class SuccessHandling {
         return l10n.changePasswordSuccess;
       case SuccessEnum.profilePictureUploadedSuccess:
         return l10n.profilePictureUploadedSuccess;
+      case SuccessEnum.notificationsEnabledSuccess:
+        return l10n.notificationsEnabledSuccess;
+      case SuccessEnum.notificationsDisabledSuccess:
+        return l10n.notificationsDisabledSuccess;
+      case SuccessEnum.accountDeletedSuccess:
+        return l10n.accountDeletedSuccess;
     }
   }
 }

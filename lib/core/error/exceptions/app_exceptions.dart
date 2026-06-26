@@ -38,6 +38,14 @@ class UserProfileBadResponseException extends AppException {
   const UserProfileBadResponseException({super.message});
 }
 
+class UnableToGetFcmTokenException extends AppException {
+  const UnableToGetFcmTokenException({super.message});
+}
+
+class ExceededTwoEnabledNotificationDevicesException extends AppException {
+  const ExceededTwoEnabledNotificationDevicesException({super.message});
+}
+
 class GoogleLoginException extends AppException {
   const GoogleLoginException({super.message});
 }

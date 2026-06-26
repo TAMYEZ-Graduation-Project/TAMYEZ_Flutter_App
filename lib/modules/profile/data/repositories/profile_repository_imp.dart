@@ -1,12 +1,15 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/entities/user_entity.dart';
 import '../../../../core/error/exceptions/app_exceptions.dart';
 import '../../../../core/execution/operation_result.dart';
 import '../../../../core/mappers/base_auth_mapper.dart';
+import '../../../../core/utils/device_id/device_id_service.dart';
+import '../../../../core/utils/device_info/device_info_service.dart';
 import '../../../../core/utils/functions/repo_result_handler.dart';
 import '../../domain/entities/change_password_params.dart';
 import '../../domain/entities/edit_profile_params.dart';
@@ -16,16 +19,25 @@ import '../data_sources/local/profile_local_data_source.dart';
 import '../data_sources/remote/profile_remote_data_source.dart';
 import '../mapper/profile_mappers.dart';
 import '../models/delete_account_request.dart';
+import '../models/disable_notifications_request.dart';
+import '../models/enable_notifications_request.dart';
 import '../models/logout_request.dart';
+import '../models/refresh_fcm_token_request.dart';
 
 @Injectable(as: ProfileRepository)
 class ProfileRepositoryImp implements ProfileRepository {
   final ProfileRemoteDataSource _profileRemoteDataSource;
   final ProfileLocalDataSource _profileLocalDataSource;
+  final DeviceIdService _deviceIdService;
+  final FirebaseMessaging _firebaseMessaging;
+  final DeviceInfoService _deviceInfoService;
 
   const ProfileRepositoryImp(
     this._profileRemoteDataSource,
     this._profileLocalDataSource,
+    this._deviceIdService,
+    this._firebaseMessaging,
+    this._deviceInfoService,
   );
 
   @override
@@ -154,5 +166,61 @@ class ProfileRepositoryImp implements ProfileRepository {
       );
       await _profileLocalDataSource.clear();
     });
+  }
+
+  @override
+  Future<OperationResult<void>> enableNotifications({String? replaceDeviceId}) {
+    return repoResultHandler(() async {
+      final fcmToken = await _getFcmToken();
+      final deviceInfo = await _deviceInfoService.getAppDeviceInfo();
+      await _profileRemoteDataSource.enableNotifications(
+        EnableNotificationsRequest(
+          deviceId: await _deviceIdService.getDeviceId(),
+          replaceDeviceId: replaceDeviceId,
+          fcmToken: fcmToken,
+          appVersion: deviceInfo.appVersion,
+          platform: deviceInfo.platform,
+          os: deviceInfo.os,
+          deviceModel: deviceInfo.deviceModel,
+        ),
+      );
+      await _profileLocalDataSource.saveNotificationsEnabled(
+        notificationsEnabled: true,
+      );
+    });
+  }
+
+  @override
+  Future<OperationResult<void>> refreshFcmToken({required String fcmToken}) {
+    return repoResultHandler(() async {
+      await _profileRemoteDataSource.refreshFcmToken(
+        RefreshFcmTokenRequest(
+          deviceId: await _deviceIdService.getDeviceId(),
+          fcmToken: fcmToken,
+        ),
+      );
+    });
+  }
+
+  @override
+  Future<OperationResult<void>> disableNotifications() {
+    return repoResultHandler(() async {
+      await _profileRemoteDataSource.disableNotifications(
+        DisableNotificationsRequest(
+          deviceId: await _deviceIdService.getDeviceId(),
+        ),
+      );
+      await _profileLocalDataSource.saveNotificationsEnabled(
+        notificationsEnabled: false,
+      );
+    });
+  }
+
+  Future<String> _getFcmToken() async {
+    final String? fcmToken = await _firebaseMessaging.getToken();
+    if (fcmToken == null) {
+      throw const UnableToGetFcmTokenException();
+    }
+    return fcmToken;
   }
 }

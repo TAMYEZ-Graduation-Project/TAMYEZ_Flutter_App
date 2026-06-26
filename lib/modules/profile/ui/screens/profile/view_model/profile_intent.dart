@@ -13,3 +13,13 @@ class LogoutIntent extends ProfileIntent {
 class DeleteAccountIntent extends ProfileIntent {
   const DeleteAccountIntent();
 }
+
+class EnableNotificationsIntent extends ProfileIntent {
+  final String? replaceDeviceId;
+
+  const EnableNotificationsIntent({this.replaceDeviceId});
+}
+
+class DisableNotificationsIntent extends ProfileIntent {
+  const DisableNotificationsIntent();
+}

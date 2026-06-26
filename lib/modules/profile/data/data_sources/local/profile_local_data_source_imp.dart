@@ -35,6 +35,14 @@ class ProfileLocalDataSourceImp implements ProfileLocalDataSource {
   }
 
   @override
+  Future<void> saveNotificationsEnabled({required bool notificationsEnabled}) {
+    return _storageService.setBool(
+      StorageConstants.notificationsEnabledKey,
+      notificationsEnabled,
+    );
+  }
+
+  @override
   Future<void> clear() {
     return _storageService.deleteAll();
   }

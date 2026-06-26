@@ -227,5 +227,10 @@
   "changePassword": "Change Password",
   "currentPassword": "Current Password",
   "newPassword": "New Password",
-  "change": "Change"
+  "change": "Change",
+  "notificationsEnabledSuccess": "Notifications enabled successfully",
+  "notificationsDisabledSuccess": "Notifications disabled successfully",
+  "accountDeletedSuccess": "Account deleted successfully",
+  "unableToGetFcmToken": "Unable to get FCM token",
+  "exceededTwoEnabledNotificationDevices": "You have exceeded the two enabled notification devices limit."
 }

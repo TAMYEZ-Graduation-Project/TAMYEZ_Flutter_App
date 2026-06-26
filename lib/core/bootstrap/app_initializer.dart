@@ -1,7 +1,6 @@
 import 'dart:io' show Platform;
 import 'dart:ui' show Brightness;
 
-import 'package:flutter_dotenv/flutter_dotenv.dart' show dotenv;
 import 'package:injectable/injectable.dart' show lazySingleton, Named;
 
 import '../auth_providers/auth_provider.dart' show AuthProvider;
@@ -42,9 +41,9 @@ class AppInitializer {
   );
 
   /// Essential Initialization (BEFORE runApp)
-  Future<void> initializeEssential() async {
-    await dotenv.load(fileName: 'config/.env');
-  }
+  // Future<void> initializeEssential() async {
+  //
+  // }
 
   /// Light Background Tasks (after runApp)
   Future<void> initializeLight() async {
@@ -74,7 +73,11 @@ class AppInitializer {
     required LoginSessionEntity session,
     bool remembered = true,
   }) {
-    _userProvider.setSession(user: session.user, token: session.token);
+    _userProvider.setSession(
+      user: session.user,
+      notificationsEnabled: session.notificationsEnabled,
+      token: session.token,
+    );
     _authProvider.setAuthStatus(
       remembered
           ? AuthStatus.rememberedAuthenticated

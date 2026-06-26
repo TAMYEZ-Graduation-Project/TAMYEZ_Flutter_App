@@ -30,4 +30,10 @@ abstract interface class ProfileRepository {
   Future<OperationResult<void>> logout({String? deviceId});
 
   Future<OperationResult<void>> deleteAccount({required int version});
+
+  Future<OperationResult<void>> enableNotifications({String? replaceDeviceId});
+
+  Future<OperationResult<void>> refreshFcmToken({required String fcmToken});
+
+  Future<OperationResult<void>> disableNotifications();
 }

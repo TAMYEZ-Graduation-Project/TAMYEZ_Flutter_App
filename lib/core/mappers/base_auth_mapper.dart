@@ -17,6 +17,7 @@ extension LoginSessionDtoMapper on LoginSessionDto {
         value: accessToken ?? '',
         role: user?.role?.userRoleEnum ?? UserRoleEnum.user,
       ),
+      notificationsEnabled: notificationsEnabled ?? false,
       user: user?.toEntity() ?? const UserEntity(),
     );
   }

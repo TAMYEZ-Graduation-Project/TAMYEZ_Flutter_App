@@ -134,7 +134,13 @@ abstract class AppThemeFactory {
       ),
       switchTheme: SwitchThemeData(
         padding: EdgeInsets.zero,
-        trackColor: WidgetStatePropertyAll(AppColors.gray),
+        trackColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return AppColors.blue;
+          } else {
+            return AppColors.gray;
+          }
+        }),
         thumbColor: const WidgetStatePropertyAll(Colors.white),
         thumbIcon: const WidgetStatePropertyAll(Icon(Icons.circle)),
         trackOutlineColor: const WidgetStatePropertyAll(Colors.transparent),

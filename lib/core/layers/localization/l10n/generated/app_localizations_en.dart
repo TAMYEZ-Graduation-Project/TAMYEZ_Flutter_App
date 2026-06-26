@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -611,4 +612,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get change => 'Change';
+
+  @override
+  String get notificationsEnabledSuccess =>
+      'Notifications enabled successfully';
+
+  @override
+  String get notificationsDisabledSuccess =>
+      'Notifications disabled successfully';
+
+  @override
+  String get accountDeletedSuccess => 'Account deleted successfully';
+
+  @override
+  String get unableToGetFcmToken => 'Unable to get FCM token';
+
+  @override
+  String get exceededTwoEnabledNotificationDevices =>
+      'You have exceeded the two enabled notification devices limit.';
 }

@@ -6,6 +6,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart'
     show FirebaseCrashlytics;
 import 'package:flutter/foundation.dart' show PlatformDispatcher;
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart'
@@ -14,6 +15,7 @@ import 'package:provider/provider.dart'
 import 'core/auth_providers/auth_provider.dart' show AuthProvider;
 import 'core/auth_providers/user_provider.dart';
 import 'core/bootstrap/app_initializer.dart';
+import 'core/constants/asset_paths.dart';
 import 'core/di/di.dart';
 import 'core/entities/auth_status.dart';
 import 'core/layers/localization/enums/languages_enum.dart';
@@ -46,12 +48,15 @@ void main() async {
     return true;
   };
 
+  // Init env
+  await dotenv.load(fileName: AssetPaths.envFile);
+
   // Dependency Injection
   await configureDependencies();
 
   // App-level initialization (session, theme, locale...)
   final appInitializer = getIt.get<AppInitializer>();
-  await appInitializer.initializeEssential();
+  // await appInitializer.initializeEssential();
 
   runApp(
     DevicePreview(
