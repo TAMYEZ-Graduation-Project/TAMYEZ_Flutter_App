@@ -29,8 +29,10 @@ class ResourceListSection extends BaseStatelessWidget {
         ),
         DecoratedBox(
           decoration: BoxDecoration(
-              color: d.themeManager.isDarkTheme ? AppColors.dark : AppColors
-                  .lightBlue),
+            color: d.themeManager.isDarkTheme
+                ? AppColors.dark
+                : AppColors.lightBlue,
+          ),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: ListView.builder(

@@ -143,7 +143,8 @@ abstract class AppThemeFactory {
         }),
         thumbColor: const WidgetStatePropertyAll(Colors.white),
         thumbIcon: WidgetStatePropertyAll(
-            Icon(Icons.circle, color: AppColors.light,)),
+          Icon(Icons.circle, color: AppColors.light),
+        ),
         trackOutlineColor: const WidgetStatePropertyAll(Colors.transparent),
       ),
       dialogTheme: _dialogThemeData(brightness),
@@ -251,9 +252,7 @@ abstract class AppThemeFactory {
           contentTextStyle: TextStyle(color: AppColors.dark),
         );
       case Brightness.light:
-        return DialogThemeData(
-          backgroundColor: AppColors.light,
-        );
+        return DialogThemeData(backgroundColor: AppColors.light);
     }
   }
 }
