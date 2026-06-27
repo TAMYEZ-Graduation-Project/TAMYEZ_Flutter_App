@@ -29,8 +29,9 @@ class ProfileViewModel extends BaseCubit<ProfileState, UiEffect> {
   final EnableNotificationsUseCase _enableNotificationsUseCase;
   final DisableNotificationsUseCase _disableNotificationsUseCase;
 
-  ProfileViewModel(this._logoutUseCase,
-      this._deleteAccountUseCase,
+  ProfileViewModel(
+    this._logoutUseCase,
+    this._deleteAccountUseCase,
     this._syncProfileUseCase,
     this._userProvider,
     this._appInitializer,
