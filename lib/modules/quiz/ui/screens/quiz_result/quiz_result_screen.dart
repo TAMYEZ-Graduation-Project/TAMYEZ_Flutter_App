@@ -35,22 +35,46 @@ class QuizResultScreen extends BaseStatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
-            spacing: 20,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              CorrectAnswersBarSection(
-                correctAnswersCount: quizResult.correctAnswersCount.toInt(),
-                totalQuestions: quizResult.totalQuestions.toInt(),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    spacing: 20,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      CorrectAnswersBarSection(
+                        correctAnswersCount: quizResult.correctAnswersCount
+                            .toInt(),
+                        totalQuestions: quizResult.mcqTotal.toInt(),
+                      ),
+                      const GreetingSection(),
+                      PerformanceSummarySection(
+                        correctAnswersCount: quizResult.correctAnswersCount
+                            .toInt(),
+                        wrongAnswersCount: quizResult.wrongAnswersCount.toInt(),
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        d.appLocalizations.writtenQuestions(
+                          quizResult.writtenTotal,
+                        ),
+                        style: d.typography.title,
+                      ),
+                      Text(
+                        d.appLocalizations.writtenQuestionsScore(
+                          quizResult.writtenScore,
+                        ),
+                        style: d.typography.title,
+                      ),
+                    ],
+                  ),
+                ),
               ),
-              const GreetingSection(),
-              PerformanceSummarySection(
-                correctAnswersCount: quizResult.correctAnswersCount.toInt(),
-                wrongAnswersCount: quizResult.wrongAnswersCount.toInt(),
-              ),
-              const Spacer(),
+              const SizedBox(height: 20),
               FilledButton(
                 onPressed: () {
-                  if (int.parse(quizResult.score.replaceAll('%', '')) < 50) {
+                  if (quizResult.finalScore < 50) {
                     AppDialogs.defaultDialog(
                       context,
                       content: d.appLocalizations.lowScoreReviewWarning,

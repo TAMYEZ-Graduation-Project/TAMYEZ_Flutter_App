@@ -9,13 +9,17 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:device_info_plus/device_info_plus.dart' as _i833;
 import 'package:dio/dio.dart' as _i361;
 import 'package:firebase_messaging/firebase_messaging.dart' as _i892;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i558;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:google_sign_in/google_sign_in.dart' as _i116;
+import 'package:image_picker/image_picker.dart' as _i183;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:isar_community/isar.dart' as _i214;
+import 'package:package_info_plus/package_info_plus.dart' as _i655;
+import 'package:uuid/uuid.dart' as _i706;
 
 import '../../modules/auth/data/data_sources/local/auth_local_data_source.dart'
     as _i376;
@@ -81,6 +85,45 @@ import '../../modules/career_assessment/ui/screens/career_details/view_model/car
     as _i582;
 import '../../modules/career_assessment/ui/screens/top_career_matches/view_model/top_career_matches_view_model.dart'
     as _i455;
+import '../../modules/profile/data/data_sources/local/profile_local_data_source.dart'
+    as _i72;
+import '../../modules/profile/data/data_sources/local/profile_local_data_source_imp.dart'
+    as _i844;
+import '../../modules/profile/data/data_sources/remote/profile_api_client.dart'
+    as _i872;
+import '../../modules/profile/data/data_sources/remote/profile_remote_data_source.dart'
+    as _i929;
+import '../../modules/profile/data/data_sources/remote/profile_remote_data_source_imp.dart'
+    as _i442;
+import '../../modules/profile/data/repositories/profile_repository_imp.dart'
+    as _i795;
+import '../../modules/profile/domain/repositories/profile_repository.dart'
+    as _i496;
+import '../../modules/profile/domain/use_cases/change_password_use_case.dart'
+    as _i516;
+import '../../modules/profile/domain/use_cases/delete_account_use_case.dart'
+    as _i648;
+import '../../modules/profile/domain/use_cases/disable_notifications_use_case.dart'
+    as _i11;
+import '../../modules/profile/domain/use_cases/edit_user_profile_use_case.dart'
+    as _i570;
+import '../../modules/profile/domain/use_cases/enable_notifications_use_case.dart'
+    as _i389;
+import '../../modules/profile/domain/use_cases/get_user_profile_use_case.dart'
+    as _i18;
+import '../../modules/profile/domain/use_cases/logout_use_case.dart' as _i128;
+import '../../modules/profile/domain/use_cases/refresh_fcm_token_use_case.dart'
+    as _i967;
+import '../../modules/profile/domain/use_cases/sync_profile_use_case.dart'
+    as _i117;
+import '../../modules/profile/domain/use_cases/upload_profile_picture_use_case.dart'
+    as _i404;
+import '../../modules/profile/ui/screens/change_password/change_password_view_model/change_password_view_model.dart'
+    as _i916;
+import '../../modules/profile/ui/screens/edit_profile/view_model/edit_profile_view_model.dart'
+    as _i219;
+import '../../modules/profile/ui/screens/profile/view_model/profile_view_model.dart'
+    as _i88;
 import '../../modules/quiz/data/data_sources/local/saved_quiz_local_data_source.dart'
     as _i190;
 import '../../modules/quiz/data/data_sources/local/saved_quiz_local_data_source_imp.dart'
@@ -170,9 +213,18 @@ import '../presentation/utils/firebase/messaging/firebase_cloud_messaging_servic
     as _i510;
 import '../presentation/utils/firebase/messaging/firebase_messaging_module.dart'
     as _i829;
+import '../presentation/utils/image_picker/image_picker_di_module.dart'
+    as _i252;
+import '../presentation/utils/image_picker/image_picker_service.dart' as _i683;
+import '../presentation/utils/image_picker/image_picker_service_imp.dart'
+    as _i141;
 import '../presentation/utils/url_opener/url_opener.dart' as _i352;
 import '../presentation/utils/url_opener/url_opener_imp.dart' as _i194;
 import '../utils/counter/count_down_utility.dart' as _i497;
+import '../utils/device_id/device_id_di_module.dart' as _i388;
+import '../utils/device_id/device_id_service.dart' as _i413;
+import '../utils/device_info/device_info_di_module.dart' as _i1043;
+import '../utils/device_info/device_info_service.dart' as _i416;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -183,8 +235,11 @@ extension GetItInjectableX on _i174.GetIt {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final dbInitializer = _$DbInitializer();
     final appLocalizationRegister = _$AppLocalizationRegister();
+    final deviceInfoDiModule = _$DeviceInfoDiModule();
     final storagesInitializer = _$StoragesInitializer();
     final firebaseMessagingModule = _$FirebaseMessagingModule();
+    final imagePickerDiModule = _$ImagePickerDiModule();
+    final deviceIdDiModule = _$DeviceIdDiModule();
     final authDiModule = _$AuthDiModule();
     final networkModule = _$NetworkModule();
     await gh.factoryAsync<_i214.Isar>(
@@ -199,6 +254,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i638.DioFactory>(() => _i638.DioFactory());
     gh.factory<_i346.HomeViewModel>(() => _i346.HomeViewModel());
     gh.factory<_i497.CountDownUtility>(() => _i497.CountDownUtility());
+    await gh.factoryAsync<_i655.PackageInfo>(
+      () => deviceInfoDiModule.packageInfo,
+      preResolve: true,
+    );
     gh.lazySingleton<_i842.AuthProvider>(() => _i842.AuthProvider());
     gh.lazySingleton<_i9.UserProvider>(() => _i9.UserProvider());
     gh.lazySingleton<_i558.FlutterSecureStorage>(
@@ -209,6 +268,13 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i892.FirebaseMessaging>(
       () => firebaseMessagingModule.create(),
+    );
+    gh.lazySingleton<_i183.ImagePicker>(
+      () => imagePickerDiModule.providerImagePicker(),
+    );
+    gh.lazySingleton<_i706.Uuid>(() => deviceIdDiModule.provideUuid());
+    gh.lazySingleton<_i833.DeviceInfoPlugin>(
+      () => deviceInfoDiModule.deviceInfoService,
     );
     gh.lazySingleton<_i116.GoogleSignIn>(() => authDiModule.googleSignIn());
     gh.factory<_i622.SocialAuthService>(
@@ -241,6 +307,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i361.Dio>(instanceName: 'mainDio'),
       ),
     );
+    gh.lazySingleton<_i872.ProfileApiClient>(
+      () => _i872.ProfileApiClient(gh<_i361.Dio>(instanceName: 'mainDio')),
+    );
     gh.lazySingleton<_i692.QuizApiClient>(
       () => _i692.QuizApiClient(gh<_i361.Dio>(instanceName: 'mainDio')),
     );
@@ -253,9 +322,32 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i114.RoadmapRemoteDataSource>(
       () => _i430.RoadmapRemoteDataSourceImp(gh<_i935.RoadmapApiClient>()),
     );
+    gh.factory<_i683.ImagePickerService>(
+      () => _i141.ImagePickerServiceImpl(gh<_i183.ImagePicker>()),
+    );
+    gh.factory<_i413.DeviceIdService>(
+      () => _i413.DeviceIdService(
+        gh<_i1003.StorageService>(instanceName: 'secureStorage'),
+        gh<_i706.Uuid>(),
+      ),
+    );
+    gh.factory<_i72.ProfileLocalDataSource>(
+      () => _i844.ProfileLocalDataSourceImp(
+        gh<_i1003.StorageService>(instanceName: 'secureStorage'),
+      ),
+    );
     gh.factory<_i376.AuthLocalDataSource>(
       () => _i405.AuthLocalDataSourceImp(
         gh<_i1003.StorageService>(instanceName: 'secureStorage'),
+      ),
+    );
+    gh.factory<_i779.AuthRepository>(
+      () => _i23.AuthRepoImp(
+        gh<_i911.AuthRemoteDataSource>(),
+        gh<_i622.SocialAuthService>(),
+        gh<_i376.AuthLocalDataSource>(),
+        gh<_i413.DeviceIdService>(),
+        gh<_i892.FirebaseMessaging>(),
       ),
     );
     gh.singleton<_i362.LocalizationManager>(
@@ -266,6 +358,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i701.ThemeManager>(
       () => _i701.ThemeManager(
         gh<_i1003.StorageService>(instanceName: 'secureStorage'),
+      ),
+    );
+    gh.factory<_i416.DeviceInfoService>(
+      () => _i416.DeviceInfoService(
+        gh<_i833.DeviceInfoPlugin>(),
+        gh<_i655.PackageInfo>(),
       ),
     );
     gh.lazySingleton<_i214.IsarCollection<_i1005.CareerLocal>>(
@@ -291,12 +389,6 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i214.IsarCollection<_i242.SavedQuizLocal>>(),
       ),
     );
-    gh.lazySingleton<_i510.FirebaseCloudMessagingService>(
-      () => _i510.FirebaseCloudMessagingService(
-        gh<_i230.AwesomeNotificationService>(),
-        gh<_i892.FirebaseMessaging>(),
-      ),
-    );
     gh.factory<_i249.QuizRemoteDataSource>(
       () => _i365.QuizRemoteDataSourceImp(gh<_i692.QuizApiClient>()),
     );
@@ -306,17 +398,22 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i214.IsarCollection<_i568.SavedQuizzesPaginationLocal>>(),
       ),
     );
+    gh.factory<_i929.ProfileRemoteDataSource>(
+      () => _i442.ProfileRemoteDataSourceImp(gh<_i872.ProfileApiClient>()),
+    );
+    gh.factory<_i496.ProfileRepository>(
+      () => _i795.ProfileRepositoryImp(
+        gh<_i929.ProfileRemoteDataSource>(),
+        gh<_i72.ProfileLocalDataSource>(),
+        gh<_i413.DeviceIdService>(),
+        gh<_i892.FirebaseMessaging>(),
+        gh<_i416.DeviceInfoService>(),
+      ),
+    );
     gh.factory<_i908.RoadmapLocalDataSource>(
       () => _i513.RoadmapLocalDataSourceImp(
         gh<_i214.Isar>(),
         gh<_i214.IsarCollection<_i835.RoadmapStepLocal>>(),
-      ),
-    );
-    gh.factory<_i779.AuthRepository>(
-      () => _i23.AuthRepoImp(
-        gh<_i911.AuthRemoteDataSource>(),
-        gh<_i622.SocialAuthService>(),
-        gh<_i376.AuthLocalDataSource>(),
       ),
     );
     gh.factory<_i201.CareerAssessmentRepo>(
@@ -330,6 +427,36 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i214.Isar>(),
         gh<_i214.IsarCollection<_i1005.CareerLocal>>(),
       ),
+    );
+    gh.factory<_i516.ChangePasswordUseCase>(
+      () => _i516.ChangePasswordUseCase(gh<_i496.ProfileRepository>()),
+    );
+    gh.factory<_i648.DeleteAccountUseCase>(
+      () => _i648.DeleteAccountUseCase(gh<_i496.ProfileRepository>()),
+    );
+    gh.factory<_i11.DisableNotificationsUseCase>(
+      () => _i11.DisableNotificationsUseCase(gh<_i496.ProfileRepository>()),
+    );
+    gh.factory<_i570.EditUserProfileUseCase>(
+      () => _i570.EditUserProfileUseCase(gh<_i496.ProfileRepository>()),
+    );
+    gh.factory<_i389.EnableNotificationsUseCase>(
+      () => _i389.EnableNotificationsUseCase(gh<_i496.ProfileRepository>()),
+    );
+    gh.factory<_i18.GetUserProfileUseCase>(
+      () => _i18.GetUserProfileUseCase(gh<_i496.ProfileRepository>()),
+    );
+    gh.factory<_i128.LogoutUseCase>(
+      () => _i128.LogoutUseCase(gh<_i496.ProfileRepository>()),
+    );
+    gh.factory<_i967.RefreshFcmTokenUseCase>(
+      () => _i967.RefreshFcmTokenUseCase(gh<_i496.ProfileRepository>()),
+    );
+    gh.factory<_i117.SyncProfileUseCase>(
+      () => _i117.SyncProfileUseCase(gh<_i496.ProfileRepository>()),
+    );
+    gh.factory<_i404.UploadProfilePictureUseCase>(
+      () => _i404.UploadProfilePictureUseCase(gh<_i496.ProfileRepository>()),
     );
     gh.factory<_i347.ForgetPasswordUseCase>(
       () => _i347.ForgetPasswordUseCase(gh<_i779.AuthRepository>()),
@@ -358,17 +485,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i5.VerifyCodeUseCase>(
       () => _i5.VerifyCodeUseCase(gh<_i779.AuthRepository>()),
     );
-    gh.lazySingleton<_i4.AppInitializer>(
-      () => _i4.AppInitializer(
-        gh<_i1003.StorageService>(instanceName: 'secureStorage'),
-        gh<_i362.LocalizationManager>(),
-        gh<_i701.ThemeManager>(),
-        gh<_i9.UserProvider>(),
-        gh<_i842.AuthProvider>(),
-        gh<_i230.AwesomeNotificationService>(),
-        gh<_i510.FirebaseCloudMessagingService>(),
-      ),
-    );
     gh.factory<_i139.QuizRepository>(
       () => _i882.QuizRepositoryImp(
         gh<_i249.QuizRemoteDataSource>(),
@@ -377,11 +493,12 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i190.SavedQuizLocalDataSource>(),
       ),
     );
-    gh.factory<_i1050.LoginViewModel>(
-      () => _i1050.LoginViewModel(
-        gh<_i46.LoginUseCase>(),
-        gh<_i280.GmailLoginUseCase>(),
-        gh<_i4.AppInitializer>(),
+    gh.lazySingleton<_i510.FirebaseCloudMessagingService>(
+      () => _i510.FirebaseCloudMessagingService(
+        gh<_i230.AwesomeNotificationService>(),
+        gh<_i892.FirebaseMessaging>(),
+        gh<_i967.RefreshFcmTokenUseCase>(),
+        gh<_i9.UserProvider>(),
       ),
     );
     gh.factory<_i610.CheckCareerAssessmentAnswersUseCase>(
@@ -425,6 +542,16 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i9.UserProvider>(),
       ),
     );
+    gh.factory<_i219.EditProfileViewModel>(
+      () => _i219.EditProfileViewModel(
+        gh<_i683.ImagePickerService>(),
+        gh<_i570.EditUserProfileUseCase>(),
+        gh<_i404.UploadProfilePictureUseCase>(),
+        gh<_i18.GetUserProfileUseCase>(),
+        gh<_i842.AuthProvider>(),
+        gh<_i9.UserProvider>(),
+      ),
+    );
     gh.factory<_i419.CheckQuizAnswersUseCase>(
       () => _i419.CheckQuizAnswersUseCase(gh<_i139.QuizRepository>()),
     );
@@ -437,11 +564,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i638.GetSavedQuizzesUseCase>(
       () => _i638.GetSavedQuizzesUseCase(gh<_i139.QuizRepository>()),
     );
-    gh.factory<_i967.SignUpViewModel>(
-      () => _i967.SignUpViewModel(
-        gh<_i246.SignUpUseCase>(),
-        gh<_i123.GmailSignUpUseCase>(),
-        gh<_i4.AppInitializer>(),
+    gh.factory<_i916.ChangePasswordViewModel>(
+      () => _i916.ChangePasswordViewModel(
+        gh<_i516.ChangePasswordUseCase>(),
+        gh<_i9.UserProvider>(),
+        gh<_i842.AuthProvider>(),
       ),
     );
     gh.factory<_i222.ResendVerificationEmailViewModel>(
@@ -462,6 +589,17 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i95.SavedQuizzesViewModel(
         gh<_i638.GetSavedQuizzesUseCase>(),
         gh<_i9.UserProvider>(),
+      ),
+    );
+    gh.lazySingleton<_i4.AppInitializer>(
+      () => _i4.AppInitializer(
+        gh<_i1003.StorageService>(instanceName: 'secureStorage'),
+        gh<_i362.LocalizationManager>(),
+        gh<_i701.ThemeManager>(),
+        gh<_i9.UserProvider>(),
+        gh<_i842.AuthProvider>(),
+        gh<_i230.AwesomeNotificationService>(),
+        gh<_i510.FirebaseCloudMessagingService>(),
       ),
     );
     gh.factory<_i365.CareerAssessmentViewModel>(
@@ -485,11 +623,36 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i497.CountDownUtility>(),
       ),
     );
+    gh.factory<_i1050.LoginViewModel>(
+      () => _i1050.LoginViewModel(
+        gh<_i46.LoginUseCase>(),
+        gh<_i280.GmailLoginUseCase>(),
+        gh<_i4.AppInitializer>(),
+      ),
+    );
+    gh.factory<_i88.ProfileViewModel>(
+      () => _i88.ProfileViewModel(
+        gh<_i128.LogoutUseCase>(),
+        gh<_i648.DeleteAccountUseCase>(),
+        gh<_i117.SyncProfileUseCase>(),
+        gh<_i9.UserProvider>(),
+        gh<_i4.AppInitializer>(),
+        gh<_i389.EnableNotificationsUseCase>(),
+        gh<_i11.DisableNotificationsUseCase>(),
+      ),
+    );
     gh.factory<_i612.RoadmapViewModel>(
       () => _i612.RoadmapViewModel(
         gh<_i318.GetUserCareerUseCase>(),
         gh<_i1009.GetRoadmapStepsUseCase>(),
         gh<_i9.UserProvider>(),
+      ),
+    );
+    gh.factory<_i967.SignUpViewModel>(
+      () => _i967.SignUpViewModel(
+        gh<_i246.SignUpUseCase>(),
+        gh<_i123.GmailSignUpUseCase>(),
+        gh<_i4.AppInitializer>(),
       ),
     );
     return this;
@@ -500,9 +663,15 @@ class _$DbInitializer extends _i1006.DbInitializer {}
 
 class _$AppLocalizationRegister extends _i555.AppLocalizationRegister {}
 
+class _$DeviceInfoDiModule extends _i1043.DeviceInfoDiModule {}
+
 class _$StoragesInitializer extends _i272.StoragesInitializer {}
 
 class _$FirebaseMessagingModule extends _i829.FirebaseMessagingModule {}
+
+class _$ImagePickerDiModule extends _i252.ImagePickerDiModule {}
+
+class _$DeviceIdDiModule extends _i388.DeviceIdDiModule {}
 
 class _$AuthDiModule extends _i301.AuthDiModule {}
 

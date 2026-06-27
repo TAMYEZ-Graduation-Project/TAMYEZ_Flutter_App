@@ -33,7 +33,9 @@ class SavedQuizDetailsEntity extends Equatable {
   final String id;
   final QuizEntity quizId;
   final String userId;
-  final String score;
+  final num finalScore;
+  final num mcqScore;
+  final num writtenScore;
   final List<SavedQuizQuestionEntity> questions;
   final String takenAt;
   final String createdAt;
@@ -43,7 +45,9 @@ class SavedQuizDetailsEntity extends Equatable {
     this.id = '',
     this.quizId = const QuizEntity(),
     this.userId = '',
-    this.score = '',
+    this.finalScore = 0,
+    this.mcqScore = 0,
+    this.writtenScore = 0,
     this.questions = const [],
     this.takenAt = '',
     this.createdAt = '',
@@ -55,7 +59,9 @@ class SavedQuizDetailsEntity extends Equatable {
     id,
     quizId,
     userId,
-    score,
+    finalScore,
+    mcqScore,
+    writtenScore,
     questions,
     takenAt,
     createdAt,

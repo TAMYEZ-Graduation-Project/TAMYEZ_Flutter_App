@@ -10,6 +10,7 @@ import '../../../../../../core/presentation/result/ui_result.dart';
 import '../../../../../../core/presentation/routing/defined_routes.dart'
     show DefinedRoutes;
 import '../../../../../../core/success/success_enum.dart';
+import '../../../../../../core/utils/functions/user_completed_assessment.dart';
 import '../../../../domain/entities/login_response_entity.dart'
     show LoginResponseEntity;
 import '../../../../domain/entities/sign_up_params.dart';
@@ -82,14 +83,16 @@ class SignUpViewModel extends BaseCubit<SignUpState, UiEffect> {
 
     switch (result) {
       case OperationSuccess<LoginResponseEntity>():
-        _appInitializer.initAuthAndUserProvider(result.data.body);
+        _appInitializer.initAuthAndUserProvider(session: result.data.body);
         emit(state.copyWith(googleSignUpResult: const Success(null)));
         emitEffect(
           const DisplaySuccessEffect(success: SuccessEnum.loginSuccess),
         );
         emitEffect(
-          const NavigateEffect(
-            route: DefinedRoutes.homeRoute,
+          NavigateEffect(
+            route: userCompletedAssessment(result.data.body.user)
+                ? DefinedRoutes.homeRoute
+                : DefinedRoutes.discoverYourPotentialRoute,
             navigationType: NavigationTypeEnum.pushNamedAndRemoveUntil,
           ),
         );

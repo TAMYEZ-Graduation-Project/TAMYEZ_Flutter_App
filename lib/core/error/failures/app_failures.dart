@@ -1,3 +1,5 @@
+import '../../entities/notification_device_entity.dart';
+
 sealed class Failure {
   const Failure();
 }
@@ -21,6 +23,28 @@ class CheckCareerAssessmentAnswersBadResponseFailure extends Failure {
 
 class NotAllQuizQuestionsAnsweredFailure extends Failure {
   const NotAllQuizQuestionsAnsweredFailure();
+}
+
+class UserProfileBadResponseFailure extends Failure {
+  const UserProfileBadResponseFailure();
+}
+
+class ImagePickerFailure extends Failure {
+  const ImagePickerFailure();
+}
+
+class VersionConflictFailure extends Failure {
+  const VersionConflictFailure();
+}
+
+class UnableToGetFcmTokenFailure extends Failure {
+  const UnableToGetFcmTokenFailure();
+}
+
+class ExceededTwoEnabledNotificationDevicesFailure extends Failure {
+  final List<NotificationDeviceEntity> notificationDevices;
+
+  const ExceededTwoEnabledNotificationDevicesFailure(this.notificationDevices);
 }
 
 // =================================

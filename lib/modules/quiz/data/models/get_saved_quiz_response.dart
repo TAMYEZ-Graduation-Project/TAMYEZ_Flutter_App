@@ -38,7 +38,9 @@ class SavedQuizDetailsDto {
   final String? id;
   final QuizDto? quizId;
   final String? userId;
-  final String? score;
+  final num? finalScore;
+  final num? mcqScore;
+  final num? writtenScore;
   final List<SavedQuizQuestionDto>? questions;
   final String? takenAt;
   final String? createdAt;
@@ -48,7 +50,9 @@ class SavedQuizDetailsDto {
     this.id,
     this.quizId,
     this.userId,
-    this.score,
+    this.finalScore,
+    this.mcqScore,
+    this.writtenScore,
     this.questions,
     this.takenAt,
     this.createdAt,
@@ -62,7 +66,9 @@ class SavedQuizDetailsDto {
           ? QuizDto.fromJson(json['quizId'] as Map<String, dynamic>)
           : null,
       userId: json['userId'] as String?,
-      score: json['score'] as String?,
+      finalScore: json['finalScore'] as num?,
+      mcqScore: json['mcqScore'] as num?,
+      writtenScore: json['writtenScore'] as num?,
       questions: (json['questions'] as List<dynamic>?)
           ?.map((e) => SavedQuizQuestionDto.fromJson(e as Map<String, dynamic>))
           .toList(),

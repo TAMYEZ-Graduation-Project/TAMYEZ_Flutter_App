@@ -1,4 +1,5 @@
 abstract final class AssetPaths {
+  static const String envFile = 'config/.env';
   static const String appLogo = 'assets/images/app_logo.png';
   static const String appLogoDark = 'assets/images/app_logo_dark.png';
   static const String icLauncher = 'assets/images/ic_launcher.png';

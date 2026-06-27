@@ -165,9 +165,7 @@ void main() {
             ),
           );
           when(mockLoginViewModel.state).thenReturn(const LoginState());
-          await widgetTester.pump(const Duration(seconds: 3));
-          await widgetTester.pump(const Duration(seconds: 1));
-          await widgetTester.pump(const Duration(seconds: 1));
+          await widgetTester.pumpAndSettle(const Duration(seconds: 6));
           // act
           final Finder continueButton = find.descendant(
             of: find.byKey(

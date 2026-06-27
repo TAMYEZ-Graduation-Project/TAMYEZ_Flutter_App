@@ -16,6 +16,8 @@ class ThemeManager extends ChangeNotifier {
     return _currentTheme;
   }
 
+  bool get isDarkTheme => _currentTheme == Brightness.dark;
+
   void setInitTheme(Brightness initTheme) {
     _currentTheme = initTheme;
     notifyListeners();

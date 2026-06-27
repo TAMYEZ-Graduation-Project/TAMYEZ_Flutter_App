@@ -40,5 +40,7 @@ String mapValidationErrorToMessage(
       return l10n.invalidPassword;
     case ValidationError.invalidGender:
       return l10n.invalidGender;
+    case ValidationError.newPassEqualOldPass:
+      return l10n.newPassEqualOldPass;
   }
 }

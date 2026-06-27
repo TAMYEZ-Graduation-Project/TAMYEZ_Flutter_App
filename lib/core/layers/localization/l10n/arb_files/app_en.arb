@@ -194,5 +194,63 @@
       }
     }
   },
-  "review": "Review"
+  "review": "Review",
+  "writtenQuestions": "Written Questions: {count}",
+  "@writtenQuestions": {
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "writtenQuestionsScore": "Written Questions Score: {score}",
+  "@writtenQuestionsScore": {
+    "placeholders": {
+      "score": {
+        "type": "num"
+      }
+    }
+  },
+  "userProfileBadResponse": "The server returned an invalid user profile response",
+  "versionConflict": "Please refresh your page and try again",
+  "editProfileSuccess": "Profile has been updated successfully",
+  "imagePickerFailure": "Failed to open gallery",
+  "newPassEqualOldPass": "New password can't be the same as the old password",
+  "changePasswordSuccess": "Password has been changed successfully",
+  "profilePictureUploadedSuccess": "Profile picture has been uploaded successfully",
+  "profile": "Profile",
+  "account": "Account",
+  "logout": "Logout",
+  "deleteAccount": "Delete Account",
+  "settings": "Settings",
+  "language": "Language",
+  "notifications": "Notifications",
+  "darkMode": "Dark Mode",
+  "privacy": "Privacy",
+  "about": "About",
+  "joined": "Joined: {date}",
+  "@joined": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "editProfile": "Edit Profile",
+  "update": "Update",
+  "firstName": "First name",
+  "lastName": "Last name",
+  "changePassword": "Change Password",
+  "currentPassword": "Current Password",
+  "newPassword": "New Password",
+  "change": "Change",
+  "notificationsEnabledSuccess": "Notifications enabled successfully",
+  "notificationsDisabledSuccess": "Notifications disabled successfully",
+  "accountDeletedSuccess": "Account deleted successfully",
+  "unableToGetFcmToken": "Unable to get FCM token",
+  "exceededTwoEnabledNotificationDevices": "You have exceeded the two enabled notification devices limit.",
+  "logoutConfirmation": "Are you sure you want to logout?",
+  "deleteAccountConfirmation": "Are you sure you want to delete your account?",
+  "cancel": "Cancel",
+  "exceededMaxDevicesReplacementMessage": "You exceeded the maximum number of notification devices, please choose a device to replace:"
 }

@@ -63,3 +63,13 @@ enum RoadmapStepProgressStatusEnum {
 
   const RoadmapStepProgressStatusEnum(this.strValue);
 }
+
+enum PlatformsEnum {
+  flutterAndroid('flutter-android'),
+  flutterIos('flutter-ios'),
+  web('web');
+
+  final String strValue;
+
+  const PlatformsEnum(this.strValue);
+}

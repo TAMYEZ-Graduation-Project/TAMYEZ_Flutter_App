@@ -3,6 +3,7 @@ import '../../modules/auth/ui/screens/sign_up/view_model/sign_up_state.dart'
 import 'validation_error.dart' show ValidationError;
 
 abstract class Validators {
+  static final RegExp _nameRegex = RegExp(r'^[A-Z][a-z]{1,24}$');
   static final RegExp _fullNameRegex = RegExp(
     r'^[A-Z][a-z]{1,24}\s[A-Z][a-z]{1,24}$',
   );
@@ -15,6 +16,16 @@ abstract class Validators {
   static final _emailRegex = RegExp(
     r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
   );
+
+  static ValidationError? validateName(String? value) {
+    if (value == null || value.isEmpty) {
+      return ValidationError.emptyField;
+    }
+    if (!_nameRegex.hasMatch(value)) {
+      return ValidationError.invalidName;
+    }
+    return null;
+  }
 
   static ValidationError? validateFullName(String? value) {
     if (value == null || value.isEmpty) {
@@ -45,6 +56,19 @@ abstract class Validators {
     }
     if (value != password) {
       return ValidationError.passwordMismatch;
+    }
+    return null;
+  }
+
+  static ValidationError? validateNewPassword(
+    String? value,
+    String oldPassword,
+  ) {
+    if (value == null || value.isEmpty) {
+      return ValidationError.emptyField;
+    }
+    if (value == oldPassword) {
+      return ValidationError.newPassEqualOldPass;
     }
     return null;
   }

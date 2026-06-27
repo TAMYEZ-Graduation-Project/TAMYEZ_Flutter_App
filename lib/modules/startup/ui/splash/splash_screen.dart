@@ -5,10 +5,13 @@ import 'package:fit_ui/fit_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../core/auth_providers/user_provider.dart';
 import '../../../../core/bootstrap/app_initializer.dart';
 import '../../../../core/constants/asset_paths.dart';
 import '../../../../core/di/di.dart' show getIt;
 import '../../../../core/entities/login_session_entity.dart';
+import '../../../../core/entities/user_entity.dart';
+import '../../../../core/execution/operation_result.dart';
 import '../../../../core/layers/localization/l10n/generated/app_localizations.dart'
     show AppLocalizations;
 import '../../../../core/layers/theme/colors/app_colors.dart';
@@ -26,6 +29,7 @@ import '../../../../core/utils/functions/has_google_services.dart'
     show hasGoogleServices;
 import '../../../../core/utils/functions/user_completed_assessment.dart';
 import '../../../auth/domain/use_case/get_login_session_use_case.dart';
+import '../../../profile/domain/use_cases/sync_profile_use_case.dart';
 import 'constants/splash_screen_constants.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -48,7 +52,7 @@ class _SplashScreenState extends BaseStatefulWidgetState<SplashScreen>
 
     checkLoginSession();
     controller = AnimationController(
-      duration: const Duration(seconds: 2),
+      duration: const Duration(seconds: 4),
       vsync: this,
     );
 
@@ -70,19 +74,34 @@ class _SplashScreenState extends BaseStatefulWidgetState<SplashScreen>
     );
   }
 
-  void determineNextScreenToNavigateTo(LoginSessionEntity? loginSession) {
-    if (loginSession == null) {
-      Navigator.pushReplacementNamed(context, DefinedRoutes.onboardingRoute);
-    } else {
-      getIt.get<AppInitializer>().initAuthAndUserProvider(loginSession);
-      if (userCompletedAssessment(loginSession.user)) {
-        Navigator.pushReplacementNamed(context, DefinedRoutes.homeRoute);
-      } else {
-        Navigator.pushReplacementNamed(
-          context,
-          DefinedRoutes.discoverYourPotentialRoute,
-        );
+  Future<void> determineNextScreenToNavigateTo(
+    LoginSessionEntity? loginSession,
+  ) async {
+    if (loginSession != null) {
+      getIt.get<AppInitializer>().initAuthAndUserProvider(
+        session: loginSession,
+      );
+      final result = await getIt.get<SyncProfileUseCase>().call();
+      if (!mounted) return;
+      switch (result) {
+        case OperationSuccess<UserEntity>():
+          getIt.get<UserProvider>().setUser(user: result.data);
+          if (userCompletedAssessment(result.data)) {
+            Navigator.pushReplacementNamed(context, DefinedRoutes.homeRoute);
+          } else {
+            Navigator.pushReplacementNamed(
+              context,
+              DefinedRoutes.discoverYourPotentialRoute,
+            );
+          }
+        case OperationFailure<UserEntity>():
+          Navigator.pushReplacementNamed(
+            context,
+            DefinedRoutes.onboardingRoute,
+          );
       }
+    } else {
+      Navigator.pushReplacementNamed(context, DefinedRoutes.onboardingRoute);
     }
   }
 

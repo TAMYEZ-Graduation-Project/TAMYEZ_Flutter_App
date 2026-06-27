@@ -20,14 +20,22 @@ class QuizResultEntity extends Equatable {
   final num totalQuestions;
   final num wrongAnswersCount;
   final num correctAnswersCount;
-  final String score;
+  final num finalScore;
+  final num mcqScore;
+  final num writtenScore;
+  final num mcqTotal;
+  final num writtenTotal;
 
   const QuizResultEntity({
     this.savedQuizId = '',
     this.totalQuestions = 0,
     this.wrongAnswersCount = 0,
     this.correctAnswersCount = 0,
-    this.score = '',
+    this.finalScore = 0,
+    this.mcqScore = 0,
+    this.writtenScore = 0,
+    this.mcqTotal = 0,
+    this.writtenTotal = 0,
   });
 
   @override
@@ -36,6 +44,10 @@ class QuizResultEntity extends Equatable {
     totalQuestions,
     wrongAnswersCount,
     correctAnswersCount,
-    score,
+    finalScore,
+    mcqScore,
+    writtenScore,
+    mcqTotal,
+    writtenTotal,
   ];
 }

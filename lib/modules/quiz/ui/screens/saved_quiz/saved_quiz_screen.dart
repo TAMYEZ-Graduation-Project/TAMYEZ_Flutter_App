@@ -41,34 +41,36 @@ class _SavedQuizScreenState extends State<SavedQuizScreen> {
           title: Text(appLocalizations.yourAnswers),
           centerTitle: true,
         ),
-        body:
-            BlocSelector<
-              SavedQuizViewModel,
-              SavedQuizState,
-              UiResult<SavedQuizDetailsEntity>
-            >(
-              selector: (state) => state.getSavedQuizResult,
-              builder: (context, result) {
-                switch (result) {
-                  case Initial<SavedQuizDetailsEntity>():
-                  case Loading<SavedQuizDetailsEntity>():
-                    return const AppLoadingWidget();
-                  case Success<SavedQuizDetailsEntity>():
-                    return _SavedQuizScreenLayout(
-                      questions: result.data.questions,
-                    );
-                  case Error<SavedQuizDetailsEntity>():
-                    return AppErrorWidget(
-                      failure: result.failure,
-                      onRetry: () {
-                        _viewModel.doIntent(
-                          GetSavedQuizIntent(savedQuizId: widget.savedQuizId),
-                        );
-                      },
-                    );
-                }
-              },
-            ),
+        body: SafeArea(
+          child:
+              BlocSelector<
+                SavedQuizViewModel,
+                SavedQuizState,
+                UiResult<SavedQuizDetailsEntity>
+              >(
+                selector: (state) => state.getSavedQuizResult,
+                builder: (context, result) {
+                  switch (result) {
+                    case Initial<SavedQuizDetailsEntity>():
+                    case Loading<SavedQuizDetailsEntity>():
+                      return const AppLoadingWidget();
+                    case Success<SavedQuizDetailsEntity>():
+                      return _SavedQuizScreenLayout(
+                        questions: result.data.questions,
+                      );
+                    case Error<SavedQuizDetailsEntity>():
+                      return AppErrorWidget(
+                        failure: result.failure,
+                        onRetry: () {
+                          _viewModel.doIntent(
+                            GetSavedQuizIntent(savedQuizId: widget.savedQuizId),
+                          );
+                        },
+                      );
+                  }
+                },
+              ),
+        ),
       ),
     );
   }

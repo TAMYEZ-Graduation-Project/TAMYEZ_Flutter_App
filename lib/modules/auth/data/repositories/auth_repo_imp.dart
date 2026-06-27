@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/entities/login_session_entity.dart';
@@ -7,6 +8,7 @@ import '../../../../core/execution/operation_result.dart';
 import '../../../../core/mappers/base_auth_mapper.dart'
     show LoginSessionDtoMapper;
 import '../../../../core/network/models/login_session_dto.dart';
+import '../../../../core/utils/device_id/device_id_service.dart';
 import '../../../../core/utils/functions/repo_result_handler.dart';
 import '../../domain/entities/login_params.dart';
 import '../../domain/entities/login_response_entity.dart';
@@ -26,13 +28,16 @@ import '../models/gmail_login_request.dart';
 class AuthRepoImp implements AuthRepository {
   final AuthRemoteDataSource _authRemoteDataSource;
   final SocialAuthService _socialAuthService;
-
   final AuthLocalDataSource _authLocalDataSource;
+  final DeviceIdService _deviceIdService;
+  final FirebaseMessaging _firebaseMessaging;
 
   const AuthRepoImp(
     this._authRemoteDataSource,
     this._socialAuthService,
     this._authLocalDataSource,
+    this._deviceIdService,
+    this._firebaseMessaging,
   );
 
   bool _isLoginSessionValid(LoginSessionDto? session) {
@@ -59,7 +64,11 @@ class AuthRepoImp implements AuthRepository {
     return repoResultHandler(() async {
       final String token = await _socialAuthService.getGoogleIdToken();
       final response = await _authRemoteDataSource.gmailSignUp(
-        request: GmailLoginRequest(idToken: token),
+        request: GmailLoginRequest(
+          idToken: token,
+          deviceId: await _deviceIdService.getDeviceId(),
+          fcmToken: await _firebaseMessaging.getToken(),
+        ),
       );
       if (_isLoginSessionValid(response.body)) {
         await _authLocalDataSource.saveLoginSession(body: response.body);
@@ -87,7 +96,10 @@ class AuthRepoImp implements AuthRepository {
   }) {
     return repoResultHandler(() async {
       final response = await _authRemoteDataSource.login(
-        request: params.toModel(),
+        request: params.toModel(
+          deviceId: await _deviceIdService.getDeviceId(),
+          fcmToken: await _firebaseMessaging.getToken(),
+        ),
       );
       if (rememberMe && _isLoginSessionValid(response.body)) {
         await _authLocalDataSource.saveLoginSession(body: response.body);
@@ -103,7 +115,11 @@ class AuthRepoImp implements AuthRepository {
     return repoResultHandler(() async {
       final String token = await _socialAuthService.getGoogleIdToken();
       final response = await _authRemoteDataSource.gmailLogin(
-        request: GmailLoginRequest(idToken: token),
+        request: GmailLoginRequest(
+          idToken: token,
+          deviceId: await _deviceIdService.getDeviceId(),
+          fcmToken: await _firebaseMessaging.getToken(),
+        ),
       );
       if (rememberMe && _isLoginSessionValid(response.body)) {
         await _authLocalDataSource.saveLoginSession(body: response.body);

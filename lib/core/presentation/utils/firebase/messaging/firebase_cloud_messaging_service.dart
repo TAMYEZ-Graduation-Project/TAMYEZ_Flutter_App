@@ -1,6 +1,8 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../../../modules/profile/domain/use_cases/refresh_fcm_token_use_case.dart';
+import '../../../../auth_providers/user_provider.dart';
 import '../../../../utils/functions/safe_print.dart' show safePrint;
 import '../../awesome_notification/awesome_notification_service.dart';
 
@@ -8,10 +10,14 @@ import '../../awesome_notification/awesome_notification_service.dart';
 class FirebaseCloudMessagingService {
   final AwesomeNotificationService _awesomeNotificationService;
   final FirebaseMessaging _firebaseMessaging;
+  final RefreshFcmTokenUseCase _refreshFcmTokenUseCase;
+  final UserProvider _userProvider;
 
   FirebaseCloudMessagingService(
     this._awesomeNotificationService,
     this._firebaseMessaging,
+    this._refreshFcmTokenUseCase,
+    this._userProvider,
   );
 
   // notifications initialization function
@@ -30,6 +36,10 @@ class FirebaseCloudMessagingService {
       _firebaseMessaging.onTokenRefresh
           .listen((newFcmToken) {
             safePrint('======> Refreshed Token:$newFcmToken');
+            if (_userProvider.notificationsEnabled &&
+                _userProvider.user != null) {
+              _handleTokenRefresh(newFcmToken);
+            }
           })
           .onError((Object error) {
             safePrint('Error Refreshing Token: $error');
@@ -76,6 +86,22 @@ class FirebaseCloudMessagingService {
         body: notificationData.body ?? '',
         imageUrl: notificationData.android?.imageUrl,
       );
+    }
+  }
+
+  Future<void> _handleTokenRefresh(String token) async {
+    const int retries = 3;
+
+    for (int i = 0; i < retries; i++) {
+      try {
+        await _refreshFcmTokenUseCase.call(fcmToken: token);
+        return; // success ✅
+      } catch (e) {
+        if (i == retries - 1) {
+          safePrint('Token refresh failed after retries');
+        }
+        await Future<void>.delayed(const Duration(seconds: 2));
+      }
     }
   }
 }

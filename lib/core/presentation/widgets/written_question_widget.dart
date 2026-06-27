@@ -39,38 +39,40 @@ class _WrittenQuestionWidgetState
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      spacing: 12,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Text(
-          widget.question.text,
-          textDirection: widget.question.text.textDirection,
-          style: typography.title,
-        ),
-        StatefulBuilder(
-          builder: (context, setState) {
-            return TextFormField(
-              controller: _controller,
-              textDirection: textDirection,
-              minLines: 5,
-              maxLines: 15,
-              onTapOutside: (event) {
-                FocusManager.instance.primaryFocus?.unfocus();
-              },
-              onChanged: (value) {
-                subject.add(value.trim().isEmpty ? ' ' : value);
-                setState(() {
-                  textDirection = value.textDirection;
-                });
-              },
-              decoration: InputDecoration(
-                hintText: appLocalizations.writeYourAnswerHere,
-              ),
-            );
-          },
-        ),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        spacing: 12,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(
+            widget.question.text,
+            textDirection: widget.question.text.textDirection,
+            style: typography.title,
+          ),
+          StatefulBuilder(
+            builder: (context, setState) {
+              return TextFormField(
+                controller: _controller,
+                textDirection: textDirection,
+                minLines: 5,
+                maxLines: 15,
+                onTapOutside: (event) {
+                  FocusManager.instance.primaryFocus?.unfocus();
+                },
+                onChanged: (value) {
+                  subject.add(value.trim().isEmpty ? ' ' : value);
+                  setState(() {
+                    textDirection = value.textDirection;
+                  });
+                },
+                decoration: InputDecoration(
+                  hintText: appLocalizations.writeYourAnswerHere,
+                ),
+              );
+            },
+          ),
+        ],
+      ),
     );
   }
 

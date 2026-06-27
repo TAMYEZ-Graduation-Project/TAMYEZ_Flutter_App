@@ -37,7 +37,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get unknownError => 'حدث خطأ ما 🤔';
 
   @override
-  String get badCertificate => 'الشهادة المقدمة من الخادم غير صالحة 📑';
+  String get badCertificate => 'الشهادة المقدمة من الخادم غير صالح 📑';
 
   @override
   String get somethingWentWrong => 'حدث خطأ ما 🤔';
@@ -524,4 +524,125 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get review => 'مراجعة';
+
+  @override
+  String writtenQuestions(num count) {
+    return 'الأسئلة المقالية: $count';
+  }
+
+  @override
+  String writtenQuestionsScore(num score) {
+    return 'درجة الأسئلة المقالية: $score';
+  }
+
+  @override
+  String get userProfileBadResponse =>
+      'أرسل الخادم استجابة غير صالحة لملف المستخدم';
+
+  @override
+  String get versionConflict => 'يرجى تحديث الصفحة والمحاولة مرة أخرى';
+
+  @override
+  String get editProfileSuccess => 'تم تحديث الملف الشخصي بنجاح';
+
+  @override
+  String get imagePickerFailure => 'فشل فتح المعرض';
+
+  @override
+  String get newPassEqualOldPass =>
+      'لا يمكن أن تكون كلمة المرور الجديدة هي نفسها كلمة المرور القديمة';
+
+  @override
+  String get changePasswordSuccess => 'تم تغيير كلمة المرور بنجاح';
+
+  @override
+  String get profilePictureUploadedSuccess => 'تم رفع الصورة الشخصية بنجاح';
+
+  @override
+  String get profile => 'الملف الشخصي';
+
+  @override
+  String get account => 'الحساب';
+
+  @override
+  String get logout => 'تسجيل الخروج';
+
+  @override
+  String get deleteAccount => 'حذف الحساب';
+
+  @override
+  String get settings => 'الإعدادات';
+
+  @override
+  String get language => 'اللغة';
+
+  @override
+  String get notifications => 'الإشعارات';
+
+  @override
+  String get darkMode => 'الوضع الداكن';
+
+  @override
+  String get privacy => 'الخصوصية';
+
+  @override
+  String get about => 'حول التطبيق';
+
+  @override
+  String joined(String date) {
+    return 'انضم في: $date';
+  }
+
+  @override
+  String get editProfile => 'تعديل الملف الشخصي';
+
+  @override
+  String get update => 'تحديث';
+
+  @override
+  String get firstName => 'الاسم الأول';
+
+  @override
+  String get lastName => 'اسم العائلة';
+
+  @override
+  String get changePassword => 'تغيير كلمة المرور';
+
+  @override
+  String get currentPassword => 'كلمة المرور الحالية';
+
+  @override
+  String get newPassword => 'كلمة المرور الجديدة';
+
+  @override
+  String get change => 'تغيير';
+
+  @override
+  String get notificationsEnabledSuccess => 'تم تفعيل الإشعارات بنجاح';
+
+  @override
+  String get notificationsDisabledSuccess => 'تم تعطيل الإشعارات بنجاح';
+
+  @override
+  String get accountDeletedSuccess => 'تم حذف الحساب بنجاح';
+
+  @override
+  String get unableToGetFcmToken => 'تعذر الحصول على رمز FCM';
+
+  @override
+  String get exceededTwoEnabledNotificationDevices =>
+      'لقد تجاوزت الحد المسموح به للأجهزة المفعلة للإشعارات (جهازين).';
+
+  @override
+  String get logoutConfirmation => 'هل أنت متأكد أنك تريد تسجيل الخروج؟';
+
+  @override
+  String get deleteAccountConfirmation => 'هل أنت متأكد أنك تريد حذف حسابك؟';
+
+  @override
+  String get cancel => 'إلغاء';
+
+  @override
+  String get exceededMaxDevicesReplacementMessage =>
+      'لقد تجاوزت الحد الأقصى لعدد أجهزة الإشعارات، يرجى اختيار جهاز لاستبداله:';
 }

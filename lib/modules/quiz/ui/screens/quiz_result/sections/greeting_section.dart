@@ -14,7 +14,7 @@ class GreetingSection extends BaseStatelessWidget {
       children: [
         Text(
           d.appLocalizations.greatJob(
-            userProvider.user!.fullName!.split(' ').first,
+            userProvider.user!.fullName.split(' ').first,
           ),
           style: d.typography.title,
         ),

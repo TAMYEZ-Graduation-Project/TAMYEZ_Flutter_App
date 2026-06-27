@@ -12,6 +12,8 @@ class CustomTextField extends StatefulWidget {
     this.hintText,
     this.obscureText = false,
     this.isPassword = false,
+    this.readOnly = false,
+    this.enabled = true,
     this.suffixIcon,
     this.prefixIcon,
     this.validatingFunc,
@@ -23,9 +25,11 @@ class CustomTextField extends StatefulWidget {
   final String? hintText;
   final bool isPassword;
   final bool obscureText;
+  final bool readOnly;
+  final bool enabled;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
-  final ValidationError? Function(String?)? validatingFunc;
+  final ValidationError? Function(String? value)? validatingFunc;
   final TextInputType? keyboardType;
   final void Function(String)? onChanged;
 
@@ -47,6 +51,8 @@ class _CustomTextFieldState extends BaseStatefulWidgetState<CustomTextField> {
           : null,
       keyboardType: widget.keyboardType,
       onChanged: widget.onChanged,
+      readOnly: widget.readOnly,
+      enabled: widget.enabled,
       onTapOutside: (_) => FocusManager.instance.primaryFocus?.unfocus(),
       style: typography.subTitle.copyWith(
         color: AppColors.blue,

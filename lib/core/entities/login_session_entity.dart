@@ -4,11 +4,16 @@ import 'auth_token.dart';
 import 'user_entity.dart';
 
 class LoginSessionEntity extends Equatable {
-  const LoginSessionEntity({required this.token, required this.user});
+  const LoginSessionEntity({
+    required this.token,
+    required this.notificationsEnabled,
+    required this.user,
+  });
 
   final AuthToken token;
+  final bool notificationsEnabled;
   final UserEntity user;
 
   @override
-  List<Object?> get props => [token, user];
+  List<Object?> get props => [token, notificationsEnabled, user];
 }

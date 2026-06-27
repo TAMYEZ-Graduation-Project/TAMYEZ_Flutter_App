@@ -14,13 +14,23 @@ class NetworkImageCachingWidget extends StatelessWidget {
   final String imageUrl;
   final double? height, width;
 
-  final Widget Function(BuildContext, ImageProvider)? imageBuilder;
+  final Widget Function(BuildContext context, ImageProvider imageProvider)?
+  imageBuilder;
+  final Widget Function(
+    BuildContext context,
+    Object object,
+    StackTrace? stackTrace,
+  )?
+  errorBuilder;
+  final Widget Function(BuildContext context, String url)? placeholder;
   final BoxFit fit;
 
   const NetworkImageCachingWidget({
     super.key,
     required this.imageUrl,
     this.imageBuilder,
+    this.errorBuilder,
+    this.placeholder,
     this.fit = BoxFit.cover,
     this.height,
     this.width,
@@ -34,10 +44,13 @@ class NetworkImageCachingWidget extends StatelessWidget {
       height: height,
       width: width,
       imageBuilder: imageBuilder,
-      placeholder: (context, url) =>
-          const Center(child: CircularProgressIndicator()),
-      errorBuilder: (context, object, stackTrace) =>
-          const Center(child: Icon(Icons.error)),
+      placeholder:
+          placeholder ??
+          (context, url) => const Center(child: CircularProgressIndicator()),
+      errorBuilder:
+          errorBuilder ??
+          (context, object, stackTrace) =>
+              const Center(child: Icon(Icons.error)),
     );
   }
 }

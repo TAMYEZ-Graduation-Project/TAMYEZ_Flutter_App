@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../core/layers/theme/colors/app_colors.dart'
-    show AppColors;
 import '../../../../../../core/presentation/bases/base_stateful_widget_state.dart';
-import '../../../../../../core/presentation/validation/form_validator.dart'
-    show validateField;
+import '../../../../../../core/presentation/widgets/app_gender_field_widget.dart';
 import '../../../../../../core/presentation/widgets/custom_text_field.dart'
     show CustomTextField;
 import '../../../../../../core/validation/validators.dart' show Validators;
 import '../sign_up_screen.dart';
-import '../view_model/sign_up_state.dart';
 
 class SignUpForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
@@ -27,7 +23,6 @@ class SignUpForm extends StatefulWidget {
 
 class _SignUpFormState extends BaseStatefulWidgetState<SignUpForm> {
   late final SignUpControllers controllers;
-  GenderEnum? selectedGender;
 
   @override
   void initState() {
@@ -75,90 +70,7 @@ class _SignUpFormState extends BaseStatefulWidgetState<SignUpForm> {
             hintText: appLocalizations.phoneNumber,
             validatingFunc: Validators.validatePhoneNumber,
           ),
-          LayoutBuilder(
-            builder: (context, constraints) {
-              return FormField<String>(
-                validator: (value) {
-                  return validateField(
-                    appLocalizations,
-                    value,
-                    Validators.validateGender,
-                  );
-                },
-                builder: (state) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      StatefulBuilder(
-                        builder: (context, setState) {
-                          return RadioGroup<GenderEnum>(
-                            groupValue: selectedGender,
-                            onChanged: (value) {
-                              setState(() {
-                                state.didChange(value?.value);
-                                selectedGender = value;
-                                controllers.genderController.text =
-                                    value?.value ?? '';
-                              });
-                            },
-                            child: Row(
-                              children: [
-                                Text(
-                                  appLocalizations.gender,
-                                  style: typography.subTitle.copyWith(
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                                SizedBox(width: constraints.maxWidth * 0.15),
-                                Flexible(
-                                  child: ListTile(
-                                    horizontalTitleGap: 0,
-                                    contentPadding: const EdgeInsets.symmetric(
-                                      horizontal: 8,
-                                    ),
-                                    leading: const Radio(
-                                      value: GenderEnum.female,
-                                    ),
-                                    title: Text(
-                                      appLocalizations.female,
-                                      style: typography.body,
-                                    ),
-                                  ),
-                                ),
-                                Flexible(
-                                  child: ListTile(
-                                    horizontalTitleGap: 0,
-                                    contentPadding: const EdgeInsets.symmetric(
-                                      horizontal: 8,
-                                    ),
-                                    leading: const Radio(
-                                      value: GenderEnum.male,
-                                    ),
-                                    title: Text(
-                                      appLocalizations.male,
-                                      style: typography.body,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
-                      if (state.hasError)
-                        Text(
-                          state.errorText!,
-                          style: typography.label.copyWith(
-                            height: -0.5,
-                            color: AppColors.red,
-                          ),
-                        ),
-                    ],
-                  );
-                },
-              );
-            },
-          ),
+          AppGenderFieldWidget(genderController: controllers.genderController),
         ],
       ),
     );

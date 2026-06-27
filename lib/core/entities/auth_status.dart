@@ -1,1 +1,7 @@
-enum AuthStatus { authenticated, unauthenticated, tokenExpired, guest }
+enum AuthStatus {
+  rememberedAuthenticated,
+  unrememberedAuthenticated,
+  unauthenticated,
+  tokenExpired,
+  guest,
+}

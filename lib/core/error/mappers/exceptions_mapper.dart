@@ -2,10 +2,13 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 
+import '../../mappers/base_profile_mapper.dart';
 import '../../utils/functions/safe_print.dart';
+import '../constants/backend_error_codes.dart';
 import '../exceptions/app_exceptions.dart';
 import '../failures/app_failures.dart';
 import '../models/api_error_model.dart';
+import '../models/fail_enable_notification_cause_model.dart';
 
 abstract class ExceptionHandling {
   static Failure mapExceptionsToFailures(Object error) {
@@ -69,11 +72,30 @@ abstract class ExceptionHandling {
         if (error.response?.statusCode == 401) {
           return const UnauthorizedFailure();
         }
+        final errorModel = ApiErrorModel.fromJson(
+          error.response?.data as Map<String, dynamic>,
+        ).error;
+        if (error.response?.statusCode == 409 &&
+            errorModel?.code == BackendErrorCodes.versionConflict) {
+          return const VersionConflictFailure();
+        }
+        if (error.response?.statusCode == 400 &&
+            errorModel?.code == BackendErrorCodes.invalidInput &&
+            (errorModel?.message?.toLowerCase().contains(
+                  'two enabled push devices,',
+                ) ??
+                false)) {
+          final devices = FailEnableNotificationCauseModel.fromJson(
+            error.response?.data as Map<String, dynamic>,
+          ).cause?.map((e) => e.toEntity()).toList();
+          if (devices == null) {
+            return const UnknownFailure();
+          }
+          return ExceededTwoEnabledNotificationDevicesFailure(devices);
+        }
         return ServerFailure(
           statusCode: error.response?.statusCode,
-          serverMessage: ApiErrorModel.fromJson(
-            error.response?.data as Map<String, dynamic>,
-          ).error?.message,
+          serverMessage: errorModel?.message,
         );
 
       case DioExceptionType.unknown:

@@ -45,3 +45,7 @@ class PageNavigationEffect extends UiEffect {
 class DisplayTimeOutEffect extends UiEffect {
   const DisplayTimeOutEffect();
 }
+
+class ReinitDataEffect extends UiEffect {
+  const ReinitDataEffect();
+}

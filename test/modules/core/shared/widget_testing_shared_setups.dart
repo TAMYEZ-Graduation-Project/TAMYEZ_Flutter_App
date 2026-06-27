@@ -38,9 +38,7 @@ class WidgetTestingSharedSetups {
     if (getIt.isRegistered<LocalizationManager>()) {
       await getIt.unregister<LocalizationManager>();
     }
-    when(
-      mockLocalizationManager.currentLocale,
-    ).thenReturn(LanguagesEnum.en.getLanguageCode());
+    when(mockLocalizationManager.currentLocale).thenReturn(LanguagesEnum.en);
     getIt.registerSingleton<LocalizationManager>(mockLocalizationManager);
 
     mockThemeManager = MockThemeManager();

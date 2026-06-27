@@ -19,6 +19,11 @@ class ApiErrorModel {
     }
     return map;
   }
+
+  @override
+  String toString() {
+    return 'ApiErrorModel(success: $success, error: $error)';
+  }
 }
 
 class Error {
@@ -37,5 +42,10 @@ class Error {
     map['code'] = code;
     map['message'] = message;
     return map;
+  }
+
+  @override
+  String toString() {
+    return 'Error(code: $code, message: $message)';
   }
 }
