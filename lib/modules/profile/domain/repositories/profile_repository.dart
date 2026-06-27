@@ -27,7 +27,7 @@ abstract interface class ProfileRepository {
     required bool userRemembered,
   });
 
-  Future<OperationResult<void>> logout({String? deviceId});
+  Future<OperationResult<void>> logout({required bool notificationsEnabled});
 
   Future<OperationResult<void>> deleteAccount({required int version});
 

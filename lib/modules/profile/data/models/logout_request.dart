@@ -14,7 +14,9 @@ class LogoutRequest {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['flag'] = flag;
-    data['deviceId'] = deviceId;
+    if (deviceId != null) {
+      data['deviceId'] = deviceId;
+    }
     return data;
   }
 }

@@ -9,7 +9,7 @@ class LogoutUseCase {
 
   const LogoutUseCase(this._repository);
 
-  Future<OperationResult<void>> call({String? deviceId}) {
-    return _repository.logout(deviceId: deviceId);
+  Future<OperationResult<void>> call({required bool notificationsEnabled}) {
+    return _repository.logout(notificationsEnabled: notificationsEnabled);
   }
 }

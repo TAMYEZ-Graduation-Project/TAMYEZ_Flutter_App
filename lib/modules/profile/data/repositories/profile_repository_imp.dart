@@ -151,8 +151,12 @@ class ProfileRepositoryImp implements ProfileRepository {
   }
 
   @override
-  Future<OperationResult<void>> logout({String? deviceId}) {
+  Future<OperationResult<void>> logout({required bool notificationsEnabled}) {
     return repoResultHandler(() async {
+      String? deviceId;
+      if (notificationsEnabled) {
+        deviceId = await _deviceIdService.getDeviceId();
+      }
       await _profileRemoteDataSource.logout(LogoutRequest(deviceId: deviceId));
       await _profileLocalDataSource.clear();
     });

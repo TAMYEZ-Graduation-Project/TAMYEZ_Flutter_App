@@ -87,7 +87,9 @@ class ProfileViewModel extends BaseCubit<ProfileState, UiEffect> {
 
   Future<void> _logOut() async {
     emit(state.copyWith(logoutResult: const Loading()));
-    final result = await _logoutUseCase.call();
+    final result = await _logoutUseCase.call(
+      notificationsEnabled: _userProvider.notificationsEnabled,
+    );
     switch (result) {
       case OperationSuccess<void>():
         emit(state.copyWith(logoutResult: const Success(null)));
