@@ -27,7 +27,11 @@ class RoadmapStepDetailsDescriptionSection extends BaseStatelessWidget {
           ),
         ),
         DecoratedBox(
-          decoration: BoxDecoration(color: AppColors.lightBlue),
+          decoration: BoxDecoration(
+            color: d.themeManager.isDarkTheme
+                ? AppColors.dark
+                : AppColors.lightBlue,
+          ),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(description, style: d.typography.subTitle),

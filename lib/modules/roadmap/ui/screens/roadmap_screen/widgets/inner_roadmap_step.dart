@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../core/constants/app_enums.dart';
 import '../../../../../../core/entities/roadmap_step_entity.dart';
-import '../../../../../../core/layers/theme/colors/app_colors.dart';
 import '../../../../../../core/presentation/bases/base_stateless_widget.dart';
 import '../../../../../../core/presentation/routing/defined_routes.dart';
 import '../view_model/roadmap_intent.dart';
@@ -34,7 +33,7 @@ class InnerRoadmapStep extends BaseStatelessWidget {
           padding: const EdgeInsets.only(left: 30, right: 30),
           child: Container(
             height: 1.5,
-            decoration: BoxDecoration(color: AppColors.dark),
+            decoration: BoxDecoration(color: d.theme.colorScheme.onSurface),
           ),
         ),
         Directionality(
@@ -77,13 +76,17 @@ class InnerRoadmapStep extends BaseStatelessWidget {
                     Container(
                       width: 2,
                       height: 25,
-                      decoration: BoxDecoration(color: AppColors.dark),
+                      decoration: BoxDecoration(
+                        color: d.theme.colorScheme.onSurface,
+                      ),
                     ),
                     StepStatusWidget(status: roadmapStepEntity.progressStatus),
                     Container(
                       width: 2,
                       height: 25,
-                      decoration: BoxDecoration(color: AppColors.dark),
+                      decoration: BoxDecoration(
+                        color: d.theme.colorScheme.onSurface,
+                      ),
                     ),
                   ],
                 ),

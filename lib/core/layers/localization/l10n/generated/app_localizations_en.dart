@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -653,4 +654,16 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get exceededMaxDevicesReplacementMessage =>
       'You exceeded the maximum number of notification devices, please choose a device to replace:';
+
+  @override
+  String get instructions => 'Instructions';
+
+  @override
+  String get answerAllQuestions => 'Answer all questions.';
+
+  @override
+  String get navigateUsingNextAndBack => 'Navigate using \'Next\' and \'back\'';
+
+  @override
+  String get reviewBeforeSubmitting => 'Review before submitting';
 }

@@ -4,6 +4,7 @@ import 'package:rxdart/rxdart.dart';
 import '../../constants/app_enums.dart';
 import '../../entities/get_quiz_questions_entity.dart';
 import '../../extensions/text_direction_detector_extension.dart';
+import '../../layers/theme/colors/app_colors.dart';
 import '../bases/base_stateful_widget_state.dart';
 
 class WrittenQuestionWidget extends StatefulWidget {
@@ -54,6 +55,9 @@ class _WrittenQuestionWidgetState
               return TextFormField(
                 controller: _controller,
                 textDirection: textDirection,
+                keyboardType: TextInputType.multiline,
+                textInputAction: TextInputAction.newline,
+                style: typography.subTitle.copyWith(color: AppColors.dark),
                 minLines: 5,
                 maxLines: 15,
                 onTapOutside: (event) {

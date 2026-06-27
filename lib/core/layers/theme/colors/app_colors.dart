@@ -30,13 +30,10 @@ abstract final class AppColors {
 
   static Color get green => _green;
   static Color get blue => _blue;
-
   static Color get middleBlue => _middleBlue;
   static Color get lightBlue => _lightBlue;
-
   static Color get gray => _gray;
   static Color get lightGray => _lightGray;
-
   static Color get middleGray => _middleGray;
   static Color get darkGray => _darkGray;
 

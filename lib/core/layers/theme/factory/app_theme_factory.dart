@@ -142,9 +142,11 @@ abstract class AppThemeFactory {
           }
         }),
         thumbColor: const WidgetStatePropertyAll(Colors.white),
-        thumbIcon: const WidgetStatePropertyAll(Icon(Icons.circle)),
+        thumbIcon: WidgetStatePropertyAll(
+            Icon(Icons.circle, color: AppColors.light,)),
         trackOutlineColor: const WidgetStatePropertyAll(Colors.transparent),
       ),
+      dialogTheme: _dialogThemeData(brightness),
     );
   }
 
@@ -161,6 +163,7 @@ abstract class AppThemeFactory {
           onError: AppColors.red,
           surface: AppColors.dark,
           onSurface: AppColors.light,
+          surfaceContainerHighest: AppColors.dark,
         );
 
       case Brightness.light:
@@ -235,6 +238,21 @@ abstract class AppThemeFactory {
           unselectedItemColor: AppColors.gray,
           type: BottomNavigationBarType.fixed,
           selectedLabelStyle: typography.label.copyWith(height: 2.6),
+        );
+    }
+  }
+
+  static DialogThemeData _dialogThemeData(Brightness brightness) {
+    switch (brightness) {
+      case Brightness.dark:
+        return DialogThemeData(
+          backgroundColor: AppColors.middleBlue,
+          titleTextStyle: TextStyle(color: AppColors.dark),
+          contentTextStyle: TextStyle(color: AppColors.dark),
+        );
+      case Brightness.light:
+        return DialogThemeData(
+          backgroundColor: AppColors.light,
         );
     }
   }

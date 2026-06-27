@@ -22,7 +22,7 @@ class ArrowedProfileItemWidget extends BaseStatelessWidget {
     return InkWell(
       onTap: onTap,
       child: DecoratedBox(
-        decoration: BoxDecoration(color: AppColors.lightBlue),
+        decoration: BoxDecoration(color: d.theme.colorScheme.surface),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12),
           child: Row(

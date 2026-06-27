@@ -12,12 +12,12 @@ class InstructionsSection extends BaseStatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Instructions',
+          d.appLocalizations.instructions,
           style: d.typography.subTitle.copyWith(fontWeight: FontWeight.w700),
         ),
-        const _InstructionItem(text: 'Answer all questions.'),
-        const _InstructionItem(text: "Navigate using 'Next' and 'back'"),
-        const _InstructionItem(text: 'Review before submitting'),
+        _InstructionItem(text: d.appLocalizations.answerAllQuestions),
+        _InstructionItem(text: d.appLocalizations.navigateUsingNextAndBack),
+        _InstructionItem(text: d.appLocalizations.reviewBeforeSubmitting),
       ],
     );
   }
@@ -35,8 +35,8 @@ class _InstructionItem extends BaseStatelessWidget {
         Container(
           width: 10,
           height: 10,
-          decoration: const BoxDecoration(
-            color: Colors.black,
+          decoration: BoxDecoration(
+            color: d.theme.colorScheme.onSurface,
             shape: BoxShape.circle,
           ),
         ),
