@@ -31,7 +31,7 @@ class QuestionsPageViewSection extends BaseStatelessWidget {
       selector: (state) => state.questionAnswers,
       builder: (context, questionAnswers) {
         return Expanded(
-          flex: 10,
+          flex: 18,
           child: PageView.builder(
             controller: pageController,
             physics: const NeverScrollableScrollPhysics(),

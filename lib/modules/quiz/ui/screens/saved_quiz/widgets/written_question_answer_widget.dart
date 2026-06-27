@@ -49,16 +49,11 @@ class _WrittenQuestionAnswerWidgetState
             hintText: appLocalizations.writeYourAnswerHere,
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(
-                color: widget.question.isCorrect
-                    ? AppColors.green
-                    : AppColors.red,
-              ),
+              borderSide: BorderSide(color: AppColors.darkGray.withAlpha(90)),
             ),
           ),
         ),
-        if (!widget.question.isCorrect &&
-            widget.question.explanation.isNotEmpty)
+        if (widget.question.explanation.isNotEmpty)
           Text(
             '${appLocalizations.explanation}:\n${widget.question.explanation}',
             style: typography.body,

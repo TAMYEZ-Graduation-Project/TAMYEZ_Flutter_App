@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -524,6 +525,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get review => 'مراجعة';
+
+  @override
+  String writtenQuestions(num count) {
+    return 'الأسئلة المقالية: $count';
+  }
+
+  @override
+  String writtenQuestionsScore(num score) {
+    return 'درجة الأسئلة المقالية: $score';
+  }
 
   @override
   String get userProfileBadResponse =>

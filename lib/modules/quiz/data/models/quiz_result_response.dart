@@ -25,14 +25,22 @@ class QuizResultDto {
   final num? totalQuestions;
   final num? wrongAnswersCount;
   final num? correctAnswersCount;
-  final String? score;
+  final num? finalScore;
+  final num? mcqScore;
+  final num? writtenScore;
+  final num? mcqTotal;
+  final num? writtenTotal;
 
   QuizResultDto({
     this.savedQuizId,
     this.totalQuestions,
     this.wrongAnswersCount,
     this.correctAnswersCount,
-    this.score,
+    this.finalScore,
+    this.mcqScore,
+    this.writtenScore,
+    this.mcqTotal,
+    this.writtenTotal,
   });
 
   factory QuizResultDto.fromJson(Map<String, dynamic> json) {
@@ -41,7 +49,11 @@ class QuizResultDto {
       totalQuestions: json['totalQuestions'] as num?,
       wrongAnswersCount: json['wrongAnswersCount'] as num?,
       correctAnswersCount: json['correctAnswersCount'] as num?,
-      score: json['score'] as String?,
+      finalScore: json['finalScore'] as num?,
+      mcqScore: json['mcqScore'] as num?,
+      writtenScore: json['writtenScore'] as num?,
+      mcqTotal: json['mcqTotal'] as num?,
+      writtenTotal: json['writtenTotal'] as num?,
     );
   }
 
@@ -51,7 +63,11 @@ class QuizResultDto {
       'totalQuestions': totalQuestions,
       'wrongAnswersCount': wrongAnswersCount,
       'correctAnswersCount': correctAnswersCount,
-      'score': score,
+      'score': finalScore,
+      'mcqScore': mcqScore,
+      'writtenScore': writtenScore,
+      'mcqTotal': mcqTotal,
+      'writtenTotal': writtenTotal,
     };
   }
 }

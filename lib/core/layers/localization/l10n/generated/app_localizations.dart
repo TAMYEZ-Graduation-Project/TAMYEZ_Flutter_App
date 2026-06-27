@@ -1064,6 +1064,18 @@ abstract class AppLocalizations {
   /// **'Review'**
   String get review;
 
+  /// No description provided for @writtenQuestions.
+  ///
+  /// In en, this message translates to:
+  /// **'Written Questions: {count}'**
+  String writtenQuestions(num count);
+
+  /// No description provided for @writtenQuestionsScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Written Questions Score: {score}'**
+  String writtenQuestionsScore(num score);
+
   /// No description provided for @userProfileBadResponse.
   ///
   /// In en, this message translates to:

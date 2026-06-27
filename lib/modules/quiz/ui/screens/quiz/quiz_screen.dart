@@ -91,13 +91,10 @@ class _QuizScreenState extends BaseStatefulWidgetState<QuizScreen>
               centerTitle: true,
               leading: IconButton(
                 onPressed: () {
-                  AppDialogs.defaultDialog(
+                  AppDialogs.areYouSureDialog(
                     context,
                     content: appLocalizations.exitQuizConfirmation,
-                    contentStyle: typography.subTitle,
-                    firstButtonText: appLocalizations.no,
-                    secondButtonText: appLocalizations.yes,
-                    secondButtonAction: () {
+                    yesButtonAction: () {
                       Navigator.pop(context);
                     },
                   );

@@ -195,6 +195,22 @@
     }
   },
   "review": "Review",
+  "writtenQuestions": "Written Questions: {count}",
+  "@writtenQuestions": {
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "writtenQuestionsScore": "Written Questions Score: {score}",
+  "@writtenQuestionsScore": {
+    "placeholders": {
+      "score": {
+        "type": "num"
+      }
+    }
+  },
   "userProfileBadResponse": "The server returned an invalid user profile response",
   "versionConflict": "Please refresh your page and try again",
   "editProfileSuccess": "Profile has been updated successfully",

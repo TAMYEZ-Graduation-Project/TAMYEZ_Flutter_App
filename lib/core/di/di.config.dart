@@ -630,20 +630,22 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i4.AppInitializer>(),
       ),
     );
-    gh.factory<_i612.RoadmapViewModel>(
-      () => _i612.RoadmapViewModel(
-        gh<_i318.GetUserCareerUseCase>(),
-        gh<_i1009.GetRoadmapStepsUseCase>(),
-        gh<_i9.UserProvider>(),
-      ),
-    );
     gh.factory<_i88.ProfileViewModel>(
       () => _i88.ProfileViewModel(
+        gh<_i128.LogoutUseCase>(),
+        gh<_i648.DeleteAccountUseCase>(),
         gh<_i117.SyncProfileUseCase>(),
         gh<_i9.UserProvider>(),
         gh<_i4.AppInitializer>(),
         gh<_i389.EnableNotificationsUseCase>(),
         gh<_i11.DisableNotificationsUseCase>(),
+      ),
+    );
+    gh.factory<_i612.RoadmapViewModel>(
+      () => _i612.RoadmapViewModel(
+        gh<_i318.GetUserCareerUseCase>(),
+        gh<_i1009.GetRoadmapStepsUseCase>(),
+        gh<_i9.UserProvider>(),
       ),
     );
     gh.factory<_i967.SignUpViewModel>(

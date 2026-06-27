@@ -32,7 +32,11 @@ extension QuizResultDtoMapper on QuizResultDto {
       totalQuestions: totalQuestions ?? 0,
       wrongAnswersCount: wrongAnswersCount ?? 0,
       correctAnswersCount: correctAnswersCount ?? 0,
-      score: score ?? '',
+      finalScore: finalScore ?? 0,
+      mcqScore: mcqScore ?? 0,
+      writtenScore: writtenScore ?? 0,
+      mcqTotal: mcqTotal ?? 0,
+      writtenTotal: writtenTotal ?? 0,
     );
   }
 }
@@ -105,7 +109,9 @@ extension SavedQuizDetailsDtoMapper on SavedQuizDetailsDto {
       id: id ?? '',
       quizId: quizId?.toEntity() ?? const QuizEntity(),
       userId: userId ?? '',
-      score: score ?? '',
+      finalScore: finalScore ?? 0,
+      mcqScore: mcqScore ?? 0,
+      writtenScore: writtenScore ?? 0,
       questions: questions?.map((e) => e.toEntity()).toList() ?? const [],
       takenAt: takenAt ?? '',
       createdAt: createdAt ?? '',

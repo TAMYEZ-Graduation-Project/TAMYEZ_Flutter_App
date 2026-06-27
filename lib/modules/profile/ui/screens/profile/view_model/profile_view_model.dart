@@ -11,8 +11,10 @@ import '../../../../../../core/presentation/result/ui_result.dart';
 import '../../../../../../core/presentation/routing/defined_routes.dart';
 import '../../../../../../core/success/success_enum.dart';
 import '../../../../../../core/utils/functions/safe_print.dart';
+import '../../../../domain/use_cases/delete_account_use_case.dart';
 import '../../../../domain/use_cases/disable_notifications_use_case.dart';
 import '../../../../domain/use_cases/enable_notifications_use_case.dart';
+import '../../../../domain/use_cases/logout_use_case.dart';
 import '../../../../domain/use_cases/sync_profile_use_case.dart';
 import 'profile_intent.dart';
 import 'profile_state.dart';
@@ -20,12 +22,15 @@ import 'profile_state.dart';
 @injectable
 class ProfileViewModel extends BaseCubit<ProfileState, UiEffect> {
   final SyncProfileUseCase _syncProfileUseCase;
+  final LogoutUseCase _logoutUseCase;
+  final DeleteAccountUseCase _deleteAccountUseCase;
   final UserProvider _userProvider;
   final AppInitializer _appInitializer;
   final EnableNotificationsUseCase _enableNotificationsUseCase;
   final DisableNotificationsUseCase _disableNotificationsUseCase;
 
-  ProfileViewModel(
+  ProfileViewModel(this._logoutUseCase,
+      this._deleteAccountUseCase,
     this._syncProfileUseCase,
     this._userProvider,
     this._appInitializer,
@@ -80,11 +85,11 @@ class ProfileViewModel extends BaseCubit<ProfileState, UiEffect> {
   }
 
   Future<void> _logOut() async {
-    emit(state.copyWith(userProfileResult: const Loading()));
-    final result = await _syncProfileUseCase.call();
+    emit(state.copyWith(logoutResult: const Loading()));
+    final result = await _logoutUseCase.call();
     switch (result) {
-      case OperationSuccess<UserEntity>():
-        emit(state.copyWith(userProfileResult: Success(result.data)));
+      case OperationSuccess<void>():
+        emit(state.copyWith(logoutResult: const Success(null)));
         _appInitializer.clearAuthAndUserProvider();
         emitEffect(
           const NavigateEffect(
@@ -92,17 +97,20 @@ class ProfileViewModel extends BaseCubit<ProfileState, UiEffect> {
             navigationType: NavigationTypeEnum.pushNamedAndRemoveUntil,
           ),
         );
-      case OperationFailure<UserEntity>():
-        emit(state.copyWith(userProfileResult: Error(result.failure)));
+      case OperationFailure<void>():
+        emit(state.copyWith(logoutResult: Error(result.failure)));
         emitEffect(DisplayErrorEffect(failure: result.failure));
     }
   }
 
   Future<void> _deleteAccount() async {
     emit(state.copyWith(deleteAccountResult: const Loading()));
-    final result = await _syncProfileUseCase.call();
+    if (_userProvider.user == null) return;
+    final result = await _deleteAccountUseCase.call(
+      version: _userProvider.user!.v.toInt(),
+    );
     switch (result) {
-      case OperationSuccess<UserEntity>():
+      case OperationSuccess<void>():
         emit(state.copyWith(deleteAccountResult: const Success(null)));
         _appInitializer.clearAuthAndUserProvider();
         emitEffect(
@@ -116,7 +124,7 @@ class ProfileViewModel extends BaseCubit<ProfileState, UiEffect> {
             navigationType: NavigationTypeEnum.pushNamedAndRemoveUntil,
           ),
         );
-      case OperationFailure<UserEntity>():
+      case OperationFailure<void>():
         emit(state.copyWith(deleteAccountResult: Error(result.failure)));
         emitEffect(DisplayErrorEffect(failure: result.failure));
     }

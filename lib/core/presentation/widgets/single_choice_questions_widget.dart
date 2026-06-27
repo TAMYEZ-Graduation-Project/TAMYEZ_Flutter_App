@@ -22,54 +22,56 @@ class SingleChoiceQuestionWidget extends BaseStatelessWidget {
 
   @override
   Widget buildWith(BuildContext context, CommonDependency d) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      spacing: 12,
-      children: [
-        Text(
-          question.text,
-          textDirection: question.text.textDirection,
-          style: d.typography.title,
-        ),
-        RadioGroup<QuestionOptionIdsEnum>(
-          groupValue: selectedOptionId,
-          onChanged: (value) {
-            onOptionSelected?.call(value!);
-          },
-          child: ListView.separated(
-            itemCount: question.options.length,
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            separatorBuilder: (context, index) {
-              return const SizedBox(height: 12);
-            },
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () {
-                  onOptionSelected?.call(options[index + 1]);
-                },
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: AppColors.middleBlue),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    horizontalTitleGap: 0,
-                    title: Text(
-                      question.options[index].text,
-                      style: d.typography.body,
-                    ),
-                    leading: Radio<QuestionOptionIdsEnum>(
-                      value: options[index + 1],
-                    ),
-                  ),
-                ),
-              );
-            },
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        spacing: 12,
+        children: [
+          Text(
+            question.text,
+            textDirection: question.text.textDirection,
+            style: d.typography.title,
           ),
-        ),
-      ],
+          RadioGroup<QuestionOptionIdsEnum>(
+            groupValue: selectedOptionId,
+            onChanged: (value) {
+              onOptionSelected?.call(value!);
+            },
+            child: ListView.separated(
+              itemCount: question.options.length,
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              separatorBuilder: (context, index) {
+                return const SizedBox(height: 12);
+              },
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {
+                    onOptionSelected?.call(options[index + 1]);
+                  },
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: AppColors.middleBlue),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      horizontalTitleGap: 0,
+                      title: Text(
+                        question.options[index].text,
+                        style: d.typography.body,
+                      ),
+                      leading: Radio<QuestionOptionIdsEnum>(
+                        value: options[index + 1],
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
