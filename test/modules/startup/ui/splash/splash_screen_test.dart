@@ -93,9 +93,6 @@ void main() {
             ),
           );
 
-          await widgetTester.pump(const Duration(seconds: 3));
-          await widgetTester.pump(const Duration(seconds: 1));
-
           // act
           ///*
           ///In Flutter widget tests, real time doesn’t pass automatically. So await Future.delayed(...)
@@ -106,10 +103,11 @@ void main() {
           /// - Wait until everything settles (animations/microtasks): await tester.pumpAndSettle(); (can hang if frames keep getting scheduled).
           /// - Need real time: wrap in await tester.runAsync(() async { await Future.delayed(...); });
           ///*/
-          await widgetTester.runAsync(() async {
-            await Future<void>.delayed(const Duration(seconds: 1));
-          });
+          // await widgetTester.runAsync(() async {
+          //   await Future<void>.delayed(const Duration(seconds: 1));
+          // });
 
+          await widgetTester.pumpAndSettle(const Duration(seconds: 6));
           // assert
           verify(
             sharedSetups.mockNavigatorObserver.didReplace(
