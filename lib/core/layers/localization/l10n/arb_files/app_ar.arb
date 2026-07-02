@@ -238,5 +238,9 @@
   "logoutConfirmation": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
   "deleteAccountConfirmation": "هل أنت متأكد أنك تريد حذف حسابك؟",
   "cancel": "إلغاء",
-  "exceededMaxDevicesReplacementMessage": "لقد تجاوزت الحد الأقصى لعدد أجهزة الإشعارات، يرجى اختيار جهاز لاستبداله:"
+  "exceededMaxDevicesReplacementMessage": "لقد تجاوزت الحد الأقصى لعدد أجهزة الإشعارات، يرجى اختيار جهاز لاستبداله:",
+  "instructions": "التعليمات",
+  "answerAllQuestions": "أجب على جميع الأسئلة.",
+  "navigateUsingNextAndBack": "التنقل باستخدام 'التالي' و'السابق'",
+  "reviewBeforeSubmitting": "المراجعة قبل الإرسال"
 }

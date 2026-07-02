@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../layers/localization/l10n/generated/app_localizations.dart';
+import '../../../layers/theme/colors/app_colors.dart';
 import '../../../layers/theme/extensions/app_typography.dart';
 
 abstract class AppDialogs {
@@ -21,9 +22,26 @@ abstract class AppDialogs {
       barrierDismissible: dismissible,
       builder: (context) {
         return AlertDialog(
-          title: title != null ? Text(title) : null,
+          title: title != null
+              ? Text(
+                  title,
+                  style: Theme.of(context)
+                      .extension<AppTypography>()!
+                      .title
+                      .copyWith(color: AppColors.dark),
+                )
+              : null,
           content: content != null
-              ? Text(content, textAlign: contentTextAlign, style: contentStyle)
+              ? Text(
+                  content,
+                  textAlign: contentTextAlign,
+                  style:
+                      contentStyle ??
+                      Theme.of(context)
+                          .extension<AppTypography>()!
+                          .subTitle
+                          .copyWith(color: AppColors.dark),
+                )
               : null,
           actions: [
             if (firstButtonText != null)
@@ -63,7 +81,9 @@ abstract class AppDialogs {
           content: Text(
             content,
             textAlign: TextAlign.center,
-            style: Theme.of(context).extension<AppTypography>()!.title,
+            style: Theme.of(
+              context,
+            ).extension<AppTypography>()!.title.copyWith(color: AppColors.dark),
           ),
           actions: [
             Row(

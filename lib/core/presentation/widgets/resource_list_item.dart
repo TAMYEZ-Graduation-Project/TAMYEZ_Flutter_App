@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../di/di.dart';
 import '../../entities/resource_entity.dart';
+import '../../layers/theme/colors/app_colors.dart';
 import '../bases/base_stateless_widget.dart';
 import '../utils/url_opener/url_opener.dart';
 
@@ -36,9 +37,7 @@ class ResourceListItem extends BaseStatelessWidget {
             resourceItem.language,
             resourceItem.pricingType,
           ),
-          style: d.typography.label.copyWith(
-            color: d.theme.colorScheme.onSurfaceVariant,
-          ),
+          style: d.typography.label.copyWith(color: AppColors.blue),
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
         ),

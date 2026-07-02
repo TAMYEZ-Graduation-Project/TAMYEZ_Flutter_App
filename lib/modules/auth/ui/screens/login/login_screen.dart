@@ -74,7 +74,7 @@ class _LoginScreenState extends BaseStatefulWidgetState<LoginScreen>
                       TextSpan(
                         text: appLocalizations.dontHaveAnAccount,
                         style: typography.subTitle.copyWith(
-                          color: AppColors.dark,
+                          color: AppColors.blue,
                         ),
                       ),
                       WidgetSpan(

@@ -645,4 +645,17 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get exceededMaxDevicesReplacementMessage =>
       'لقد تجاوزت الحد الأقصى لعدد أجهزة الإشعارات، يرجى اختيار جهاز لاستبداله:';
+
+  @override
+  String get instructions => 'التعليمات';
+
+  @override
+  String get answerAllQuestions => 'أجب على جميع الأسئلة.';
+
+  @override
+  String get navigateUsingNextAndBack =>
+      'التنقل باستخدام \'التالي\' و\'السابق\'';
+
+  @override
+  String get reviewBeforeSubmitting => 'المراجعة قبل الإرسال';
 }

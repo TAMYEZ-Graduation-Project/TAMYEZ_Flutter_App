@@ -1285,6 +1285,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You exceeded the maximum number of notification devices, please choose a device to replace:'**
   String get exceededMaxDevicesReplacementMessage;
+
+  /// No description provided for @instructions.
+  ///
+  /// In en, this message translates to:
+  /// **'Instructions'**
+  String get instructions;
+
+  /// No description provided for @answerAllQuestions.
+  ///
+  /// In en, this message translates to:
+  /// **'Answer all questions.'**
+  String get answerAllQuestions;
+
+  /// No description provided for @navigateUsingNextAndBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Navigate using \'Next\' and \'back\''**
+  String get navigateUsingNextAndBack;
+
+  /// No description provided for @reviewBeforeSubmitting.
+  ///
+  /// In en, this message translates to:
+  /// **'Review before submitting'**
+  String get reviewBeforeSubmitting;
 }
 
 class _AppLocalizationsDelegate

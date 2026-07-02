@@ -44,6 +44,7 @@ class ChooseLanguageWidget extends BaseStatelessWidget {
                     textAlign: TextAlign.center,
                     style: d.typography.subTitle.copyWith(
                       fontWeight: FontWeight.w700,
+                      color: AppColors.dark,
                     ),
                   ),
                 ),
@@ -71,6 +72,7 @@ class ChooseLanguageWidget extends BaseStatelessWidget {
                     textAlign: TextAlign.center,
                     style: d.typography.subTitle.copyWith(
                       fontWeight: FontWeight.w700,
+                      color: AppColors.dark,
                     ),
                   ),
                 ),

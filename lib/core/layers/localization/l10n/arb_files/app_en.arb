@@ -252,5 +252,9 @@
   "logoutConfirmation": "Are you sure you want to logout?",
   "deleteAccountConfirmation": "Are you sure you want to delete your account?",
   "cancel": "Cancel",
-  "exceededMaxDevicesReplacementMessage": "You exceeded the maximum number of notification devices, please choose a device to replace:"
+  "exceededMaxDevicesReplacementMessage": "You exceeded the maximum number of notification devices, please choose a device to replace:",
+  "instructions": "Instructions",
+  "answerAllQuestions": "Answer all questions.",
+  "navigateUsingNextAndBack": "Navigate using 'Next' and 'back'",
+  "reviewBeforeSubmitting": "Review before submitting"
 }

@@ -30,7 +30,6 @@ class RoadmapProgressBar extends BaseStatelessWidget {
                   child: LinearProgressIndicator(
                     value: progress / 100,
                     backgroundColor: Colors.grey.shade300,
-                    valueColor: const AlwaysStoppedAnimation(Colors.black),
                   ),
                 ),
                 Positioned(

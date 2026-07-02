@@ -50,7 +50,7 @@ class _ToggledProfileItemWidgetState
         });
       },
       child: DecoratedBox(
-        decoration: BoxDecoration(color: AppColors.lightBlue),
+        decoration: BoxDecoration(color: theme.colorScheme.surface),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12),
           child: Row(
