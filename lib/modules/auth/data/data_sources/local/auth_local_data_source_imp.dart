@@ -23,11 +23,15 @@ class AuthLocalDataSourceImp implements AuthLocalDataSource {
     await Future.wait([
       _storageService.setString(
         StorageConstants.userKey,
-        jsonEncode(body!.user!.toJson()),
+        jsonEncode(body?.user?.toJson() ?? '{}'),
+      ),
+      _storageService.setBool(
+        StorageConstants.notificationsEnabledKey,
+        body?.notificationsEnabled ?? false,
       ),
       _storageService.setString(
         StorageConstants.accessToken,
-        body.accessToken!,
+        body?.accessToken ?? '',
       ),
     ]);
   }
@@ -36,6 +40,7 @@ class AuthLocalDataSourceImp implements AuthLocalDataSource {
   Future<void> clearLoginSession() async {
     await Future.wait([
       _storageService.deleteValue(StorageConstants.userKey),
+      _storageService.deleteValue(StorageConstants.notificationsEnabledKey),
       _storageService.deleteValue(StorageConstants.accessToken),
     ]);
   }
