@@ -53,8 +53,6 @@ The application guides users from career exploration to structured learning by c
 
 # 📸 Screenshots
 
-> Replace the image paths below with your actual screenshots.
-
 ## Authentication
 
 <p align="center">
@@ -106,6 +104,10 @@ The application guides users from career exploration to structured learning by c
   <img width="399" height="874" alt="Screenshot From 2026-07-05 16-44-09" src="https://github.com/user-attachments/assets/95d5b4bc-323e-46e0-be31-b5ece95a103c" />
 <img width="399" height="874" alt="Screenshot From 2026-07-05 16-43-32" src="https://github.com/user-attachments/assets/c59373b7-c023-41f3-8c68-883be9e7836b" />
 </p>
+
+---
+# 📽️ Demo
+https://drive.google.com/file/d/1gkKgYdpcNW97skhe8xDB09TS3vRO64Ty/view?usp=sharing
 
 ---
 
