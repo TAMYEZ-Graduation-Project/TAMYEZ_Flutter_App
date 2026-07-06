@@ -33,6 +33,9 @@ abstract class ExceptionHandling {
           case GoogleLoginException():
             return const GoogleLoginFailure();
 
+          case LoginBadResponseException():
+            return const LoginBadResponseFailure();
+
           case PlatformException():
             switch (error) {
               case GoogleLoginNotSupportedException():
