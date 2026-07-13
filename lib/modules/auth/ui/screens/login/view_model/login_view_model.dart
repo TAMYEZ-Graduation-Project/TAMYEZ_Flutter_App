@@ -49,8 +49,6 @@ class LoginViewModel extends BaseCubit<LoginState, UiEffect> {
           rememberMe: intent.rememberMe,
         );
 
-    emit(state.copyWith(systemLoginResult: const Initial()));
-
     switch (result) {
       case OperationSuccess<LoginResponseEntity>():
         _appInitializer.initAuthAndUserProvider(

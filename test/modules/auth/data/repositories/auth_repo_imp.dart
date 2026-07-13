@@ -26,16 +26,20 @@ import 'package:tamyez_app/modules/auth/data/mappers/auth_mapper.dart';
 import 'package:tamyez_app/modules/auth/data/models/gmail_login_request.dart';
 import 'package:tamyez_app/modules/auth/data/models/login_request.dart';
 import 'package:tamyez_app/modules/auth/data/models/login_response.dart';
+import 'package:tamyez_app/modules/auth/data/models/reset_password_request.dart';
 import 'package:tamyez_app/modules/auth/data/models/sign_up_request.dart';
 import 'package:tamyez_app/modules/auth/data/models/sign_up_response.dart';
 import 'package:tamyez_app/modules/auth/data/models/user_email_request.dart';
+import 'package:tamyez_app/modules/auth/data/models/verify_code_request.dart';
 import 'package:tamyez_app/modules/auth/data/repositories/auth_repo_imp.dart'
     show AuthRepoImp;
 import 'package:tamyez_app/modules/auth/domain/entities/login_params.dart';
 import 'package:tamyez_app/modules/auth/domain/entities/login_response_entity.dart';
+import 'package:tamyez_app/modules/auth/domain/entities/reset_password_params.dart';
 import 'package:tamyez_app/modules/auth/domain/entities/sign_up_params.dart';
 import 'package:tamyez_app/modules/auth/domain/entities/sign_up_response_entity.dart';
 import 'package:tamyez_app/modules/auth/domain/entities/user_email_params.dart';
+import 'package:tamyez_app/modules/auth/domain/entities/verify_code_params.dart';
 import 'package:tamyez_app/modules/auth/domain/repositories/auth_repository.dart';
 
 import 'auth_repo_imp.mocks.dart';
@@ -772,6 +776,198 @@ void main() {
         expect(result, isA<LoginSessionEntity?>());
         expect(result, isNull);
         verify(mockAuthLocalDataSource.getLoginSession()).called(1);
+      },
+    );
+  });
+
+  group('forgetPassword function test', () {
+    test(
+      'Test forgetPassword function will call forgetPassword function in remote data source and return success if the call succeeds',
+      () async {
+        // arrange
+        final UserEmailParams params = UserEmailParams(
+          email: 'user1@gmail.com',
+        );
+        final SimpleApiResponse response = SimpleApiResponse(
+          success: true,
+          message: 'Success',
+        );
+        when(
+          mockAuthRemoteDataSource.forgetPassword(
+            request: argThat(isA<UserEmailRequest>(), named: 'request'),
+          ),
+        ).thenAnswer((realInvocation) async => response);
+        // act
+
+        final result = await authRepository.forgetPassword(params: params);
+
+        // assert
+        expect(result, isA<OperationSuccess<bool>>());
+        expect((result as OperationSuccess<bool>).data, true);
+        verify(
+          mockAuthRemoteDataSource.forgetPassword(
+            request: argThat(isA<UserEmailRequest>(), named: 'request'),
+          ),
+        ).called(1);
+      },
+    );
+    test(
+      'Test forgetPassword function will call forgetPassword function in remote data source and return failure if the call fails',
+      () async {
+        // arrange
+        final UserEmailParams params = UserEmailParams(
+          email: 'user1@gmail.com',
+        );
+        when(
+          mockAuthRemoteDataSource.forgetPassword(
+            request: argThat(isA<UserEmailRequest>(), named: 'request'),
+          ),
+        ).thenThrow(connectionErrorException);
+        // act
+
+        final result = await authRepository.forgetPassword(params: params);
+
+        // assert
+        expect(result, isA<OperationFailure<bool>>());
+        expect(
+          (result as OperationFailure<bool>).failure,
+          isA<NoInternetFailure>(),
+        );
+        verify(
+          mockAuthRemoteDataSource.forgetPassword(
+            request: argThat(isA<UserEmailRequest>(), named: 'request'),
+          ),
+        ).called(1);
+      },
+    );
+  });
+
+  group('verifyCode function test', () {
+    test(
+      'Test verifyCode function will call verifyCode function in remote data source and return success if the call succeeds',
+      () async {
+        // arrange
+        final VerifyCodeParams params = VerifyCodeParams(
+          email: 'user1@gmail.com',
+          otp: '123456',
+        );
+        final SimpleApiResponse response = SimpleApiResponse(
+          success: true,
+          message: 'Success',
+        );
+        when(
+          mockAuthRemoteDataSource.verifyCode(
+            request: argThat(isA<VerifyCodeRequest>(), named: 'request'),
+          ),
+        ).thenAnswer((realInvocation) async => response);
+        // act
+
+        final result = await authRepository.verifyCode(params: params);
+
+        // assert
+        expect(result, isA<OperationSuccess<bool>>());
+        expect((result as OperationSuccess<bool>).data, true);
+        verify(
+          mockAuthRemoteDataSource.verifyCode(
+            request: argThat(isA<VerifyCodeRequest>(), named: 'request'),
+          ),
+        ).called(1);
+      },
+    );
+    test(
+      'Test verifyCode function will call verifyCode function in remote data source and return failure if the call fails',
+      () async {
+        // arrange
+        final VerifyCodeParams params = VerifyCodeParams(
+          email: 'user1@gmail.com',
+          otp: '123456',
+        );
+        when(
+          mockAuthRemoteDataSource.verifyCode(
+            request: argThat(isA<VerifyCodeRequest>(), named: 'request'),
+          ),
+        ).thenThrow(connectionErrorException);
+        // act
+
+        final result = await authRepository.verifyCode(params: params);
+
+        // assert
+        expect(result, isA<OperationFailure<bool>>());
+        expect(
+          (result as OperationFailure<bool>).failure,
+          isA<NoInternetFailure>(),
+        );
+        verify(
+          mockAuthRemoteDataSource.verifyCode(
+            request: argThat(isA<VerifyCodeRequest>(), named: 'request'),
+          ),
+        ).called(1);
+      },
+    );
+  });
+
+  group('resetPassword function test', () {
+    test(
+      'Test resetPassword function will call resetPassword function in remote data source and return success if the call succeeds',
+      () async {
+        // arrange
+        final ResetPasswordParams params = ResetPasswordParams(
+          email: 'user1@gmail.com',
+          password: '123456Hh@',
+          confirmPassword: '123456Hh@',
+        );
+        final SimpleApiResponse response = SimpleApiResponse(
+          success: true,
+          message: 'Success',
+        );
+        when(
+          mockAuthRemoteDataSource.resetPassword(
+            request: argThat(isA<ResetPasswordRequest>(), named: 'request'),
+          ),
+        ).thenAnswer((realInvocation) async => response);
+        // act
+
+        final result = await authRepository.resetPassword(params: params);
+
+        // assert
+        expect(result, isA<OperationSuccess<bool>>());
+        expect((result as OperationSuccess<bool>).data, true);
+        verify(
+          mockAuthRemoteDataSource.resetPassword(
+            request: argThat(isA<ResetPasswordRequest>(), named: 'request'),
+          ),
+        ).called(1);
+      },
+    );
+    test(
+      'Test resetPassword function will call resetPassword function in remote data source and return failure if the call fails',
+      () async {
+        // arrange
+        final ResetPasswordParams params = ResetPasswordParams(
+          email: 'user1@gmail.com',
+          password: '123456Hh@',
+          confirmPassword: '123456Hh@',
+        );
+        when(
+          mockAuthRemoteDataSource.resetPassword(
+            request: argThat(isA<ResetPasswordRequest>(), named: 'request'),
+          ),
+        ).thenThrow(connectionErrorException);
+        // act
+
+        final result = await authRepository.resetPassword(params: params);
+
+        // assert
+        expect(result, isA<OperationFailure<bool>>());
+        expect(
+          (result as OperationFailure<bool>).failure,
+          isA<NoInternetFailure>(),
+        );
+        verify(
+          mockAuthRemoteDataSource.resetPassword(
+            request: argThat(isA<ResetPasswordRequest>(), named: 'request'),
+          ),
+        ).called(1);
       },
     );
   });
