@@ -89,6 +89,7 @@ class ForgetPasswordViewModel extends BaseCubit<ForgetPasswordState, UiEffect> {
 
     switch (result) {
       case OperationSuccess<void>():
+        emit(state.copyWith(resendOtpCodeResult: const Success(null)));
         emitEffect(
           const DisplaySuccessEffect(success: SuccessEnum.otpResentSuccess),
         );
